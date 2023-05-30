@@ -1,0 +1,55 @@
+package top.kkoishi.stg.logic
+
+import top.kkoishi.stg.common.Bullet
+import top.kkoishi.stg.common.Object
+import top.kkoishi.stg.common.Player
+
+object ObjectPool {
+    lateinit var player: Player
+    private val bullets = ArrayDeque<Bullet>(1024)
+    private val objects = ArrayDeque<Object>(128)
+    private var locked = false
+    private val lock = Any()
+
+    fun lock() {
+        synchronized(lock) {
+            locked = true
+        }
+    }
+
+    fun release() {
+        synchronized(lock) {
+            locked = false
+        }
+    }
+
+    fun bullets(): Iterator<Bullet> = bullets.toTypedArray().iterator()
+    fun objects(): Iterator<Object> = objects.toTypedArray().iterator()
+
+    fun addObject(o: Object) {
+        synchronized(lock) {
+            while (locked) {
+                // do nothing
+            }
+            objects.addLast(o)
+        }
+    }
+
+    fun removeObject(index: Int) {
+        synchronized(lock) {
+            while (locked) {
+                // do nothing
+            }
+            objects.removeAt(index)
+        }
+    }
+
+    fun removeBullet(index: Int) {
+        synchronized(lock) {
+            while (locked) {
+                // do nothing
+            }
+            bullets.removeAt(index)
+        }
+    }
+}

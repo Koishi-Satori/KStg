@@ -1,0 +1,6 @@
+gfx_items = {
+    gfx = {
+        name = "test_pl_bullet_fast"
+        path = "./icons/test_pl_bullet_0.png"
+    }
+}
