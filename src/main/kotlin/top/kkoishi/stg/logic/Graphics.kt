@@ -1,22 +1,28 @@
 package top.kkoishi.stg.logic
 
 import java.awt.Graphics2D
+import java.awt.Insets
 import java.awt.Point
 import java.awt.geom.Dimension2D
 import javax.swing.JFrame
-import kotlin.properties.Delegates
 
 object Graphics {
     private lateinit var render: Graphics2D
 
     private lateinit var SCREEN: Dimension2D
 
-    private var baseY by Delegates.notNull<Double>()
+    private lateinit var insets: Insets
 
     private val CENTER = Point()
 
     fun refresh(f: JFrame) {
-        TODO()
+        setRender(f.graphics as Graphics2D)
+        val insets = f.insets
+        setFrameInsets(insets)
+        val size = f.size
+        size.height -= (insets.top + insets.bottom)
+        size.width -= (insets.left + insets.right)
+        setScreenSize(size)
     }
 
     fun setRender(r: Graphics2D) {
@@ -40,9 +46,9 @@ object Graphics {
 
     fun getCenterY() = CENTER.y
 
-    fun setFrameDy(dy: Double) {
-        baseY = dy
+    fun setFrameInsets(nInsets: Insets) {
+        insets = nInsets
     }
 
-    fun getFrameDy() = baseY
+    fun getFrameInsets() = insets
 }

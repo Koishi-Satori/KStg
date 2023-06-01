@@ -1,5 +1,6 @@
 package top.kkoishi.stg.gfx
 
+import top.kkoishi.stg.logic.Graphics
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.geom.AffineTransform
@@ -47,5 +48,8 @@ class Texture(private val texture: BufferedImage) {
 
     operator fun invoke() = texture
 
-    fun paint(r: Graphics2D ,op: AffineTransformOp, x: Int, y: Int) = r.drawImage(texture, op, x, y)
+    fun paint(r: Graphics2D ,op: AffineTransformOp, x: Int, y: Int) {
+        val insets = Graphics.getFrameInsets()
+        r.drawImage(texture, op, x + insets.left, y + insets.top)
+    }
 }
