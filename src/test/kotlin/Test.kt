@@ -7,18 +7,6 @@ import javax.swing.JFrame
 import kotlin.coroutines.suspendCoroutine
 
 object Test {
-    suspend fun st() {
-        suspendCoroutine<Unit> {
-            println(6)
-        }
-        suspendCoroutine<Unit> {
-            println(7)
-        }
-        suspendCoroutine<Unit> {
-            println(8)
-        }
-    }
-
     @JvmStatic
     fun main(args: Array<String>) {
         GFX.loadTexture("test_img", "./test/gfx/icons/test_img.png")
@@ -28,6 +16,6 @@ object Test {
         f.isVisible = true
         Graphics.refresh(f)
         PlayerManager.cur = Stage.Companion.EmptyStage()
-        ObjectPool
+        ObjectPool.player
     }
 }

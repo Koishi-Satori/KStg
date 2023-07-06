@@ -14,7 +14,6 @@ abstract class Entity(protected var health: Int): Object {
             dead()
             return true
         }
-        move()
         return false
     }
 }

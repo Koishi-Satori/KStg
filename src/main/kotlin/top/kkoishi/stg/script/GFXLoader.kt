@@ -28,12 +28,34 @@ class GFXLoader(private val root: Path) {
     }
 
     private class GFXScriptLexer(rest: CharIterator) : Lexer(rest) {
+        private var end: Boolean = false
+        private var peek: Token? = null
+        private var lookup = '\u0000'
+        private var line = 0
+        private var col = 0
+
         override fun next(): Token {
+            val res = peek ?: next0()
+            peek = null
+            return res
+        }
+
+        private fun next0(): Token {
+            lookup = nextChar()
+            when (lookup) {
+
+            }
+            TODO()
+        }
+
+        private fun nextChar(): Char {
             TODO()
         }
 
         override fun hasNext(): Boolean {
-            TODO()
+            if (end)
+                return false
+            return peek != null || rest.hasNext()
         }
     }
 

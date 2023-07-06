@@ -1,8 +1,6 @@
 package top.kkoishi.stg.gfx
 
 import top.kkoishi.stg.exceptions.FailedLoadingTextureException
-import java.awt.Point
-import java.awt.geom.Dimension2D
 import java.io.IOException
 import java.io.InputStream
 import java.nio.file.Path
@@ -18,7 +16,7 @@ object GFX {
     private val textures: MutableMap<String, Texture> = HashMap(1024)
 
     init {
-        loadTexture("NOT_FOUND", "./resources")
+        loadTexture("NOT_FOUND", "./resources/TEXTURE_NOT_FOUND.png")
         NOT_FOUND = textures["NOT_FOUND"] ?: throw FailedLoadingTextureException("Lack of engine resources")
     }
 

@@ -4,6 +4,7 @@ import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.logic.CollideSystem
 import top.kkoishi.stg.logic.ObjectPool
 import java.awt.Graphics2D
+import java.awt.Shape
 import kotlin.math.sqrt
 
 abstract class AbstractBullet(initialX: Int, initialY: Int) : Bullet(initialX, initialY) {
@@ -95,6 +96,10 @@ object Bullets {
                     TODO("Not yet implemented")
                 }
 
+                override fun shape(): Shape {
+                    TODO("Not yet implemented")
+                }
+
                 override fun paint(g: Graphics2D) {
                     val x = x.get()
                     val y = y.get()
@@ -131,6 +136,10 @@ object Bullets {
             }
 
             override fun collide(o: Object): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun shape(): Shape {
                 TODO("Not yet implemented")
             }
 

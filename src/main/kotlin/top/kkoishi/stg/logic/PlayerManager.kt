@@ -4,11 +4,15 @@ import top.kkoishi.stg.common.Bullet
 import top.kkoishi.stg.common.Player
 import top.kkoishi.stg.common.Stage
 import java.awt.Graphics2D
+import java.awt.event.KeyEvent
+import java.awt.event.KeyListener
+import javax.swing.JFrame
 
 object PlayerManager {
     private var life = 2
     private val lock = Any()
     private val bullets: ArrayDeque<Bullet> = ArrayDeque(256)
+    val binds = BooleanArray(526)
     lateinit var cur: Stage
 
     fun life(): Int {
@@ -51,5 +55,20 @@ object PlayerManager {
                 ++index
             }
         }
+    }
+
+    fun keyBind(f: JFrame, keyCode: Int) {
+        binds[keyCode] = false
+        f.addKeyListener(object : KeyListener {
+            override fun keyTyped(e: KeyEvent) {}
+
+            override fun keyPressed(e: KeyEvent) {
+                binds[e.keyCode] = true
+            }
+
+            override fun keyReleased(e: KeyEvent) {
+                binds[e.keyCode] = false
+            }
+        })
     }
 }
