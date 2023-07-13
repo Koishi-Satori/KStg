@@ -28,28 +28,31 @@ object ObjectPool {
 
     fun addObject(o: Object) {
         synchronized(lock) {
-            while (locked) {
-                // do nothing
-            }
             objects.addLast(o)
         }
     }
 
     fun removeObject(index: Int) {
         synchronized(lock) {
-            while (locked) {
-                // do nothing
-            }
             objects.removeAt(index)
+        }
+    }
+
+    fun addBullet(b: Bullet) {
+        synchronized(lock) {
+            bullets.addLast(b)
         }
     }
 
     fun removeBullet(index: Int) {
         synchronized(lock) {
-            while (locked) {
-                // do nothing
-            }
             bullets.removeAt(index)
+        }
+    }
+
+    fun countBullets(): Int {
+        synchronized(lock) {
+            return bullets.size
         }
     }
 }

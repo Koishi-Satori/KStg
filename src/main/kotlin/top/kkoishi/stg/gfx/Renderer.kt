@@ -11,24 +11,23 @@ class Renderer : Runnable {
         val gameState = GenericFlags.gameState.get()
         if (gameState == GenericFlags.STATE_PLAYING) {
             ObjectPool.lock()
-            val buffer = Graphics.buffer().createGraphics()
-
-            // clear the screen
-            val size = Graphics.getScreenSize()
-            val oldColor = buffer.color
-            buffer.color = Color.WHITE
-            buffer.fillRect(0, 0, size.width.toInt(), size.height.toInt())
-            buffer.color = oldColor
-
-            ObjectPool.player.paint(buffer)
-            PlayerManager.cur.paint(buffer)
-            for (o in ObjectPool.objects())
-                o.paint(buffer)
-            for (b in ObjectPool.bullets())
-                b.paint(buffer)
 
             val r = Graphics.render()
+            val bRender = Graphics.buffer().createGraphics()
+            val size = Graphics.getScreenSize()
             val insets = Graphics.getFrameInsets()
+
+            // clear the screen
+            bRender.color = Color.WHITE
+            bRender.fillRect(0, 0, size.width.toInt(), size.height.toInt())
+
+            ObjectPool.player.paint(bRender)
+            PlayerManager.cur.paint(bRender)
+            for (o in ObjectPool.objects())
+                o.paint(bRender)
+            for (b in ObjectPool.bullets())
+                b.paint(bRender)
+
             r.drawImage(
                 Graphics.buffer(),
                 AffineTransformOp(AffineTransform(), AffineTransformOp.TYPE_NEAREST_NEIGHBOR),

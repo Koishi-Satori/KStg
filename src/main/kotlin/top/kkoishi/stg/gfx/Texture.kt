@@ -6,19 +6,25 @@ import java.awt.Point
 import java.awt.geom.AffineTransform
 import java.awt.image.AffineTransformOp
 import java.awt.image.BufferedImage
+import java.awt.image.RasterFormatException
 
 class Texture(private val texture: BufferedImage) {
-    val width = texture.width / 2
-    val height = texture.height / 2
+    val width = texture.width
+    val height = texture.height
     fun renderPoint(x: Int, y: Int): Point {
         val hw = width / 2
         val hh = height / 2
         return Point(x - hw, y - hh)
     }
 
-    fun rotate(radian: Double, x: Double, y: Double): AffineTransformOp {
-        val transform = AffineTransform.getRotateInstance(radian, x, y)
-        return AffineTransformOp(transform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR)
+    @Throws(RasterFormatException::class)
+    fun cut(x: Int, y: Int, w: Int, h: Int): Texture {
+        return Texture(texture.getSubimage(x, y, w, h))
+    }
+
+    fun rotate(radian: Double): AffineTransformOp {
+        val transform = AffineTransform.getRotateInstance(radian, width.toDouble() / 2, height.toDouble() / 2)
+        return AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC)
     }
 
     fun rotate(sin: Double, cos: Double, x: Double, y: Double): AffineTransformOp {
@@ -48,8 +54,7 @@ class Texture(private val texture: BufferedImage) {
 
     operator fun invoke() = texture
 
-    fun paint(r: Graphics2D ,op: AffineTransformOp, x: Int, y: Int) {
-        val insets = Graphics.getFrameInsets()
-        r.drawImage(texture, op, x + insets.left, y + insets.top)
+    fun paint(r: Graphics2D, op: AffineTransformOp, x: Int, y: Int) {
+        r.drawImage(texture, op, x, y)
     }
 }

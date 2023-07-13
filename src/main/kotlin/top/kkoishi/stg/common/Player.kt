@@ -17,12 +17,17 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     protected var speed = 10
     protected var higherSpeed = 10
     protected var lowerSpeed = 5
+    protected var shotCooldown = 3
+    protected var shotCoolCount = 0
+    protected var showCenter: Boolean = false
+    private var moveState: Int = STATE_STILL
+    protected var power: Float = 1.0f
 
     override fun isDead(): Boolean = PlayerManager.life() == 0
 
     abstract fun bulletDamage(): Int
 
-    abstract fun bullet(): PlayerBullet
+    abstract fun bullet(dx: Int = 0, dy: Int = 0): PlayerBullet
 
     abstract fun texture(): String
 
@@ -44,13 +49,15 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     private fun action(keyCode: Int) {
         if (keyCode == VK_SHIFT) {
             // press shift
-            speed = if (PlayerManager.binds[keyCode])
-                higherSpeed
-            else
+            speed = if (PlayerManager.binds[keyCode]) {
+                showCenter = true
                 lowerSpeed
+            } else {
+                showCenter = false
+                higherSpeed
+            }
         } else
             if (PlayerManager.binds[keyCode]) {
-                println("press key: $keyCode")
                 val func = keyEvents[keyCode]
                 if (func != null)
                     func(this)
@@ -75,7 +82,13 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
         val t = GFX.getTexture(key)
         val xI = x.get()
         val yI = y.get()
-        t.paint(g, t.normalMatrix(), xI, yI)
+        val point = t.renderPoint(xI, yI)
+        t.paint(g, t.normalMatrix(), point.x, point.y)
+
+        if (showCenter) with(GFX.getTexture("center")) {
+            val rd = renderPoint(xI, yI)
+            this.paint(g, normalMatrix(), rd.x, rd.y)
+        }
 
         // render player bullets
         PlayerManager.paintBullets(g)
@@ -90,6 +103,10 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     }
 
     companion object {
+        const val STATE_STILL = 0
+        const val STATE_LEFT = 1
+        const val STATE_RIGHT = 2
+
         /**
          * Constant for the non-numpad **left** arrow key.
          */
@@ -152,7 +169,10 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
                     newY = Graphics.getScreenSize().height.toInt()
                 it.y.set(newY)
             }, VK_Z to {
-                it.shot()
+                if (it.shotCoolCount++ == it.shotCooldown) {
+                    it.shotCoolCount = 0
+                    it.shot()
+                }
             }, VK_X to {
                 it.bomb()
                 // avoid bomb continually
@@ -180,7 +200,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
 
             override fun bulletDamage(): Int = 0
 
-            override fun bullet(): PlayerBullet = EmptyBullet(x.get(), y.get())
+            override fun bullet(dx: Int, dy: Int): PlayerBullet = EmptyBullet(x.get() + dx, y.get() + dy)
 
             override fun texture(): String = "NOT_FOUND"
 

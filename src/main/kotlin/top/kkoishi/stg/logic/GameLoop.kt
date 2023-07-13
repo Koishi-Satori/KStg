@@ -22,8 +22,10 @@ class GameLoop private constructor() : Runnable {
 
             var index = 0
             for (o in ObjectPool.objects()) {
-                if (o.update())
+                if (o.update()) {
                     ObjectPool.removeObject(index--)
+                    println("remove $o")
+                }
                 ++index
             }
 
@@ -37,6 +39,7 @@ class GameLoop private constructor() : Runnable {
             // menu logic
         }
         //println("end logic stage")
+        logicFrame.incrementAndGet()
     }
 
     override fun run() {

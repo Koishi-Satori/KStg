@@ -7,7 +7,7 @@ import javax.sound.sampled.Clip
 class AudioPlayer private constructor() : Runnable {
     private val lock = Any()
     private val rest: ArrayDeque<Audio> = ArrayDeque(64)
-    private val clips: ArrayDeque<Clip> = ArrayDeque(64)
+    private val clips: HashMap<Audio, Clip> = HashMap(64)
     private val backgroud: Clip = AudioSystem.getClip()
 
     override fun run() {
@@ -16,21 +16,14 @@ class AudioPlayer private constructor() : Runnable {
             var audio: Audio
             while (rest.isNotEmpty()) {
                 audio = rest.removeFirst()
-                val clip = AudioSystem.getClip()
-                clip.open(audio.stream())
-                clip.start()
-                clips.addLast(clip)
+                var clip = clips[audio]
+                if (clip == null) {
+                    clip = AudioSystem.getClip()
+                    clip.open(audio.stream())
+                }
+                clip?.start()
             }
 
-            var cur = 0
-            val copy = clips.toTypedArray()
-            for (clip in copy) {
-                if (!clip.isRunning) {
-                    clip.close()
-                    clips.removeAt(cur--)
-                }
-                ++cur
-            }
             //println("end audio stage")
         }
     }
@@ -38,7 +31,7 @@ class AudioPlayer private constructor() : Runnable {
     private fun clear() {
         synchronized(lock) {
             rest.clear()
-            clips.forEach(Clip::close)
+            clips.forEach { (_, c) -> c.close() }
             clips.clear()
         }
     }

@@ -5,9 +5,9 @@ import java.io.IOException
 import java.io.InputStream
 import java.nio.file.Path
 import javax.imageio.ImageIO
+import kotlin.Throws
 import kotlin.io.path.exists
 import kotlin.io.path.inputStream
-import kotlin.jvm.Throws
 
 object GFX {
     @JvmStatic
@@ -18,6 +18,17 @@ object GFX {
     init {
         loadTexture("NOT_FOUND", "./resources/TEXTURE_NOT_FOUND.png")
         NOT_FOUND = textures["NOT_FOUND"] ?: throw FailedLoadingResourceException("Lack of engine resources")
+    }
+
+    @JvmOverloads
+    @Throws(FailedLoadingResourceException::class)
+    fun cutTexture(key: String, nKey: String, x: Int, y: Int, w: Int, h: Int, rotate: Double = 0.0) {
+        val texture = getTexture(key)
+        try {
+            textures[nKey] = texture.cut(x, y, w, h)
+        } catch (e: Exception) {
+            throw FailedLoadingResourceException(e)
+        }
     }
 
     fun getTexture(key: String): Texture {
