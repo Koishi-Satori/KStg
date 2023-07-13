@@ -8,19 +8,15 @@ import top.kkoishi.stg.logic.PlayerManager
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.Shape
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.collections.HashMap
 
 abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
-    val x: ThreadLocal<Int> = ThreadLocal()
-    val y: ThreadLocal<Int> = ThreadLocal()
+    val x = AtomicInteger(initialX)
+    val y = AtomicInteger(initialY)
     protected var speed = 10
     protected var higherSpeed = 10
     protected var lowerSpeed = 5
-
-    init {
-        x.set(initialX)
-        y.set(initialY)
-    }
 
     override fun isDead(): Boolean = PlayerManager.life() == 0
 
@@ -40,11 +36,12 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     open fun shot() = PlayerManager.addBullet(bullet())
 
     private fun actions() {
-        PlayerManager.binds
+        for (keyCode in keyEvents.keys) {
+            action(keyCode)
+        }
     }
 
     private fun action(keyCode: Int) {
-        println("press key: $keyCode")
         if (keyCode == VK_SHIFT) {
             // press shift
             speed = if (PlayerManager.binds[keyCode])
@@ -53,6 +50,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
                 lowerSpeed
         } else
             if (PlayerManager.binds[keyCode]) {
+                println("press key: $keyCode")
                 val func = keyEvents[keyCode]
                 if (func != null)
                     func(this)
@@ -168,6 +166,8 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
                 else
                     GenericFlags.gameState.set(GenericFlags.STATE_PLAYING)
                 PlayerManager.binds[VK_ESCAPE] = false
+            }, VK_SHIFT to {
+                // empty
             })
         )
 

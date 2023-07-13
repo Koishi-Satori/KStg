@@ -1,6 +1,6 @@
 package top.kkoishi.stg.gfx
 
-import top.kkoishi.stg.exceptions.FailedLoadingTextureException
+import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import java.io.IOException
 import java.io.InputStream
 import java.nio.file.Path
@@ -17,14 +17,14 @@ object GFX {
 
     init {
         loadTexture("NOT_FOUND", "./resources/TEXTURE_NOT_FOUND.png")
-        NOT_FOUND = textures["NOT_FOUND"] ?: throw FailedLoadingTextureException("Lack of engine resources")
+        NOT_FOUND = textures["NOT_FOUND"] ?: throw FailedLoadingResourceException("Lack of engine resources")
     }
 
     fun getTexture(key: String): Texture {
         return textures[key] ?: NOT_FOUND
     }
 
-    @Throws(FailedLoadingTextureException::class)
+    @Throws(FailedLoadingResourceException::class)
     fun loadTexture(key: String, path: String) {
         try {
             val p = Path.of(path)
@@ -32,14 +32,14 @@ object GFX {
             val img = ImageIO.read(ins)
             textures[key] = Texture(img)
         } catch (e: IOException) {
-            throw FailedLoadingTextureException(e)
+            throw FailedLoadingResourceException(e)
         }
     }
 
-    @Throws(FailedLoadingTextureException::class)
+    @Throws(FailedLoadingResourceException::class)
     private fun seekTexture(path: Path): InputStream {
         if (!path.exists())
-            throw FailedLoadingTextureException("Can not find texture: $path")
+            throw FailedLoadingResourceException("Can not find texture: $path")
         return path.inputStream()
     }
 }

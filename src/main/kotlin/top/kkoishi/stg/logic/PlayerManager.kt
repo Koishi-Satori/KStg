@@ -71,4 +71,9 @@ object PlayerManager {
             }
         })
     }
+
+    fun keyBinds(f: JFrame, vararg keyCodes: Int) {
+        for (keyCode in keyCodes)
+            keyBind(f, keyCode)
+    }
 }

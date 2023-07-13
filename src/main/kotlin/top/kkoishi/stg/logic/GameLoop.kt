@@ -1,9 +1,16 @@
 package top.kkoishi.stg.logic
 
+import java.util.concurrent.atomic.AtomicLong
+
 class GameLoop private constructor() : Runnable {
+    private val logicFrame = AtomicLong(0L)
+
     fun update() {
+        //println("begin logic stage")
         val gameState = GenericFlags.gameState.get()
+        //println("GAME STATE: $gameState")
         if (gameState == GenericFlags.STATE_PLAYING) {
+            //println("updating player state")
             ObjectPool.player.update()
 
             var cur = PlayerManager.cur
@@ -29,6 +36,7 @@ class GameLoop private constructor() : Runnable {
         } else if (gameState == GenericFlags.STATE_PAUSE) {
             // menu logic
         }
+        //println("end logic stage")
     }
 
     override fun run() {
@@ -42,5 +50,7 @@ class GameLoop private constructor() : Runnable {
         fun start(threads: Threads) {
             threads.schedule(instance, Threads.period(), 1L)
         }
+
+        fun logicFrame() = instance.logicFrame.get()
     }
 }

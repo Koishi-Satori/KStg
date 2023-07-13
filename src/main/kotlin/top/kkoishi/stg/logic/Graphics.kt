@@ -4,9 +4,12 @@ import java.awt.Graphics2D
 import java.awt.Insets
 import java.awt.Point
 import java.awt.geom.Dimension2D
+import java.awt.image.BufferedImage
 import javax.swing.JFrame
 
 object Graphics {
+    private lateinit var BUFFER: BufferedImage
+
     private lateinit var render: Graphics2D
 
     private lateinit var SCREEN: Dimension2D
@@ -23,6 +26,7 @@ object Graphics {
         size.height -= (insets.top + insets.bottom)
         size.width -= (insets.left + insets.right)
         setScreenSize(size)
+        setBufferSize(size.width, size.height)
     }
 
     fun setRender(r: Graphics2D) {
@@ -51,4 +55,10 @@ object Graphics {
     }
 
     fun getFrameInsets() = insets
+
+    fun setBufferSize(width: Int, height: Int) {
+        BUFFER = BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
+    }
+
+    fun buffer() = BUFFER
 }

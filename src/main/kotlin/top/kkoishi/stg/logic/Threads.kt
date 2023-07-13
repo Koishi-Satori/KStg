@@ -15,6 +15,8 @@ class Threads private constructor(size: Int = 4) {
     }
 
     companion object {
+        fun getInstance() = Threads()
+
         @JvmStatic
         private val poolIndex: AtomicInteger = AtomicInteger(1)
 
