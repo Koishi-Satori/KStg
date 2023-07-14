@@ -1,6 +1,5 @@
 package top.kkoishi.stg.gfx
 
-import top.kkoishi.stg.logic.Graphics
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.geom.AffineTransform
@@ -12,9 +11,19 @@ class Texture(private val texture: BufferedImage) {
     val width = texture.width
     val height = texture.height
     fun renderPoint(x: Int, y: Int): Point {
-        val hw = width / 2
-        val hh = height / 2
-        return Point(x - hw, y - hh)
+        val dx = width / 2
+        val dy = height / 2
+        var nX = x - dx
+        var nY = y - dy
+        if (nX < 0)
+            nX = 0
+        if (nY < 0)
+            nY = 0
+        return Point(nX, nY)
+    }
+
+    fun renderPoint(x: Int, y: Int, rad: Double) {
+
     }
 
     @Throws(RasterFormatException::class)

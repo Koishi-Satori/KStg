@@ -2,15 +2,33 @@ package top.kkoishi.stg.common
 
 import java.awt.Point
 import java.awt.Shape
-import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicReference
 
 abstract class Bullet(initialX: Int, initialY: Int) : Object {
-    protected val x = AtomicInteger(initialX)
-    protected val y = AtomicInteger(initialY)
+    private val x = AtomicReference<Double>(initialX.toDouble())
+    private val y = AtomicReference<Double>(initialY.toDouble())
 
-    fun x(): Int = x.get()
-    fun y(): Int = y.get()
+    fun x(): Int = x.get().toInt()
+    fun y(): Int = y.get().toInt()
+    fun xD(): Double = x.get()
+    fun yD(): Double = y.get()
     fun pos(): Point = Point(x(), y())
+
+    fun setX(nX: Int) {
+        x.set(nX.toDouble())
+    }
+
+    fun setY(nY: Int) {
+        y.set(nY.toDouble())
+    }
+
+    fun setX(nX: Double) {
+        x.set(nX)
+    }
+
+    fun setY(nY: Double) {
+        y.set(nY)
+    }
 
     abstract fun shape(): Shape
 

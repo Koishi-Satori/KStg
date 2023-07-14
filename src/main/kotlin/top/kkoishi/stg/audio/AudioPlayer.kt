@@ -1,8 +1,10 @@
 package top.kkoishi.stg.audio
 
 import top.kkoishi.stg.logic.Threads
+import javax.sound.sampled.AudioInputStream
 import javax.sound.sampled.AudioSystem
 import javax.sound.sampled.Clip
+import javax.sound.sampled.FloatControl
 
 class AudioPlayer private constructor() : Runnable {
     private val lock = Any()
@@ -21,7 +23,8 @@ class AudioPlayer private constructor() : Runnable {
                     clip = AudioSystem.getClip()
                     clip.open(audio.stream())
                 }
-                clip?.start()
+                if (!clip!!.isRunning)
+                    clip.start()
             }
 
             //println("end audio stage")

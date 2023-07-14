@@ -74,8 +74,8 @@ object Bullets {
                 val vy: Double
 
                 init {
-                    val x = x.get()
-                    val y = y.get()
+                    val x = x()
+                    val y = y()
                     val dx = (ObjectPool.player.y.get() - y).toDouble()
                     val dy = (ObjectPool.player.x.get() - x).toDouble()
                     val scale = sqrt(dx * dx + dy * dy)
@@ -86,10 +86,10 @@ object Bullets {
                 }
 
                 override fun move() {
-                    val xBefore = x.get()
-                    val yBefore = y.get()
-                    x.set(xBefore + vx.toInt())
-                    y.set(yBefore + vy.toInt())
+                    val xBefore = x()
+                    val yBefore = y()
+                    setX(xBefore + vx.toInt())
+                    setY(yBefore + vy.toInt())
                 }
 
                 override fun collide(o: Object): Boolean {
@@ -101,8 +101,8 @@ object Bullets {
                 }
 
                 override fun paint(g: Graphics2D) {
-                    val x = x.get()
-                    val y = y.get()
+                    val x = x()
+                    val y = y()
                     val p = texture.renderPoint(x, y)
                     texture.paint(g, texture.rotate(sin, cos, x.toDouble(), y.toDouble()), p.x, p.y)
                 }
@@ -117,8 +117,8 @@ object Bullets {
             val vy: Double
 
             init {
-                val x = x.get()
-                val y = y.get()
+                val x = x()
+                val y = y()
                 val dx = (ObjectPool.player.y.get() - y).toDouble()
                 val dy = (ObjectPool.player.x.get() - x).toDouble()
                 val scale = sqrt(dx * dx + dy * dy)
@@ -129,10 +129,10 @@ object Bullets {
             }
 
             override fun move() {
-                val xBefore = x.get()
-                val yBefore = y.get()
-                x.set(xBefore + vx.toInt())
-                y.set(yBefore + vy.toInt())
+                val xBefore = x()
+                val yBefore = y()
+                setX(xBefore + vx.toInt())
+                setY(yBefore + vy.toInt())
             }
 
             override fun collide(o: Object): Boolean {
@@ -144,8 +144,8 @@ object Bullets {
             }
 
             override fun paint(g: Graphics2D) {
-                val x = x.get()
-                val y = y.get()
+                val x = x()
+                val y = y()
                 val p = texture.renderPoint(x, y)
                 texture.paint(g, texture.normalMatrix(), p.x, p.y)
             }

@@ -171,6 +171,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
             }, VK_Z to {
                 if (it.shotCoolCount++ == it.shotCooldown) {
                     it.shotCoolCount = 0
+                    println("${it.x}, ${it.y}")
                     it.shot()
                 }
             }, VK_X to {
@@ -208,10 +209,10 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
         }
 
         class EmptyBullet(initialX: Int, initialY: Int) : PlayerBullet(initialX, initialY) {
-            override fun shape(): Shape = CollideSystem.Circle(Point(x.get(), y.get()), 10)
+            override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 10)
 
             override fun move() {
-                y.set(y.get() + 1)
+                setY(y() + 1)
             }
 
             override fun paint(g: Graphics2D) {}

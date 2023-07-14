@@ -1,14 +1,19 @@
 package top.kkoishi.stg.logic
 
 import java.awt.Graphics2D
+import java.awt.GraphicsConfiguration
 import java.awt.Insets
 import java.awt.Point
 import java.awt.geom.Dimension2D
 import java.awt.image.BufferedImage
+import java.awt.image.VolatileImage
 import javax.swing.JFrame
 
 object Graphics {
+    private lateinit var VRAM_BUFFER: VolatileImage
     private lateinit var BUFFER: BufferedImage
+
+    private lateinit var GC: GraphicsConfiguration
 
     private lateinit var render: Graphics2D
 
@@ -19,6 +24,7 @@ object Graphics {
     private val CENTER = Point()
 
     fun refresh(f: JFrame) {
+        GC = f.graphicsConfiguration
         setRender(f.graphics as Graphics2D)
         val insets = f.insets
         setFrameInsets(insets)
@@ -27,6 +33,10 @@ object Graphics {
         size.width -= (insets.left + insets.right)
         setScreenSize(size)
         setBufferSize(size.width, size.height)
+    }
+
+    fun setGC(graphicsConfiguration: GraphicsConfiguration) {
+        GC = graphicsConfiguration
     }
 
     fun setRender(r: Graphics2D) {
@@ -57,8 +67,11 @@ object Graphics {
     fun getFrameInsets() = insets
 
     fun setBufferSize(width: Int, height: Int) {
+        VRAM_BUFFER = GC.createCompatibleVolatileImage(width, height)
         BUFFER = BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
     }
 
     fun buffer() = BUFFER
+
+    fun vramBuffer() = VRAM_BUFFER
 }

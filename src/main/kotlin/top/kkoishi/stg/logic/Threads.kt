@@ -32,7 +32,7 @@ class Threads private constructor(size: Int = 4) {
 
         // 15ms, 67fps
         @JvmStatic
-        private val period: AtomicLong = AtomicLong(15L)
+        private val period: AtomicLong = AtomicLong(16L)
         fun period(): Long {
             return period.get()
         }

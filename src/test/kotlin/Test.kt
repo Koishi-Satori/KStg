@@ -14,6 +14,8 @@ import java.util.concurrent.atomic.AtomicInteger
 import javax.swing.JFrame
 import kotlin.math.PI
 import kotlin.math.absoluteValue
+import kotlin.math.cos
+import kotlin.math.sin
 import kotlin.random.Random
 import kotlin.system.exitProcess
 
@@ -40,17 +42,18 @@ object Test {
         GFX.cutTexture("planes_koishi", "plane_koishi_0_7", 224, 0, 32, 48)
         GFX.cutTexture("planes_koishi", "bullet_koishi", 220, 144, 35, 16)
         GFX.cutTexture("slow_effect", "slow_effect_final", 0, 0, 64, 64)
-        GFX.cutTexture("bullets_0", "test_bullet", 146, 19, 12, 16)
+        GFX.cutTexture("bullets_0", "test_bullet", 128, 0, 8, 8)
 
         Sounds.loadAudio("bk_1", "./test/audio/sounds/bk_1.wav")
         Sounds.loadAudio("test_player_shot", "./test/audio/sounds/th15_player_shot_0.wav")
         Sounds.loadAudio("th15_enemy_damage_01", "./test/audio/sounds/th15_enemy_damage_01.wav")
         Sounds.loadAudio("th15_enemy_damage_02", "./test/audio/sounds/th15_enemy_damage_02.wav")
         Sounds.loadAudio("enemy_dead", "./test/audio/sounds/enemy_dead_0.wav")
+        Sounds.loadAudio("enemy_shoot", "./test/audio/sounds/enemy_shoot.wav")
 
         //println(GFX.getTexture("test_img"))
         val f = JFrame("test")
-        f.setSize(512, 512)
+        f.setSize(512 + 14, 512 + 37)
         f.isVisible = true
         f.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(e: WindowEvent?) {
@@ -84,14 +87,14 @@ object Test {
             override fun bullet(dx: Int, dy: Int): PlayerBullet =
                 object : PlayerBullet(this.x.get() + dx, this.y.get() + dy) {
                     override fun move() {
-                        y.set(y.get() - 5)
+                        setY(y() - 5)
                     }
 
-                    override fun shape(): Shape = CollideSystem.Circle(Point(x.get(), y.get()), 5)
+                    override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 5)
 
                     override fun paint(g: Graphics2D) {
                         // 16 * 35
-                        val rd = bullet.renderPoint(x.get(), y.get())
+                        val rd = bullet.renderPoint(x(), y())
                         bullet.paint(g, bullet.rotate(PI / 2), rd.x, rd.y)
                     }
                 }
@@ -117,7 +120,6 @@ object Test {
             }
 
             override fun dead() {
-                println("dead")
             }
 
             override fun shape(): Shape = CollideSystem.Circle(Point(x.get(), y.get()), 5)
@@ -171,38 +173,6 @@ object Test {
         )
 
         ObjectPool.addObject(enemy(100, 100, 100, "mirror") { _, _ -> })
-        bulletTest(20 * 100, 5, 20, 2)
-    }
-
-    fun bulletTest(time: Int, amountA: Int, amountB: Int, speed: Int = 10) {
-        while (GameLoop.logicFrame() <= time) {
-            println("${GameLoop.logicFrame()} -> Bullets Amount: ${ObjectPool.countBullets()}")
-            for (i in 0 until amountB) {
-                val interval = Graphics.getScreenSize().width / amountB
-                val x = interval * i + (rand.nextInt() % (interval / 2)).absoluteValue
-
-                fun generateBullet(): Bullet {
-                    return object : AbstractBullet(x.toInt(), 5 + (rand.nextInt() % 30).absoluteValue) {
-                        override fun move() {
-                            y.set(y.get() + speed)
-                        }
-
-                        override fun shape(): Shape = CollideSystem.Circle(Point(this.x.get(), y.get()), 1)
-
-                        override fun paint(g: Graphics2D) {
-                            val t = GFX.getTexture("test_bullet")
-                            val rd = t.renderPoint(this.x.get(), y.get())
-                            t.paint(g, t.normalMatrix(), rd.x, rd.y)
-                        }
-                    }
-                }
-
-                for (i1 in 0 until amountA) {
-                    ObjectPool.addBullet(generateBullet())
-                    Thread.sleep(15L)
-                }
-            }
-        }
     }
 
     fun enemy(
@@ -215,6 +185,8 @@ object Test {
         return object : Enemy(health) {
             private var x = AtomicInteger(initialX)
             private var y = AtomicInteger(initialY)
+            private var bulletCount = 0
+            private var ang = 0.0
 
             override fun dead() {
                 AudioPlayer.addTask(Sounds.getAudio("enemy_dead"))
@@ -244,6 +216,56 @@ object Test {
                 val xI = x.get()
                 val yI = y.get()
                 t.paint(g, t.normalMatrix(), xI, yI)
+            }
+
+            override fun update(): Boolean {
+                val dead = super.update()
+                if (!dead) {
+                    bullet()
+                }
+                return dead
+            }
+
+            private inner class SBullet(
+                iX: Int,
+                iY: Int,
+                private val degree: Double,
+                private val speed: Double = 2.46,
+            ) :
+                AbstractBullet(iX, iY) {
+
+                override fun move() {
+                    val oldX = xD()
+                    val oldY = yD()
+                    val speed = this.speed + bulletCount / 786
+                    setX(oldX + (speed * cos(degree)))
+                    setY(oldY + (speed * sin(degree)))
+                }
+
+                override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 1)
+
+                override fun paint(g: Graphics2D) {
+                    val t = GFX.getTexture("test_bullet")
+                    val x = x()
+                    val y = y()
+                    val p = t.renderPoint(x, y)
+                    t.paint(g, t.normalMatrix(), p.x, p.y)
+                }
+            }
+
+            private fun bullet() {
+                if (bulletCount % 30 == 0)
+                    AudioPlayer.addTask(Sounds.getAudio("enemy_shoot"))
+                val fx = -PI / 360 * bulletCount + PI / 2
+                ang += fx
+                ObjectPool.addBullet(
+                    SBullet(
+                        256,
+                        256,
+                        ang
+                    )
+                )
+                bulletCount++
             }
         }
     }

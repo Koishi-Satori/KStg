@@ -21,12 +21,13 @@ class Renderer : Runnable {
             bRender.color = Color.WHITE
             bRender.fillRect(0, 0, size.width.toInt(), size.height.toInt())
 
-            ObjectPool.player.paint(bRender)
             PlayerManager.cur.paint(bRender)
+            ObjectPool.player.paint(bRender)
             for (o in ObjectPool.objects())
                 o.paint(bRender)
             for (b in ObjectPool.bullets())
                 b.paint(bRender)
+            bRender.dispose()
 
             r.drawImage(
                 Graphics.buffer(),
