@@ -1,45 +1,55 @@
 package top.kkoishi.stg.gfx
 
 import top.kkoishi.stg.logic.*
+import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.awt.Color
+import java.awt.RenderingHints
 import java.awt.geom.AffineTransform
 import java.awt.image.AffineTransformOp
+import java.util.concurrent.atomic.AtomicLong
 
-class Renderer : Runnable {
+class Renderer private constructor() : Runnable {
+    private val frame = AtomicLong(0)
     fun paint() {
-        //println("begin render stage")
+        val logger = Renderer::class.logger()
         val gameState = GenericFlags.gameState.get()
         if (gameState == GenericFlags.STATE_PLAYING) {
-            ObjectPool.lock()
+            try {
+                ObjectPool.lock()
 
-            val r = Graphics.render()
-            val bRender = Graphics.buffer().createGraphics()
-            val size = Graphics.getScreenSize()
-            val insets = Graphics.getFrameInsets()
+                val r = Graphics.render()
+                val bRender = Graphics.buffer().createGraphics()
+                val size = Graphics.getScreenSize()
+                val insets = Graphics.getFrameInsets()
+                r.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+                r.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
 
-            // clear the screen
-            bRender.color = Color.WHITE
-            bRender.fillRect(0, 0, size.width.toInt(), size.height.toInt())
+                // clear the screen
+                bRender.color = Color.WHITE
+                bRender.fillRect(0, 0, size.width.toInt(), size.height.toInt())
 
-            PlayerManager.cur.paint(bRender)
-            ObjectPool.player.paint(bRender)
-            for (o in ObjectPool.objects())
-                o.paint(bRender)
-            for (b in ObjectPool.bullets())
-                b.paint(bRender)
-            bRender.dispose()
+                PlayerManager.cur.paint(bRender)
+                ObjectPool.player.paint(bRender)
+                for (o in ObjectPool.objects())
+                    o.paint(bRender)
+                for (b in ObjectPool.bullets())
+                    b.paint(bRender)
+                bRender.dispose()
 
-            r.drawImage(
-                Graphics.buffer(),
-                AffineTransformOp(AffineTransform(), AffineTransformOp.TYPE_NEAREST_NEIGHBOR),
-                insets.left,
-                insets.top
-            )
-            ObjectPool.release()
+                r.drawImage(
+                    Graphics.buffer(),
+                    AffineTransformOp(AffineTransform(), AffineTransformOp.TYPE_NEAREST_NEIGHBOR),
+                    insets.left,
+                    insets.top
+                )
+                ObjectPool.release()
+            } catch (e: Exception) {
+                logger.log(System.Logger.Level.ERROR, e)
+            }
         } else if (gameState == GenericFlags.STATE_PAUSE) {
             // render menu
         }
-        //println("end render stage")
+        frame.incrementAndGet()
     }
 
     override fun run() {
@@ -53,5 +63,7 @@ class Renderer : Runnable {
         fun start(threads: Threads) {
             threads.schedule(instance, Threads.period())
         }
+
+        fun frame(): Long = instance.frame.get()
     }
 }

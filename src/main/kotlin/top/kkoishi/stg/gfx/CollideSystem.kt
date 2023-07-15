@@ -1,4 +1,4 @@
-package top.kkoishi.stg.logic
+package top.kkoishi.stg.gfx
 
 import top.kkoishi.stg.common.Bullet
 import top.kkoishi.stg.common.Entity

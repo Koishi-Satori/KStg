@@ -1,27 +1,30 @@
 package top.kkoishi.stg.audio
 
+import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.Threads
-import javax.sound.sampled.AudioInputStream
 import javax.sound.sampled.AudioSystem
 import javax.sound.sampled.Clip
-import javax.sound.sampled.FloatControl
 
 class AudioPlayer private constructor() : Runnable {
     private val lock = Any()
-    private val rest: ArrayDeque<Audio> = ArrayDeque(64)
-    private val clips: HashMap<Audio, Clip> = HashMap(64)
+    private val rest: ArrayDeque<String> = ArrayDeque(64)
+    private val clips: HashMap<String, Clip> = HashMap(64)
     private val backgroud: Clip = AudioSystem.getClip()
 
     override fun run() {
+        val logger = AudioPlayer::class.logger()
         synchronized(lock) {
             //println("begin audio stage")
-            var audio: Audio
+            var key: String
             while (rest.isNotEmpty()) {
-                audio = rest.removeFirst()
-                var clip = clips[audio]
+                key = rest.removeFirst()
+                val audio = Sounds.getAudio(key)
+                var clip = clips[key]
                 if (clip == null) {
                     clip = AudioSystem.getClip()
                     clip.open(audio.stream())
+                    logger.log(System.Logger.Level.INFO, "create new clip: $audio -> $clip")
+                    clips[key] = clip
                 }
                 if (!clip!!.isRunning)
                     clip.start()
@@ -39,9 +42,9 @@ class AudioPlayer private constructor() : Runnable {
         }
     }
 
-    private fun add(audio: Audio) {
+    private fun add(key: String) {
         synchronized(lock) {
-            rest.add(audio)
+            rest.add(key)
         }
     }
 
@@ -53,15 +56,21 @@ class AudioPlayer private constructor() : Runnable {
         }
 
         fun setBackground(background: Audio) {
-            println("Stop current background.")
+            val logger = Companion::class.logger()
             instance.backgroud.stop()
+            logger.log(System.Logger.Level.INFO, "Stop current background.")
 
-            println("Opening new background audio...")
-            instance.backgroud.open(background.stream())
-            instance.backgroud.loop(Clip.LOOP_CONTINUOUSLY)
+            logger.log(System.Logger.Level.INFO, "Opening new background audio...")
+            try {
+                instance.backgroud.open(background.stream())
+                instance.backgroud.loop(Clip.LOOP_CONTINUOUSLY)
+            } catch (e: Exception) {
+                logger.log(System.Logger.Level.ERROR, e)
+            }
+            logger.log(System.Logger.Level.INFO, "Set the background to $background")
         }
 
-        fun addTask(audio: Audio) {
+        fun addTask(audio: String) {
             instance.add(audio)
         }
 

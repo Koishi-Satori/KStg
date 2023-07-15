@@ -1,7 +1,7 @@
 package top.kkoishi.stg.common
 
 import top.kkoishi.stg.gfx.GFX
-import top.kkoishi.stg.logic.CollideSystem
+import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.logic.ObjectPool
 import java.awt.Graphics2D
 import java.awt.Shape

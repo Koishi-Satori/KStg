@@ -23,8 +23,17 @@ object ObjectPool {
         }
     }
 
-    fun bullets(): Iterator<Bullet> = bullets.toTypedArray().iterator()
-    fun objects(): Iterator<Object> = objects.toTypedArray().iterator()
+    fun bullets(): Iterator<Bullet> {
+        synchronized(lock) {
+            return bullets.toTypedArray().iterator()
+        }
+    }
+
+    fun objects(): Iterator<Object> {
+        synchronized(lock) {
+            return objects.toTypedArray().iterator()
+        }
+    }
 
     fun addObject(o: Object) {
         synchronized(lock) {

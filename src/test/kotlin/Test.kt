@@ -1,9 +1,7 @@
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.common.*
-import top.kkoishi.stg.gfx.GFX
-import top.kkoishi.stg.gfx.Renderer
-import top.kkoishi.stg.gfx.Texture
+import top.kkoishi.stg.gfx.*
 import top.kkoishi.stg.logic.*
 import java.awt.Graphics2D
 import java.awt.Point
@@ -32,14 +30,11 @@ object Test {
         GFX.loadTexture("bg_1_0", "./test/gfx/icons/bg_1_0.png")
         GFX.loadTexture("slow_effect", "./test/gfx/icons/slow_effect.png")
         GFX.loadTexture("bullets_0", "./test/gfx/icons/bullets_0.png")
-        GFX.cutTexture("planes_koishi", "plane_koishi_0_0", 0, 0, 32, 48)
-        GFX.cutTexture("planes_koishi", "plane_koishi_0_1", 32, 0, 32, 48)
-        GFX.cutTexture("planes_koishi", "plane_koishi_0_2", 64, 0, 32, 48)
-        GFX.cutTexture("planes_koishi", "plane_koishi_0_3", 96, 0, 32, 48)
-        GFX.cutTexture("planes_koishi", "plane_koishi_0_4", 128, 0, 32, 48)
-        GFX.cutTexture("planes_koishi", "plane_koishi_0_5", 160, 0, 32, 48)
-        GFX.cutTexture("planes_koishi", "plane_koishi_0_6", 192, 0, 32, 48)
-        GFX.cutTexture("planes_koishi", "plane_koishi_0_7", 224, 0, 32, 48)
+        for (state in 0..2) {
+            for (i in 0 until 8) {
+                GFX.cutTexture("planes_koishi", "plane_koishi_${state}_$i", 32 * i, 48 * state, 32, 48)
+            }
+        }
         GFX.cutTexture("planes_koishi", "bullet_koishi", 220, 144, 35, 16)
         GFX.cutTexture("slow_effect", "slow_effect_final", 0, 0, 64, 64)
         GFX.cutTexture("bullets_0", "test_bullet", 128, 0, 8, 8)
@@ -100,7 +95,7 @@ object Test {
                 }
 
             override fun shot() {
-                AudioPlayer.addTask(Sounds.getAudio("test_player_shot"))
+                AudioPlayer.addTask("test_player_shot")
                 if (power >= 0.0f)
                     PlayerManager.addBullet(bullet(0, -32))
                 else if (power >= 2.0f) {
@@ -112,7 +107,7 @@ object Test {
             override fun texture(): String {
                 if (texture_index >= 64)
                     texture_index = 0
-                return "plane_koishi_0_${texture_index++ / 8}"
+                return "plane_koishi_${moveState}_${texture_index++ / 8}"
             }
 
             override fun bomb() {
@@ -154,6 +149,7 @@ object Test {
         }
 
         val inst = Threads.getInstance()
+        InfoSystem.start(inst)
         Renderer.start(inst)
         GameLoop.start(inst)
         AudioPlayer.start(inst)
@@ -189,12 +185,12 @@ object Test {
             private var ang = 0.0
 
             override fun dead() {
-                AudioPlayer.addTask(Sounds.getAudio("enemy_dead"))
+                AudioPlayer.addTask("enemy_dead")
             }
 
             override fun beingHit(o: Object) {
                 this.health -= ObjectPool.player.bulletDamage()
-                AudioPlayer.addTask(Sounds.getAudio("th15_enemy_damage_0${(rand.nextInt() % 2).absoluteValue + 1}"))
+                AudioPlayer.addTask("th15_enemy_damage_0${(rand.nextInt() % 2).absoluteValue + 1}")
             }
 
             override fun move() {
@@ -234,10 +230,11 @@ object Test {
             ) :
                 AbstractBullet(iX, iY) {
 
+                private var lifeTime = 0
                 override fun move() {
                     val oldX = xD()
                     val oldY = yD()
-                    val speed = this.speed + bulletCount / 786
+                    val speed = this.speed + lifeTime++ / 786
                     setX(oldX + (speed * cos(degree)))
                     setY(oldY + (speed * sin(degree)))
                 }
@@ -255,7 +252,7 @@ object Test {
 
             private fun bullet() {
                 if (bulletCount % 30 == 0)
-                    AudioPlayer.addTask(Sounds.getAudio("enemy_shoot"))
+                    AudioPlayer.addTask("enemy_shoot")
                 val fx = -PI / 360 * bulletCount + PI / 2
                 ang += fx
                 ObjectPool.addBullet(

@@ -13,12 +13,12 @@ class Texture(private val texture: BufferedImage) {
     fun renderPoint(x: Int, y: Int): Point {
         val dx = width / 2
         val dy = height / 2
-        var nX = x - dx
-        var nY = y - dy
-        if (nX < 0)
-            nX = 0
-        if (nY < 0)
-            nY = 0
+        val nX = x - dx
+        val nY = y - dy
+//        if (nX < 0)
+//            nX = 0
+//        if (nY < 0)
+//            nY = 0
         return Point(nX, nY)
     }
 

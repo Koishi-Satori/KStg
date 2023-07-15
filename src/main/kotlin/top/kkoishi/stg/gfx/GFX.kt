@@ -1,6 +1,7 @@
 package top.kkoishi.stg.gfx
 
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
+import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.io.IOException
 import java.io.InputStream
 import java.nio.file.Path
@@ -10,6 +11,7 @@ import kotlin.io.path.exists
 import kotlin.io.path.inputStream
 
 object GFX {
+    private val logger = GFX::class.logger()
     @JvmStatic
     private var NOT_FOUND: Texture
 
@@ -23,10 +25,13 @@ object GFX {
     @JvmOverloads
     @Throws(FailedLoadingResourceException::class)
     fun cutTexture(key: String, nKey: String, x: Int, y: Int, w: Int, h: Int, rotate: Double = 0.0) {
+        logger.log(System.Logger.Level.INFO, "Try to cut the texture: $key -> $nKey")
         val texture = getTexture(key)
         try {
+            logger.log(System.Logger.Level.INFO, "Begin: ($x, $y), w=$w, h=$h")
             textures[nKey] = texture.cut(x, y, w, h)
         } catch (e: Exception) {
+            logger.log(System.Logger.Level.WARNING, "Failed to load the texture $nKey")
             throw FailedLoadingResourceException(e)
         }
     }
@@ -37,12 +42,14 @@ object GFX {
 
     @Throws(FailedLoadingResourceException::class)
     fun loadTexture(key: String, path: String) {
+        logger.log(System.Logger.Level.INFO, "Try to load the texture: $path")
         try {
             val p = Path.of(path)
             val ins = ImageIO.createImageInputStream(seekTexture(p))
             val img = ImageIO.read(ins)
             textures[key] = Texture(img)
         } catch (e: IOException) {
+            logger.log(System.Logger.Level.WARNING, "Failed to load the texture $key")
             throw FailedLoadingResourceException(e)
         }
     }

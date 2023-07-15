@@ -1,9 +1,10 @@
-package top.kkoishi.stg.logic
+package top.kkoishi.stg.gfx
 
 import java.awt.Graphics2D
 import java.awt.GraphicsConfiguration
 import java.awt.Insets
 import java.awt.Point
+import java.awt.RenderingHints.*
 import java.awt.geom.Dimension2D
 import java.awt.image.BufferedImage
 import java.awt.image.VolatileImage
@@ -33,12 +34,14 @@ object Graphics {
         size.width -= (insets.left + insets.right)
         setScreenSize(size)
         setBufferSize(size.width, size.height)
+
+        render.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON)
+        render.setRenderingHint(KEY_RENDERING, VALUE_RENDER_QUALITY)
     }
 
     fun setGC(graphicsConfiguration: GraphicsConfiguration) {
         GC = graphicsConfiguration
     }
-
     fun setRender(r: Graphics2D) {
         render = r
     }

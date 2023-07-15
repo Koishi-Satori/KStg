@@ -1,9 +1,9 @@
 package top.kkoishi.stg.common
 
 import top.kkoishi.stg.gfx.GFX
-import top.kkoishi.stg.logic.CollideSystem
+import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.logic.GenericFlags
-import top.kkoishi.stg.logic.Graphics
+import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.PlayerManager
 import java.awt.Graphics2D
 import java.awt.Point
@@ -20,7 +20,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     protected var shotCooldown = 3
     protected var shotCoolCount = 0
     protected var showCenter: Boolean = false
-    private var moveState: Int = STATE_STILL
+    protected var moveState: Int = STATE_STILL
     protected var power: Float = 1.0f
 
     override fun isDead(): Boolean = PlayerManager.life() == 0
@@ -47,21 +47,28 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     }
 
     private fun action(keyCode: Int) {
-        if (keyCode == VK_SHIFT) {
-            // press shift
-            speed = if (PlayerManager.binds[keyCode]) {
-                showCenter = true
-                lowerSpeed
-            } else {
-                showCenter = false
-                higherSpeed
+        when (keyCode) {
+            VK_SHIFT -> {
+                // press shift
+                speed = if (PlayerManager.binds[keyCode]) {
+                    showCenter = true
+                    lowerSpeed
+                } else {
+                    showCenter = false
+                    higherSpeed
+                }
             }
-        } else
-            if (PlayerManager.binds[keyCode]) {
-                val func = keyEvents[keyCode]
-                if (func != null)
-                    func(this)
+            VK_LEFT, VK_RIGHT -> {
+                if (!PlayerManager.binds[keyCode]) {
+                    moveState = STATE_STILL
+                }
             }
+        }
+        if (PlayerManager.binds[keyCode]) {
+            val func = keyEvents[keyCode]
+            if (func != null)
+                func(this)
+        }
     }
 
     final override fun move() {}
@@ -145,12 +152,14 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
         @JvmStatic
         private val keyEvents: MutableMap<Int, (Player) -> Unit> = HashMap(
             mapOf(VK_LEFT to {
+                it.moveState = STATE_LEFT
                 val oldX = it.x.get()
                 var newX = oldX - it.speed
                 if (newX < 0)
                     newX = 0
                 it.x.set(newX)
             }, VK_RIGHT to {
+                it.moveState = STATE_RIGHT
                 val oldX = it.x.get()
                 var newX = oldX + it.speed
                 if (newX > Graphics.getScreenSize().width)
@@ -171,7 +180,6 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
             }, VK_Z to {
                 if (it.shotCoolCount++ == it.shotCooldown) {
                     it.shotCoolCount = 0
-                    println("${it.x}, ${it.y}")
                     it.shot()
                 }
             }, VK_X to {

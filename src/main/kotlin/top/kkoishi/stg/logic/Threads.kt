@@ -1,5 +1,6 @@
 package top.kkoishi.stg.logic
 
+import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.TimeUnit
@@ -7,11 +8,13 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
 
 class Threads private constructor(size: Int = 4) {
+    private val logger = Threads::class.logger()
     private val threadPool: ScheduledThreadPoolExecutor = ScheduledThreadPoolExecutor(size, DefaultThreadFactory())
 
     @JvmOverloads
     fun schedule(r: Runnable, period: Long, delay: Long = 0L) {
         threadPool.scheduleAtFixedRate(r, delay, period, TimeUnit.MILLISECONDS)
+        logger.log(System.Logger.Level.INFO, "Add new thread $r")
     }
 
     companion object {
@@ -23,8 +26,10 @@ class Threads private constructor(size: Int = 4) {
         private class DefaultThreadFactory : ThreadFactory {
             private val group = Thread.currentThread().threadGroup
             private val threadIndex: AtomicInteger = AtomicInteger(0)
-            private val prefix = "Pool-${poolIndex.getAndIncrement()}-thread"
-            override fun newThread(r: Runnable): Thread = Thread(group, r, prefix + threadIndex.getAndIncrement())
+            private val prefix = "Pool-${poolIndex.getAndIncrement()}["
+            override fun newThread(r: Runnable): Thread {
+                return Thread(group, r, "$prefix${threadIndex.getAndIncrement()}] ${r.javaClass.simpleName}")
+            }
         }
 
         // 1s = 1000ms
