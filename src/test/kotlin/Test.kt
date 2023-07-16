@@ -37,7 +37,7 @@ object Test {
         }
         GFX.cutTexture("planes_koishi", "bullet_koishi", 220, 144, 35, 16)
         GFX.cutTexture("slow_effect", "slow_effect_final", 0, 0, 64, 64)
-        GFX.cutTexture("bullets_0", "test_bullet", 128, 0, 8, 8)
+        GFX.cutTexture("bullets_0", "test_bullet", 16, 68, 16, 15)
 
         Sounds.loadAudio("bk_1", "./test/audio/sounds/bk_1.wav")
         Sounds.loadAudio("test_player_shot", "./test/audio/sounds/th15_player_shot_0.wav")
@@ -80,7 +80,7 @@ object Test {
             override fun bulletDamage(): Int = 10
 
             override fun bullet(dx: Int, dy: Int): PlayerBullet =
-                object : PlayerBullet(this.x.get() + dx, this.y.get() + dy) {
+                object : PlayerBullet(this.x() + dx, this.y() + dy) {
                     override fun move() {
                         setY(y() - 5)
                     }
@@ -89,8 +89,10 @@ object Test {
 
                     override fun paint(g: Graphics2D) {
                         // 16 * 35
-                        val rd = bullet.renderPoint(x(), y())
-                        bullet.paint(g, bullet.rotate(PI / 2), rd.x, rd.y)
+                        val x = xD()
+                        val y = yD()
+                        val rd = bullet.renderPoint(x, y, PI / 2)
+                        bullet.paint(g, bullet.rotate(-PI / 2), rd.x, rd.y)
                     }
                 }
 
@@ -117,7 +119,7 @@ object Test {
             override fun dead() {
             }
 
-            override fun shape(): Shape = CollideSystem.Circle(Point(x.get(), y.get()), 5)
+            override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 5)
 
             override fun paint(g: Graphics2D) {
                 if (showCenter) {
@@ -168,7 +170,7 @@ object Test {
             Player.VK_Z
         )
 
-        ObjectPool.addObject(enemy(100, 100, 100, "mirror") { _, _ -> })
+        ObjectPool.addObject(enemy(256, 256, 100, "mirror") { _, _ -> })
     }
 
     fun enemy(
@@ -209,9 +211,8 @@ object Test {
 
             override fun paint(g: Graphics2D) {
                 val t = GFX.getTexture(texture)
-                val xI = x.get()
-                val yI = y.get()
-                t.paint(g, t.normalMatrix(), xI, yI)
+                val rd = t.renderPoint(x.get(), y.get())
+                t.paint(g, t.normalMatrix(), rd.x, rd.y)
             }
 
             override fun update(): Boolean {
@@ -225,28 +226,31 @@ object Test {
             private inner class SBullet(
                 iX: Int,
                 iY: Int,
-                private val degree: Double,
+                val degree: Double,
                 private val speed: Double = 2.46,
             ) :
                 AbstractBullet(iX, iY) {
+
+                private val sin = sin(degree)
+                private val cos = cos(degree)
 
                 private var lifeTime = 0
                 override fun move() {
                     val oldX = xD()
                     val oldY = yD()
                     val speed = this.speed + lifeTime++ / 786
-                    setX(oldX + (speed * cos(degree)))
-                    setY(oldY + (speed * sin(degree)))
+                    setX(oldX + (speed * sin))
+                    setY(oldY - (speed * cos))
                 }
 
                 override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 1)
 
                 override fun paint(g: Graphics2D) {
                     val t = GFX.getTexture("test_bullet")
-                    val x = x()
-                    val y = y()
-                    val p = t.renderPoint(x, y)
-                    t.paint(g, t.normalMatrix(), p.x, p.y)
+                    val x = xD()
+                    val y = yD()
+                    val p = t.renderPoint(x, y, degree)
+                    t.paint(g, t.rotate(degree), p.x, p.y)
                 }
             }
 

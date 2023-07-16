@@ -4,16 +4,17 @@ import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.logic.GenericFlags
 import top.kkoishi.stg.gfx.Graphics
+import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.PlayerManager
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.Shape
-import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicReference
 import kotlin.collections.HashMap
 
 abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
-    val x = AtomicInteger(initialX)
-    val y = AtomicInteger(initialY)
+    val x = AtomicReference(initialX.toDouble())
+    val y = AtomicReference(initialY.toDouble())
     protected var speed = 10
     protected var higherSpeed = 10
     protected var lowerSpeed = 5
@@ -22,6 +23,10 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     protected var showCenter: Boolean = false
     protected var moveState: Int = STATE_STILL
     protected var power: Float = 1.0f
+    protected val logger = Player::class.logger()
+
+    fun x() = x.get().toInt()
+    fun y() = y.get().toInt()
 
     override fun isDead(): Boolean = PlayerManager.life() == 0
 
@@ -40,7 +45,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
 
     open fun shot() = PlayerManager.addBullet(bullet())
 
-    private fun actions() {
+    fun actions() {
         for (keyCode in keyEvents.keys) {
             action(keyCode)
         }
@@ -58,6 +63,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
                     higherSpeed
                 }
             }
+
             VK_LEFT, VK_RIGHT -> {
                 if (!PlayerManager.binds[keyCode]) {
                     moveState = STATE_STILL
@@ -156,26 +162,26 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
                 val oldX = it.x.get()
                 var newX = oldX - it.speed
                 if (newX < 0)
-                    newX = 0
+                    newX = 0.0
                 it.x.set(newX)
             }, VK_RIGHT to {
                 it.moveState = STATE_RIGHT
                 val oldX = it.x.get()
                 var newX = oldX + it.speed
                 if (newX > Graphics.getScreenSize().width)
-                    newX = Graphics.getScreenSize().width.toInt()
+                    newX = Graphics.getScreenSize().width
                 it.x.set(newX)
             }, VK_UP to {
                 val oldY = it.y.get()
                 var newY = oldY - it.speed
                 if (newY < 0)
-                    newY = 0
+                    newY = 0.0
                 it.y.set(newY)
             }, VK_DOWN to {
                 val oldY = it.y.get()
                 var newY = oldY + it.speed
                 if (newY > Graphics.getScreenSize().height)
-                    newY = Graphics.getScreenSize().height.toInt()
+                    newY = Graphics.getScreenSize().height
                 it.y.set(newY)
             }, VK_Z to {
                 if (it.shotCoolCount++ == it.shotCooldown) {
@@ -190,10 +196,13 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
                 // unbind
             }, VK_ESCAPE to {
                 val gameState = GenericFlags.gameState.get()
-                if (gameState == GenericFlags.STATE_PLAYING)
+                if (gameState == GenericFlags.STATE_PLAYING) {
                     GenericFlags.gameState.set(GenericFlags.STATE_PAUSE)
-                else
+                    it.logger.log(System.Logger.Level.INFO, "Pause the game.")
+                } else if (gameState == GenericFlags.STATE_PAUSE) {
                     GenericFlags.gameState.set(GenericFlags.STATE_PLAYING)
+                    it.logger.log(System.Logger.Level.INFO, "Continue the game.")
+                }
                 PlayerManager.binds[VK_ESCAPE] = false
             }, VK_SHIFT to {
                 // empty
@@ -205,11 +214,11 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
 
             override fun beingHit(o: Object) {}
 
-            override fun shape(): Shape = CollideSystem.Circle(Point(x.get(), y.get()), 5)
+            override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 5)
 
             override fun bulletDamage(): Int = 0
 
-            override fun bullet(dx: Int, dy: Int): PlayerBullet = EmptyBullet(x.get() + dx, y.get() + dy)
+            override fun bullet(dx: Int, dy: Int): PlayerBullet = EmptyBullet(x() + dx, y() + dy)
 
             override fun texture(): String = "NOT_FOUND"
 

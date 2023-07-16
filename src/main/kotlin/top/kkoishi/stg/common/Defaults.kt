@@ -76,8 +76,8 @@ object Bullets {
                 init {
                     val x = x()
                     val y = y()
-                    val dx = (ObjectPool.player.y.get() - y).toDouble()
-                    val dy = (ObjectPool.player.x.get() - x).toDouble()
+                    val dx = ObjectPool.player.y.get() - y
+                    val dy = ObjectPool.player.x.get() - x
                     val scale = sqrt(dx * dx + dy * dy)
                     sin = dy / scale
                     cos = dx / scale
@@ -101,10 +101,10 @@ object Bullets {
                 }
 
                 override fun paint(g: Graphics2D) {
-                    val x = x()
-                    val y = y()
+                    val x = xD()
+                    val y = yD()
                     val p = texture.renderPoint(x, y)
-                    texture.paint(g, texture.rotate(sin, cos, x.toDouble(), y.toDouble()), p.x, p.y)
+                    texture.paint(g, texture.rotate(-sin, cos), p.x, p.y)
                 }
             }
         }
@@ -144,8 +144,8 @@ object Bullets {
             }
 
             override fun paint(g: Graphics2D) {
-                val x = x()
-                val y = y()
+                val x = xD()
+                val y = yD()
                 val p = texture.renderPoint(x, y)
                 texture.paint(g, texture.normalMatrix(), p.x, p.y)
             }

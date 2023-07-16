@@ -26,8 +26,7 @@ class AudioPlayer private constructor() : Runnable {
                     logger.log(System.Logger.Level.INFO, "create new clip: $audio -> $clip")
                     clips[key] = clip
                 }
-                if (!clip!!.isRunning)
-                    clip.start()
+                clip!!.loop(1)
             }
 
             //println("end audio stage")

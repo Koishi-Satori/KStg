@@ -39,6 +39,7 @@ class GameLoop private constructor() : Runnable {
             }
         } else if (gameState == GenericFlags.STATE_PAUSE) {
             // menu logic
+            ObjectPool.player.actions()
         }
         logicFrame.incrementAndGet()
     }

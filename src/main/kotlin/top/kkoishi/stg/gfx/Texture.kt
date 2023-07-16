@@ -6,6 +6,8 @@ import java.awt.geom.AffineTransform
 import java.awt.image.AffineTransformOp
 import java.awt.image.BufferedImage
 import java.awt.image.RasterFormatException
+import kotlin.math.PI
+import kotlin.math.cos
 
 class Texture(private val texture: BufferedImage) {
     val width = texture.width
@@ -13,17 +15,41 @@ class Texture(private val texture: BufferedImage) {
     fun renderPoint(x: Int, y: Int): Point {
         val dx = width / 2
         val dy = height / 2
-        val nX = x - dx
-        val nY = y - dy
-//        if (nX < 0)
-//            nX = 0
-//        if (nY < 0)
-//            nY = 0
-        return Point(nX, nY)
+        return Point(x - dx, y - dy)
     }
 
-    fun renderPoint(x: Int, y: Int, rad: Double) {
+    fun renderPoint(x: Int, y: Int, rad: Double): Point {
+        val theta = rad % (PI / 2)
+        return renderPoint(x, y, kotlin.math.sin(theta), cos(theta))
+    }
 
+    fun renderPoint(x: Int, y: Int, sin: Double, cos: Double): Point {
+        val dx = (height * sin + width * cos) / 2
+        val dy = (width * sin + height * cos) / 2
+        val nX = x - dx
+        val nY = y - dy
+        return Point(nX.toInt(), nY.toInt())
+    }
+
+    fun renderPoint(x: Double, y: Double): Point {
+        val dx = width / 2
+        val dy = height / 2
+        val nX = x - dx
+        val nY = y - dy
+        return Point(nX.toInt(), nY.toInt())
+    }
+
+    fun renderPoint(x: Double, y: Double, rad: Double): Point {
+        val theta = rad % (PI / 2)
+        return renderPoint(x, y, kotlin.math.sin(theta), cos(theta))
+    }
+
+    fun renderPoint(x: Double, y: Double, sin: Double, cos: Double): Point {
+        val dx = (height * sin + width * cos) / 2
+        val dy = (width * sin + height * cos) / 2
+        val nX = x - dx
+        val nY = y - dy
+        return Point(nX.toInt(), nY.toInt())
     }
 
     @Throws(RasterFormatException::class)
@@ -36,10 +62,12 @@ class Texture(private val texture: BufferedImage) {
         return AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC)
     }
 
-    fun rotate(sin: Double, cos: Double, x: Double, y: Double): AffineTransformOp {
+    fun rotate(sin: Double, cos: Double): AffineTransformOp {
+        val hw = width / 2.0
+        val hh = height / 2.0
         val m01 = -1 * sin
-        val m02 = x - x * cos + y * sin
-        val m12 = y - x * sin - y * cos
+        val m02 = hw - hw * cos + hh * sin
+        val m12 = hh - hw * sin - hh * cos
         val transform = AffineTransform(cos, sin, m01, cos, m02, m12)
         return AffineTransformOp(transform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR)
     }
