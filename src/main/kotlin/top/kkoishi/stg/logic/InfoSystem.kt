@@ -7,6 +7,7 @@ import java.text.DateFormat.DEFAULT
 import java.time.Instant
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.reflect.KClass
 
 class InfoSystem private constructor() : Runnable {
@@ -14,13 +15,14 @@ class InfoSystem private constructor() : Runnable {
     private var before = System.currentTimeMillis()
     private var logicBefore = GameLoop.logicFrame()
     private var frameBefore = Renderer.frame()
+    private var fps = AtomicInteger(60)
     override fun run() {
         val logger = InfoSystem::class.logger()
         if (count++ % 900 == 0) {
             logger.log(Level.INFO, "Try to GC.")
             System.gc()
         }
-        if (count % 300 == 0) {
+        if (count % 100 == 0) {
             val cur = System.currentTimeMillis()
             val d = (cur - before).toDouble() / 1000.0
 
@@ -30,6 +32,7 @@ class InfoSystem private constructor() : Runnable {
 
             val lfps = (logicCur - logicBefore) / d
             val fps = (frameCur - frameBefore) / d
+            this.fps.set(fps.toInt())
             logger.log(Level.INFO, "LogicFrame pre second: $lfps, FPS: $fps")
 
             before = cur
@@ -46,6 +49,8 @@ class InfoSystem private constructor() : Runnable {
         fun start(threads: Threads) {
             threads.schedule(instance, 64L)
         }
+
+        fun fps() = instance.fps.get()
 
         private val format = DateFormat.getTimeInstance(DEFAULT, Locale.ENGLISH)
         fun <T : Any> KClass<T>.logger(): Logger {

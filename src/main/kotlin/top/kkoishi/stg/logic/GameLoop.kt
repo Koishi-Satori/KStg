@@ -2,7 +2,6 @@ package top.kkoishi.stg.logic
 
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.util.concurrent.atomic.AtomicLong
-import java.util.logging.Level
 
 class GameLoop private constructor() : Runnable {
     private val logicFrame = AtomicLong(0L)

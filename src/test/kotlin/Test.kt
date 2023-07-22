@@ -3,11 +3,13 @@ import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.common.*
 import top.kkoishi.stg.gfx.*
 import top.kkoishi.stg.logic.*
+import top.kkoishi.stg.script.GFXLoader
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.Shape
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
+import java.nio.file.Path
 import java.util.concurrent.atomic.AtomicInteger
 import javax.swing.JFrame
 import kotlin.math.PI
@@ -22,22 +24,26 @@ object Test {
 
     @JvmStatic
     fun main(args: Array<String>) {
+        //-Dsun.java2d.ddscale=true
+        //-Dsun.java2d.opengl=true
+        //-Dswing.aatext=true
+        //-Dawt.nativeDoubleBuffering=true
+        System.setProperty("sun.java2d.ddscale", "true")
+        System.setProperty("sun.java2d.opengl", "true")
+        System.setProperty("swing.aatext", "true")
+        System.setProperty("awt.nativeDoubleBuffering", "true")
+
         GenericFlags.gameState.set(GenericFlags.STATE_PLAYING)
-        GFX.loadTexture("test_img", "./test/gfx/icons/test_img.png")
-        GFX.loadTexture("mirror", "./test/gfx/icons/mirror.png")
-        GFX.loadTexture("center", "./test/gfx/icons/center.png")
-        GFX.loadTexture("planes_koishi", "./test/gfx/icons/planes_koishi.png")
+        GFXLoader(Path.of("./test/gfx")).loadDefinitions()
         GFX.loadTexture("bg_1_0", "./test/gfx/icons/bg_1_0.png")
         GFX.loadTexture("slow_effect", "./test/gfx/icons/slow_effect.png")
-        GFX.loadTexture("bullets_0", "./test/gfx/icons/bullets_0.png")
         for (state in 0..2) {
             for (i in 0 until 8) {
-                GFX.cutTexture("planes_koishi", "plane_koishi_${state}_$i", 32 * i, 48 * state, 32, 48)
+                GFX.shearTexture("planes_koishi", "plane_koishi_${state}_$i", 32 * i, 48 * state, 32, 48)
             }
         }
-        GFX.cutTexture("planes_koishi", "bullet_koishi", 220, 144, 35, 16)
-        GFX.cutTexture("slow_effect", "slow_effect_final", 0, 0, 64, 64)
-        GFX.cutTexture("bullets_0", "test_bullet", 16, 68, 16, 15)
+        GFX.shearTexture("slow_effect", "slow_effect_final", 0, 0, 64, 64)
+        GFX.shearTexture("bullets_0", "test_bullet", 16, 68, 16, 15)
 
         Sounds.loadAudio("bk_1", "./test/audio/sounds/bk_1.wav")
         Sounds.loadAudio("test_player_shot", "./test/audio/sounds/th15_player_shot_0.wav")

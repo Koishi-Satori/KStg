@@ -3,6 +3,7 @@ package top.kkoishi.stg.gfx
 import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.awt.Color
+import java.awt.Graphics2D
 import java.awt.RenderingHints
 import java.awt.geom.AffineTransform
 import java.awt.image.AffineTransformOp
@@ -10,6 +11,14 @@ import java.util.concurrent.atomic.AtomicLong
 
 class Renderer private constructor() : Runnable {
     private val frame = AtomicLong(0)
+
+    private fun renderFPS(r: Graphics2D) {
+        val fps = InfoSystem.fps().toString()
+        val rd = Graphics.renderPointFPS()
+        r.font = Graphics.font("fps_render")
+        r.drawString(fps, rd.x, rd.y)
+    }
+
     fun paint() {
         val logger = Renderer::class.logger()
         val gameState = GenericFlags.gameState.get()
@@ -30,6 +39,7 @@ class Renderer private constructor() : Runnable {
 
                 PlayerManager.cur.paint(bRender)
                 ObjectPool.player.paint(bRender)
+                renderFPS(bRender)
                 for (o in ObjectPool.objects())
                     o.paint(bRender)
                 for (b in ObjectPool.bullets())

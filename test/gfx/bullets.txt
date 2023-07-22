@@ -1,6 +1,30 @@
 gfx_items = {
     gfx = {
-        name = "test_pl_bullet_fast"
-        path = "./icons/test_pl_bullet_0.png"
+        name = "bullets_0"
+        path = "./icons/bullets_0.png"
+    }
+    gfx = {
+        name = "test_img"
+        path = "./icons/test_img.png"
+    }
+    gfx = {
+        name = "mirror"
+        path = "./icons/mirror.png"
+    }
+    gfx = {
+        name = "center"
+        path = "./icons/center.png"
+    }
+    gfx = {
+        name = "planes_koishi"
+        path = "./icons/planes_koishi.png"
+    }
+    shear = {
+        name = "bullet_koishi"
+        key = "planes_koishi"
+        x = 220
+        y = 114
+        w = 35
+        h = 16
     }
 }

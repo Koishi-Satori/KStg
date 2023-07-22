@@ -10,6 +10,10 @@ import kotlin.Throws
 import kotlin.io.path.exists
 import kotlin.io.path.inputStream
 
+/**
+ * Used to load and get the textures.
+ * @author KKoishi_
+ */
 object GFX {
     private val logger = GFX::class.logger()
     @JvmStatic
@@ -22,9 +26,19 @@ object GFX {
         NOT_FOUND = textures["NOT_FOUND"] ?: throw FailedLoadingResourceException("Lack of engine resources")
     }
 
-    @JvmOverloads
+    /**
+     * According to the given rectangular range, cut out another texture from one texture, and the texture to be cut is
+     * given by its key; the key of the new texture is the parameter nKey.
+     *
+     * @param key the key of the texture which will be shea red
+     * @param nKey the new key of the new texture
+     * @param x the x coordinate of the shear beginning point
+     * @param y the y coordinate of the shear beginning point
+     * @param w the width of the shear area
+     * @param h the height of the shear area
+     */
     @Throws(FailedLoadingResourceException::class)
-    fun cutTexture(key: String, nKey: String, x: Int, y: Int, w: Int, h: Int, rotate: Double = 0.0) {
+    fun shearTexture(key: String, nKey: String, x: Int, y: Int, w: Int, h: Int) {
         logger.log(System.Logger.Level.INFO, "Try to cut the texture: $key -> $nKey")
         val texture = getTexture(key)
         try {

@@ -1,5 +1,7 @@
 package top.kkoishi.stg.gfx
 
+import top.kkoishi.stg.exceptions.FailedLoadingResourceException
+import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.GraphicsConfiguration
 import java.awt.Insets
@@ -22,7 +24,15 @@ object Graphics {
 
     private lateinit var insets: Insets
 
+    private var fpsPosition: Point = Point(0, 20)
+
+    private val fonts: MutableMap<String, Font> = HashMap(64)
+
     private val CENTER = Point()
+
+    init {
+        setFontFPS(Font("Times New Roman", Font.BOLD, 20))
+    }
 
     fun refresh(f: JFrame) {
         GC = f.graphicsConfiguration
@@ -77,4 +87,19 @@ object Graphics {
     fun buffer() = BUFFER
 
     fun vramBuffer() = VRAM_BUFFER
+
+    fun setFontFPS(font: Font) {
+        fonts["fps_render"] = font
+    }
+
+    @Throws(FailedLoadingResourceException::class)
+    fun font(key: String): Font {
+        return fonts[key] ?: throw FailedLoadingResourceException("missing font key: $key")
+    }
+
+    fun renderPointFPS() = fpsPosition
+
+    fun setRenderPointFPS(x: Double, y: Double) {
+        fpsPosition.setLocation(x, y)
+    }
 }
