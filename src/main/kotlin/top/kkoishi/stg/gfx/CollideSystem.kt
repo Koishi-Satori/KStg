@@ -1,7 +1,7 @@
 package top.kkoishi.stg.gfx
 
-import top.kkoishi.stg.common.Bullet
-import top.kkoishi.stg.common.Entity
+import top.kkoishi.stg.common.entities.Bullet
+import top.kkoishi.stg.common.entities.Entity
 import java.awt.Point
 import java.awt.Polygon
 import java.awt.Rectangle

@@ -1,6 +1,11 @@
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.common.*
+import top.kkoishi.stg.common.entities.AbstractBullet
+import top.kkoishi.stg.common.entities.Enemy
+import top.kkoishi.stg.common.entities.Object
+import top.kkoishi.stg.common.entities.Player
+import top.kkoishi.stg.common.entities.PlayerBullet
 import top.kkoishi.stg.gfx.*
 import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.script.GFXLoader
@@ -32,18 +37,15 @@ object Test {
         System.setProperty("sun.java2d.opengl", "true")
         System.setProperty("swing.aatext", "true")
         System.setProperty("awt.nativeDoubleBuffering", "true")
-
         GenericFlags.gameState.set(GenericFlags.STATE_PLAYING)
+
+        // load textures from scripts
         GFXLoader(Path.of("./test/gfx")).loadDefinitions()
-        GFX.loadTexture("bg_1_0", "./test/gfx/icons/bg_1_0.png")
-        GFX.loadTexture("slow_effect", "./test/gfx/icons/slow_effect.png")
         for (state in 0..2) {
             for (i in 0 until 8) {
                 GFX.shearTexture("planes_koishi", "plane_koishi_${state}_$i", 32 * i, 48 * state, 32, 48)
             }
         }
-        GFX.shearTexture("slow_effect", "slow_effect_final", 0, 0, 64, 64)
-        GFX.shearTexture("bullets_0", "test_bullet", 16, 68, 16, 15)
 
         Sounds.loadAudio("bk_1", "./test/audio/sounds/bk_1.wav")
         Sounds.loadAudio("test_player_shot", "./test/audio/sounds/th15_player_shot_0.wav")
@@ -52,7 +54,6 @@ object Test {
         Sounds.loadAudio("enemy_dead", "./test/audio/sounds/enemy_dead_0.wav")
         Sounds.loadAudio("enemy_shoot", "./test/audio/sounds/enemy_shoot.wav")
 
-        //println(GFX.getTexture("test_img"))
         val f = JFrame("test")
         f.setSize(512 + 14, 512 + 37)
         f.isVisible = true

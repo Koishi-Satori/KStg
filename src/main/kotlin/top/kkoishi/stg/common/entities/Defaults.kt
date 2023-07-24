@@ -1,4 +1,4 @@
-package top.kkoishi.stg.common
+package top.kkoishi.stg.common.entities
 
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.CollideSystem

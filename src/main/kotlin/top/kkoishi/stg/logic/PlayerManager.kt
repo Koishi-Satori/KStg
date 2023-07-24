@@ -1,7 +1,7 @@
 package top.kkoishi.stg.logic
 
-import top.kkoishi.stg.common.Bullet
-import top.kkoishi.stg.common.Player
+import top.kkoishi.stg.common.entities.Bullet
+import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.common.Stage
 import java.awt.Graphics2D
 import java.awt.event.KeyEvent

@@ -1,5 +1,6 @@
 package top.kkoishi.stg.common
 
+import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.gfx.Graphics
 import java.awt.Font

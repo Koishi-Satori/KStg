@@ -1,8 +1,8 @@
 package top.kkoishi.stg.logic
 
-import top.kkoishi.stg.common.Bullet
-import top.kkoishi.stg.common.Object
-import top.kkoishi.stg.common.Player
+import top.kkoishi.stg.common.entities.Bullet
+import top.kkoishi.stg.common.entities.Object
+import top.kkoishi.stg.common.entities.Player
 
 object ObjectPool {
     lateinit var player: Player

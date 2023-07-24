@@ -19,6 +19,14 @@ gfx_items = {
         name = "planes_koishi"
         path = "./icons/planes_koishi.png"
     }
+    gfx = {
+        name = "bg_1_0"
+        path = "./icons/bg_1_0.png"
+    }
+    gfx = {
+        name = "slow_effect"
+        path = "./icons/slow_effect.png"
+    }
     shear = {
         name = "bullet_koishi"
         key = "planes_koishi"
@@ -26,5 +34,21 @@ gfx_items = {
         y = 114
         w = 35
         h = 16
+    }
+    shear = {
+        name = "bullet_koishi"
+        key = "planes_koishi"
+        x = 220
+        y = 114
+        w = 35
+        h = 16
+    }
+    shear = {
+        name = "bullets_0"
+        key = "test_bullet"
+        x = 16
+        y = 68
+        w = 16
+        h = 15
     }
 }
