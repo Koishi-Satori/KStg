@@ -36,16 +36,16 @@ gfx_items = {
         h = 16
     }
     shear = {
-        name = "bullet_koishi"
-        key = "planes_koishi"
-        x = 220
-        y = 114
-        w = 35
-        h = 16
+        name = "slow_effect_final"
+        key = "slow_effect"
+        x = 0
+        y = 0
+        w = 64
+        h = 64
     }
     shear = {
-        name = "bullets_0"
-        key = "test_bullet"
+        name = "test_bullet"
+        key = "bullets_0"
         x = 16
         y = 68
         w = 16
