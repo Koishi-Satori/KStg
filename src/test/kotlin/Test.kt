@@ -41,11 +41,11 @@ object Test {
 
         // load textures from scripts
         GFXLoader(Path.of("./test/gfx")).loadDefinitions()
-        for (state in 0..2) {
-            for (i in 0 until 8) {
-                GFX.shearTexture("planes_koishi", "plane_koishi_${state}_$i", 32 * i, 48 * state, 32, 48)
-            }
-        }
+//        for (state in 0..2) {
+//            for (i in 0 until 8) {
+//                GFX.shearTexture("planes_koishi", "plane_koishi_${state}_$i", 32 * i, 48 * state, 32, 48)
+//            }
+//        }
 
         Sounds.loadAudio("bk_1", "./test/audio/sounds/bk_1.wav")
         Sounds.loadAudio("test_player_shot", "./test/audio/sounds/th15_player_shot_0.wav")

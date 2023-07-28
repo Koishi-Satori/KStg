@@ -31,8 +31,8 @@ gfx_items = {
         name = "bullet_koishi"
         key = "planes_koishi"
         x = 220
-        y = 114
-        w = 35
+        y = 144
+        w = 36
         h = 16
     }
     shear = {
@@ -50,5 +50,29 @@ gfx_items = {
         y = 68
         w = 16
         h = 15
+    }
+    loop = {
+        var_name = "state"
+        end = 2
+        load = {
+            loop = {
+                var_name = "i"
+                end = 7
+                load = {
+                    set_var = { name = "x" value = $i }
+                    set_var = { name = "y" value = $state }
+                    mul_var = { name = "x" value = 32 }
+                    mul_var = { name = "y" value = 48 }
+                    shear = {
+                        name = "plane_koishi_$(state)_$i"
+                        key = "planes_koishi"
+                        x = $x
+                        y = $y
+                        w = 32
+                        h = 48
+                    }
+                }
+            }
+        }
     }
 }

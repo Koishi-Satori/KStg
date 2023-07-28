@@ -1,5 +1,6 @@
 package top.kkoishi.stg.logic
 
+import top.kkoishi.stg.exceptions.ScriptException
 import java.io.IOException
 import java.io.Reader
 import kotlin.properties.Delegates
@@ -57,7 +58,36 @@ internal abstract class Lexer(protected val rest: CharIterator) {
     abstract fun hasNext(): Boolean
 }
 
-internal abstract class Parser(protected val lexer: Lexer)
+internal abstract class Parser(val lexer: Lexer) {
+    lateinit var tk: Token
+
+    open fun check(vararg types: Type): String {
+        if (!lexer.hasNext())
+            throw ScriptException("Illegal script format: expect ${types.contentToString()} at ${lexer.line}:${lexer.col}, but got nothing")
+        tk = lexer.next()
+        types.forEach { if (tk.type == it) return tk.content }
+        throw ScriptException("Illegal script format: expect ${types.contentToString()} at ${lexer.line}:${lexer.col}, but got ${tk.type}")
+    }
+
+    open fun checkProperty(): Pair<String, String> {
+        val key = check(Type.KEY)
+        check(Type.EQUAL)
+        if (!lexer.hasNext())
+            throw ScriptException("Unfinished property: at ${lexer.line}:${lexer.col}")
+        tk = lexer.next()
+        return when (tk.type) {
+            Type.STRING, Type.NUMBER -> key to tk.content
+            Type.VAR -> key to "$${tk.content}"
+            else -> throw ScriptException("The right side of property must be STRING or NUMBER: at ${lexer.line}:${lexer.col}")
+        }
+    }
+
+
+}
+
+fun Char.isVarChar(): Boolean {
+    return isLetter() || this == '_' || this == ':'
+}
 
 fun String.processEscapes(): String {
     if (isEmpty())
