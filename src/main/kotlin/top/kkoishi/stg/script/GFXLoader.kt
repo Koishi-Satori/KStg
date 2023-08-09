@@ -306,9 +306,4 @@ class GFXLoader(private val root: Path) : LocalVariables("gfx_loader") {
             }
         }
     }
-
-    private abstract inner class GFXItem(val name: String) {
-        abstract fun load()
-    }
-
 }

@@ -3,14 +3,23 @@ package top.kkoishi.stg.logic
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.util.concurrent.atomic.AtomicLong
 
+/**
+ * Control the logic of the game.
+ *
+ * @author KKoishi_
+ */
 class GameLoop private constructor() : Runnable {
     private val logicFrame = AtomicLong(0L)
 
+    /**
+     * upgrade the game states.
+     */
     fun update() {
         val logger = GameLoop::class.logger()
         val gameState = GenericFlags.gameState.get()
         if (gameState == GenericFlags.STATE_PLAYING) {
             try {
+                // update player logic first.
                 ObjectPool.player.update()
 
                 var cur = PlayerManager.cur

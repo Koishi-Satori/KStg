@@ -113,26 +113,22 @@ object VM {
                 return sb.toString() as T
             }
 
-            Int::class -> {
-                return if (string.startsWith("$")) {
-                    var (scope, name) = parseVarName(string.removePrefix("$"))
-                    if (scope == null)
-                        scope = defaultScope
+            Int::class -> return if (string.startsWith("$")) {
+                var (scope, name) = parseVarName(string.removePrefix("$"))
+                if (scope == null)
+                    scope = defaultScope
 
-                    (LocalVariables.get<LocalVariables>(scope).getVar(name).value as Number).toInt() as T
-                } else
-                    string.toInt() as T
-            }
+                (LocalVariables.get<LocalVariables>(scope).getVar(name).value as Number).toInt() as T
+            } else
+                string.toInt() as T
 
-            Number::class -> {
-                return if (string.startsWith("$")) {
-                    var (scope, name) = parseVarName(string)
-                    if (scope == null)
-                        scope = defaultScope
+            Number::class -> return if (string.startsWith("$")) {
+                var (scope, name) = parseVarName(string)
+                if (scope == null)
+                    scope = defaultScope
 
-                    (LocalVariables.get<LocalVariables>(scope).getVar(name).value as Number) as T
-                } else string.toNumber() as T
-            }
+                (LocalVariables.get<LocalVariables>(scope).getVar(name).value as Number) as T
+            } else string.toNumber() as T
 
             else -> throw ScriptException("This should not happen")
         }
@@ -166,16 +162,20 @@ object VM {
             }
         } else {
             val int = BigInteger(this)
-            return if (int.signum() == -1) when {
-                int >= INT_SHORT_MIN -> int.toShort()
-                int >= INT_INT_MIN -> int.toInt()
-                int >= INT_LONG_MIN -> int.toLong()
-                else -> int
-            } else when {
-                int <= INT_SHORT_MAX -> int.toShort()
-                int <= INT_INT_MAX -> int.toInt()
-                int <= INT_LONG_MAX -> int.toLong()
-                else -> int
+            return if (int.signum() == -1) {
+                when {
+                    int >= INT_SHORT_MIN -> int.toShort()
+                    int >= INT_INT_MIN -> int.toInt()
+                    int >= INT_LONG_MIN -> int.toLong()
+                    else -> int
+                }
+            } else {
+                when {
+                    int <= INT_SHORT_MAX -> int.toShort()
+                    int <= INT_INT_MAX -> int.toInt()
+                    int <= INT_LONG_MAX -> int.toLong()
+                    else -> int
+                }
             }
         }
     }
