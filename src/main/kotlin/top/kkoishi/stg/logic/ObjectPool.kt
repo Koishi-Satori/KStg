@@ -8,18 +8,18 @@ object ObjectPool {
     lateinit var player: Player
     private val bullets = ArrayDeque<Bullet>(1024)
     private val objects = ArrayDeque<Object>(128)
-    private var locked = false
+    private val UIObjects = ArrayDeque<Object>(16)
     private val lock = Any()
 
-    fun lock() {
+    fun uiObjects(): Iterator<Object> {
         synchronized(lock) {
-            locked = true
+            return UIObjects.toTypedArray().iterator()
         }
     }
 
-    fun release() {
+    fun addUIObject(o: Object) {
         synchronized(lock) {
-            locked = false
+            UIObjects.addLast(o)
         }
     }
 

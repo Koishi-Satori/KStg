@@ -24,8 +24,6 @@ class Renderer private constructor() : Runnable {
         val gameState = GenericFlags.gameState.get()
         if (gameState == GenericFlags.STATE_PLAYING) {
             try {
-                ObjectPool.lock()
-
                 val r = Graphics.render()
                 val bRender = Graphics.buffer().createGraphics()
                 val size = Graphics.getScreenSize()
@@ -39,11 +37,10 @@ class Renderer private constructor() : Runnable {
 
                 PlayerManager.cur.paint(bRender)
                 ObjectPool.player.paint(bRender)
+                ObjectPool.objects().forEach { it.paint(bRender) }
+                ObjectPool.bullets().forEach { it.paint(bRender) }
+                ObjectPool.uiObjects().forEach { it.paint(bRender) }
                 renderFPS(bRender)
-                for (o in ObjectPool.objects())
-                    o.paint(bRender)
-                for (b in ObjectPool.bullets())
-                    b.paint(bRender)
                 bRender.dispose()
 
                 r.drawImage(
@@ -52,7 +49,6 @@ class Renderer private constructor() : Runnable {
                     insets.left,
                     insets.top
                 )
-                ObjectPool.release()
             } catch (e: Exception) {
                 logger.log(System.Logger.Level.ERROR, e)
             }

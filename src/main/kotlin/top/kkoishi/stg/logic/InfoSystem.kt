@@ -44,6 +44,8 @@ class InfoSystem private constructor() : Runnable {
     companion object {
         private val instance: InfoSystem = InfoSystem()
 
+        var logToFile = false
+
         private val loggers: MutableMap<KClass<out Any>, Logger> = ConcurrentHashMap()
 
         fun start(threads: Threads) {
@@ -70,8 +72,10 @@ class InfoSystem private constructor() : Runnable {
             }
 
             fun log(level: Level, e: Exception) {
-                println("${prefix(level)}: ${e.message}")
-                e.printStackTrace()
+                if (level == Level.WARNING)
+                    println("${prefix(level)}: ${e.message}")
+                else
+                    println("${prefix(level)}: ${e.message}\n${e.stackTraceToString()}")
             }
 
             fun log(level: Level, a: Any) {

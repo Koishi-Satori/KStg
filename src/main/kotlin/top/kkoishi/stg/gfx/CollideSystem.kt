@@ -41,7 +41,14 @@ object CollideSystem {
         val x = b.x()
         val y = b.y()
         val screenSize = Graphics.getScreenSize()
-        return x < 0 || x > screenSize.width || y < 0 || y > screenSize.height
+        val insets = Graphics.getUIInsets()
+        return x < insets.left || x > (screenSize.width - insets.right) || y < insets.top || y > (screenSize.height - insets.bottom)
+    }
+
+    fun checkPos(x: Int, y: Int): Boolean {
+        val screenSize = Graphics.getScreenSize()
+        val insets = Graphics.getUIInsets()
+        return x < insets.left || x > (screenSize.width - insets.right) || y < insets.top || y > (screenSize.height - insets.bottom)
     }
 
     /**

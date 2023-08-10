@@ -63,6 +63,35 @@ abstract class PlayerBullet(initialX: Int, initialY: Int) : AbstractBullet(initi
     override fun from(): Entity? = ObjectPool.player
 }
 
+abstract class BaseItem(
+    initialX: Int,
+    initialY: Int,
+    val speed: Double,
+    val shape: Shape,
+    val speedToPlayer: Float,
+) :
+    Item(initialX, initialY) {
+    override fun move() {
+        val oldY = y.get()
+        y.set(oldY + speed)
+    }
+
+    override fun shape(): Shape = shape
+
+    override fun moveToPlayer(player: Player) {
+        val pX = player.x()
+        val pY = player.y()
+        // |dx|/|dy| = |pX-x|/|pY-y|
+
+    }
+
+    final override fun update(): Boolean = super.update()
+
+    final override fun collide(o: Object): Boolean = super.collide(o)
+
+    final override fun paint(g: Graphics2D) = super.paint(g)
+}
+
 object Bullets {
     fun createSniper(initialX: Int, initialY: Int, speed: Float, gfx: String, rotated: Boolean = false): Bullet {
         if (rotated) {

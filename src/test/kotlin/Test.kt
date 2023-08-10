@@ -7,15 +7,18 @@ import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.common.entities.PlayerBullet
 import top.kkoishi.stg.gfx.*
+import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.*
+import top.kkoishi.stg.main.ui.LoadingFrame
 import top.kkoishi.stg.script.GFXLoader
-import java.awt.Graphics2D
-import java.awt.Point
-import java.awt.Shape
+import java.awt.*
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
+import java.io.File
 import java.nio.file.Path
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
+import javax.imageio.ImageIO
 import javax.swing.JFrame
 import kotlin.math.PI
 import kotlin.math.absoluteValue
@@ -37,6 +40,8 @@ object Test {
         System.setProperty("sun.java2d.opengl", "true")
         System.setProperty("swing.aatext", "true")
         System.setProperty("awt.nativeDoubleBuffering", "true")
+        val load = LoadingFrame(ImageIO.read(File("./test/load.jpg")))
+        InfoSystem.logToFile = true
         GenericFlags.gameState.set(GenericFlags.STATE_PLAYING)
 
         // load textures from scripts
@@ -54,9 +59,11 @@ object Test {
         Sounds.loadAudio("enemy_dead", "./test/audio/sounds/enemy_dead_0.wav")
         Sounds.loadAudio("enemy_shoot", "./test/audio/sounds/enemy_shoot.wav")
 
-        val f = JFrame("test")
-        f.setSize(512 + 14, 512 + 37)
+        val f = JFrame("KKoishi_ STG Engine test")
+        f.setSize(640 + 14, 480 + 37)
         f.isVisible = true
+        f.isResizable = false
+        f.iconImage = ImageIO.read(File("./resources/logo.ico"))
         f.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(e: WindowEvent?) {
                 exitProcess(514)
@@ -64,6 +71,9 @@ object Test {
         })
 
         Graphics.refresh(f)
+        Graphics.setScreenSize(Dimension(640, 480))
+        Graphics.setUIInsets(16, 36, 16, 220)
+        Graphics.setFont("sidebar", Font("Times New Roman", Font.BOLD, 20))
         PlayerManager.cur = object : Stage() {
             override fun background(): Texture = GFX.getTexture("bg_1_0")
 
@@ -81,7 +91,7 @@ object Test {
         }
 
         val bullet = GFX.getTexture("bullet_koishi")
-        ObjectPool.player = object : Player(250, 200) {
+        ObjectPool.player = object : Player(Graphics.getCenterX(), 400) {
             private var texture_index = 0
 
             override fun bulletDamage(): Int = 10
@@ -104,6 +114,7 @@ object Test {
                 }
 
             override fun shot() {
+                AudioPlayer.addTask("test_player_shot")
                 AudioPlayer.addTask("test_player_shot")
                 if (power >= 0.0f)
                     PlayerManager.addBullet(bullet(0, -32))
@@ -157,12 +168,15 @@ object Test {
             }
         }
 
+        load.end()
         val inst = Threads.getInstance()
         InfoSystem.start(inst)
         Renderer.start(inst)
         GameLoop.start(inst)
         AudioPlayer.start(inst)
 
+        val sideBar = createSideBar()
+        ObjectPool.addUIObject(sideBar)
         AudioPlayer.setBackground(Sounds.getAudio("bk_1"))
         PlayerManager.keyBinds(
             f,
@@ -264,6 +278,8 @@ object Test {
             private fun bullet() {
                 if (bulletCount % 30 == 0)
                     AudioPlayer.addTask("enemy_shoot")
+                if (bulletCount % 360 == 0)
+                    bulletCount = 0
                 val fx = -PI / 360 * bulletCount + PI / 2
                 ang += fx
                 ObjectPool.addBullet(
@@ -274,6 +290,50 @@ object Test {
                     )
                 )
                 bulletCount++
+            }
+        }
+    }
+
+    private fun createSideBar(): SideBar {
+        return object : SideBar(0, 0) {
+            private val score: AtomicLong = AtomicLong(0)
+
+            override fun background(): String = "ui_sidebar"
+
+            override fun paintInfo(r: Graphics2D) {
+                var texture = GFX.getTexture("ui_diff_easy")
+                var infoX: Int
+                var infoY = 5
+                val insets = Graphics.getUIInsets()
+                val size = Graphics.getScreenSize()
+                infoX = size.width.toInt() - (insets.left + insets.right / 2)
+                infoY += insets.top
+                texture.paint(r, texture.normalMatrix(), infoX, infoY)
+                infoX = size.width.toInt() - (insets.left + insets.right) + 50
+                infoY += 40
+                texture = GFX.getTexture("ui_score")
+                texture.paint(r, texture.normalMatrix(), infoX, infoY)
+                infoX += texture.width + 10
+                infoY += 18
+                r.color = Color.WHITE
+                r.font = Graphics.font("sidebar")
+                r.drawString(getInfo(score.get()), infoX, infoY)
+            }
+
+            private fun getInfo(num: Long): String {
+                val sb = StringBuilder()
+                sb.append(num)
+                val len = sb.length
+                if (len < 8) {
+                    sb.clear()
+                    (0 until (10 - len)).forEach { _ -> sb.append('0') }
+                    sb.append(num)
+                }
+                return sb.toString()
+            }
+
+            override fun updateInfo() {
+                score.getAndAdd(10)
             }
         }
     }

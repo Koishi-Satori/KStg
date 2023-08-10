@@ -30,8 +30,12 @@ object Graphics {
 
     private val CENTER = Point()
 
+    private val DEFAULT_FONT = Font("Times New Roman", Font.ITALIC, 20)
+
+    private val INSETS: Insets = Insets(0, 0, 0, 0)
+
     init {
-        setFontFPS(Font("Times New Roman", Font.BOLD, 20))
+        setFont("fps_render", DEFAULT_FONT)
     }
 
     fun refresh(f: JFrame) {
@@ -88,13 +92,13 @@ object Graphics {
 
     fun vramBuffer() = VRAM_BUFFER
 
-    fun setFontFPS(font: Font) {
-        fonts["fps_render"] = font
+    fun setFont(key: String, font: Font) {
+        fonts[key] = font
     }
 
     @Throws(FailedLoadingResourceException::class)
     fun font(key: String): Font {
-        return fonts[key] ?: throw FailedLoadingResourceException("missing font key: $key")
+        return fonts[key] ?: DEFAULT_FONT
     }
 
     fun renderPointFPS() = fpsPosition
@@ -102,4 +106,11 @@ object Graphics {
     fun setRenderPointFPS(x: Double, y: Double) {
         fpsPosition.setLocation(x, y)
     }
+
+    fun setUIInsets(top: Int, left: Int, bottom: Int, right: Int) {
+        INSETS.set(top, left, bottom, right)
+        CENTER.setLocation((SCREEN.width.toInt() + left - right) / 2, (top + SCREEN.height.toInt() - bottom) / 2)
+    }
+
+    fun getUIInsets() = INSETS
 }

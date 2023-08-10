@@ -161,27 +161,31 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
                 it.moveState = STATE_LEFT
                 val oldX = it.x.get()
                 var newX = oldX - it.speed
-                if (newX < 0)
-                    newX = 0.0
+                val limitX = Graphics.getUIInsets().left.toDouble()
+                if (newX < limitX)
+                    newX = limitX
                 it.x.set(newX)
             }, VK_RIGHT to {
                 it.moveState = STATE_RIGHT
                 val oldX = it.x.get()
                 var newX = oldX + it.speed
-                if (newX > Graphics.getScreenSize().width)
-                    newX = Graphics.getScreenSize().width
+                val limitX = Graphics.getScreenSize().width - Graphics.getUIInsets().right
+                if (newX > limitX)
+                    newX = limitX
                 it.x.set(newX)
             }, VK_UP to {
                 val oldY = it.y.get()
                 var newY = oldY - it.speed
-                if (newY < 0)
-                    newY = 0.0
+                val limitY = Graphics.getUIInsets().top.toDouble()
+                if (newY < limitY)
+                    newY = limitY
                 it.y.set(newY)
             }, VK_DOWN to {
                 val oldY = it.y.get()
                 var newY = oldY + it.speed
-                if (newY > Graphics.getScreenSize().height)
-                    newY = Graphics.getScreenSize().height
+                val limitY = Graphics.getScreenSize().height - Graphics.getUIInsets().bottom
+                if (newY > limitY)
+                    newY = limitY
                 it.y.set(newY)
             }, VK_Z to {
                 if (it.shotCoolCount++ == it.shotCooldown) {

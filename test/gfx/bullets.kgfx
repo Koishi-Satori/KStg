@@ -21,7 +21,7 @@ gfx_items = {
     }
     gfx = {
         name = "bg_1_0"
-        path = "./icons/bg_1_0.png"
+        path = "./icons/bg_1_1.png"
     }
     gfx = {
         name = "slow_effect"

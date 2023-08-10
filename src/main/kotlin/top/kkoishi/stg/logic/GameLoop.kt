@@ -29,6 +29,8 @@ class GameLoop private constructor() : Runnable {
                 }
                 cur.action()
 
+                ObjectPool.uiObjects().forEach { it.update() }
+
                 var index = 0
                 for (o in ObjectPool.objects()) {
                     if (o.update())
