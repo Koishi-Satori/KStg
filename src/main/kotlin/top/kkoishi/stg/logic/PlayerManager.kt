@@ -60,7 +60,8 @@ object PlayerManager {
     fun keyBind(f: JFrame, keyCode: Int) {
         binds[keyCode] = false
         f.addKeyListener(object : KeyListener {
-            override fun keyTyped(e: KeyEvent) {}
+            override fun keyTyped(e: KeyEvent) {
+            }
 
             override fun keyPressed(e: KeyEvent) {
                 binds[e.keyCode] = true

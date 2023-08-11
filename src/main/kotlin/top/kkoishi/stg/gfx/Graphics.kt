@@ -1,11 +1,7 @@
 package top.kkoishi.stg.gfx
 
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
-import java.awt.Font
-import java.awt.Graphics2D
-import java.awt.GraphicsConfiguration
-import java.awt.Insets
-import java.awt.Point
+import java.awt.*
 import java.awt.RenderingHints.*
 import java.awt.geom.Dimension2D
 import java.awt.image.BufferedImage
@@ -30,7 +26,7 @@ object Graphics {
 
     private val CENTER = Point()
 
-    private val DEFAULT_FONT = Font("Times New Roman", Font.ITALIC, 20)
+    private val DEFAULT_FONT = Font("Times New Roman", Font.BOLD, 20)
 
     private val INSETS: Insets = Insets(0, 0, 0, 0)
 
@@ -40,7 +36,8 @@ object Graphics {
 
     fun refresh(f: JFrame) {
         GC = f.graphicsConfiguration
-        setRender(f.graphics as Graphics2D)
+        if (f.graphics != null)
+            setRender(f.graphics as Graphics2D)
         val insets = f.insets
         setFrameInsets(insets)
         val size = f.size
@@ -48,16 +45,16 @@ object Graphics {
         size.width -= (insets.left + insets.right)
         setScreenSize(size)
         setBufferSize(size.width, size.height)
-
-        render.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON)
-        render.setRenderingHint(KEY_RENDERING, VALUE_RENDER_QUALITY)
     }
 
     fun setGC(graphicsConfiguration: GraphicsConfiguration) {
         GC = graphicsConfiguration
     }
+
     fun setRender(r: Graphics2D) {
         render = r
+        render.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON)
+        render.setRenderingHint(KEY_RENDERING, VALUE_RENDER_QUALITY)
     }
 
     fun render() = render

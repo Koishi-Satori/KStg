@@ -15,9 +15,9 @@ import kotlin.collections.HashMap
 abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     val x = AtomicReference(initialX.toDouble())
     val y = AtomicReference(initialY.toDouble())
-    protected var speed = 10
-    protected var higherSpeed = 10
-    protected var lowerSpeed = 5
+    protected var speed = 7.0
+    protected var higherSpeed = 7.0
+    protected var lowerSpeed = 3.0
     protected var shotCooldown = 3
     protected var shotCoolCount = 0
     protected var showCenter: Boolean = false
@@ -27,6 +27,12 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
 
     fun x() = x.get().toInt()
     fun y() = y.get().toInt()
+
+    fun setPlayerPower(p: Float) {
+        synchronized(logger) {
+            power = p
+        }
+    }
 
     override fun isDead(): Boolean = PlayerManager.life() == 0
 
@@ -49,7 +55,10 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
         for (keyCode in keyEvents.keys) {
             action(keyCode)
         }
+        actionsImpl()
     }
+
+    abstract fun actionsImpl()
 
     private fun action(keyCode: Int) {
         when (keyCode) {
@@ -217,6 +226,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
             override fun dead() {}
 
             override fun beingHit(o: Object) {}
+            override fun actionsImpl() {}
 
             override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 5)
 

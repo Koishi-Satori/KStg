@@ -73,7 +73,11 @@ object CollideSystem {
                 throw IllegalArgumentException()
             }
             when (other) {
-                is Circle -> return circleIntersectCircle(c.center, other.center, c.r, other.r)
+                is Circle -> {
+                    if (c.contains(other.center) || other.contains(c.center))
+                        return true
+                    return circleIntersectCircle(c.center, other.center, c.r, other.r)
+                }
                 is Rectangle2D -> return circleIntersectRect(c, other)
                 is Polygon -> return convexIntersectCircle(other, c.center, c.r)
             }

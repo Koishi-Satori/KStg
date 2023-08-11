@@ -7,6 +7,18 @@ gfx_items = {
         name = "ui_base"
         path = "./icons/ui.png"
     }
+    gfx = {
+        name = "menu_bg"
+        path = "./icons/menu_bg.png"
+    }
+    gfx = {
+        name = "main_menu_items"
+        path = "./icons/main_menu_items.png"
+    }
+    gfx = {
+            name = "main_menu_select"
+            path = "./icons/main_menu_select.png"
+    }
     shear = {
         name = "ui_sidebar"
         key = "ui_base"
@@ -30,5 +42,77 @@ gfx_items = {
         y = 0
         w = 60
         h = 21
+    }
+    shear = {
+        name = "main_menu_select_0"
+        key = "main_menu_select"
+        x = 1
+        y = 209
+        w = 300
+        h = 30
+    }
+    shear = {
+        name = "main_menu_select_1"
+        key = "main_menu_select"
+        x = 1
+        y = 239
+        w = 300
+        h = 30
+    }
+    shear = {
+        name = "main_menu_select_2"
+        key = "main_menu_select"
+        x = 1
+        y = 269
+        w = 300
+        h = 30
+    }
+    shear = {
+        name = "main_menu_select_3"
+        key = "main_menu_select"
+        x = 1
+        y = 299
+        w = 300
+        h = 30
+    }
+    shear = {
+        name = "main_menu_start"
+        key = "main_menu_items"
+        x = 20
+        y = 14
+        w = 150
+        h = 30
+    }
+    shear = {
+        name = "main_menu_extra_start"
+        key = "main_menu_items"
+        x = 20
+        y = 44
+        w = 150
+        h = 30
+    }
+    shear = {
+        name = "main_menu_practice"
+        key = "main_menu_items"
+        x = 20
+        y = 74
+        w = 150
+        h = 30
+    }
+    shear = {
+        name = "main_menu_exit"
+        key = "main_menu_items"
+        x = 20
+        y = 284
+        w = 150
+        h = 30
+    }
+    shear = {
+        name = "reimu_baisi"
+        key = "ui_base"
+        x = 0
+        y = 544
+        w = 640
+        h = 480
     }
 }

@@ -17,39 +17,50 @@ class GameLoop private constructor() : Runnable {
     fun update() {
         val logger = GameLoop::class.logger()
         val gameState = GenericFlags.gameState.get()
-        if (gameState == GenericFlags.STATE_PLAYING) {
-            try {
-                // update player logic first.
-                ObjectPool.player.update()
+        when (gameState) {
+            GenericFlags.STATE_PLAYING -> {
+                try {
+                    // update player logic first.
+                    ObjectPool.player.update()
 
-                var cur = PlayerManager.cur
-                if (cur.toNextStage()) {
-                    cur = cur.nextStage()
-                    PlayerManager.cur = cur
+                    var cur = PlayerManager.cur
+                    if (cur.toNextStage()) {
+                        cur = cur.nextStage()
+                        PlayerManager.cur = cur
+                    }
+                    cur.action()
+
+                    ObjectPool.uiObjects().forEach { it.update() }
+
+                    var index = 0
+                    for (o in ObjectPool.objects()) {
+                        if (o.update())
+                            ObjectPool.removeObject(index--)
+                        ++index
+                    }
+
+                    index = 0
+                    for (b in ObjectPool.bullets()) {
+                        if (b.update())
+                            ObjectPool.removeBullet(index--)
+                        ++index
+                    }
+                } catch (e: Throwable) {
+                    logger.log(System.Logger.Level.ERROR, e)
                 }
-                cur.action()
-
-                ObjectPool.uiObjects().forEach { it.update() }
-
-                var index = 0
-                for (o in ObjectPool.objects()) {
-                    if (o.update())
-                        ObjectPool.removeObject(index--)
-                    ++index
-                }
-
-                index = 0
-                for (b in ObjectPool.bullets()) {
-                    if (b.update())
-                        ObjectPool.removeBullet(index--)
-                    ++index
-                }
-            } catch (e: Exception) {
-                logger.log(System.Logger.Level.ERROR, e)
             }
-        } else if (gameState == GenericFlags.STATE_PAUSE) {
-            // menu logic
-            ObjectPool.player.actions()
+            GenericFlags.STATE_PAUSE -> {
+                // menu logic
+                ObjectPool.player.actions()
+            }
+            GenericFlags.STATE_MENU -> {
+                // main menu
+                try {
+                    ObjectPool.uiObjects().forEach { it.update() }
+                } catch (e: Throwable) {
+                    logger.log(System.Logger.Level.ERROR, e)
+                }
+            }
         }
         logicFrame.incrementAndGet()
     }

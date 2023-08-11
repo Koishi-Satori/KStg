@@ -1,9 +1,5 @@
 gfx_items = {
     gfx = {
-        name = "bullets_0"
-        path = "./icons/bullets_0.png"
-    }
-    gfx = {
         name = "test_img"
         path = "./icons/test_img.png"
     }
@@ -12,67 +8,7 @@ gfx_items = {
         path = "./icons/mirror.png"
     }
     gfx = {
-        name = "center"
-        path = "./icons/center.png"
-    }
-    gfx = {
-        name = "planes_koishi"
-        path = "./icons/planes_koishi.png"
-    }
-    gfx = {
         name = "bg_1_0"
         path = "./icons/bg_1_1.png"
-    }
-    gfx = {
-        name = "slow_effect"
-        path = "./icons/slow_effect.png"
-    }
-    shear = {
-        name = "bullet_koishi"
-        key = "planes_koishi"
-        x = 220
-        y = 144
-        w = 36
-        h = 16
-    }
-    shear = {
-        name = "slow_effect_final"
-        key = "slow_effect"
-        x = 0
-        y = 0
-        w = 64
-        h = 64
-    }
-    shear = {
-        name = "test_bullet"
-        key = "bullets_0"
-        x = 16
-        y = 68
-        w = 16
-        h = 15
-    }
-    loop = {
-        var_name = "state"
-        end = 2
-        load = {
-            loop = {
-                var_name = "i"
-                end = 7
-                load = {
-                    set_var = { name = "x" value = $i }
-                    set_var = { name = "y" value = $state }
-                    mul_var = { name = "x" value = 32 }
-                    mul_var = { name = "y" value = 48 }
-                    shear = {
-                        name = "plane_koishi_$(state)_$i"
-                        key = "planes_koishi"
-                        x = $x
-                        y = $y
-                        w = 32
-                        h = 48
-                    }
-                }
-            }
-        }
     }
 }

@@ -18,11 +18,11 @@ class InfoSystem private constructor() : Runnable {
     private var fps = AtomicInteger(60)
     override fun run() {
         val logger = InfoSystem::class.logger()
-        if (count++ % 900 == 0) {
+        if (count % 900 == 0) {
             logger.log(Level.INFO, "Try to GC.")
             System.gc()
         }
-        if (count % 100 == 0) {
+        if (++count % 100 == 0) {
             val cur = System.currentTimeMillis()
             val d = (cur - before).toDouble() / 1000.0
 
@@ -33,7 +33,7 @@ class InfoSystem private constructor() : Runnable {
             val lfps = (logicCur - logicBefore) / d
             val fps = (frameCur - frameBefore) / d
             this.fps.set(fps.toInt())
-            logger.log(Level.INFO, "LogicFrame pre second: $lfps, FPS: $fps")
+            logger.log(Level.INFO, "LogicFrame pre second: $lfps, FPS: $fps;$logicCur/$frameCur")
 
             before = cur
             logicBefore = logicCur
@@ -53,6 +53,10 @@ class InfoSystem private constructor() : Runnable {
         }
 
         fun fps() = instance.fps.get()
+
+        fun syncFrame() {
+            instance.frameBefore = instance.logicBefore
+        }
 
         private val format = DateFormat.getTimeInstance(DEFAULT, Locale.ENGLISH)
         fun <T : Any> KClass<T>.logger(): Logger {
