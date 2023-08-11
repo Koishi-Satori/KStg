@@ -33,7 +33,7 @@ class InfoSystem private constructor() : Runnable {
             val lfps = (logicCur - logicBefore) / d
             val fps = (frameCur - frameBefore) / d
             this.fps.set(fps.toInt())
-            logger.log(Level.INFO, "LogicFrame pre second: $lfps, FPS: $fps;$logicCur/$frameCur")
+            logger.log(Level.INFO, "LogicFrame pre second: $lfps, FPS: $fps;Bullets count: ${ObjectPool.countBullets() + PlayerManager.countBullets()}")
 
             before = cur
             logicBefore = logicCur

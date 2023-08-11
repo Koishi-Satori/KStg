@@ -57,6 +57,7 @@ class AudioPlayer private constructor() : Runnable {
         fun setBackground(background: Audio) {
             val logger = Companion::class.logger()
             instance.backgroud.stop()
+            instance.backgroud.close()
             logger.log(System.Logger.Level.INFO, "Stop current background.")
 
             logger.log(System.Logger.Level.INFO, "Opening new background audio...")

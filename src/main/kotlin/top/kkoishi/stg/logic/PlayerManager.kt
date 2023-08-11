@@ -39,6 +39,12 @@ object PlayerManager {
         }
     }
 
+    fun countBullets(): Int {
+        synchronized(lock) {
+            return bullets.size
+        }
+    }
+
     fun paintBullets(g: Graphics2D) {
         synchronized(lock) {
             for (b in bullets)
