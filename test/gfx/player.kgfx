@@ -40,6 +40,22 @@ gfx_items = {
         h = 16
     }
     shear = {
+        name = "bullet_koishi_slow_0"
+        key = "planes_koishi"
+        x = 177
+        y = 146
+        w = 32
+        h = 16
+    }
+    shear = {
+        name = "bullet_koishi_slow_1"
+        key = "planes_koishi"
+        x = 220
+        y = 160
+        w = 36
+        h = 16
+    }
+    shear = {
         name = "slow_effect_final"
         key = "slow_effect"
         x = 0

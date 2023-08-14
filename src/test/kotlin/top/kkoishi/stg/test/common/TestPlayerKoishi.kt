@@ -24,26 +24,44 @@ import kotlin.math.PI
 class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Player(initialX, initialY) {
     private var textureIndex = 0
     private val bullet = GFX.getTexture(bulletTexture)
+    private val slowBullet = GFX.getTexture("bullet_koishi_slow_0")
 
 
     override fun bulletDamage(): Int = 5
 
     override fun bullet(dx: Int, dy: Int): PlayerBullet =
-        object : PlayerBullet(this.x() + dx, this.y() + dy) {
-            override fun move() {
-                setY(y() - 5)
-            }
+        if (showCenter)
+            object : PlayerBullet(this.x() + dx, this.y() + dy) {
+                override fun move() {
+                    setY(y() - 6)
+                }
 
-            override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 5)
+                override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 4)
 
-            override fun paint(g: Graphics2D) {
-                // 16 * 35
-                val x = xD()
-                val y = yD()
-                val rd = bullet.renderPoint(x, y, PI / 2)
-                bullet.paint(g, bullet.rotate(-PI / 2), rd.x, rd.y)
+                override fun paint(g: Graphics2D) {
+                    // 16 * 35
+                    val x = xD()
+                    val y = yD()
+                    val rd = slowBullet.renderPoint(x, y, PI / 2)
+                    slowBullet.paint(g, slowBullet.rotate(-PI / 2), rd.x, rd.y)
+                }
             }
-        }
+        else
+            object : PlayerBullet(this.x() + dx, this.y() + dy) {
+                override fun move() {
+                    setY(y() - 4)
+                }
+
+                override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 5)
+
+                override fun paint(g: Graphics2D) {
+                    // 16 * 35
+                    val x = xD()
+                    val y = yD()
+                    val rd = bullet.renderPoint(x, y, PI / 2)
+                    bullet.paint(g, bullet.rotate(-PI / 2), rd.x, rd.y)
+                }
+            }
 
     override fun shot() {
         AudioPlayer.addTask("test_player_shot")
@@ -60,10 +78,10 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
                     PlayerManager.addBullet(bullet(0, -32))
                     PlayerManager.addBullet(bullet(-8, -32))
                 } else {
+                    PlayerManager.addBullet(bullet(16, -32))
                     PlayerManager.addBullet(bullet(8, -32))
-                    PlayerManager.addBullet(bullet(4, -32))
-                    PlayerManager.addBullet(bullet(-4, -32))
                     PlayerManager.addBullet(bullet(-8, -32))
+                    PlayerManager.addBullet(bullet(-16, -32))
                 }
             } else {
                 if (power >= 0.0f && power < 2.0f)
@@ -76,10 +94,10 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
                     PlayerManager.addBullet(bullet(0, -32))
                     PlayerManager.addBullet(bullet(-16, -32))
                 } else {
+                    PlayerManager.addBullet(bullet(32, -32))
                     PlayerManager.addBullet(bullet(16, -32))
-                    PlayerManager.addBullet(bullet(8, -32))
-                    PlayerManager.addBullet(bullet(-8, -32))
                     PlayerManager.addBullet(bullet(-16, -32))
+                    PlayerManager.addBullet(bullet(-32, -32))
                 }
             }
         }

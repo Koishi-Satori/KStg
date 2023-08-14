@@ -59,12 +59,13 @@ class TestEnemy0(
         val t = GFX.getTexture(texture)
         val rd = t.renderPoint(x.get(), y.get())
         t.paint(g, t.normalMatrix(), rd.x, rd.y)
-        g.draw(shape().bounds)
+        //g.draw(shape().bounds)
     }
 
     override fun update(): Boolean {
         val dead = super.update()
         if (!dead) {
+            move()
             bullet()
         }
         return dead

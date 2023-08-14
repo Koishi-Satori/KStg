@@ -7,7 +7,7 @@ import kotlin.random.Random
 
 object GameSystem {
     val mainMenu = MainMenu()
-    private val rootMainMenu =
+    val rootMainMenu =
         MainMenu.MainMenuItem(
             50,
             150,

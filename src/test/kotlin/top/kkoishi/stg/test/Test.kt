@@ -2,6 +2,10 @@ package top.kkoishi.stg.test
 
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.audio.Sounds
+import top.kkoishi.stg.common.AbstractStage
+import top.kkoishi.stg.common.BossAction
+import top.kkoishi.stg.common.StageAction
+import top.kkoishi.stg.common.entities.Boss
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.gfx.*
 import top.kkoishi.stg.gfx.Graphics
@@ -10,7 +14,10 @@ import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.main.ui.LoadingFrame
 import top.kkoishi.stg.script.GFXLoader
 import top.kkoishi.stg.test.common.GameSystem
+import top.kkoishi.stg.test.common.actions.TestBoss0Action0
+import top.kkoishi.stg.test.common.enemy.TestBoss0
 import top.kkoishi.stg.test.common.enemy.TestEnemy0
+import top.kkoishi.stg.test.common.enemy.TestEnemy1
 import top.kkoishi.stg.test.common.stages.Stage1
 import java.awt.*
 import java.awt.event.FocusEvent
@@ -36,7 +43,12 @@ object Test {
         System.setProperty("swing.aatext", "true")
         System.setProperty("awt.nativeDoubleBuffering", "true")
         val load = LoadingFrame(ImageIO.read(File("./test/load.jpg")))
+        var fullScreen = false
         InfoSystem.logToFile = true
+
+        if (args.isNotEmpty() && args[0] == "full-screen") {
+            fullScreen = true
+        }
 
         // load textures from scripts
         GFXLoader(Path.of("./test/gfx")).loadDefinitions()
@@ -53,12 +65,13 @@ object Test {
         Sounds.loadAudio("th15_enemy_damage_02", "./test/audio/sounds/th15_enemy_damage_02.wav")
         Sounds.loadAudio("enemy_dead", "./test/audio/sounds/enemy_dead_0.wav")
         Sounds.loadAudio("enemy_shoot", "./test/audio/sounds/enemy_shoot.wav")
+        Sounds.loadAudio("test_boss_0_bgm", "./test/audio/sounds/test_boss_0_bgm.wav")
 
         val f = JFrame("KKoishi_ STG Engine test")
         f.setSize(640 + 14, 480 + 37)
         f.isResizable = false
         f.iconImage = ImageIO.read(File("./resources/logo.ico"))
-        f.isUndecorated = true
+        f.isUndecorated = fullScreen
         f.isVisible = true
         f.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(e: WindowEvent?) {
@@ -78,13 +91,6 @@ object Test {
                 }
             }
         )
-
-        Graphics.refresh(f)
-        Graphics.setScreenSize(Dimension(640, 480))
-        Graphics.setBufferSize(640, 480)
-        Graphics.setUIInsets(16, 36, 16, 220)
-        Graphics.setFont("sidebar", Font("Times New Roman", Font.BOLD, 20))
-        f.size = Renderer.monitorSize()
         PlayerManager.keyBinds(
             f,
             Player.VK_C,
@@ -98,8 +104,17 @@ object Test {
             Player.VK_Z,
             KeyEvent.VK_F11
         )
+
+        Graphics.refresh(f)
+        Graphics.setScreenSize(Dimension(640, 480))
+        Graphics.setBufferSize(640, 480)
+        Graphics.setUIInsets(16, 36, 16, 220)
+        Graphics.setFont("sidebar", Font("Times New Roman", Font.BOLD, 20))
         load.end()
-        Renderer.fullScreen()
+        if (fullScreen) {
+            f.size = Renderer.monitorSize()
+            Renderer.fullScreen()
+        }
         menu()
         beginThreads()
     }
@@ -121,15 +136,58 @@ object Test {
     }
 
     fun start(playerIndex: Int = 0) {
-        PlayerManager.cur = Stage1()
+        val stage1 = Stage1()
+        stage1.addAction(StageAction(10) {
+            AudioPlayer.setBackground(Sounds.getAudio("bk_1"))
+        })
+        stage1.addAction(StageAction(40) {
+            ObjectPool.addObject(TestEnemy0(230, 270, 100, "mirror") { _, _ -> })
+        })
+        stage1.addAction(object : StageAction(250L, action = {
+            ObjectPool.addObject(TestEnemy1(104, 50))
+            ObjectPool.addObject(TestEnemy1(124, 50))
+            ObjectPool.addObject(TestEnemy1(204, 50))
+            ObjectPool.addObject(TestEnemy1(224, 50))
+        }) {
+            override fun canAction(): Boolean {
+                if (!ObjectPool.objects().hasNext())
+                    return super.canAction()
+                return false
+            }
+        })
+        stage1.addAction(object : StageAction(100L, action = {
+            ObjectPool.addObject(TestBoss0(230, 270, TestBoss0Action0(2000, 2000L)))
+        }) {
+            override fun invoke(stage: AbstractStage) {
+                AudioPlayer.setBackground(Sounds.getAudio("test_boss_0_bgm"))
+                super.invoke(stage)
+            }
+
+            override fun canAction(): Boolean {
+                if (!ObjectPool.objects().hasNext())
+                    return super.canAction()
+                return false
+            }
+        })
+        stage1.addAction(object : StageAction(500L, action = {
+            AudioPlayer.setBackground(Sounds.getAudio("bk_0"))
+            GameSystem.mainMenu.curLevel = GameSystem.rootMainMenu
+            // switch to menu
+            GenericFlags.gameState.set(GenericFlags.STATE_MENU)
+        }) {
+            override fun canAction(): Boolean {
+                if (!ObjectPool.objects().hasNext())
+                    return super.canAction()
+                return false
+            }
+        })
+        PlayerManager.cur = stage1
         val player = GameSystem.players[playerIndex]
         player.x.set(Graphics.getCenterX().toDouble())
-        player.y.set(55.0)
+        player.y.set(355.0)
         ObjectPool.player = player
         val sideBar = GameSystem.sideBar
         ObjectPool.addUIObject(sideBar)
-        AudioPlayer.setBackground(Sounds.getAudio("bk_1"))
-        ObjectPool.addObject(TestEnemy0(230, 270, 100, "mirror") { _, _ -> })
 
         // start game
         GenericFlags.gameState.set(GenericFlags.STATE_PLAYING)

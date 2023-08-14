@@ -5,6 +5,7 @@ import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.logic.ObjectPool
 import java.awt.Graphics2D
 import java.awt.Shape
+import java.util.concurrent.atomic.AtomicReference
 import kotlin.math.sqrt
 
 abstract class AbstractBullet(initialX: Int, initialY: Int) : Bullet(initialX, initialY) {
@@ -60,15 +61,13 @@ abstract class PlayerBullet(initialX: Int, initialY: Int) : AbstractBullet(initi
         return false
     }
 
-    override fun from(): Entity? = ObjectPool.player
+    override fun from(): Player = ObjectPool.player
 }
 
 abstract class BaseItem(
     initialX: Int,
     initialY: Int,
     val speed: Double,
-    val shape: Shape,
-    val speedToPlayer: Float,
 ) :
     Item(initialX, initialY) {
     override fun move() {
@@ -76,20 +75,56 @@ abstract class BaseItem(
         y.set(oldY + speed)
     }
 
-    override fun shape(): Shape = shape
-
-    override fun moveToPlayer(player: Player) {
-        val pX = player.x()
-        val pY = player.y()
-        // |dx|/|dy| = |pX-x|/|pY-y|
-
-    }
+    override fun moveToPlayer(player: Player) {}
 
     final override fun update(): Boolean = super.update()
 
     final override fun collide(o: Object): Boolean = super.collide(o)
 
     final override fun paint(g: Graphics2D) = super.paint(g)
+}
+
+abstract class BaseEnemy(health: Int, initialX: Int, initialY: Int): Enemy(health) {
+    private val x: AtomicReference<Double> = AtomicReference(initialX.toDouble())
+    private val y: AtomicReference<Double> = AtomicReference(initialY.toDouble())
+
+    fun x(): Double = x.get()
+    fun y(): Double = y.get()
+    fun x(x: Double) = this.x.set(x)
+    fun y(y: Double) = this.y.set(y)
+
+
+    abstract fun texture(): String
+    abstract fun paintOthers(r: Graphics2D)
+    abstract fun bullet()
+
+    override fun collide(o: Object): Boolean {
+        if (o is PlayerBullet && CollideSystem.collide(this, o)) {
+            beingHit(o)
+            return true
+        }
+        return false
+    }
+
+    override fun isDead(): Boolean = health <= 0
+
+    override fun beingHit(o: Object) {
+        this.health -= ObjectPool.player.bulletDamage()
+    }
+
+    override fun paint(g: Graphics2D) {
+        val t = GFX.getTexture(texture())
+        val rd = t.renderPoint(x.get(), y.get())
+        t.paint(g, t.normalMatrix(), rd.x, rd.y)
+        paintOthers(g)
+    }
+
+    override fun update(): Boolean {
+        val dead = super.update()
+        if (!dead)
+            bullet()
+        return dead
+    }
 }
 
 object Bullets {

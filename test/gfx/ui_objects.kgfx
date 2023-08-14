@@ -19,6 +19,10 @@ gfx_items = {
             name = "main_menu_select"
             path = "./icons/main_menu_select.png"
     }
+    gfx = {
+        name = "stage_clear"
+        path = "./icons/stage_clear.png"
+    }
     shear = {
         name = "ui_sidebar"
         key = "ui_base"

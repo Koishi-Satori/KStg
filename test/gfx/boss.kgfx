@@ -1,0 +1,30 @@
+gfx_items = {
+    gfx = {
+        name = "test_boss_0"
+        path = "./icons/test_boss_0.png"
+    }
+    loop = {
+            var_name = "state"
+            end = 2
+            load = {
+                loop = {
+                    var_name = "i"
+                    end = 3
+                    load = {
+                        set_var = { name = "x" value = $i }
+                        set_var = { name = "y" value = $state }
+                        mul_var = { name = "x" value = 64 }
+                        mul_var = { name = "y" value = 80 }
+                        shear = {
+                            name = "test_boss_$(state)_$i"
+                            key = "test_boss_0"
+                            x = $x
+                            y = $y
+                            w = 64
+                            h = 80
+                        }
+                    }
+                }
+            }
+        }
+}

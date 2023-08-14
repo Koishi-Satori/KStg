@@ -11,4 +11,24 @@ gfx_items = {
         name = "bg_1_0"
         path = "./icons/bg_1_1.png"
     }
+    gfx = {
+        name = "ghost_fire"
+        path = "./icons/ghost_fire.png"
+    }
+    loop = {
+        var_name = "i"
+        end = 7
+        load = {
+            set_var = { name = "x" value = $i }
+            mul_var = { name = "x" value = 48 }
+            shear = {
+                name = "ghost_fire_$i"
+                key = "ghost_fire"
+                x = $x
+                y = 0
+                w = 48
+                h = 64
+            }
+        }
+    }
 }
