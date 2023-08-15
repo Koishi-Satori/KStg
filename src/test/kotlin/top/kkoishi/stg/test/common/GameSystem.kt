@@ -3,7 +3,7 @@ package top.kkoishi.stg.test.common
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.Graphics
-import kotlin.random.Random
+import top.kkoishi.stg.logic.Threads
 
 object GameSystem {
     val mainMenu = MainMenu()
@@ -43,8 +43,8 @@ object GameSystem {
         mainMenu.setRoot(rootMainMenu)
     }
 
-    val randomSeed = System.currentTimeMillis()
-    val rand = Random(randomSeed)
+    val randomSeed = Threads.randomSeed()
+    val rand = Threads.random()
     val sideBar = GameSideBar()
     val players: Array<Player> = arrayOf(
         TestPlayerKoishi(Graphics.getCenterX(), 55, "bullet_koishi")

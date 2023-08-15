@@ -28,6 +28,7 @@ class GFXLoader(private val root: Path) : LocalVariables("gfx_loader") {
                 try {
                     logger.log(System.Logger.Level.INFO, "Try to load textures from $path")
                     loadDefinitionFile(path)
+                    logger.log(System.Logger.Level.INFO, "Success to load all the textures from $path")
                 } catch (e: Exception) {
                     logger.log(System.Logger.Level.ERROR, e)
                 }

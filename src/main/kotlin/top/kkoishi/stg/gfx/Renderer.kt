@@ -4,6 +4,7 @@ import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.awt.*
 import java.awt.geom.AffineTransform
+import java.awt.geom.Dimension2D
 import java.awt.image.AffineTransformOp
 import java.util.concurrent.atomic.AtomicLong
 
@@ -14,19 +15,17 @@ class Renderer private constructor() : Runnable {
     var dx = 0
     var dy = 0
 
-    private fun fullScreen() {
+    private fun fullScreen(screenSize: Dimension2D = Graphics.getScreenSize()) {
         val monitorMode = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.displayMode
-        val oldScreenSize = Dimension(800, 600)
         val monitorRate = monitorMode.width.toDouble() / monitorMode.height
-        val rate = oldScreenSize.width / oldScreenSize.height
+        val rate = screenSize.width / screenSize.height
         val oScale: Double
         if (monitorRate > rate) {
-            oScale = monitorMode.height.toDouble() / oldScreenSize.height
-            dx = ((monitorMode.width - oScale * oldScreenSize.width) / 2).toInt()
-        }
-        else {
-            oScale = monitorMode.width.toDouble() / oldScreenSize.width
-            dy = ((monitorMode.height - oScale * oldScreenSize.height) / 2).toInt()
+            oScale = monitorMode.height.toDouble() / screenSize.height
+            dx = ((monitorMode.width - oScale * screenSize.width) / 2).toInt()
+        } else {
+            oScale = monitorMode.width.toDouble() / screenSize.width
+            dy = ((monitorMode.height - oScale * screenSize.height) / 2).toInt()
         }
 
         scale = oScale to oScale
@@ -47,13 +46,11 @@ class Renderer private constructor() : Runnable {
         val gameState = GenericFlags.gameState.get()
         val r = Graphics.render()
         val bRender = Graphics.buffer().createGraphics()
-        val size = Graphics.getScreenSize()
+        bRender.color = Color.WHITE
+        bRender.setPaintMode()
         val insets = Graphics.getFrameInsets()
-        val uiInsets = Graphics.getUIInsets()
 
         // clear the screen
-        bRender.color = Color.WHITE
-        bRender.fillRect(0, 0, size.width.toInt() + uiInsets.left, size.height.toInt() + uiInsets.top)
         when (gameState) {
             GenericFlags.STATE_PLAYING -> {
                 try {
@@ -130,6 +127,7 @@ class Renderer private constructor() : Runnable {
         }
 
         fun fullScreen() = instance.fullScreen()
+        fun fullScreen(oldWidth: Int, oldHeight: Int) = instance.fullScreen(Dimension(oldWidth, oldHeight))
 
         fun monitorSize(): Dimension {
             val monitorMode = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.displayMode

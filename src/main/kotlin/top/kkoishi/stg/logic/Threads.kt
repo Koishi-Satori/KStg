@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadFactory
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.random.Random
 
 class Threads private constructor(size: Int = 4) {
     private val logger = Threads::class.logger()
@@ -18,6 +19,18 @@ class Threads private constructor(size: Int = 4) {
     }
 
     companion object {
+        private val randomSeed: AtomicLong = AtomicLong(System.currentTimeMillis())
+        private var random = Random(randomSeed())
+
+        fun randomSeed() = randomSeed.get()
+
+        fun refreshRandomSeed() {
+            randomSeed.set(System.currentTimeMillis())
+            random = Random(randomSeed())
+        }
+
+        fun random() = random
+
         fun getInstance() = Threads()
 
         @JvmStatic

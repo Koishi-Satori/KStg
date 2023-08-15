@@ -30,7 +30,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
     override fun bulletDamage(): Int = 5
 
     override fun bullet(dx: Int, dy: Int): PlayerBullet =
-        if (showCenter)
+        if (slower)
             object : PlayerBullet(this.x() + dx, this.y() + dy) {
                 override fun move() {
                     setY(y() - 6)
@@ -67,7 +67,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
         AudioPlayer.addTask("test_player_shot")
         AudioPlayer.addTask("test_player_shot")
         synchronized(logger) {
-            if (showCenter) {
+            if (slower) {
                 if (power >= 0.0f && power < 2.0f)
                     PlayerManager.addBullet(bullet(0, -32))
                 else if (power >= 2.0f && power < 3.0f) {
@@ -118,7 +118,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
     override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 5)
 
     override fun paint(g: Graphics2D) {
-        if (showCenter) {
+        if (slower) {
             val key = texture()
             val t = GFX.getTexture(key)
             val xI = x.get()

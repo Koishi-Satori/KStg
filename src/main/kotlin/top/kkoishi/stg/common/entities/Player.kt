@@ -12,15 +12,42 @@ import java.awt.Shape
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.collections.HashMap
 
+/**
+ * The basic class of player.
+ *
+ * @param initialX the initial X coordinate of the player.
+ * @param initialY the initial Y coordinate of the player.
+ * @author KKoishi_
+ */
+@Suppress("MemberVisibilityCanBePrivate")
 abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
+    /**
+     * The X coordinate of the player.
+     */
     val x = AtomicReference(initialX.toDouble())
+
+    /**
+     * The Y coordinate of the player.
+     */
     val y = AtomicReference(initialY.toDouble())
+
+    /**
+     * The speed of the player.
+     */
     protected var speed = 7.0
     protected var higherSpeed = 7.0
     protected var lowerSpeed = 3.0
-    protected var shotCooldown = 3
+
+    /**
+     * The shot coll down of the player.
+     */
+    protected var shotCoolDown = 3
     protected var shotCoolCount = 0
-    protected var showCenter: Boolean = false
+
+    /**
+     * If player is in slow state.
+     */
+    protected var slower: Boolean = false
     protected var moveState: Int = STATE_STILL
     protected var power: Float = 1.0f
     protected val logger = Player::class.logger()
@@ -31,6 +58,12 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     fun setPlayerPower(p: Float) {
         synchronized(logger) {
             power = p
+        }
+    }
+
+    fun power(): Float {
+        synchronized(logger) {
+            return power
         }
     }
 
@@ -47,6 +80,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     override fun beingHit(o: Object) {
         val oldLife = PlayerManager.life()
         PlayerManager.setLife(oldLife - 1)
+        logger.log(System.Logger.Level.INFO, "$this is hit by $o")
     }
 
     open fun shot() = PlayerManager.addBullet(bullet())
@@ -65,10 +99,10 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
             VK_SHIFT -> {
                 // press shift
                 speed = if (PlayerManager.binds[keyCode]) {
-                    showCenter = true
+                    slower = true
                     lowerSpeed
                 } else {
-                    showCenter = false
+                    slower = false
                     higherSpeed
                 }
             }
@@ -107,7 +141,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
         val point = t.renderPoint(xI, yI)
         t.paint(g, t.normalMatrix(), point.x, point.y)
 
-        if (showCenter) with(GFX.getTexture("center")) {
+        if (slower) with(GFX.getTexture("center")) {
             val rd = renderPoint(xI, yI)
             this.paint(g, normalMatrix(), rd.x, rd.y)
         }
@@ -197,7 +231,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
                     newY = limitY
                 it.y.set(newY)
             }, VK_Z to {
-                if (it.shotCoolCount++ == it.shotCooldown) {
+                if (it.shotCoolCount++ == it.shotCoolDown) {
                     it.shotCoolCount = 0
                     it.shot()
                 }

@@ -3,9 +3,7 @@ package top.kkoishi.stg.test
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.common.AbstractStage
-import top.kkoishi.stg.common.BossAction
 import top.kkoishi.stg.common.StageAction
-import top.kkoishi.stg.common.entities.Boss
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.gfx.*
 import top.kkoishi.stg.gfx.Graphics
@@ -46,7 +44,7 @@ object Test {
         var fullScreen = false
         InfoSystem.logToFile = true
 
-        if (args.isNotEmpty() && args[0] == "full-screen") {
+        if (args.isNotEmpty() && args[0] == "fullscreen") {
             fullScreen = true
         }
 
@@ -68,7 +66,10 @@ object Test {
         Sounds.loadAudio("test_boss_0_bgm", "./test/audio/sounds/test_boss_0_bgm.wav")
 
         val f = JFrame("KKoishi_ STG Engine test")
-        f.setSize(640 + 14, 480 + 37)
+        if (fullScreen)
+            f.setSize(640, 480)
+        else
+            f.setSize(640 + 14, 480 + 37)
         f.isResizable = false
         f.iconImage = ImageIO.read(File("./resources/logo.ico"))
         f.isUndecorated = fullScreen
@@ -109,11 +110,14 @@ object Test {
         Graphics.setScreenSize(Dimension(640, 480))
         Graphics.setBufferSize(640, 480)
         Graphics.setUIInsets(16, 36, 16, 220)
-        Graphics.setFont("sidebar", Font("Times New Roman", Font.BOLD, 20))
+        Graphics.setFont("sidebar", Font("Times New Roman", Font.PLAIN, 20))
         load.end()
         if (fullScreen) {
-            f.size = Renderer.monitorSize()
-            Renderer.fullScreen()
+            if (GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.isFullScreenSupported)
+                GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.fullScreenWindow = f
+            else
+                f.size = Renderer.monitorSize()
+            Renderer.fullScreen(800, 600)
         }
         menu()
         beginThreads()
