@@ -117,7 +117,7 @@ object Test {
                 GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.fullScreenWindow = f
             else
                 f.size = Renderer.monitorSize()
-            Renderer.fullScreen(800, 600)
+            Renderer.fullScreen()
         }
         menu()
         beginThreads()

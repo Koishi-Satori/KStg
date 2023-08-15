@@ -16,16 +16,21 @@ class Renderer private constructor() : Runnable {
     var dy = 0
 
     private fun fullScreen(screenSize: Dimension2D = Graphics.getScreenSize()) {
-        val monitorMode = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.displayMode
+        val device = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice
+        val tx = device.defaultConfiguration.defaultTransform
+        val monitorMode = device.displayMode
+
         val monitorRate = monitorMode.width.toDouble() / monitorMode.height
         val rate = screenSize.width / screenSize.height
-        val oScale: Double
+        var oScale: Double
         if (monitorRate > rate) {
             oScale = monitorMode.height.toDouble() / screenSize.height
             dx = ((monitorMode.width - oScale * screenSize.width) / 2).toInt()
+            oScale /= tx.scaleX
         } else {
             oScale = monitorMode.width.toDouble() / screenSize.width
             dy = ((monitorMode.height - oScale * screenSize.height) / 2).toInt()
+            oScale /= tx.scaleY
         }
 
         scale = oScale to oScale

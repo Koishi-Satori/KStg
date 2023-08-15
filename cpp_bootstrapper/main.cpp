@@ -37,8 +37,8 @@ int main(int argc, char **args) {
             jre.assign(getenv("JDK_HOME"));
     }
 
-    java_exe = jre + "/bin/java.exe";
-    if (access(java_exe.c_str(), F_OK) == -1) {
+    java_exe = jre + "/bin/java";
+    if (access(java_exe.c_str(), F_OK) == -1 && access((java_exe + ".exe").c_str(), F_OK) == -1) {
         cout << "ERROR: Failed to start KStg Engine. Java: " << java_exe << endl;
         cout << " No JRE is found, please define local variable pointed to valid path" << endl;
         cout << " Local Variables: Kkoishi_JDK, JAVA_HOME, JDK_HOME" << endl;
