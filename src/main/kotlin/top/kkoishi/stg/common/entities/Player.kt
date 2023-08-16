@@ -199,7 +199,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
         const val VK_ESCAPE = 0x1B
 
         @JvmStatic
-        private val keyEvents: MutableMap<Int, (Player) -> Unit> = HashMap(
+        val keyEvents: MutableMap<Int, (Player) -> Unit> = HashMap(
             mapOf(VK_LEFT to {
                 it.moveState = STATE_LEFT
                 val oldX = it.x.get()
