@@ -4,6 +4,8 @@ import top.kkoishi.stg.exceptions.InternalError
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.Texture
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
+import top.kkoishi.stg.logic.InfoSystem.Companion.log
+import top.kkoishi.stg.logic.InfoSystem.Companion.with
 import java.util.concurrent.atomic.AtomicBoolean
 
 abstract class AbstractStage(initialAmount: Int = 32) : Stage() {
@@ -23,7 +25,7 @@ abstract class AbstractStage(initialAmount: Int = 32) : Stage() {
                 if (action.canAction()) {
                     actionsList.removeFirst()
                     action(this)
-                    AbstractStage::class.logger().log(System.Logger.Level.INFO, "Invoke the action: $action")
+                    AbstractStage::class.logger() log "Invoke the action: $action" with System.Logger.Level.INFO
                 } else
                     break
             }
@@ -31,7 +33,7 @@ abstract class AbstractStage(initialAmount: Int = 32) : Stage() {
     }
 
     fun addAction(action: StageAction) = synchronized(action) {
-        AbstractStage::class.logger().log(System.Logger.Level.INFO, "Add new action: $action")
+        AbstractStage::class.logger() log "Add new action: $action" with System.Logger.Level.INFO
         actionsList.addLast(action)
     }
 

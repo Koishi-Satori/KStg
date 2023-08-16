@@ -44,6 +44,12 @@ int main(int argc, char **args) {
         return_dirt;
     }
 
+    if (access((java_exe + "w").c_str(), F_OK) == -1 && access((java_exe + "w.exe").c_str(), F_OK) == -1) {
+        std::cout << "IGNORED ERROR: Failed to access javaw" << std::endl;
+    } else {
+        java_exe += "w";
+    }
+
     exec = "\"" + java_exe + "\"";
 
     exec += kkoishi_kstg_boot::read_jvm_options("./kstg.vmoptions");

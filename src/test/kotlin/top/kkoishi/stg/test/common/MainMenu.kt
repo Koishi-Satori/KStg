@@ -7,6 +7,7 @@ import top.kkoishi.stg.gfx.Texture
 import top.kkoishi.stg.logic.GenericFlags
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.PlayerManager
+import top.kkoishi.stg.logic.SingleInstanceEnsurer
 import top.kkoishi.stg.test.Test
 import java.awt.Graphics2D
 import java.awt.event.KeyEvent
@@ -51,7 +52,10 @@ class MainMenu : Menu(GenericFlags.STATE_MENU) {
 
         protected open fun nullAction() {
             when (select) {
-                3 -> exitProcess(0)
+                3 -> {
+                    SingleInstanceEnsurer.release()
+                    exitProcess(0)
+                }
                 0, 1, 2 -> Test.start(0)
                 else -> { /* do nothing */
                 }

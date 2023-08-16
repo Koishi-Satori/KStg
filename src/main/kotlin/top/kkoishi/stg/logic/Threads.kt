@@ -15,7 +15,7 @@ class Threads private constructor(size: Int = 4) {
     @JvmOverloads
     fun schedule(r: Runnable, period: Long, delay: Long = 0L) {
         threadPool.scheduleAtFixedRate(r, delay, period, TimeUnit.MILLISECONDS)
-        logger.log(System.Logger.Level.INFO, "Add new thread $r")
+        logger.log(System.Logger.Level.INFO, "Add a new thread $r")
     }
 
     companion object {

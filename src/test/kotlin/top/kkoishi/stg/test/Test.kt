@@ -42,6 +42,7 @@ object Test {
         System.setProperty("awt.nativeDoubleBuffering", "true")
         val load = LoadingFrame(ImageIO.read(File("./test/load.jpg")))
         var fullScreen = false
+        SingleInstanceEnsurer.setLockedFile("./.lock")
         InfoSystem.logToFile = true
 
         if (args.isNotEmpty() && args[0] == "fullscreen") {
@@ -76,6 +77,7 @@ object Test {
         f.isVisible = true
         f.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(e: WindowEvent?) {
+                SingleInstanceEnsurer.release()
                 exitProcess(514)
             }
         })

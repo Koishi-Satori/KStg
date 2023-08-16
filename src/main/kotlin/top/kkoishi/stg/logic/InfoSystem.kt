@@ -1,15 +1,19 @@
 package top.kkoishi.stg.logic
 
 import top.kkoishi.stg.gfx.Renderer
+import java.io.PrintStream
 import java.lang.System.Logger.Level
+import java.nio.file.Path
 import java.text.DateFormat
 import java.text.DateFormat.DEFAULT
 import java.time.Instant
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.io.path.outputStream
 import kotlin.reflect.KClass
 
+@Suppress("MemberVisibilityCanBePrivate")
 class InfoSystem private constructor() : Runnable {
     private var count = 0
     private var before = System.currentTimeMillis()
@@ -19,7 +23,7 @@ class InfoSystem private constructor() : Runnable {
     override fun run() {
         val logger = InfoSystem::class.logger()
         if (count % 900 == 0) {
-            logger.log(Level.INFO, "Try to GC.")
+            logger log "Try to GC." with Level.INFO
             System.gc()
         }
         if (++count % 100 == 0) {
@@ -30,10 +34,13 @@ class InfoSystem private constructor() : Runnable {
             val logicCur = GameLoop.logicFrame()
             val frameCur = Renderer.frame()
 
-            val lfps = (logicCur - logicBefore) / d
+            val logicFps = (logicCur - logicBefore) / d
             val fps = (frameCur - frameBefore) / d
             this.fps.set(fps.toInt())
-            logger.log(Level.INFO, "LogicFrame pre second: $lfps, FPS: $fps;Bullets count: ${ObjectPool.countBullets() + PlayerManager.countBullets()}")
+            logger.log(
+                Level.INFO,
+                "LogicFrame pre second: $logicFps, FPS: $fps;Bullets count: ${ObjectPool.countBullets() + PlayerManager.countBullets()}"
+            )
 
             before = cur
             logicBefore = logicCur
@@ -45,6 +52,7 @@ class InfoSystem private constructor() : Runnable {
         private val instance: InfoSystem = InfoSystem()
 
         var logToFile = false
+        private val output = PrintStream(Path.of("./output.log").outputStream(), false, Charsets.UTF_8)
 
         private val loggers: MutableMap<KClass<out Any>, Logger> = ConcurrentHashMap()
 
@@ -66,26 +74,36 @@ class InfoSystem private constructor() : Runnable {
             return logger
         }
 
+        infix fun Logger.log(any: Any) = this to any
+        infix fun Pair<Logger, Any>.with(level: Level) = first.log(level, second)
+
         class Logger(val name: String, private val kClass: KClass<out Any>) {
+
             private fun prefix(level: Level) =
                 "[${format.format(Date.from(Instant.now()))}] [$name<-${kClass.simpleName}/${level.name}]"
 
             @JvmOverloads
             fun log(level: Level, info: String = "") {
-                println("${prefix(level)}: $info")
+                val msg = "${prefix(level)}: $info"
+                println(msg)
+                if (logToFile) {
+                    output.println(msg)
+                    output.flush()
+                }
             }
 
-            fun log(level: Level, e: Exception) {
+            fun log(level: Level, e: Throwable) {
                 if (level == Level.WARNING)
-                    println("${prefix(level)}: ${e.message}")
+                    log(level, e.message ?: "")
                 else
-                    println("${prefix(level)}: ${e.message}\n${e.stackTraceToString()}")
+                    log(level, "${e.message}\n${e.stackTraceToString()}")
             }
 
             fun log(level: Level, a: Any) {
-                if (a is Exception)
+                if (a is Throwable)
                     log(level, a)
-                log(level, a.toString())
+                else
+                    log(level, a.toString())
             }
         }
     }
