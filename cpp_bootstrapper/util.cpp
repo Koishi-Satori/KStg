@@ -77,7 +77,6 @@ namespace kkoishi_kstg_boot {
         return res;
     }
 
-
     std::string processArguments(int begin, int argc, char **args) {
         if (begin == argc)
             return "";

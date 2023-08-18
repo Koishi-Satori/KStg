@@ -6,6 +6,7 @@
       <excludeFolder url="file://$MODULE_DIR$/cpp_bootstrapper/cmake-build-debug/CMakeFiles/3.20.2/CompilerIdC/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/cpp_bootstrapper/cmake-build-debug/CMakeFiles/3.20.2/CompilerIdCXX/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/cpp_bootstrapper/cmake-build-debug/CMakeFiles/CMakeTmp" />
+      <excludeFolder url="file://$MODULE_DIR$/crash_logs" />
     </content>
   </component>
 </module>

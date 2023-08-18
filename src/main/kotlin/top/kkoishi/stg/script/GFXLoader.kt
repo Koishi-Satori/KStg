@@ -1,5 +1,7 @@
 package top.kkoishi.stg.script
 
+import top.kkoishi.stg.Loader
+import top.kkoishi.stg.Loader.Companion.register
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.exceptions.ScriptException
 import top.kkoishi.stg.gfx.GFX
@@ -14,19 +16,20 @@ import top.kkoishi.stg.script.VM.processVars
 import java.io.File
 import java.nio.file.Path
 
-class GFXLoader(private val root: Path) : LocalVariables("gfx_loader") {
+class GFXLoader(private val root: Path) : LocalVariables("gfx_loader"), Loader {
 
     init {
         LocalVariables[scopeName] = this
     }
 
     private val logger = GFXLoader::class.logger()
-    fun loadDefinitions() {
+    override fun loadDefinitions() {
         logger.log(System.Logger.Level.INFO, "Load textures from scripts.")
         for (path in root.toFile().listFiles()!!) {
             if (path.isFile)
                 try {
                     logger.log(System.Logger.Level.INFO, "Try to load textures from $path")
+                    register(path.canonicalPath.toString())
                     loadDefinitionFile(path)
                     logger.log(System.Logger.Level.INFO, "Success to load all the textures from $path")
                 } catch (e: Exception) {

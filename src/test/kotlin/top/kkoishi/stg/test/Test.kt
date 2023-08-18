@@ -40,9 +40,13 @@ object Test {
         System.setProperty("sun.java2d.opengl", "true")
         System.setProperty("swing.aatext", "true")
         System.setProperty("awt.nativeDoubleBuffering", "true")
+        if (SingleInstanceEnsurer.setLockedFile("./.lock") == null)
+            load(args)
+    }
+
+    private fun load(args: Array<String>) {
         val load = LoadingFrame(ImageIO.read(File("./test/load.jpg")))
         var fullScreen = false
-        SingleInstanceEnsurer.setLockedFile("./.lock")
         InfoSystem.logToFile = true
 
         if (args.isNotEmpty() && args[0] == "fullscreen") {
