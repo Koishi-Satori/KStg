@@ -223,3 +223,11 @@
 [11:37:05 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.49023590064053, FPS: 62.49023590064053;Bullets count: 0
 [11:37:11 AM] [Pool-1[1] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.5, FPS: 62.5;Bullets count: 0
 [11:37:17 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.52931061435047, FPS: 62.52931061435047;Bullets count: 0
+[11:37:24 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.402496099843994, FPS: 62.402496099843994;Bullets count: 0
+[11:37:30 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.58801439524331, FPS: 62.58801439524331;Bullets count: 0
+[11:37:37 AM] [Pool-1[1] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.47071685147588, FPS: 62.47071685147588;Bullets count: 0
+[11:37:43 AM] [Pool-1[2] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.49023590064053, FPS: 62.49023590064053;Bullets count: 0
+[11:37:49 AM] [Pool-1[2] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.50976715111736, FPS: 62.50976715111736;Bullets count: 0
+[11:37:49 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: Try to GC.
+[11:37:52 AM] [AWT-EventQueue-0<-null/INFO]: Gained focus, try to resync again.
+[11:37:53 AM] [AWT-EventQueue-0<-SingleInstanceEnsurer/INFO]: Release the file lock on java.io.RandomAccessFile@58f02639

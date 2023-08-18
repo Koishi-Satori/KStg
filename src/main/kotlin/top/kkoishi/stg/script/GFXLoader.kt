@@ -274,7 +274,7 @@ class GFXLoader(private val root: Path) : LocalVariables("gfx_loader"), Loader {
             private val end: Int,
             private val name: String?,
             private val instructions: InstructionSequence,
-        ) : Instruction(0x00) {
+        ) : Instruction(0x20) {
             override fun needVars(): Boolean = true
 
             override fun invoke(vars: LocalVariables) {
@@ -282,7 +282,7 @@ class GFXLoader(private val root: Path) : LocalVariables("gfx_loader"), Loader {
             }
         }
 
-        private inner class gfx(private val name: String, private val path: String) : Instruction(0x00) {
+        private inner class gfx(private val name: String, private val path: String) : Instruction(0x21) {
             override fun needVars(): Boolean = false
             override fun invoke() = GFX.loadTexture(name, "$root/$path")
         }
@@ -294,7 +294,7 @@ class GFXLoader(private val root: Path) : LocalVariables("gfx_loader"), Loader {
             private val y: String,
             private val w: String,
             private val h: String,
-        ) : Instruction(0x00) {
+        ) : Instruction(0x22) {
             override fun needVars(): Boolean = false
 
             @Throws(FailedLoadingResourceException::class)
