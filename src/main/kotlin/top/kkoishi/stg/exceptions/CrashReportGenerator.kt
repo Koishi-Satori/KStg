@@ -47,7 +47,7 @@ class CrashReportGenerator(val head: String) {
             buffer.append(", ")
         }
 
-        buffer.append("\nDetails: ")
+        buffer.append("\nDetails: \n")
         getOSInfo(buffer)
         getJVMInfo(buffer)
         getJITInfo(buffer)
@@ -87,7 +87,7 @@ class CrashReportGenerator(val head: String) {
         }
 
         @JvmStatic
-        private fun engineVersion(): String = "Engine Version: 1.0-preview"
+        private fun engineVersion(): String = "1.0-preview"
 
         @JvmStatic
         private fun getOSInfo(buffer: StringBuilder) {

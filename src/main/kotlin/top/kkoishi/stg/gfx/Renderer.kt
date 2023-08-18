@@ -4,36 +4,40 @@ import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.awt.*
 import java.awt.geom.AffineTransform
-import java.awt.geom.Dimension2D
 import java.awt.image.AffineTransformOp
 import java.util.concurrent.atomic.AtomicLong
 
 class Renderer private constructor() : Runnable {
     private val frame = AtomicLong(0)
-    var fullScreen = false
-    var scale: Pair<Double, Double> = 1.0 to 1.0
-    var dx = 0
-    var dy = 0
+    private var fullScreen = false
+    private var scale: Pair<Double, Double> = 1.0 to 1.0
+    private var dx = 0
+    private var dy = 0
 
-    private fun fullScreen(screenSize: Dimension2D = Graphics.getScreenSize()) {
-        val device = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice
-        val tx = device.defaultConfiguration.defaultTransform
-        val monitorMode = device.displayMode
+    private fun scale(targetWidth: Int, targetHeight: Int) {
+        val screenSize = Graphics.getScreenSize()
+        val transform =
+            GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.defaultConfiguration.defaultTransform
 
-        val monitorRate = monitorMode.width.toDouble() / monitorMode.height
+        val targetRate = targetWidth.toDouble() / targetHeight
         val rate = screenSize.width / screenSize.height
         var oScale: Double
-        if (monitorRate > rate) {
-            oScale = monitorMode.height.toDouble() / screenSize.height
-            dx = ((monitorMode.width - oScale * screenSize.width) / 2).toInt()
-            oScale /= tx.scaleX
+        if (targetRate > rate) {
+            oScale = targetHeight.toDouble() / screenSize.height
+            dx = ((targetWidth - oScale * screenSize.width) / 2).toInt()
+            oScale /= transform.scaleX
         } else {
-            oScale = monitorMode.width.toDouble() / screenSize.width
-            dy = ((monitorMode.height - oScale * screenSize.height) / 2).toInt()
-            oScale /= tx.scaleY
+            oScale = targetWidth.toDouble() / screenSize.width
+            dy = ((targetHeight - oScale * screenSize.height) / 2).toInt()
+            oScale /= transform.scaleY
         }
 
         scale = oScale to oScale
+    }
+
+    private fun fullScreen() {
+        val monitorMode = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.displayMode
+        scale(monitorMode.width, monitorMode.height)
         fullScreen = true
         Graphics.setFrameInsets(Insets(0, 0, 0, 0))
         this::class.logger().log(System.Logger.Level.INFO, "Switch to full screen mode.")
@@ -132,7 +136,6 @@ class Renderer private constructor() : Runnable {
         }
 
         fun fullScreen() = instance.fullScreen()
-        fun fullScreen(oldWidth: Int, oldHeight: Int) = instance.fullScreen(Dimension(oldWidth, oldHeight))
 
         fun monitorSize(): Dimension {
             val monitorMode = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.displayMode
