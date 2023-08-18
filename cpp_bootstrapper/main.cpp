@@ -13,14 +13,11 @@
 #include "util.h"
 
 #define EXIT_SYS_ERROR 1
+#define JAR_PATH " ./KStg.jar "
+#define MAIN_CLASS " top.kkoishi.stg.test.Test"
 #define return_dirt return EXIT_SYS_ERROR
 
 int main(int argc, char **args) {
-    //-Dsun.java2d.ddscale=true
-    //    //-Dsun.java2d.opengl=true
-    //    //-Dswing.aatext=true
-    //    //-Dawt.nativeDoubleBuffering=true
-
     // Find JRE.
     char *jre_c = getenv("Kkoishi_JDK");
     std::string jre;
@@ -54,7 +51,9 @@ int main(int argc, char **args) {
 
     exec += kkoishi_kstg_boot::read_jvm_options("./kstg.vmoptions");
 
-    exec += " -cp ./KStg.jar top.kkoishi.stg.test.Test";
+    exec += " -cp";
+    exec += JAR_PATH;
+    exec += MAIN_CLASS;
 
     exec += kkoishi_kstg_boot::processArguments(1, argc, args);
 
