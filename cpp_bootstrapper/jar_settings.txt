@@ -1,0 +1,3 @@
+class_path=./bin/KStg.jar
+main_class=top.kkoishi.stg.test.Test
+default_args=fullscreen

@@ -1,0 +1,5 @@
+-XX:+OmitStackTraceInFastThrow
+-Dsun.java2d.ddscale=true
+-Dsun.java2d.opengl=true
+-Dswing.aatext=true
+-Dawt.nativeDoubleBuffering=true
