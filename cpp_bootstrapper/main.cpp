@@ -5,7 +5,7 @@
 #pragma GCC target( \
 		"sse,sse2,sse3,ssse3,sse4.1,sse4.2,avx,avx2,popcnt,tune=native")
 
-#include "lib/util.h"
+#include "bin/util.h"
 #include <algorithm>
 #include <bits/stdc++.h>
 #include <emmintrin.h>
@@ -65,9 +65,8 @@ int main(int argc, char **args) {
 		std::cerr << "Failed to read JAR settings from " << JAR_SETTINGS << std::endl;
 		return_dirt;
 	}
-	exec += '"';
 	exec += _settings->class_path;
-	exec += "\" ";
+	exec += ' ';
 	exec += _settings->main_class;
 
 	if (argc > 1)
@@ -78,7 +77,6 @@ int main(int argc, char **args) {
 			exec += argument;
 		}
 	}
-
 
 	std::cout << exec << std::endl;
 	auto ps = popen(exec.c_str(), "w");
