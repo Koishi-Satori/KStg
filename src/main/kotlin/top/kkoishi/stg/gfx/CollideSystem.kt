@@ -19,7 +19,7 @@ object CollideSystem {
     private val lock = Any()
     private var registeredCSCollideCheck: ((Circle, Shape) -> Boolean)? = null
     private var registeredSSCollideCheck: ((Shape, Shape) -> Boolean)? = null
-    fun registerCollideMethod(check: (Circle, Shape) -> Boolean) {
+    fun registerCircleCollideMethod(check: (Circle, Shape) -> Boolean) {
         synchronized(lock) {
             registeredCSCollideCheck = check
         }

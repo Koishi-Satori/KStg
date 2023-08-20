@@ -13,6 +13,11 @@ object PlayerManager {
     private val lock = Any()
     private val bullets: ArrayDeque<Bullet> = ArrayDeque(256)
     val binds = BooleanArray(526)
+        get(): BooleanArray {
+            synchronized(lock) {
+                return field
+            }
+        }
     lateinit var cur: Stage
 
     fun life(): Int {

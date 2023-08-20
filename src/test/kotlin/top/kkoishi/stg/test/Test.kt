@@ -10,6 +10,7 @@ import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.boot.ui.LoadingFrame
+import top.kkoishi.stg.gfx.replay.ReplayRecorder
 import top.kkoishi.stg.script.GFXLoader
 import top.kkoishi.stg.test.common.GameSystem
 import top.kkoishi.stg.test.common.actions.TestBoss0Action0
@@ -25,6 +26,9 @@ import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 import java.io.File
 import java.nio.file.Path
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.util.*
 import javax.imageio.ImageIO
 import javax.swing.JFrame
 import kotlin.system.exitProcess
@@ -141,8 +145,29 @@ object Test {
     }
 
     fun start(playerIndex: Int = 0) {
+        Threads.refreshRandomSeed()
+        GameSystem.randomSeed = Threads.randomSeed()
+        GameSystem.rand = Threads.random()
+        val player = GameSystem.players[playerIndex]
+        player.x.set(Graphics.getCenterX().toDouble())
+        player.y.set(355.0)
+        ObjectPool.player = player
+        val recorder = ReplayRecorder(
+            GameSystem.randomSeed, player, intArrayOf(
+                Player.VK_C,
+                Player.VK_DOWN,
+                Player.VK_ESCAPE,
+                Player.VK_LEFT,
+                Player.VK_RIGHT,
+                Player.VK_SHIFT,
+                Player.VK_UP,
+                Player.VK_X,
+                Player.VK_Z,
+            )
+        ) { playerIndex }
         val stage1 = Stage1()
         stage1.addAction(StageAction(10) {
+            recorder.start()
             AudioPlayer.setBackground(Sounds.getAudio("bk_1"))
         })
         stage1.addAction(StageAction(40) {
@@ -179,6 +204,11 @@ object Test {
             GameSystem.mainMenu.curLevel = GameSystem.rootMainMenu
             // switch to menu
             GenericFlags.gameState.set(GenericFlags.STATE_MENU)
+            recorder.save(
+                Path.of("./replay"), SimpleDateFormat("'KStg-TestReplay-'yyyy-MM-dd_HH.mm.ss").format(
+                    Date.from(Instant.now())
+                ), 0L
+            )
         }) {
             override fun canAction(): Boolean {
                 if (!ObjectPool.objects().hasNext())
@@ -187,10 +217,6 @@ object Test {
             }
         })
         PlayerManager.cur = stage1
-        val player = GameSystem.players[playerIndex]
-        player.x.set(Graphics.getCenterX().toDouble())
-        player.y.set(355.0)
-        ObjectPool.player = player
         val sideBar = GameSystem.sideBar
         ObjectPool.addUIObject(sideBar)
 

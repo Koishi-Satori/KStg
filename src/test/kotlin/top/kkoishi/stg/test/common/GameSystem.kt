@@ -43,8 +43,8 @@ object GameSystem {
         mainMenu.setRoot(rootMainMenu)
     }
 
-    val randomSeed = Threads.randomSeed()
-    val rand = Threads.random()
+    var randomSeed = Threads.randomSeed()
+    var rand = Threads.random()
     val sideBar = GameSideBar()
     val players: Array<Player> = arrayOf(
         TestPlayerKoishi(Graphics.getCenterX(), 55, "bullet_koishi")
