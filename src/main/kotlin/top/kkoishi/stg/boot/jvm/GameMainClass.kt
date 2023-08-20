@@ -1,4 +1,4 @@
-package top.kkoishi.stg.main.jvm
+package top.kkoishi.stg.boot.jvm
 
 /**
  * An annotation used to find the main class of the game.

@@ -9,7 +9,7 @@ import top.kkoishi.stg.gfx.*
 import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
-import top.kkoishi.stg.main.ui.LoadingFrame
+import top.kkoishi.stg.boot.ui.LoadingFrame
 import top.kkoishi.stg.script.GFXLoader
 import top.kkoishi.stg.test.common.GameSystem
 import top.kkoishi.stg.test.common.actions.TestBoss0Action0

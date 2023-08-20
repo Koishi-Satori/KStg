@@ -1,4 +1,4 @@
-package top.kkoishi.stg.main.jvm
+package top.kkoishi.stg.boot.jvm
 
 import top.kkoishi.stg.logic.InfoSystem
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger

@@ -1,4 +1,4 @@
-package top.kkoishi.stg.main.ui
+package top.kkoishi.stg.boot.ui
 
 import java.awt.Dimension
 import java.awt.Graphics

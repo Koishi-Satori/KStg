@@ -7,13 +7,30 @@ import java.awt.Polygon
 import java.awt.Rectangle
 import java.awt.Shape
 import java.awt.geom.AffineTransform
+import java.awt.geom.Ellipse2D
 import java.awt.geom.PathIterator
 import java.awt.geom.Point2D
 import java.awt.geom.Rectangle2D
 import kotlin.math.absoluteValue
 import kotlin.math.sqrt
 
+@Suppress("RedundantConstructorKeyword", "unused")
 object CollideSystem {
+    private val lock = Any()
+    private var registeredCSCollideCheck: ((Circle, Shape) -> Boolean)? = null
+    private var registeredSSCollideCheck: ((Shape, Shape) -> Boolean)? = null
+    fun registerCollideMethod(check: (Circle, Shape) -> Boolean) {
+        synchronized(lock) {
+            registeredCSCollideCheck = check
+        }
+    }
+
+    fun registerCollideMethod(check: (Shape, Shape) -> Boolean) {
+        synchronized(lock) {
+            registeredSSCollideCheck = check
+        }
+    }
+
     fun collide(o: Entity, b: Bullet): Boolean {
         val s1 = o.shape()
         val s2 = b.shape()
@@ -78,13 +95,23 @@ object CollideSystem {
                         return true
                     return circleIntersectCircle(c.center, other.center, c.r, other.r)
                 }
+
                 is Rectangle2D -> return circleIntersectRect(c, other)
                 is Polygon -> return convexIntersectCircle(other, c.center, c.r)
+                else -> {
+                    val check = registeredCSCollideCheck
+                    if (check != null)
+                        return check(c, other)
+                }
             }
         } else if (s1 is Rectangle2D && s2 is Rectangle2D)
             return rectIntersectRect(s1, s2)
         else if (s1 is Polygon && s2 is Polygon)
             return convexIntersectConvex(s1, s2)
+
+        val check = registeredSSCollideCheck
+        if (check != null)
+            return check(s1, s2)
         throw UnsupportedOperationException("Unsupported intersect check: $s1 collide $s2")
     }
 
@@ -94,15 +121,28 @@ object CollideSystem {
         return distance >= r
     }
 
-    private data class VPoint constructor(val x: Double, val y: Double) {
+    private data class VPoint constructor(var x: Double, var y: Double) {
         constructor(x: Int, y: Int) : this(x.toDouble(), y.toDouble())
 
-        fun directDistance(p: VPoint): Double {
+        fun euclidDistance(p: VPoint): Double {
             val dx = x - p.x
             val dy = y - p.y
             if (dx >= 0)
                 return sqrt(dx * dx + dy * dy)
             return -1 * sqrt(dx * dx + dy * dy)
+        }
+
+        fun euclidDistance(p: Point): Double {
+            val dx = x - p.x
+            val dy = y - p.y
+            if (dx >= 0)
+                return sqrt(dx * dx + dy * dy)
+            return -1 * sqrt(dx * dx + dy * dy)
+        }
+
+        fun setLocation(x: Double, y: Double) {
+            this.x = x
+            this.y = y
         }
 
         companion object {
@@ -126,11 +166,19 @@ object CollideSystem {
         override fun contains(p: Point2D): Boolean = contains(p.x, p.y)
 
         override fun contains(x: Double, y: Double, w: Double, h: Double): Boolean {
-            TODO("Not yet implemented")
+            // upper-left: (x, y) lower-right: (x + w, y + h)
+            val p = VPoint(x, y)
+            if (p.euclidDistance(center) < r) {
+                return true
+            }
+            p.setLocation(x + w, y + h)
+            return p.euclidDistance(center) < r
         }
 
         override fun contains(r: Rectangle2D?): Boolean {
-            TODO("Not yet implemented")
+            if (r == null)
+                return false
+            return contains(r.x, r.y, r.width, r.height)
         }
 
         override fun intersects(x: Double, y: Double, w: Double, h: Double): Boolean {
@@ -144,13 +192,13 @@ object CollideSystem {
 
         override fun intersects(r: Rectangle2D): Boolean = intersects(r.x, r.y, r.width, r.height)
 
-        override fun getPathIterator(at: AffineTransform): PathIterator {
-            TODO("Not yet implemented")
-        }
+        private fun getEllipse() =
+            Ellipse2D.Double(center.x.toDouble(), center.y.toDouble(), 2 * r.toDouble(), 2 * r.toDouble())
 
-        override fun getPathIterator(at: AffineTransform, flatness: Double): PathIterator {
-            TODO("Not yet implemented")
-        }
+        override fun getPathIterator(at: AffineTransform): PathIterator = getEllipse().getPathIterator(at)
+
+        override fun getPathIterator(at: AffineTransform, flatness: Double): PathIterator =
+            getEllipse().getPathIterator(at, flatness)
     }
 
     private fun projection(v: VPoint, vBegin: VPoint, p: VPoint): VPoint {
@@ -193,7 +241,7 @@ object CollideSystem {
             var p1Max = Double.MIN_VALUE
             for (p in points1) {
                 val projectionPoint = projection(normalVector, before, p)
-                val dis = cur.directDistance(projectionPoint)
+                val dis = cur.euclidDistance(projectionPoint)
                 if (dis > p1Max)
                     p1Max = dis
             }
@@ -202,7 +250,7 @@ object CollideSystem {
             var p2Max = Double.MIN_VALUE
             for (p in points2) {
                 val projectionPoint = projection(normalVector, before, p)
-                val dis = cur.directDistance(projectionPoint)
+                val dis = cur.euclidDistance(projectionPoint)
                 if (dis < p2Min)
                     p2Min = dis
                 if (dis > p2Max)
@@ -228,7 +276,7 @@ object CollideSystem {
         var minDis = Double.MAX_VALUE
         var minPoint = VPoint.ORIGIN
         for (vertex in points) {
-            val dis = center.directDistance(vertex)
+            val dis = center.euclidDistance(vertex)
             if (dis < minDis) {
                 minPoint = vertex
                 minDis = dis
@@ -240,7 +288,7 @@ object CollideSystem {
         var lengthMax = Double.MIN_VALUE
         for (vertex in points) {
             val projectionPoint = projection(vector, center, vertex)
-            val dis = center.directDistance(projectionPoint)
+            val dis = center.euclidDistance(projectionPoint)
             if (dis < lengthMin)
                 lengthMin = dis
             if (dis > lengthMax)
