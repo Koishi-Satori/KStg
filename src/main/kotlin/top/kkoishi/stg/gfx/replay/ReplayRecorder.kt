@@ -39,7 +39,8 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
             override fun run() {
                 if (temp.channel.isOpen && fileLock.isValid)
                     fileLock.release()
-                tempPath.deleteExisting()
+                if (tempPath.exists())
+                    tempPath.deleteExisting()
             }
         })
         temp.write(FILE_HEAD)
@@ -51,7 +52,8 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
 
     final override fun run() {
         while (GenericFlags.gameState.get() == GenericFlags.STATE_PLAYING ||
-            GenericFlags.gameState.get() == GenericFlags.STATE_PAUSE) {
+            GenericFlags.gameState.get() == GenericFlags.STATE_PAUSE
+        ) {
             recordFrame()
             sleep(Threads.period())
         }
