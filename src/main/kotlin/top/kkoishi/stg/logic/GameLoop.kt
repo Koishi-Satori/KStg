@@ -51,7 +51,6 @@ class GameLoop private constructor() : Runnable {
             }
             GenericFlags.STATE_PAUSE -> {
                 // menu logic
-                ObjectPool.player.actions()
             }
             GenericFlags.STATE_MENU -> {
                 // main menu
