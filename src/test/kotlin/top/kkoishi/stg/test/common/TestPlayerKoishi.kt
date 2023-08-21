@@ -66,7 +66,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
     override fun shot() {
         AudioPlayer.addTask("test_player_shot")
         AudioPlayer.addTask("test_player_shot")
-        synchronized(logger) {
+        synchronized(lock) {
             if (slower) {
                 if (power >= 0.0f && power < 2.0f)
                     PlayerManager.addBullet(bullet(0, -32))
@@ -159,7 +159,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
                 GenericFlags.STATE_PLAYING -> {
                     try {
                         PlayerManager.cur.paint(bRender)
-                        ObjectPool.player.paint(bRender)
+                        ObjectPool.player().paint(bRender)
                         ObjectPool.objects().forEach { it.paint(bRender) }
                         ObjectPool.bullets().forEach { it.paint(bRender) }
                         ObjectPool.uiObjects().forEach { it.paint(bRender) }
@@ -171,7 +171,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
 
                 GenericFlags.STATE_PAUSE -> {
                     PlayerManager.cur.paint(bRender)
-                    ObjectPool.player.paint(bRender)
+                    ObjectPool.player().paint(bRender)
                     ObjectPool.objects().forEach { it.paint(bRender) }
                     ObjectPool.bullets().forEach { it.paint(bRender) }
                     ObjectPool.uiObjects().forEach { it.paint(bRender) }

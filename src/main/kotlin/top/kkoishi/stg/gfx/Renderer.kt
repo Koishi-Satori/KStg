@@ -64,7 +64,7 @@ class Renderer private constructor() : Runnable {
             GenericFlags.STATE_PLAYING -> {
                 try {
                     PlayerManager.cur.paint(bRender)
-                    ObjectPool.player.paint(bRender)
+                    ObjectPool.player().paint(bRender)
                     ObjectPool.objects().forEach { it.paint(bRender) }
                     ObjectPool.bullets().forEach { it.paint(bRender) }
                     ObjectPool.uiObjects().forEach { it.paint(bRender) }
@@ -77,7 +77,7 @@ class Renderer private constructor() : Runnable {
 
             GenericFlags.STATE_PAUSE -> {
                 PlayerManager.cur.paint(bRender)
-                ObjectPool.player.paint(bRender)
+                ObjectPool.player().paint(bRender)
                 ObjectPool.objects().forEach { it.paint(bRender) }
                 ObjectPool.bullets().forEach { it.paint(bRender) }
                 ObjectPool.uiObjects().forEach { it.paint(bRender) }

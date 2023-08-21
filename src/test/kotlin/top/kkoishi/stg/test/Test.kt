@@ -165,7 +165,7 @@ object Test {
         val player = GameSystem.players[playerIndex]
         player.x.set(Graphics.getCenterX().toDouble())
         player.y.set(355.0)
-        ObjectPool.player = player
+        ObjectPool.player(player)
         val recorder = ReplayRecorder(
             GameSystem.randomSeed, player, intArrayOf(
                 Player.VK_C,

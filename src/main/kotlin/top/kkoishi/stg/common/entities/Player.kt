@@ -50,19 +50,20 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     protected var slower: Boolean = false
     protected var moveState: Int = STATE_STILL
     protected var power: Float = 1.0f
+    protected val lock = Any()
     protected val logger = Player::class.logger()
 
     fun x() = x.get().toInt()
     fun y() = y.get().toInt()
 
     fun setPlayerPower(p: Float) {
-        synchronized(logger) {
+        synchronized(lock) {
             power = p
         }
     }
 
     fun power(): Float {
-        synchronized(logger) {
+        synchronized(lock) {
             return power
         }
     }

@@ -32,12 +32,12 @@ class TestEnemy0(
 
     override fun dead() {
         AudioPlayer.addTask("enemy_dead")
-        ObjectPool.player.setPlayerPower(2.3f)
+        ObjectPool.player().setPlayerPower(2.3f)
         GameSystem.sideBar.add(10000L)
     }
 
     override fun beingHit(o: Object) {
-        this.health -= ObjectPool.player.bulletDamage()
+        this.health -= ObjectPool.player().bulletDamage()
         AudioPlayer.addTask("th15_enemy_damage_0${(GameSystem.rand.nextInt() % 2).absoluteValue + 1}")
     }
 

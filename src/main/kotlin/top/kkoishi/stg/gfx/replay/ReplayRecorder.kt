@@ -22,11 +22,8 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
     protected val tempPath: Path = Path.of("./temp_replay.bin")
 
     init {
-        synchronized(lock) {
-            if (onlyInstance)
-                throw ExceptionInInitializerError("ReplayRecorder can only have one instance!")
-            onlyInstance = true
-        }
+        if (tempPath.exists())
+            tempPath.deleteExisting()
         tempPath.createFile()
     }
 
@@ -41,6 +38,12 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
         temp.writeInt(playerID)
         temp.writeInt(recordedKeyCodes.size)
         recordedKeyCodes.forEach(temp::writeInt)
+
+        synchronized(lock) {
+            if (onlyInstance)
+                throw ExceptionInInitializerError("ReplayRecorder can only have one instance!")
+            onlyInstance = true
+        }
     }
 
     final override fun run() {

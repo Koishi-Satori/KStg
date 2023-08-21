@@ -25,9 +25,9 @@ abstract class Item(initialX: Int, initialY: Int) : Entity(-1) {
         if (erased && shouldRemove)
             return true
         if (erased)
-            moveToPlayer(ObjectPool.player)
+            moveToPlayer(ObjectPool.player())
         else {
-            erased = collide(ObjectPool.player)
+            erased = collide(ObjectPool.player())
             if (!erased)
                 move()
         }

@@ -37,7 +37,7 @@ abstract class AbstractBullet(initialX: Int, initialY: Int) : Bullet(initialX, i
 
     open fun from(): Entity? = null
 
-    open fun collideTest(): Boolean = collide(ObjectPool.player)
+    open fun collideTest(): Boolean = collide(ObjectPool.player())
 }
 
 abstract class PlayerBullet(initialX: Int, initialY: Int) : AbstractBullet(initialX, initialY) {
@@ -61,7 +61,7 @@ abstract class PlayerBullet(initialX: Int, initialY: Int) : AbstractBullet(initi
         return false
     }
 
-    override fun from(): Player = ObjectPool.player
+    override fun from(): Player = ObjectPool.player()
 }
 
 abstract class BaseItem(
@@ -109,7 +109,7 @@ abstract class BaseEnemy(health: Int, initialX: Int, initialY: Int): Enemy(healt
     override fun isDead(): Boolean = health <= 0
 
     override fun beingHit(o: Object) {
-        this.health -= ObjectPool.player.bulletDamage()
+        this.health -= ObjectPool.player().bulletDamage()
     }
 
     override fun paint(g: Graphics2D) {
@@ -140,8 +140,8 @@ object Bullets {
                 init {
                     val x = x()
                     val y = y()
-                    val dx = ObjectPool.player.y.get() - y
-                    val dy = ObjectPool.player.x.get() - x
+                    val dx = ObjectPool.player().y.get() - y
+                    val dy = ObjectPool.player().x.get() - x
                     val scale = sqrt(dx * dx + dy * dy)
                     sin = dy / scale
                     cos = dx / scale
@@ -183,8 +183,8 @@ object Bullets {
             init {
                 val x = x()
                 val y = y()
-                val dx = (ObjectPool.player.y.get() - y).toDouble()
-                val dy = (ObjectPool.player.x.get() - x).toDouble()
+                val dx = (ObjectPool.player().y.get() - y).toDouble()
+                val dy = (ObjectPool.player().x.get() - x).toDouble()
                 val scale = sqrt(dx * dx + dy * dy)
                 sin = dy / scale
                 cos = dx / scale

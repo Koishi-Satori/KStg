@@ -21,7 +21,7 @@ class GameLoop private constructor() : Runnable {
             GenericFlags.STATE_PLAYING -> {
                 try {
                     // update player logic first.
-                    ObjectPool.player.update()
+                    ObjectPool.player().update()
 
                     var cur = PlayerManager.cur
                     if (cur.toNextStage()) {
