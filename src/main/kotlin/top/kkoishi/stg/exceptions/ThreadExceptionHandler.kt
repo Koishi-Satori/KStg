@@ -53,7 +53,7 @@ class ThreadExceptionHandler private constructor() : Thread.UncaughtExceptionHan
                 }
             }
 
-            ThreadExceptionHandler::class.logger().log(System.Logger.Level.WARNING, e)
+            ThreadExceptionHandler::class.logger().log(System.Logger.Level.TRACE, e)
         }
     }
 

@@ -1,194 +1,280 @@
-[10:48:23 PM] [main<-GFXLoader/INFO]: Load textures from scripts.
-[10:48:23 PM] [main<-GFXLoader/INFO]: Try to load textures from .\test\gfx\boss.kgfx
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: ./resources/TEXTURE_NOT_FOUND.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/test_boss_0.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_0
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=80
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_1
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (64, 0), w=64, h=80
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_2
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (128, 0), w=64, h=80
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_3
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (192, 0), w=64, h=80
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_0
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (0, 80), w=64, h=80
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_1
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (64, 80), w=64, h=80
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_2
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (128, 80), w=64, h=80
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_3
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (192, 80), w=64, h=80
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_0
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (0, 160), w=64, h=80
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_1
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (64, 160), w=64, h=80
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_2
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (128, 160), w=64, h=80
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_3
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (192, 160), w=64, h=80
-[10:48:24 PM] [main<-GFXLoader/INFO]: Success to load all the textures from .\test\gfx\boss.kgfx
-[10:48:24 PM] [main<-GFXLoader/INFO]: Try to load textures from .\test\gfx\bullets.kgfx
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/test_img.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/mirror.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/bg_1_1.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/ghost_fire.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_0
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (0, 0), w=48, h=64
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_1
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (48, 0), w=48, h=64
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_2
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (96, 0), w=48, h=64
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_3
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (144, 0), w=48, h=64
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_4
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (192, 0), w=48, h=64
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_5
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (240, 0), w=48, h=64
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_6
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (288, 0), w=48, h=64
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_7
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (336, 0), w=48, h=64
-[10:48:24 PM] [main<-GFXLoader/INFO]: Success to load all the textures from .\test\gfx\bullets.kgfx
-[10:48:24 PM] [main<-GFXLoader/INFO]: Try to load textures from .\test\gfx\player.kgfx
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/center.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/planes_koishi.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/slow_effect.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/bullets_0.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/player_koishi_description.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/player_koishi_me.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: player_koishi_me_full -> player_koishi_me
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (100, 0), w=412, h=512
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (220, 144), w=36, h=16
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_0
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (177, 146), w=32, h=16
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_1
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (220, 160), w=36, h=16
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: slow_effect -> slow_effect_final
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=64
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: bullets_0 -> test_bullet
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (16, 68), w=16, h=15
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_0
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (0, 0), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_1
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (32, 0), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_2
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (64, 0), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_3
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (96, 0), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_4
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (128, 0), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_5
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (160, 0), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_6
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (192, 0), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_7
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (224, 0), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_0
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (0, 48), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_1
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (32, 48), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_2
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (64, 48), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_3
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (96, 48), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_4
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (128, 48), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_5
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (160, 48), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_6
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (192, 48), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_7
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (224, 48), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_0
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (0, 96), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_1
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (32, 96), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_2
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (64, 96), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_3
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (96, 96), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_4
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (128, 96), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_5
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (160, 96), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_6
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (192, 96), w=32, h=48
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_7
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (224, 96), w=32, h=48
-[10:48:24 PM] [main<-GFXLoader/INFO]: Success to load all the textures from .\test\gfx\player.kgfx
-[10:48:24 PM] [main<-GFXLoader/INFO]: Try to load textures from .\test\gfx\ui_objects.kgfx
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/interface.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/ui.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/menu_bg.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/main_menu_items.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/main_menu_select.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/stage_clear.png
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_sidebar
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (0, 0), w=640, h=480
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: interface -> ui_diff_easy
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (0, 61), w=68, h=26
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_score
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (704, 0), w=60, h=21
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_0
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (1, 209), w=300, h=30
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_1
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (1, 239), w=300, h=30
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_2
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (1, 269), w=300, h=30
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_3
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (1, 299), w=300, h=30
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_start
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (20, 14), w=150, h=30
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_extra_start
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (20, 44), w=150, h=30
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_practice
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (20, 74), w=150, h=30
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_exit
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (20, 284), w=150, h=30
-[10:48:24 PM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> reimu_baisi
-[10:48:24 PM] [main<-GFX/INFO]: Begin: (0, 544), w=640, h=480
-[10:48:24 PM] [main<-GFXLoader/INFO]: Success to load all the textures from .\test\gfx\ui_objects.kgfx
-[10:48:24 PM] [AWT-EventQueue-0<-null/INFO]: Gained focus, try to resync again.
-[10:48:25 PM] [main<-Companion/INFO]: Stop current background.
-[10:48:25 PM] [main<-Companion/INFO]: Opening new background audio...
-[10:48:25 PM] [main<-Companion/INFO]: Set the background to Audio(path=.\test\audio\sounds\bk_0.wav)
-[10:48:25 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.InfoSystem@5ef60048
-[10:48:25 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.gfx.Renderer@16aa0a0a
-[10:48:25 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.GameLoop@691a7f8f
-[10:48:25 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.audio.AudioPlayer@161b062a
-[10:48:25 PM] [Pool-1[1] Worker<-InfoSystem/INFO]: Try to GC.
-[10:48:26 PM] [Pool-1[3] Worker<-MainMenuItem/INFO]: Press key: 90
-[10:48:26 PM] [Pool-1[3] Worker<-PlayerSelectMenuItem/INFO]: Press key: 90
-[10:48:26 PM] [Pool-1[3] Worker<-ReplayRecorder/INFO]: Start record replay.
-[10:48:26 PM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@56db347e
-[10:48:26 PM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@380fb479
-[10:48:26 PM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.Test$start$3@466fd846
-[10:48:26 PM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.Test$start$5@3127492c
-[10:48:26 PM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.Test$start$7@20eedfb9
-[10:48:26 PM] [Pool-1[0] Worker<-Companion/INFO]: Stop current background.
-[10:48:26 PM] [Pool-1[0] Worker<-Companion/INFO]: Opening new background audio...
-[10:48:26 PM] [Pool-1[0] Worker<-Companion/INFO]: Set the background to Audio(path=.\test\audio\sounds\bk_1.wav)
-[10:48:26 PM] [Pool-1[0] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@56db347e
-[10:48:27 PM] [Pool-1[1] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@380fb479
-[10:48:27 PM] [Pool-1[2] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=.\test\audio\sounds\enemy_shoot.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@42e1d96c
-[10:48:27 PM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@4d0976f1 is hit by Bullet@452790218-java.awt.Point[x=230,y=351]
-[10:48:29 PM] [Pool-1[0] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=.\test\audio\sounds\th15_player_shot_0.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@9e86b4b
-[10:48:29 PM] [Pool-1[0] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=.\test\audio\sounds\th15_enemy_damage_02.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@56eb9ed5
-[10:48:29 PM] [Pool-1[3] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=.\test\audio\sounds\th15_enemy_damage_01.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@455915b8
-[10:48:30 PM] [Pool-1[0] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=.\test\audio\sounds\enemy_dead_0.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@66c838a4
-[10:48:31 PM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@4d0976f1 is hit by Bullet@23851788-java.awt.Point[x=211,y=448]
-[10:48:31 PM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@4d0976f1 is hit by Bullet@843114294-java.awt.Point[x=211,y=448]
-[10:48:31 PM] [Pool-1[2] Worker<-InfoSystem/INFO]: LogicFrame pre second: 47.328791681606305, FPS: 47.328791681606305;Bullets count: 63
-[10:48:34 PM] [Pool-1[0] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.test.Test$start$3@466fd846
-[10:48:38 PM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.50976715111736, FPS: 62.50976715111736;Bullets count: 100
-[10:48:39 PM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@4d0976f1 is hit by Bullet@1069881040-java.awt.Point[x=134,y=297]
-[10:48:44 PM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.38303181534623, FPS: 62.38303181534623;Bullets count: 84
-[10:48:50 PM] [Pool-1[1] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.607606824229144, FPS: 62.607606824229144;Bullets count: 87
-[10:48:56 PM] [Pool-1[2] Worker<-Companion/INFO]: Stop current background.
-[10:48:56 PM] [Pool-1[2] Worker<-Companion/INFO]: Opening new background audio...
-[10:48:56 PM] [Pool-1[2] Worker<-Companion/INFO]: Set the background to Audio(path=.\test\audio\sounds\test_boss_0_bgm.wav)
-[10:48:56 PM] [Pool-1[2] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.test.Test$start$5@3127492c
-[10:48:57 PM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.50976715111736, FPS: 62.50976715111736;Bullets count: 64
-[10:48:57 PM] [AWT-EventQueue-0<-SingleInstanceEnsurer/INFO]: Release the file lock on java.io.RandomAccessFile@558f3697
-[10:48:57 PM] [Thread-0<-CrashReporter/INFO]: Bin file cleared.
+[1:38:37 AM] [main<-GFXLoader/INFO]: Load textures from scripts.
+[1:38:37 AM] [main<-GFXLoader/INFO]: Try to load textures from .\test\gfx\boss.kgfx
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: ./resources/TEXTURE_NOT_FOUND.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/test_boss_0.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_0
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=80
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_1
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (64, 0), w=64, h=80
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_2
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (128, 0), w=64, h=80
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_3
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (192, 0), w=64, h=80
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_0
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (0, 80), w=64, h=80
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_1
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (64, 80), w=64, h=80
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_2
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (128, 80), w=64, h=80
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_3
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (192, 80), w=64, h=80
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_0
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (0, 160), w=64, h=80
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_1
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (64, 160), w=64, h=80
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_2
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (128, 160), w=64, h=80
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_3
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (192, 160), w=64, h=80
+[1:38:37 AM] [main<-GFXLoader/INFO]: Success to load all the textures from .\test\gfx\boss.kgfx
+[1:38:37 AM] [main<-GFXLoader/INFO]: Try to load textures from .\test\gfx\bullets.kgfx
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/test_img.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/mirror.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/bg_1_1.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/ghost_fire.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_0
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (0, 0), w=48, h=64
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_1
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (48, 0), w=48, h=64
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_2
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (96, 0), w=48, h=64
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_3
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (144, 0), w=48, h=64
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_4
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (192, 0), w=48, h=64
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_5
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (240, 0), w=48, h=64
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_6
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (288, 0), w=48, h=64
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_7
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (336, 0), w=48, h=64
+[1:38:37 AM] [main<-GFXLoader/INFO]: Success to load all the textures from .\test\gfx\bullets.kgfx
+[1:38:37 AM] [main<-GFXLoader/INFO]: Try to load textures from .\test\gfx\player.kgfx
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/center.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/planes_koishi.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/slow_effect.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/bullets_0.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/player_koishi_description.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/player_koishi_me.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: player_koishi_me_full -> player_koishi_me
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (100, 0), w=412, h=512
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (220, 144), w=36, h=16
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_0
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (177, 146), w=32, h=16
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_1
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (220, 160), w=36, h=16
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: slow_effect -> slow_effect_final
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=64
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: bullets_0 -> test_bullet
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (16, 68), w=16, h=15
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_0
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (0, 0), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_1
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (32, 0), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_2
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (64, 0), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_3
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (96, 0), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_4
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (128, 0), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_5
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (160, 0), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_6
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (192, 0), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_7
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (224, 0), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_0
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (0, 48), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_1
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (32, 48), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_2
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (64, 48), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_3
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (96, 48), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_4
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (128, 48), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_5
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (160, 48), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_6
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (192, 48), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_7
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (224, 48), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_0
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (0, 96), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_1
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (32, 96), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_2
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (64, 96), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_3
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (96, 96), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_4
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (128, 96), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_5
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (160, 96), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_6
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (192, 96), w=32, h=48
+[1:38:37 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_7
+[1:38:37 AM] [main<-GFX/INFO]: Begin: (224, 96), w=32, h=48
+[1:38:37 AM] [main<-GFXLoader/INFO]: Success to load all the textures from .\test\gfx\player.kgfx
+[1:38:37 AM] [main<-GFXLoader/INFO]: Try to load textures from .\test\gfx\ui_objects.kgfx
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/interface.png
+[1:38:37 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/ui.png
+[1:38:38 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/menu_bg.png
+[1:38:38 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/main_menu_items.png
+[1:38:38 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/main_menu_select.png
+[1:38:38 AM] [main<-GFX/INFO]: Try to load the texture: .\test\gfx/./icons/stage_clear.png
+[1:38:38 AM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_sidebar
+[1:38:38 AM] [main<-GFX/INFO]: Begin: (0, 0), w=640, h=480
+[1:38:38 AM] [main<-GFX/INFO]: Try to cut the texture: interface -> ui_diff_easy
+[1:38:38 AM] [main<-GFX/INFO]: Begin: (0, 61), w=68, h=26
+[1:38:38 AM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_score
+[1:38:38 AM] [main<-GFX/INFO]: Begin: (704, 0), w=60, h=21
+[1:38:38 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_0
+[1:38:38 AM] [main<-GFX/INFO]: Begin: (1, 209), w=300, h=30
+[1:38:38 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_1
+[1:38:38 AM] [main<-GFX/INFO]: Begin: (1, 239), w=300, h=30
+[1:38:38 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_2
+[1:38:38 AM] [main<-GFX/INFO]: Begin: (1, 269), w=300, h=30
+[1:38:38 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_3
+[1:38:38 AM] [main<-GFX/INFO]: Begin: (1, 299), w=300, h=30
+[1:38:38 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_start
+[1:38:38 AM] [main<-GFX/INFO]: Begin: (20, 14), w=150, h=30
+[1:38:38 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_extra_start
+[1:38:38 AM] [main<-GFX/INFO]: Begin: (20, 44), w=150, h=30
+[1:38:38 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_practice
+[1:38:38 AM] [main<-GFX/INFO]: Begin: (20, 74), w=150, h=30
+[1:38:38 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_exit
+[1:38:38 AM] [main<-GFX/INFO]: Begin: (20, 284), w=150, h=30
+[1:38:38 AM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> reimu_baisi
+[1:38:38 AM] [main<-GFX/INFO]: Begin: (0, 544), w=640, h=480
+[1:38:38 AM] [main<-GFXLoader/INFO]: Success to load all the textures from .\test\gfx\ui_objects.kgfx
+[1:38:38 AM] [AWT-EventQueue-0<-null/INFO]: Gained focus, try to resync again.
+[1:38:38 AM] [main<-Companion/INFO]: Stop current background.
+[1:38:38 AM] [main<-Companion/INFO]: Opening new background audio...
+[1:38:38 AM] [main<-Companion/INFO]: Set the background to Audio(path=.\test\audio\sounds\bk_0.wav)
+[1:38:38 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.InfoSystem@1d548a08
+[1:38:38 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.gfx.Renderer@780cb77
+[1:38:38 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: Try to GC.
+[1:38:38 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.GameLoop@50a7bc6e
+[1:38:38 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.audio.AudioPlayer@17c1bced
+[1:38:39 AM] [Pool-1[3] Worker<-MainMenuItem/INFO]: Press key: 90
+[1:38:39 AM] [Pool-1[3] Worker<-PlayerSelectMenuItem/INFO]: Press key: 90
+[1:38:39 AM] [Pool-1[3] Worker<-ReplayRecorder/INFO]: Initialize record replay.
+[1:38:39 AM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@5757aabd
+[1:38:39 AM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@2e9dc6c0
+[1:38:39 AM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.Test$start$3@3faaf70b
+[1:38:39 AM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.Test$start$5@57709c45
+[1:38:39 AM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.Test$start$7@70b6a083
+[1:38:39 AM] [Thread-1<-ReplayRecorder/INFO]: Start record replay.
+[1:38:39 AM] [Pool-1[0] Worker<-Companion/INFO]: Stop current background.
+[1:38:39 AM] [Pool-1[0] Worker<-Companion/INFO]: Opening new background audio...
+[1:38:39 AM] [Pool-1[0] Worker<-Companion/INFO]: Set the background to Audio(path=.\test\audio\sounds\bk_1.wav)
+[1:38:39 AM] [Pool-1[0] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@5757aabd
+[1:38:40 AM] [Pool-1[0] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=.\test\audio\sounds\th15_player_shot_0.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@77868b18
+[1:38:40 AM] [Pool-1[3] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@2e9dc6c0
+[1:38:40 AM] [Pool-1[2] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=.\test\audio\sounds\enemy_shoot.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@196f79f
+[1:38:40 AM] [Pool-1[2] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=.\test\audio\sounds\th15_enemy_damage_01.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@53724ef6
+[1:38:40 AM] [Pool-1[3] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=.\test\audio\sounds\th15_enemy_damage_02.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@5ab951ae
+[1:38:41 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@370227443-java.awt.Point[x=231,y=461]
+[1:38:41 AM] [Pool-1[0] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=.\test\audio\sounds\enemy_dead_0.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@3873d014
+[1:38:45 AM] [Pool-1[2] Worker<-InfoSystem/INFO]: LogicFrame pre second: 48.949320148331275, FPS: 48.949320148331275;Bullets count: 6
+[1:38:45 AM] [Pool-1[1] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.test.Test$start$3@3faaf70b
+[1:38:51 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.539086929330836, FPS: 62.539086929330836;Bullets count: 101
+[1:38:57 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.50976715111736, FPS: 62.50976715111736;Bullets count: 119
+[1:39:00 AM] [Pool-1[0] Worker<-Companion/INFO]: Stop current background.
+[1:39:00 AM] [Pool-1[0] Worker<-Companion/INFO]: Opening new background audio...
+[1:39:00 AM] [Pool-1[0] Worker<-Companion/INFO]: Set the background to Audio(path=.\test\audio\sounds\test_boss_0_bgm.wav)
+[1:39:00 AM] [Pool-1[0] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.test.Test$start$5@57709c45
+[1:39:03 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1408131477-java.awt.Point[x=266,y=459]
+[1:39:04 AM] [Pool-1[1] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.50976715111736, FPS: 62.35349273323957;Bullets count: 197
+[1:39:05 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@2052398208-java.awt.Point[x=274,y=462]
+[1:39:05 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1728748201-java.awt.Point[x=270,y=460]
+[1:39:07 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1020107563-java.awt.Point[x=275,y=361]
+[1:39:07 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@510211825-java.awt.Point[x=266,y=361]
+[1:39:10 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.49023590064053, FPS: 62.49023590064053;Bullets count: 195
+[1:39:13 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1208840790-java.awt.Point[x=244,y=462]
+[1:39:13 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1493146328-java.awt.Point[x=253,y=459]
+[1:39:17 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.49023590064053, FPS: 62.64646149039213;Bullets count: 215
+[1:39:17 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@846371224-java.awt.Point[x=252,y=459]
+[1:39:18 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@240104494-java.awt.Point[x=252,y=459]
+[1:39:19 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1554782331-java.awt.Point[x=253,y=459]
+[1:39:20 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@288569455-java.awt.Point[x=253,y=459]
+[1:39:23 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.5, FPS: 62.34375;Bullets count: 216
+[1:39:23 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1082615858-java.awt.Point[x=253,y=459]
+[1:39:24 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@260837663-java.awt.Point[x=246,y=460]
+[1:39:25 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@917204566-java.awt.Point[x=246,y=460]
+[1:39:25 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1476879765-java.awt.Point[x=246,y=460]
+[1:39:26 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1598609158-java.awt.Point[x=244,y=462]
+[1:39:26 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1341393241-java.awt.Point[x=246,y=460]
+[1:39:29 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.50976715111736, FPS: 62.666041568995155;Bullets count: 219
+[1:39:31 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@2035324335-java.awt.Point[x=253,y=459]
+[1:39:33 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@349338153-java.awt.Point[x=252,y=459]
+[1:39:33 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1569305464-java.awt.Point[x=244,y=462]
+[1:39:36 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.50976715111736, FPS: 62.50976715111736;Bullets count: 0
+[1:39:36 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: Try to GC.
+[1:39:41 AM] [Pool-1[3] Worker<-Companion/INFO]: Stop current background.
+[1:39:41 AM] [Pool-1[3] Worker<-Companion/INFO]: Opening new background audio...
+[1:39:41 AM] [Pool-1[3] Worker<-Companion/INFO]: Set the background to Audio(path=.\test\audio\sounds\bk_0.wav)
+[1:39:41 AM] [Thread-1<-ReplayRecorder/INFO]: End to record replay.
+[1:39:41 AM] [Pool-1[3] Worker<-ReplayRecorder/INFO]: Save the replay as D:\ProjectKotlin\KStg\.\replay\KStg-TestReplay-2023-08-22_01.39.41_0.rep
+[1:39:41 AM] [Pool-1[3] Worker<-ReplayRecorder/INFO]: Delete the temp file.
+[1:39:41 AM] [Pool-1[3] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.test.Test$start$7@70b6a083
+[1:39:42 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.48047485160887, FPS: 62.48047485160887;Bullets count: 0
+[1:39:43 AM] [Pool-1[3] Worker<-MainMenuItem/INFO]: Press key: 40
+[1:39:43 AM] [Pool-1[2] Worker<-MainMenuItem/INFO]: Press key: 90
+[1:39:43 AM] [Pool-1[2] Worker<-ReplayRecorder/INFO]: Initialize record replay.
+[1:39:43 AM] [Pool-1[2] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@c115839
+[1:39:43 AM] [Pool-1[2] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@711149f9
+[1:39:43 AM] [Pool-1[2] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.Test$start$3@1eb1c448
+[1:39:43 AM] [Pool-1[2] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.Test$start$5@3cd6e1f7
+[1:39:43 AM] [Pool-1[2] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.Test$start$7@3a80b6c4
+[1:39:43 AM] [Thread-2<-ReplayRecorder/INFO]: Start record replay.
+[1:39:43 AM] [Pool-1[2] Worker<-Companion/INFO]: Stop current background.
+[1:39:43 AM] [Pool-1[2] Worker<-Companion/INFO]: Opening new background audio...
+[1:39:43 AM] [Pool-1[2] Worker<-Companion/INFO]: Set the background to Audio(path=.\test\audio\sounds\bk_1.wav)
+[1:39:43 AM] [Pool-1[2] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@c115839
+[1:39:44 AM] [Pool-1[2] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@711149f9
+[1:39:45 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@383768601-java.awt.Point[x=231,y=461]
+[1:39:48 AM] [Pool-1[2] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.test.Test$start$3@1eb1c448
+[1:39:49 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.4512099921936, FPS: 62.4512099921936;Bullets count: 70
+[1:39:55 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.55864873318736, FPS: 62.55864873318736;Bullets count: 96
+[1:40:01 AM] [Pool-1[1] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.49023590064053, FPS: 62.49023590064053;Bullets count: 102
+[1:40:08 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.50976715111736, FPS: 62.50976715111736;Bullets count: 118
+[1:40:09 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1702711442-java.awt.Point[x=305,y=387]
+[1:40:13 AM] [Pool-1[0] Worker<-Companion/INFO]: Stop current background.
+[1:40:13 AM] [Pool-1[0] Worker<-Companion/INFO]: Opening new background audio...
+[1:40:13 AM] [Pool-1[0] Worker<-Companion/INFO]: Set the background to Audio(path=.\test\audio\sounds\test_boss_0_bgm.wav)
+[1:40:13 AM] [Pool-1[0] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.test.Test$start$5@3cd6e1f7
+[1:40:14 AM] [Pool-1[2] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.49023590064053, FPS: 62.49023590064053;Bullets count: 46
+[1:40:15 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1663986227-java.awt.Point[x=241,y=452]
+[1:40:15 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1568525307-java.awt.Point[x=251,y=452]
+[1:40:18 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1529975492-java.awt.Point[x=243,y=455]
+[1:40:20 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@472882148-java.awt.Point[x=241,y=452]
+[1:40:21 AM] [Pool-1[1] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.5, FPS: 62.34375;Bullets count: 217
+[1:40:21 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@264605919-java.awt.Point[x=241,y=452]
+[1:40:25 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1490082494-java.awt.Point[x=241,y=452]
+[1:40:26 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@2064887846-java.awt.Point[x=243,y=455]
+[1:40:26 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@333750349-java.awt.Point[x=241,y=452]
+[1:40:27 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.50976715111736, FPS: 62.50976715111736;Bullets count: 225
+[1:40:28 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1146397674-java.awt.Point[x=241,y=452]
+[1:40:30 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@59453424-java.awt.Point[x=251,y=452]
+[1:40:31 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@445797448-java.awt.Point[x=251,y=452]
+[1:40:33 AM] [Pool-1[2] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.5, FPS: 62.5;Bullets count: 218
+[1:40:33 AM] [Pool-1[2] Worker<-InfoSystem/INFO]: Try to GC.
+[1:40:37 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@859788323-java.awt.Point[x=245,y=453]
+[1:40:38 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1771112731-java.awt.Point[x=245,y=453]
+[1:40:38 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1815767356-java.awt.Point[x=245,y=453]
+[1:40:39 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1013939078-java.awt.Point[x=243,y=455]
+[1:40:39 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@302d2dc3 is hit by Bullet@1360309603-java.awt.Point[x=245,y=453]
+[1:40:40 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.49023590064053, FPS: 62.49023590064053;Bullets count: 219
+[1:40:46 AM] [Pool-1[2] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.50976715111736, FPS: 62.666041568995155;Bullets count: 0
+[1:40:49 AM] [Pool-1[2] Worker<-Companion/INFO]: Stop current background.
+[1:40:49 AM] [Pool-1[2] Worker<-Companion/INFO]: Opening new background audio...
+[1:40:49 AM] [Pool-1[2] Worker<-Companion/INFO]: Set the background to Audio(path=.\test\audio\sounds\bk_0.wav)
+[1:40:49 AM] [Thread-2<-ReplayRecorder/INFO]: End to record replay.
+[1:40:49 AM] [Pool-1[2] Worker<-ReplayRecorder/INFO]: Save the replay as D:\ProjectKotlin\KStg\.\replay\KStg-TestReplay-2023-08-22_01.40.49_0.rep
+[1:40:49 AM] [Pool-1[2] Worker<-ReplayRecorder/INFO]: Delete the temp file.
+[1:40:49 AM] [Pool-1[2] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.test.Test$start$7@3a80b6c4
+[1:40:52 AM] [AWT-EventQueue-0<-SingleInstanceEnsurer/INFO]: Release the file lock on java.io.RandomAccessFile@277f726f
+[1:40:52 AM] [Thread-0<-CrashReporter/INFO]: Bin file cleared.

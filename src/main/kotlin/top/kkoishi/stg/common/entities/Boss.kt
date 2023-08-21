@@ -19,6 +19,7 @@ abstract class Boss(health: Int, initialX: Int, initialY: Int) : Enemy(health) {
     abstract fun paintBossBar(r: Graphics2D)
     abstract fun end(): Boolean
     abstract fun action()
+    abstract fun afterDead()
 
     override fun collide(o: Object): Boolean {
         if (o is PlayerBullet && CollideSystem.collide(this, o)) {
@@ -34,6 +35,8 @@ abstract class Boss(health: Int, initialX: Int, initialY: Int) : Enemy(health) {
         val dead = super.update()
         if (!dead)
             action()
+        else
+            afterDead()
         return end() && dead
     }
 

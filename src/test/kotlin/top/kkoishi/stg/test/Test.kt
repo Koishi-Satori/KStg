@@ -8,7 +8,6 @@ import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.gfx.*
 import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.*
-import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.boot.ui.LoadingFrame
 import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.exceptions.InternalError
@@ -22,8 +21,6 @@ import top.kkoishi.stg.test.common.enemy.TestEnemy0
 import top.kkoishi.stg.test.common.enemy.TestEnemy1
 import top.kkoishi.stg.test.common.stages.Stage1
 import java.awt.*
-import java.awt.event.FocusEvent
-import java.awt.event.FocusListener
 import java.awt.event.KeyEvent
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
@@ -39,79 +36,36 @@ import kotlin.system.exitProcess
 object Test {
     @JvmStatic
     fun main(args: Array<String>) {
-        //-Dsun.java2d.ddscale=true
-        //-Dsun.java2d.opengl=true
-        //-Dswing.aatext=true
-        //-Dawt.nativeDoubleBuffering=true
-        System.setProperty("sun.java2d.ddscale", "true")
-        System.setProperty("sun.java2d.opengl", "true")
-        System.setProperty("swing.aatext", "true")
-        System.setProperty("awt.nativeDoubleBuffering", "true")
-
-        val curPath = Path.of("./").toAbsolutePath()
-        ThreadExceptionHandler.initialize(ProcessBuilder("java", "-jar", "\"$curPath/crash_handle/KStg.CrashHandler.jar\""))
-
+        FastBootstrapper.setAccelerationProperties()
+        initThreadHandler()
         if (SingleInstanceEnsurer.setLockedFile("./.lock") == null)
             load(args)
     }
 
     private fun load(args: Array<String>) {
         val load = LoadingFrame(ImageIO.read(File("./test/load.jpg")))
-
-        ThreadExceptionHandler.addHandler(ThreadExceptionHandler.HandleInfo("Internal Error") {
-            if (it is InternalError)
-                return@HandleInfo ThreadExceptionHandler.HANDLE_LEVEL_CRASH
-            else return@HandleInfo ThreadExceptionHandler.HANDLE_LEVEL_OFF
-        })
-
-        var fullScreen = false
+        val fullScreen = args.isNotEmpty() && args[0] == "fullscreen"
         InfoSystem.logToFile = true
+        loadResources()
+        initJFrame(fullScreen)
+        Graphics.setFont("sidebar", Font("Times New Roman", Font.PLAIN, 20))
+        load.end()
+        menu()
+        FastBootstrapper.beginThreads()
+    }
 
-        if (args.isNotEmpty() && args[0] == "fullscreen") {
-            fullScreen = true
-        }
-
-        // load textures from scripts
-        GFXLoader(Path.of("./test/gfx")).loadDefinitions()
-
-        Sounds.loadAudio("bk_0", "./test/audio/sounds/bk_0.wav")
-        Sounds.loadAudio("bk_1", "./test/audio/sounds/bk_1.wav")
-        Sounds.loadAudio("test_player_shot", "./test/audio/sounds/th15_player_shot_0.wav")
-        Sounds.loadAudio("th15_enemy_damage_01", "./test/audio/sounds/th15_enemy_damage_01.wav")
-        Sounds.loadAudio("th15_enemy_damage_02", "./test/audio/sounds/th15_enemy_damage_02.wav")
-        Sounds.loadAudio("enemy_dead", "./test/audio/sounds/enemy_dead_0.wav")
-        Sounds.loadAudio("enemy_shoot", "./test/audio/sounds/enemy_shoot.wav")
-        Sounds.loadAudio("test_boss_0_bgm", "./test/audio/sounds/test_boss_0_bgm.wav")
-
+    private fun initJFrame(fullScreen: Boolean) {
         val f = JFrame("KKoishi_ STG Engine test")
-        if (fullScreen)
-            f.setSize(640, 480)
-        else
-            f.setSize(640 + 14, 480 + 37)
-        f.isResizable = false
-        f.iconImage = ImageIO.read(File("./resources/logo.ico"))
-        f.isUndecorated = fullScreen
-        f.isVisible = true
         f.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(e: WindowEvent?) {
                 SingleInstanceEnsurer.release()
                 exitProcess(CrashReporter.EXIT_OK)
             }
         })
-        f.addFocusListener(
-            object : FocusListener {
-                override fun focusGained(e: FocusEvent) {
-                    this::class.logger().log(System.Logger.Level.INFO, "Gained focus, try to resync again.")
-                    Renderer.syncFrame()
-                    InfoSystem.syncFrame()
-                }
-
-                override fun focusLost(e: FocusEvent) {
-                    this::class.logger().log(System.Logger.Level.WARNING, "Lose focus!")
-                }
-            }
-        )
-        PlayerManager.keyBinds(
+        FastBootstrapper.setIconImage(f, "./resources/logo.ico")
+        FastBootstrapper.autoSync(f)
+        FastBootstrapper.display(f, 640, 480, Insets(16, 36, 16, 220), fullScreen)
+        FastBootstrapper.keyBinds(
             f,
             Player.VK_C,
             Player.VK_DOWN,
@@ -124,30 +78,36 @@ object Test {
             Player.VK_Z,
             KeyEvent.VK_F11
         )
-
-        Graphics.refresh(f)
-        Graphics.setScreenSize(Dimension(640, 480))
-        Graphics.setBufferSize(640, 480)
-        Graphics.setUIInsets(16, 36, 16, 220)
-        Graphics.setFont("sidebar", Font("Times New Roman", Font.PLAIN, 20))
-        load.end()
-        if (fullScreen) {
-            if (GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.isFullScreenSupported)
-                GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.fullScreenWindow = f
-            else
-                f.size = Renderer.monitorSize()
-            Renderer.fullScreen()
-        }
-        menu()
-        beginThreads()
     }
 
-    private fun beginThreads() {
-        val inst = Threads.getInstance()
-        InfoSystem.start(inst)
-        Renderer.start(inst)
-        GameLoop.start(inst)
-        AudioPlayer.start(inst)
+    private fun loadResources() {
+        // load textures from scripts
+        GFXLoader(Path.of("./test/gfx")).loadDefinitions()
+
+        Sounds.loadAudio("bk_0", "./test/audio/sounds/bk_0.wav")
+        Sounds.loadAudio("bk_1", "./test/audio/sounds/bk_1.wav")
+        Sounds.loadAudio("test_player_shot", "./test/audio/sounds/th15_player_shot_0.wav")
+        Sounds.loadAudio("th15_enemy_damage_01", "./test/audio/sounds/th15_enemy_damage_01.wav")
+        Sounds.loadAudio("th15_enemy_damage_02", "./test/audio/sounds/th15_enemy_damage_02.wav")
+        Sounds.loadAudio("enemy_dead", "./test/audio/sounds/enemy_dead_0.wav")
+        Sounds.loadAudio("enemy_shoot", "./test/audio/sounds/enemy_shoot.wav")
+        Sounds.loadAudio("test_boss_0_bgm", "./test/audio/sounds/test_boss_0_bgm.wav")
+    }
+
+    private fun initThreadHandler() {
+        val curPath = Path.of("./").toAbsolutePath()
+        ThreadExceptionHandler.addHandler(ThreadExceptionHandler.HandleInfo("Internal Error") {
+            if (it is InternalError)
+                return@HandleInfo ThreadExceptionHandler.HANDLE_LEVEL_CRASH
+            else return@HandleInfo ThreadExceptionHandler.HANDLE_LEVEL_OFF
+        })
+        ThreadExceptionHandler.initialize(
+            ProcessBuilder(
+                "java",
+                "-jar",
+                "\"$curPath/crash_handle/KStg.CrashHandler.jar\""
+            )
+        )
     }
 
     private fun menu() {

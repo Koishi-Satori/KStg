@@ -1,7 +1,6 @@
 package top.kkoishi.stg.common.entities
 
 import top.kkoishi.stg.common.BossAction
-import java.awt.Shape
 
 abstract class BaseBoss(initialX: Int, initialY: Int, firstAction: BossAction) :
     Boss(firstAction.health, initialX, initialY) {
@@ -16,16 +15,27 @@ abstract class BaseBoss(initialX: Int, initialY: Int, firstAction: BossAction) :
     }
 
     override fun end(): Boolean = synchronized(lock) {
-        return actions.isEmpty() && cur.frames <= 0
+        return actions.isEmpty() && cur.frames-- <= 0
     }
 
     override fun action() {
         synchronized(lock) {
-            cur.action(this)
-            if (cur.frames-- <= 0 && actions.isNotEmpty()) {
+            if (cur.frames >= 0)
+                cur.action(this)
+            if (cur.frames <= 0 && actions.isNotEmpty()) {
                 cur = actions.removeFirst()
                 health = cur.health
             }
+        }
+    }
+
+    override fun afterDead() {
+        synchronized(lock) {
+            if (actions.isNotEmpty()) {
+                cur = actions.removeFirst()
+                health = cur.health
+            } else
+                cur.frames = -114514
         }
     }
 
