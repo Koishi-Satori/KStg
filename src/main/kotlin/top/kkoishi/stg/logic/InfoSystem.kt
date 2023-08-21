@@ -94,7 +94,7 @@ class InfoSystem private constructor() : Runnable {
 
             fun log(level: Level, e: Throwable) {
                 if (level == Level.WARNING)
-                    log(level, e.message ?: "")
+                    log(level, "${e.javaClass.name}->${e.message}")
                 else
                     log(level, "${e.message}\n${e.stackTraceToString()}")
             }

@@ -35,16 +35,6 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
     protected val playerID = serializePlayer(player)
 
     init {
-        Runtime.getRuntime().addShutdownHook(object : Thread() {
-            override fun run() {
-                if (temp.channel.isOpen && fileLock.isValid)
-                    fileLock.release()
-                if (tempPath.exists())
-                    tempPath.deleteExisting()
-
-                ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Delete the temp file.")
-            }
-        })
         ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Start record replay.")
         temp.write(FILE_HEAD)
         temp.writeLong(randomSeed)
@@ -90,8 +80,9 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
         replayFile.createFile()
         try {
             temp.writeLong(System.currentTimeMillis())
-            temp.writeInt(name.length)
-            temp.writeUTF(name)
+            val bytes = name.toByteArray()
+            temp.writeInt(bytes.size)
+            temp.write(bytes)
             temp.writeLong(id)
             saveImpl(replayFile)
             ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Save the replay as $replayFile")
