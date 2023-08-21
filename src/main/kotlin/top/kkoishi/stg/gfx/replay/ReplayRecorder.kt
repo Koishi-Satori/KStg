@@ -19,7 +19,7 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
     val recordedKeyCodes: IntArray,
     serializePlayer: (Player) -> Int,
 ) : Thread() {
-    protected val tempPath: Path = Path.of("./temp_replay.out")
+    protected val tempPath: Path = Path.of("./temp_replay.bin")
 
     init {
         synchronized(lock) {
@@ -41,8 +41,11 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
                     fileLock.release()
                 if (tempPath.exists())
                     tempPath.deleteExisting()
+
+                ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Delete the temp file.")
             }
         })
+        ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Start record replay.")
         temp.write(FILE_HEAD)
         temp.writeLong(randomSeed)
         temp.writeInt(playerID)
@@ -57,6 +60,8 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
             recordFrame()
             sleep(Threads.period())
         }
+
+        ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "End to record replay.")
     }
 
     protected open fun recordFrame() {
@@ -85,7 +90,11 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
         replayFile.createFile()
         try {
             temp.writeLong(System.currentTimeMillis())
+            temp.writeInt(name.length)
+            temp.writeUTF(name)
+            temp.writeLong(id)
             saveImpl(replayFile)
+            ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Save the replay as $replayFile")
         } catch (ioe: IOException) {
             ReplayRecorder::class.logger().log(System.Logger.Level.ERROR, ioe)
             return false
@@ -94,6 +103,7 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
                 fileLock.release()
             temp.close()
             tempPath.deleteIfExists()
+            ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Delete the temp file.")
         }
         return true
     }
