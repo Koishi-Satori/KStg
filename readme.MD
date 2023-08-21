@@ -65,9 +65,9 @@ public class Test {
 ```kotlin
 //kotlin
 val f = JFrame("KKoishi_ STG Engine test")
-// custom the JFrame
+// TODO: custom the JFrame
 f.isVisible = true
-// KeyBinds, you can use your key binds, and this is just an example
+// TODO: KeyBinds, you can use your key binds, and this is just an example
 PlayerManager.keyBinds(
     f,
     Player.VK_C,
@@ -83,7 +83,7 @@ PlayerManager.keyBinds(
 )
 Graphics.refresh(f)
 
-// init menu, or stages and so on.
+// TODO: init menu, or stages and so on.
 // next step is set the game state.
 GenericFlags.gameState.set(GenericFlags.STATE_MENU)
 
@@ -95,8 +95,30 @@ AudioPlayer.start(inst)
 ```
 - ### 注意事项
 > - 自定义JFrame时，若您需要全屏显示，应该先使用```setUndecorated(true)```，
-> 然后用Graphics中的setScreenSize setBufferSize去正确设置大小，
+> 然后用[Graphics](./src/main/kotlin/top/kkoishi/stg/gfx/Graphics.kt)中的setScreenSize setBufferSize去正确设置大小，
 > 最后让JFrame全屏并且调用Render.fullScreen()。
-> - 如果您需要添加SideBar，还需要使用Graphics.setUIInsets去设置UI边框大小。
+> - 如果您需要添加[SideBar](./src/main/kotlin/top/kkoishi/stg/common/ui/SideBar.kt)，还需要使用Graphics.setUIInsets去设置UI边框大小。
+> - Graphics.refresh方法应该在JFrame.setVisible之后调用，才能正常创建Graphics2D。
+
+- ### 逻辑
+> - [GenericFlags](./src/main/kotlin/top/kkoishi/stg/logic/GenericFlags.kt).gameState用于标识当前游戏状态。
+> - 当其为GenericFlags.STATE_MENU时，只有[ObjectPool](./src/main/kotlin/top/kkoishi/stg/logic/ObjectPool.kt).uiObject中的实例会被渲染。
+> - 当其为GenericFlags.PLAYING时，ObjectPool中所有对象实例以及player均会被渲染。
+> - 您需要做的就是在切换状态之前正确的把实例一股脑丢进去即可。
+> - 本引擎提供了一套脚本来加载材质音频等。
+> ---
+> 
+> - 实现基本要求的类均位于[top.kkoishi.stg.common](./src/main/kotlin/top/kkoishi/stg/common/package-info.java)包内，（通常）只用继承实现他们的逻辑。
+> - top.kkoishi.stg.common中所有可渲染对象都实现接口top.kkoishi.stg.common.entities.Object，包含更新逻辑、碰撞检测及渲染。
+> - 所有实体（[Player](./src/main/kotlin/top/kkoishi/stg/common/entities/Player.kt), [Boss](./src/main/kotlin/top/kkoishi/stg/common/entities/Boss.kt), [Enemy](./src/main/kotlin/top/kkoishi/stg/common/entities/Enemy.kt), [Item](./src/main/kotlin/top/kkoishi/stg/common/entities/Item.kt), [Bullet](./src/main/kotlin/top/kkoishi/stg/common/entities/Bullet.kt)）都在top.kkoishi.stg.common.entities包内，同时包里有一些抽象类（以Base/Abstract开头，部分位于[Defaults.kt](./src/main/kotlin/top/kkoishi/stg/common/entities/Defaults.kt)中）来降低实现难度，而除了Bullet这些类均继承了Entity类。
+> - top.kkoishi.stg.common.ui包负责ui渲染，提供了一系列类来渲染ui，只需要实现并丢进ObjectPool.uiObject。
+> - 其余的类为游戏逻辑，包括boss逻辑BossAction、Stage及其逻辑StageAction和类ScreenRenderObject。
+> ---
+> 
+> - 引擎整体逻辑为先渲染、然后计算，最后播放audio，大体包含四个主要线程：InfoSystem、Renderer、GameLoop、AudioPlayer，同时包含一个CrashHandle子进程（可选）
 
 (README未完成)
+
+## 线程异常处理和单一实例
+
+## [脚本说明](./test/scripts.md)
