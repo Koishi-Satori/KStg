@@ -142,11 +142,6 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
         val point = t.renderPoint(xI, yI)
         t.paint(g, t.normalMatrix(), point.x, point.y)
 
-        if (slower) with(GFX.getTexture("center")) {
-            val rd = renderPoint(xI, yI)
-            this.paint(g, normalMatrix(), rd.x, rd.y)
-        }
-
         // render player bullets
         PlayerManager.paintBullets(g)
     }

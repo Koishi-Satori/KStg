@@ -3,18 +3,19 @@ package top.kkoishi.stg.logic
 import top.kkoishi.stg.common.entities.Bullet
 import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.common.entities.Player
+import java.util.concurrent.atomic.AtomicReference
 
 object ObjectPool {
-    private lateinit var player: Player
+    private val player: AtomicReference<Player> = AtomicReference()
     private val bullets = ArrayDeque<Bullet>(1024)
     private val objects = ArrayDeque<Object>(128)
     private val UIObjects = ArrayDeque<Object>(16)
-    private val playerLock = Any()
     private val lock = Any()
 
-    fun player() = synchronized(playerLock) { player }
+    fun player(): Player = player.get()
 
-    fun player(p: Player) = synchronized(playerLock) { player = p }
+    fun player(p: Player) = player.set(p)
+
 
     fun uiObjects(): Iterator<Object> {
         synchronized(lock) {
