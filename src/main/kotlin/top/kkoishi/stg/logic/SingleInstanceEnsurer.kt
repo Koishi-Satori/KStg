@@ -28,12 +28,9 @@ object SingleInstanceEnsurer {
             fileLock = lockedFile.channel.tryLock()
             return null
         } catch (r: Throwable) {
-            val generator = CrashReportGenerator("---- Engine Internal Report ----")
+            val generator = CrashReportGenerator()
             generator.description("Only one instance can be started!")
-            CrashReporter("Oops! Engine Crashed...").report(
-                generator.generate(r),
-                "Only one instance can be started!"
-            )
+            CrashReporter().report(generator.generate(r))
             return r
         }
     }

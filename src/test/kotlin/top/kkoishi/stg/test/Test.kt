@@ -10,6 +10,9 @@ import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.boot.ui.LoadingFrame
+import top.kkoishi.stg.exceptions.CrashReporter
+import top.kkoishi.stg.exceptions.InternalError
+import top.kkoishi.stg.exceptions.ThreadExceptionHandler
 import top.kkoishi.stg.gfx.replay.ReplayRecorder
 import top.kkoishi.stg.script.GFXLoader
 import top.kkoishi.stg.test.common.GameSystem
@@ -44,12 +47,23 @@ object Test {
         System.setProperty("sun.java2d.opengl", "true")
         System.setProperty("swing.aatext", "true")
         System.setProperty("awt.nativeDoubleBuffering", "true")
+
+        val curPath = Path.of("./").toAbsolutePath()
+        ThreadExceptionHandler.initialize(ProcessBuilder("java", "-jar", "\"$curPath/crash_handle/KStg.CrashHandler.jar\""))
+
         if (SingleInstanceEnsurer.setLockedFile("./.lock") == null)
             load(args)
     }
 
     private fun load(args: Array<String>) {
         val load = LoadingFrame(ImageIO.read(File("./test/load.jpg")))
+
+        ThreadExceptionHandler.addHandler(ThreadExceptionHandler.HandleInfo("Internal Error") {
+            if (it is InternalError)
+                return@HandleInfo ThreadExceptionHandler.HANDLE_LEVEL_CRASH
+            else return@HandleInfo ThreadExceptionHandler.HANDLE_LEVEL_OFF
+        })
+
         var fullScreen = false
         InfoSystem.logToFile = true
 
@@ -81,7 +95,7 @@ object Test {
         f.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(e: WindowEvent?) {
                 SingleInstanceEnsurer.release()
-                exitProcess(514)
+                exitProcess(CrashReporter.EXIT_OK)
             }
         })
         f.addFocusListener(

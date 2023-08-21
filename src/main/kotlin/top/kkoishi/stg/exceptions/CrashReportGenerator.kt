@@ -12,7 +12,7 @@ import kotlin.math.abs
 import kotlin.random.Random
 
 @Suppress("MemberVisibilityCanBePrivate", "unused")
-class CrashReportGenerator(val head: String) {
+class CrashReportGenerator @JvmOverloads constructor(val head: String = DEFAULT_HEAD) {
     private val time: String = DateFormat.getDateTimeInstance().format(Date.from(Instant.now()))
     private var description: String = "none"
     var implementationVersion: String = "none"
@@ -62,6 +62,9 @@ class CrashReportGenerator(val head: String) {
     }
 
     companion object {
+        @JvmStatic
+        val DEFAULT_HEAD = "---- Engine Internal Report ----"
+
         @JvmStatic
         private val properties = System.getProperties()
 

@@ -2,6 +2,7 @@ package top.kkoishi.stg.test.common
 
 import top.kkoishi.stg.common.ui.Menu
 import top.kkoishi.stg.common.ui.MenuItem
+import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.Texture
 import top.kkoishi.stg.logic.GenericFlags
@@ -54,7 +55,7 @@ class MainMenu : Menu(GenericFlags.STATE_MENU) {
             when (select) {
                 3 -> {
                     SingleInstanceEnsurer.release()
-                    exitProcess(0)
+                    exitProcess(CrashReporter.EXIT_OK)
                 }
                 0, 1, 2 -> Test.start(0)
                 else -> { /* do nothing */

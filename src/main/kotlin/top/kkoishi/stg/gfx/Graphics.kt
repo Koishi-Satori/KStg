@@ -30,11 +30,14 @@ object Graphics {
 
     private val INSETS: Insets = Insets(0, 0, 0, 0)
 
+    private lateinit var container: JFrame
+
     init {
         setFont("fps_render", DEFAULT_FONT)
     }
 
     fun refresh(f: JFrame) {
+        container = f
         GC = f.graphicsConfiguration
         if (f.graphics != null)
             setRender(f.graphics as Graphics2D)
@@ -45,10 +48,6 @@ object Graphics {
         size.width -= (insets.left + insets.right)
         setScreenSize(size)
         setBufferSize(size.width, size.height)
-    }
-
-    fun setGC(graphicsConfiguration: GraphicsConfiguration) {
-        GC = graphicsConfiguration
     }
 
     fun setRender(r: Graphics2D) {
@@ -110,4 +109,5 @@ object Graphics {
     }
 
     fun getUIInsets() = INSETS
+    fun dispose() = container.dispose()
 }

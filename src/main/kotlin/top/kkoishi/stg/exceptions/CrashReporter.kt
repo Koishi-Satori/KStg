@@ -1,28 +1,24 @@
 package top.kkoishi.stg.exceptions
 
-import java.awt.Dimension
-import java.awt.event.WindowAdapter
-import java.awt.event.WindowEvent
+import java.io.FileOutputStream
 import java.io.PrintStream
 import java.nio.file.Path
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.*
-import javax.swing.JFrame
-import javax.swing.JTextArea
+import java.util.concurrent.atomic.AtomicLong
 import kotlin.io.path.*
 import kotlin.system.exitProcess
 
-class CrashReporter @JvmOverloads constructor(
-    title: String,
+class CrashReporter {
     private val logFile: Path = Path.of(
-        "./crash_logs/${
+        "$reportDir/crash_logs/${
             SimpleDateFormat("'crash_report-'yyyy-MM-dd_HH.mm.ss'.log'").format(
                 Date.from(Instant.now())
             )
         }"
-    ),
-) : JFrame(title) {
+    )
+
     init {
         val dir = Path.of("./crash_logs")
         if (!dir.exists())
@@ -32,28 +28,58 @@ class CrashReporter @JvmOverloads constructor(
     }
 
     private val out = PrintStream(logFile.outputStream(), false, Charsets.UTF_8)
-    private val area = JTextArea()
 
-    init {
-        setSize(320, 180)
-        area.size = Dimension(160, 90)
-        area.autoscrolls = true
-        add(area)
-        addWindowListener(object : WindowAdapter() {
-            override fun windowClosing(e: WindowEvent) {
-                exitProcess(1)
-            }
-        })
-    }
-
-    @JvmOverloads
-    fun report(crashReport: String, displayText: String = crashReport) {
+    fun report(crashReport: String, exitState: Int = EXIT_CRASH) {
+        reportCount.incrementAndGet()
         out.println(crashReport)
         out.flush()
         out.close()
 
-        area.text = "$displayText\nCrash Report has been saved as ${logFile.toAbsolutePath()}"
-        isResizable = false
-        isVisible = true
+        val state = Path.of("$reportDir/crash_logs/state.bin")
+        if (!state.exists())
+            state.createFile()
+        with(FileOutputStream(state.toFile(), false)) {
+            write(exitState ushr 24 and 0xFF)
+            write(exitState ushr 16 and 0xFF)
+            write(exitState ushr 8 and 0xFF)
+            write(exitState ushr 0 and 0xFF)
+            val bytes = logFile.toAbsolutePath().toString().toByteArray()
+            val len = bytes.size
+            write(len ushr 24 and 0xFF)
+            write(len ushr 16 and 0xFF)
+            write(len ushr 8 and 0xFF)
+            write(len ushr 0 and 0xFF)
+            write(bytes)
+            flush()
+            close()
+        }
+
+        if (exitState == EXIT_CRASH)
+            exitProcess(EXIT_CRASH)
+    }
+
+    companion object {
+        const val EXIT_OK = 0
+        const val EXIT_CRASH = 1
+        const val EXIT_WARNING = 2
+
+        @JvmStatic
+        val reportCount: AtomicLong = AtomicLong(0)
+
+        @JvmStatic
+        private val lock = Any()
+
+        @JvmStatic
+        var reportDir = "."
+            get() {
+                synchronized(lock) {
+                    return field
+                }
+            }
+            set(value) {
+                synchronized(lock) {
+                    field = value
+                }
+            }
     }
 }
