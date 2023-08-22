@@ -13,6 +13,7 @@ import top.kkoishi.stg.boot.ui.LoadingFrame
 import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.exceptions.InternalError
 import top.kkoishi.stg.exceptions.ThreadExceptionHandler
+import top.kkoishi.stg.gfx.Renderer
 import top.kkoishi.stg.gfx.replay.ReplayRecorder
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.script.GFXLoader
@@ -38,22 +39,23 @@ object Test {
     @JvmStatic
     fun main(args: Array<String>) {
         FastBootstrapper.setAccelerationProperties()
-        InfoSystem.logToFile = true
+        GenericFlags.logToFile = true
+        val settings = Settings.INI("./engine.ini")
+        if (settings.read())
+            settings.load()
+        else
+            Test::class.logger().log(System.Logger.Level.WARNING, "Failed to read ${settings.file}")
         initThreadHandler()
         if (SingleInstanceEnsurer.setLockedFile("./.lock") == null)
             load(args)
     }
 
     private fun load(args: Array<String>) {
-        val settings = Settings.INI("./engine.ini")
-        if (settings.read())
-            settings.load()
-        else
-            Test::class.logger().log(System.Logger.Level.WARNING, "Failed to read ${settings.file}")
+        Renderer.useVRAM()
         val load = LoadingFrame(ImageIO.read(File("${Threads.workdir()}/test/load.jpg")))
         val fullScreen = args.isNotEmpty() && args[0] == "fullscreen"
-        loadResources()
         initJFrame(fullScreen)
+        loadResources()
         Graphics.setFont("sidebar", Font("Times New Roman", Font.PLAIN, 20))
         load.end()
         menu()
@@ -88,7 +90,7 @@ object Test {
 
     private fun loadResources() {
         // load textures from scripts
-        GFXLoader("${Threads.workdir()}/test/gfx").loadDefinitions()
+        GFXLoader("${Threads.workdir()}/test/gfx", true).loadDefinitions()
 
         Sounds.loadAudio("bk_0", "${Threads.workdir()}/test/audio/sounds/bk_0.wav")
         Sounds.loadAudio("bk_1", "${Threads.workdir()}/test/audio/sounds/bk_1.wav")

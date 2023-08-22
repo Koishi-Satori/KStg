@@ -72,14 +72,18 @@ object GFX {
         return textures[key] ?: NOT_FOUND
     }
 
+    @JvmOverloads
     @Throws(FailedLoadingResourceException::class)
-    fun loadTexture(key: String, path: String) {
+    fun loadTexture(key: String, path: String, useVRAM: Boolean = false) {
         logger.log(System.Logger.Level.INFO, "Try to load the texture: $path")
         try {
             val p = Path.of(path)
             val ins = ImageIO.createImageInputStream(seekTexture(p))
             val img = ImageIO.read(ins)
-            textures[key] = Texture(img)
+            if (useVRAM)
+                textures[key] = Texture.Volatile(img, Graphics.getGraphicsConfiguration())
+            else
+                textures[key] = Texture(img)
         } catch (e: IOException) {
             logger.log(System.Logger.Level.WARNING, "Failed to load the texture $key")
             throw FailedLoadingResourceException(e)

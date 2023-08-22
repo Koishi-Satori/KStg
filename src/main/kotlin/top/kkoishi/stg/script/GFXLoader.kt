@@ -16,13 +16,15 @@ import top.kkoishi.stg.script.VM.processVars
 import java.io.File
 import java.nio.file.Path
 
-class GFXLoader(private val root: Path) : LocalVariables("gfx_loader"), Loader {
+class GFXLoader @JvmOverloads constructor(private val root: Path, private val useVram: Boolean = false) :
+    LocalVariables("gfx_loader"), Loader {
 
     init {
         LocalVariables[scopeName] = this
     }
 
-    constructor(root: String) : this(Path.of(root)) {
+    @JvmOverloads
+    constructor(root: String, useVRAM: Boolean = false) : this(Path.of(root), useVRAM) {
         LocalVariables[scopeName] = this
     }
 
@@ -168,6 +170,7 @@ class GFXLoader(private val root: Path) : LocalVariables("gfx_loader"), Loader {
         }
     }
 
+    @Suppress("ClassName")
     private inner class GFXScriptParser(lexer: GFXScriptLexer) : Parser(lexer) {
 
         @Throws(ScriptException::class)
@@ -288,7 +291,7 @@ class GFXLoader(private val root: Path) : LocalVariables("gfx_loader"), Loader {
 
         private inner class gfx(private val name: String, private val path: String) : Instruction(0x21) {
             override fun needVars(): Boolean = false
-            override fun invoke() = GFX.loadTexture(name, "$root/$path")
+            override fun invoke() = GFX.loadTexture(name, "$root/$path", useVram)
         }
 
         private inner class shear(

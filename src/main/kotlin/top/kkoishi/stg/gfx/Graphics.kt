@@ -88,7 +88,12 @@ object Graphics {
 
     fun buffer() = BUFFER
 
-    fun vramBuffer() = VRAM_BUFFER
+    fun vramBuffer(): VolatileImage {
+        val copy = VRAM_BUFFER
+        if (copy.validate(GC) == VolatileImage.IMAGE_INCOMPATIBLE)
+            VRAM_BUFFER = GC.createCompatibleVolatileImage(copy.width, copy.height)
+        return VRAM_BUFFER
+    }
 
     fun setFont(key: String, font: Font) {
         fonts[key] = font
@@ -111,5 +116,8 @@ object Graphics {
     }
 
     fun getUIInsets() = INSETS
+
     fun dispose() = container.dispose()
+
+    fun getGraphicsConfiguration() = GC
 }

@@ -5,11 +5,14 @@ import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.awt.*
 import java.awt.geom.AffineTransform
 import java.awt.image.AffineTransformOp
+import java.awt.image.BufferedImage
+import java.awt.image.VolatileImage
 import java.util.concurrent.atomic.AtomicLong
 
 class Renderer private constructor() : Runnable {
     private val frame = AtomicLong(0)
     private var fullScreen = false
+    private var useVRAM = false
     private var scale: Pair<Double, Double> = 1.0 to 1.0
     private var dx = 0
     private var dy = 0
@@ -50,78 +53,121 @@ class Renderer private constructor() : Runnable {
         r.drawString(fps, rd.x, rd.y)
     }
 
-    fun paint() {
+    private fun paintImpl(bufferRender: Graphics2D) {
         val logger = Renderer::class.logger()
-        val gameState = GenericFlags.gameState.get()
-        val r = Graphics.render()
-        val bRender = Graphics.buffer().createGraphics()
-        bRender.color = Color.WHITE
-        bRender.setPaintMode()
-        val insets = Graphics.getFrameInsets()
-
-        // clear the screen
-        when (gameState) {
+        when (GenericFlags.gameState.get()) {
             GenericFlags.STATE_PLAYING -> {
                 try {
-                    PlayerManager.cur.paint(bRender)
-                    ObjectPool.player().paint(bRender)
-                    ObjectPool.objects().forEach { it.paint(bRender) }
-                    ObjectPool.bullets().forEach { it.paint(bRender) }
-                    ObjectPool.uiObjects().forEach { it.paint(bRender) }
-                    renderFPS(bRender)
-                    bRender.dispose()
+                    PlayerManager.cur.paint(bufferRender)
+                    ObjectPool.player().paint(bufferRender)
+                    ObjectPool.objects().forEach { it.paint(bufferRender) }
+                    ObjectPool.bullets().forEach { it.paint(bufferRender) }
+                    ObjectPool.uiObjects().forEach { it.paint(bufferRender) }
+                    renderFPS(bufferRender)
+                    bufferRender.dispose()
                 } catch (e: Throwable) {
                     logger.log(System.Logger.Level.ERROR, e)
                 }
             }
 
             GenericFlags.STATE_PAUSE -> {
-                PlayerManager.cur.paint(bRender)
-                ObjectPool.player().paint(bRender)
-                ObjectPool.objects().forEach { it.paint(bRender) }
-                ObjectPool.bullets().forEach { it.paint(bRender) }
-                ObjectPool.uiObjects().forEach { it.paint(bRender) }
-                renderFPS(bRender)
+                PlayerManager.cur.paint(bufferRender)
+                ObjectPool.player().paint(bufferRender)
+                ObjectPool.objects().forEach { it.paint(bufferRender) }
+                ObjectPool.bullets().forEach { it.paint(bufferRender) }
+                ObjectPool.uiObjects().forEach { it.paint(bufferRender) }
+                renderFPS(bufferRender)
             }
 
             GenericFlags.STATE_MENU -> {
                 try {
                     // main menu
-                    ObjectPool.uiObjects().forEach { it.paint(bRender) }
-                    renderFPS(bRender)
+                    ObjectPool.uiObjects().forEach { it.paint(bufferRender) }
+                    renderFPS(bufferRender)
                 } catch (e: Throwable) {
                     logger.log(System.Logger.Level.ERROR, e)
                 }
             }
         }
-        bRender.dispose()
+        bufferRender.dispose()
+    }
+
+    private fun paintScreen(r: Graphics2D, buffer: BufferedImage) {
         if (!fullScreen) {
+            val insets = Graphics.getFrameInsets()
             r.drawImage(
-                Graphics.buffer(),
+                buffer,
                 AffineTransformOp(AffineTransform(), AffineTransformOp.TYPE_NEAREST_NEIGHBOR),
-                insets.left,
-                insets.top
+                insets.left, insets.top
             )
-        } else {
+        } else
             r.drawImage(
-                Graphics.buffer(),
+                buffer,
                 AffineTransformOp(
                     AffineTransform.getScaleInstance(scale.first, scale.second),
                     AffineTransformOp.TYPE_NEAREST_NEIGHBOR
                 ),
-                dx,
-                dy
+                dx, dy
             )
+    }
+
+    private fun paintScreen(r: Graphics2D, buffer: VolatileImage) {
+        if (!fullScreen) {
+            val insets = Graphics.getFrameInsets()
+            r.drawImage(buffer, insets.left, insets.top, null)
+        } else
+            r.drawImage(
+                buffer.getScaledInstance(
+                    buffer.width * scale.first.toInt(),
+                    buffer.height * scale.second.toInt(),
+                    Image.SCALE_SMOOTH
+                ),
+                dx, dy, null
+            )
+    }
+
+    fun paint() {
+        val r = Graphics.render()
+        val buffer = Graphics.buffer()
+        val bRender = buffer.createGraphics()
+        bRender.color = Color.WHITE
+        bRender.setPaintMode()
+
+        paintImpl(bRender)
+        paintScreen(r, buffer)
+
+        frame.incrementAndGet()
+    }
+
+    @Suppress("MemberVisibilityCanBePrivate")
+    fun paintWithVRAM() {
+        val vImg: VolatileImage = Graphics.vramBuffer()
+        val r = Graphics.render()
+        var repaintCount = 0
+
+        while (repaintCount++ <= VRAM_MAX_REPAINT_COUNT) {
+            val vRender = vImg.createGraphics()
+            vRender.color = Color.WHITE
+            vRender.setPaintMode()
+            paintImpl(vRender)
+            if (!vImg.contentsLost())
+                break
         }
+        paintScreen(r, vImg)
 
         frame.incrementAndGet()
     }
 
     override fun run() {
-        paint()
+        if (useVRAM)
+            paintWithVRAM()
+        else
+            paint()
     }
 
     companion object {
+        private var VRAM_MAX_REPAINT_COUNT = 32
+
         private val instance = Renderer()
 
         @JvmStatic
@@ -136,6 +182,12 @@ class Renderer private constructor() : Runnable {
         }
 
         fun fullScreen() = instance.fullScreen()
+
+        @JvmOverloads
+        fun useVRAM(maxRepaintCount: Int = 32) {
+            instance.useVRAM = true
+            VRAM_MAX_REPAINT_COUNT = maxRepaintCount
+        }
 
         fun monitorSize(): Dimension {
             val monitorMode = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.displayMode

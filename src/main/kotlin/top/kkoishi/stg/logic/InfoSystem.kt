@@ -51,7 +51,8 @@ class InfoSystem private constructor() : Runnable {
     companion object {
         private val instance: InfoSystem = InfoSystem()
 
-        var logToFile = false
+        private val logToFile
+            get() = GenericFlags.logToFile
         private val output =
             PrintStream(Path.of("${Threads.workdir()}/output.log").outputStream(), false, Charsets.UTF_8)
 

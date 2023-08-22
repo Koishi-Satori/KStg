@@ -9,4 +9,7 @@ object GenericFlags {
 
     @JvmStatic
     val gameState = AtomicInteger(STATE_MENU)
+
+    @JvmStatic
+    var logToFile: Boolean = false
 }
