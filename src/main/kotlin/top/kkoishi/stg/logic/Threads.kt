@@ -38,6 +38,7 @@ class Threads private constructor(size: Int = 4) {
             val nPath = Path.of(nWorkdir)
             if (nPath.exists()) {
                 workdir = nPath.absolutePathString()
+                Threads::class.logger().log(System.Logger.Level.INFO, "Set workdir to $workdir")
                 return true
             }
             return false

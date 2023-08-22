@@ -3,6 +3,7 @@ package top.kkoishi.stg.test
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.boot.FastBootstrapper
+import top.kkoishi.stg.boot.Settings
 import top.kkoishi.stg.common.AbstractStage
 import top.kkoishi.stg.common.StageAction
 import top.kkoishi.stg.common.entities.Player
@@ -13,6 +14,7 @@ import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.exceptions.InternalError
 import top.kkoishi.stg.exceptions.ThreadExceptionHandler
 import top.kkoishi.stg.gfx.replay.ReplayRecorder
+import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.script.GFXLoader
 import top.kkoishi.stg.test.common.GameSystem
 import top.kkoishi.stg.test.common.actions.TestBoss0Action0
@@ -36,15 +38,20 @@ object Test {
     @JvmStatic
     fun main(args: Array<String>) {
         FastBootstrapper.setAccelerationProperties()
+        InfoSystem.logToFile = true
         initThreadHandler()
         if (SingleInstanceEnsurer.setLockedFile("./.lock") == null)
             load(args)
     }
 
     private fun load(args: Array<String>) {
+        val settings = Settings.INI("./engine.ini")
+        if (settings.read())
+            settings.load()
+        else
+            Test::class.logger().log(System.Logger.Level.WARNING, "Failed to read ${settings.file}")
         val load = LoadingFrame(ImageIO.read(File("${Threads.workdir()}/test/load.jpg")))
         val fullScreen = args.isNotEmpty() && args[0] == "fullscreen"
-        InfoSystem.logToFile = true
         loadResources()
         initJFrame(fullScreen)
         Graphics.setFont("sidebar", Font("Times New Roman", Font.PLAIN, 20))

@@ -122,3 +122,20 @@ AudioPlayer.start(inst)
 ## 线程异常处理和单一实例
 
 ## [脚本说明](./test/scripts.md)
+
+## 引擎结构
+```
+top.kkoishi.stg
+            ├─audio
+            ├─boot
+            │  ├─jvm
+            │  └─ui
+            ├─common
+            │  ├─entities
+            │  └─ui
+            ├─exceptions
+            ├─gfx
+            │  └─replay
+            ├─logic
+            └─script
+```
