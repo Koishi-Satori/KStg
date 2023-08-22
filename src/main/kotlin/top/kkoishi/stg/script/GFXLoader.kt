@@ -22,6 +22,10 @@ class GFXLoader(private val root: Path) : LocalVariables("gfx_loader"), Loader {
         LocalVariables[scopeName] = this
     }
 
+    constructor(root: String) : this(Path.of(root)) {
+        LocalVariables[scopeName] = this
+    }
+
     private val logger = GFXLoader::class.logger()
     override fun loadDefinitions() {
         logger.log(System.Logger.Level.INFO, "Load textures from scripts.")

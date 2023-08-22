@@ -81,8 +81,10 @@ object Graphics {
 
     fun setBufferSize(width: Int, height: Int) {
         VRAM_BUFFER = GC.createCompatibleVolatileImage(width, height)
-        BUFFER = BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
+        BUFFER = createBuffer(width, height)
     }
+
+    fun createBuffer(width: Int, height: Int) = BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
 
     fun buffer() = BUFFER
 

@@ -52,7 +52,8 @@ class InfoSystem private constructor() : Runnable {
         private val instance: InfoSystem = InfoSystem()
 
         var logToFile = false
-        private val output = PrintStream(Path.of("./output.log").outputStream(), false, Charsets.UTF_8)
+        private val output =
+            PrintStream(Path.of("${Threads.workdir()}/output.log").outputStream(), false, Charsets.UTF_8)
 
         private val loggers: MutableMap<KClass<out Any>, Logger> = ConcurrentHashMap()
 

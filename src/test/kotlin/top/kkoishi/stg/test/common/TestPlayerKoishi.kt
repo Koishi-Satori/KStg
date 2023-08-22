@@ -11,6 +11,7 @@ import top.kkoishi.stg.logic.GenericFlags.gameState
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.ObjectPool
 import top.kkoishi.stg.logic.PlayerManager
+import top.kkoishi.stg.logic.Threads
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.Shape
@@ -151,7 +152,8 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
             PlayerManager.binds[KeyEvent.VK_F11] = false
             // save screenshot
             val out =
-                Path.of("./screenshots/screenshot_${System.currentTimeMillis()}_${Renderer.frame()}.png").outputStream()
+                Path.of("${Threads.workdir()}/screenshots/screenshot_${System.currentTimeMillis()}_${Renderer.frame()}.png")
+                    .outputStream()
             val imageOut = ImageIO.createImageOutputStream(out)
             val img = BufferedImage(640, 480, BufferedImage.TYPE_INT_ARGB)
             val bRender = img.createGraphics()

@@ -2,10 +2,10 @@ package top.kkoishi.stg.test
 
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.audio.Sounds
+import top.kkoishi.stg.boot.FastBootstrapper
 import top.kkoishi.stg.common.AbstractStage
 import top.kkoishi.stg.common.StageAction
 import top.kkoishi.stg.common.entities.Player
-import top.kkoishi.stg.gfx.*
 import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.boot.ui.LoadingFrame
@@ -25,7 +25,6 @@ import java.awt.event.KeyEvent
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 import java.io.File
-import java.nio.file.Path
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.*
@@ -43,7 +42,7 @@ object Test {
     }
 
     private fun load(args: Array<String>) {
-        val load = LoadingFrame(ImageIO.read(File("./test/load.jpg")))
+        val load = LoadingFrame(ImageIO.read(File("${Threads.workdir()}/test/load.jpg")))
         val fullScreen = args.isNotEmpty() && args[0] == "fullscreen"
         InfoSystem.logToFile = true
         loadResources()
@@ -62,7 +61,7 @@ object Test {
                 exitProcess(CrashReporter.EXIT_OK)
             }
         })
-        FastBootstrapper.setIconImage(f, "./resources/logo.ico")
+        FastBootstrapper.setIconImage(f, "${Threads.workdir()}/resources/logo.ico")
         FastBootstrapper.autoSync(f)
         FastBootstrapper.display(f, 640, 480, Insets(16, 36, 16, 220), fullScreen)
         FastBootstrapper.keyBinds(
@@ -82,20 +81,19 @@ object Test {
 
     private fun loadResources() {
         // load textures from scripts
-        GFXLoader(Path.of("./test/gfx")).loadDefinitions()
+        GFXLoader("${Threads.workdir()}/test/gfx").loadDefinitions()
 
-        Sounds.loadAudio("bk_0", "./test/audio/sounds/bk_0.wav")
-        Sounds.loadAudio("bk_1", "./test/audio/sounds/bk_1.wav")
-        Sounds.loadAudio("test_player_shot", "./test/audio/sounds/th15_player_shot_0.wav")
-        Sounds.loadAudio("th15_enemy_damage_01", "./test/audio/sounds/th15_enemy_damage_01.wav")
-        Sounds.loadAudio("th15_enemy_damage_02", "./test/audio/sounds/th15_enemy_damage_02.wav")
-        Sounds.loadAudio("enemy_dead", "./test/audio/sounds/enemy_dead_0.wav")
-        Sounds.loadAudio("enemy_shoot", "./test/audio/sounds/enemy_shoot.wav")
-        Sounds.loadAudio("test_boss_0_bgm", "./test/audio/sounds/test_boss_0_bgm.wav")
+        Sounds.loadAudio("bk_0", "${Threads.workdir()}/test/audio/sounds/bk_0.wav")
+        Sounds.loadAudio("bk_1", "${Threads.workdir()}/test/audio/sounds/bk_1.wav")
+        Sounds.loadAudio("test_player_shot", "${Threads.workdir()}/test/audio/sounds/th15_player_shot_0.wav")
+        Sounds.loadAudio("th15_enemy_damage_01", "${Threads.workdir()}/test/audio/sounds/th15_enemy_damage_01.wav")
+        Sounds.loadAudio("th15_enemy_damage_02", "${Threads.workdir()}/test/audio/sounds/th15_enemy_damage_02.wav")
+        Sounds.loadAudio("enemy_dead", "${Threads.workdir()}/test/audio/sounds/enemy_dead_0.wav")
+        Sounds.loadAudio("enemy_shoot", "${Threads.workdir()}/test/audio/sounds/enemy_shoot.wav")
+        Sounds.loadAudio("test_boss_0_bgm", "${Threads.workdir()}/test/audio/sounds/test_boss_0_bgm.wav")
     }
 
     private fun initThreadHandler() {
-        val curPath = Path.of("./").toAbsolutePath()
         ThreadExceptionHandler.addHandler(ThreadExceptionHandler.HandleInfo("Internal Error") {
             if (it is InternalError)
                 return@HandleInfo ThreadExceptionHandler.HANDLE_LEVEL_CRASH
@@ -105,7 +103,7 @@ object Test {
             ProcessBuilder(
                 "java",
                 "-jar",
-                "\"$curPath/crash_handle/KStg.CrashHandler.jar\""
+                "\"${Threads.workdir()}/crash_handle/KStg.CrashHandler.jar\""
             )
         )
     }
@@ -179,9 +177,9 @@ object Test {
             // switch to menu
             GenericFlags.gameState.set(GenericFlags.STATE_MENU)
             recorder.save(
-                Path.of("./replay"), SimpleDateFormat("'KStg-TestReplay-'yyyy-MM-dd_HH.mm.ss").format(
-                    Date.from(Instant.now())
-                ), 0L
+                "${Threads.workdir()}/replay",
+                SimpleDateFormat("'KStg-TestReplay-'yyyy-MM-dd_HH.mm.ss").format(Date.from(Instant.now())),
+                0L
             )
         }) {
             override fun canAction(): Boolean {

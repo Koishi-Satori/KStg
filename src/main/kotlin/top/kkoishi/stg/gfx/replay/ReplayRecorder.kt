@@ -21,7 +21,7 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
     recordedKeyCodes: IntArray,
     serializePlayer: (Player) -> Int,
 ) : Thread() {
-    protected val tempPath: Path = Path.of("./temp_replay.bin")
+    protected val tempPath: Path = Path.of("${Threads.workdir()}/temp_replay.bin")
 
     init {
         if (tempPath.exists())
@@ -65,6 +65,8 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
         temp.writeDouble(player.x.get())
         temp.writeDouble(player.y.get())
     }
+
+    fun save(dir: String, name: String, id: Long) = save(Path.of(dir), name, id)
 
     /**
      * Save the replay.

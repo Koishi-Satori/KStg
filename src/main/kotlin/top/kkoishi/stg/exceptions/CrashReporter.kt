@@ -1,5 +1,6 @@
 package top.kkoishi.stg.exceptions
 
+import top.kkoishi.stg.logic.Threads
 import java.io.FileOutputStream
 import java.io.PrintStream
 import java.nio.file.Path
@@ -20,7 +21,7 @@ class CrashReporter {
     )
 
     init {
-        val dir = Path.of("./crash_logs")
+        val dir = Path.of("$reportDir/crash_logs")
         if (!dir.exists())
             dir.createDirectory()
         if (!logFile.exists())
@@ -70,7 +71,7 @@ class CrashReporter {
         private val lock = Any()
 
         @JvmStatic
-        var reportDir = "."
+        var reportDir = Threads.workdir()
             get() {
                 synchronized(lock) {
                     return field

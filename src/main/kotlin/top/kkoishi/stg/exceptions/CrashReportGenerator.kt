@@ -1,6 +1,7 @@
 package top.kkoishi.stg.exceptions
 
 import top.kkoishi.stg.Loader
+import top.kkoishi.stg.logic.Threads
 import java.lang.management.ManagementFactory
 import java.nio.file.Path
 import java.text.DateFormat
@@ -72,7 +73,7 @@ class CrashReportGenerator @JvmOverloads constructor(val head: String = DEFAULT_
         private val comments: ArrayDeque<String> = ArrayDeque(16)
 
         init {
-            val br = Path.of("./resources/.comments").inputStream().bufferedReader()
+            val br = Path.of("${Threads.workdir()}/resources/.comments").inputStream().bufferedReader()
             br.lineSequence().forEach(::addComment)
             br.close()
             if (comments.isEmpty())

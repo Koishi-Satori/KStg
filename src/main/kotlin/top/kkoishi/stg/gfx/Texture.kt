@@ -9,7 +9,7 @@ import java.awt.image.RasterFormatException
 import kotlin.math.PI
 import kotlin.math.cos
 
-class Texture(private val texture: BufferedImage) {
+class Texture internal constructor(private val texture: BufferedImage) {
     val width = texture.width
     val height = texture.height
     fun renderPoint(x: Int, y: Int): Point {

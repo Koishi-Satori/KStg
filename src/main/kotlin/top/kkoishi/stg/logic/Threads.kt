@@ -1,11 +1,14 @@
 package top.kkoishi.stg.logic
 
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
+import java.nio.file.Path
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.io.path.absolutePathString
+import kotlin.io.path.exists
 import kotlin.random.Random
 
 class Threads private constructor(size: Int = 4) {
@@ -21,6 +24,24 @@ class Threads private constructor(size: Int = 4) {
     companion object {
         private val randomSeed: AtomicLong = AtomicLong(System.currentTimeMillis())
         private var random = Random(randomSeed())
+        private var workdir = Path.of(".").absolutePathString()
+
+        fun workdir() = workdir
+
+        /**
+         * Try to set the engine's internal work dir.
+         *
+         * @param nWorkdir new work dir.
+         * @return if the new work dir exists
+         */
+        fun workdir(nWorkdir: String): Boolean {
+            val nPath = Path.of(nWorkdir)
+            if (nPath.exists()) {
+                workdir = nPath.absolutePathString()
+                return true
+            }
+            return false
+        }
 
         fun randomSeed() = randomSeed.get()
 

@@ -71,11 +71,9 @@ int main(int argc, char **args) {
 
 	if (argc > 1)
 		exec += kkoishi_kstg_boot::processArguments(1, argc, args);
-	else {
-		for (const auto &argument : _settings->program_arguments) {
-			exec += ' ';
-			exec += argument;
-		}
+	for (const auto &argument : _settings->program_arguments) {
+		exec += ' ';
+		exec += argument;
 	}
 
 	std::cout << exec << std::endl;

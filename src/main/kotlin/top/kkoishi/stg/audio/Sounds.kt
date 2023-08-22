@@ -1,18 +1,30 @@
 package top.kkoishi.stg.audio
 
+import top.kkoishi.stg.exceptions.CrashReportGenerator
+import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
+import top.kkoishi.stg.logic.Threads
 import java.nio.file.Path
 import kotlin.io.path.exists
 
 object Sounds {
+    const val KEY_NOT_FOUND = "NOT_FOUND"
+
     @JvmStatic
-    private val NOT_FOUND: Audio
+    val NOT_FOUND: Audio
 
     private val audios: MutableMap<String, Audio> = HashMap(1024)
 
     init {
-        loadAudio("NOT_FOUND", "./resources/SOUND_NOT_FOUND.wav")
-        NOT_FOUND = audios["NOT_FOUND"] ?: throw FailedLoadingResourceException("Lack of engine resources")
+        loadAudio(KEY_NOT_FOUND, "${Threads.workdir()}/resources/SOUND_NOT_FOUND.wav")
+        NOT_FOUND = audios[KEY_NOT_FOUND] ?: crash()
+    }
+
+    private fun crash(): Audio {
+        val generator = CrashReportGenerator()
+        generator.description("Lack of engine resources")
+        CrashReporter().report(generator.generate(FailedLoadingResourceException("Lack of engine resources")))
+        throw FailedLoadingResourceException("Lack of engine resources")
     }
 
     fun getAudio(key: String): Audio {

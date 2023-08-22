@@ -2,6 +2,8 @@ package top.kkoishi.stg.gfx
 
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
+import top.kkoishi.stg.logic.Threads
+import java.awt.Color
 import java.io.IOException
 import java.io.InputStream
 import java.nio.file.Path
@@ -16,14 +18,30 @@ import kotlin.io.path.inputStream
  */
 object GFX {
     private val logger = GFX::class.logger()
+
+    const val KEY_NOT_FOUND = "NOT_FOUND"
+
     @JvmStatic
     private var NOT_FOUND: Texture
 
     private val textures: MutableMap<String, Texture> = HashMap(1024)
 
     init {
-        loadTexture("NOT_FOUND", "./resources/TEXTURE_NOT_FOUND.png")
-        NOT_FOUND = textures["NOT_FOUND"] ?: throw FailedLoadingResourceException("Lack of engine resources")
+        loadTexture(KEY_NOT_FOUND, "${Threads.workdir()}/resources/TEXTURE_NOT_FOUND.png")
+        NOT_FOUND = textures[KEY_NOT_FOUND] ?: tryInitNotFound()
+    }
+
+    private fun tryInitNotFound(): Texture {
+        val buf = Graphics.createBuffer(40, 40)
+        val g = buf.createGraphics()
+        g.color = Color.BLACK
+        g.fillRect(0, 0, 20, 20)
+        g.fillRect(20, 20, 20, 20)
+        g.color = Color(163, 73, 164)
+        g.fillRect(0, 20, 20, 20)
+        g.fillRect(20, 0, 20, 20)
+        g.dispose()
+        return Texture(buf)
     }
 
     /**

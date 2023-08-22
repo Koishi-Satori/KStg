@@ -1,6 +1,8 @@
-package top.kkoishi.stg.gfx
+package top.kkoishi.stg.boot
 
 import top.kkoishi.stg.audio.AudioPlayer
+import top.kkoishi.stg.gfx.Graphics
+import top.kkoishi.stg.gfx.Renderer
 import top.kkoishi.stg.logic.GameLoop
 import top.kkoishi.stg.logic.InfoSystem
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
