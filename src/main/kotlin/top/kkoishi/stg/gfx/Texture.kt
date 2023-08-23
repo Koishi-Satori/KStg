@@ -2,11 +2,9 @@
 
 package top.kkoishi.stg.gfx
 
+import top.kkoishi.stg.gfx.Graphics.makeTranslucent
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
-import java.awt.Graphics2D
-import java.awt.GraphicsConfiguration
-import java.awt.Point
-import java.awt.Transparency
+import java.awt.*
 import java.awt.geom.AffineTransform
 import java.awt.image.AffineTransformOp
 import java.awt.image.AffineTransformOp.TYPE_NEAREST_NEIGHBOR
@@ -92,9 +90,7 @@ open class Texture internal constructor(protected val texture: BufferedImage) {
      *
      * @return a AffineTransform operation.
      */
-    fun normalMatrix(): AffineTransformOp {
-        return AffineTransformOp(AffineTransform(), TYPE_NEAREST_NEIGHBOR)
-    }
+    fun normalMatrix(): AffineTransformOp = NORMAL_MATRIX
 
     operator fun invoke() = texture
 
@@ -105,65 +101,77 @@ open class Texture internal constructor(protected val texture: BufferedImage) {
     /**
      * A texture class using VolatileImage.
      *
-     * ## Please make sure you have initialized [Graphics.GC] before using this.
-     * ### GFXLoader can load textures using this by providing useVram = true in the constructor.
-     *
      * @author KKoishi_
      * @see top.kkoishi.stg.script.GFXLoader
      */
-    class Volatile(texture: BufferedImage, private val graphicsConfiguration: GraphicsConfiguration) :
+    class Volatile(texture: BufferedImage) :
         Texture(texture) {
-        private var vImg: VolatileImage = graphicsConfiguration.createCompatibleVolatileImage(width, height)
+        private var vImg: VolatileImage
+        private val gc: GraphicsConfiguration
+        private val data = DoubleArray(6)
 
         init {
             Volatile::class.logger().log(System.Logger.Level.INFO, "Use VolatileImage.")
+            val g = texture.createGraphics()
+            gc = g.deviceConfiguration
+            vImg = gc.createCompatibleVolatileImage(width, height, Transparency.BITMASK)
+            g.dispose()
+
+            makeTranslucent(vImg)
             copyContent()
-            TODO("debug")
         }
 
         private fun copyContent() {
             val r = vImg.createGraphics()
-            r.setPaintMode()
-            r.drawImage(texture, 0, 0, null)
+            r.drawImage(texture, AffineTransformOp(AffineTransform(), TYPE_NEAREST_NEIGHBOR), 0, 0)
             r.dispose()
         }
 
-        private fun ensureCompatible() {
-            when (vImg.validate(graphicsConfiguration)) {
+
+        override fun paint(r: Graphics2D, op: AffineTransformOp, x: Int, y: Int) {
+            if (vImg.contentsLost()) {
+                makeTranslucent(vImg)
+                copyContent()
+
+                var repaintCount = 0
+                while (repaintCount++ <= VRAM_MAX_REPAINT_COUNT) {
+                    if (!vImg.contentsLost())
+                        break
+
+                    makeTranslucent(vImg)
+                    copyContent()
+                }
+            }
+
+            when (vImg.validate(gc)) {
                 VolatileImage.IMAGE_INCOMPATIBLE -> {
-                    vImg = graphicsConfiguration.createCompatibleVolatileImage(width, height, Transparency.OPAQUE)
+                    vImg = gc.createCompatibleVolatileImage(width, height, Transparency.BITMASK)
+                    makeTranslucent(vImg)
                     copyContent()
                 }
 
-                VolatileImage.IMAGE_RESTORED -> copyContent()
+                VolatileImage.IMAGE_RESTORED -> {
+                    makeTranslucent(vImg)
+                    copyContent()
+                }
             }
-        }
 
-        private fun ensureContent() {
-            if (vImg.contentsLost())
-                copyContent()
+            op.transform.getMatrix(data)
+            data[4] = x.toDouble()
+            data[5] = y.toDouble()
 
-            var repaintCount = 0
-            while (repaintCount++ <= VRAM_MAX_REPAINT_COUNT) {
-                if (!vImg.contentsLost())
-                    break
-
-                copyContent()
-            }
-        }
-
-        override fun paint(r: Graphics2D, op: AffineTransformOp, x: Int, y: Int) {
-            ensureCompatible()
-            ensureContent()
-
-            r.drawImage(vImg, op.transform, null)
+            r.drawImage(vImg, AffineTransform(data), null)
         }
 
         override fun cut(x: Int, y: Int, w: Int, h: Int): Texture =
-            Volatile(texture.getSubimage(x, y, w, h), graphicsConfiguration)
+            Volatile(texture.getSubimage(x, y, w, h))
 
-        companion object {
-            const val VRAM_MAX_REPAINT_COUNT = 64
-        }
+    }
+
+    companion object {
+        private const val VRAM_MAX_REPAINT_COUNT = 64
+
+        @JvmStatic
+        internal val NORMAL_MATRIX = AffineTransformOp(AffineTransform(), TYPE_NEAREST_NEIGHBOR)
     }
 }

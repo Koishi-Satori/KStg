@@ -12,7 +12,9 @@ import java.util.concurrent.atomic.AtomicLong
 class Renderer private constructor() : Runnable {
     private val frame = AtomicLong(0)
     private var fullScreen = false
+    private var scaled = false
     private var useVRAM = false
+    private var op: AffineTransformOp = AffineTransformOp(AffineTransform(), AffineTransformOp.TYPE_NEAREST_NEIGHBOR)
     private var scale: Pair<Double, Double> = 1.0 to 1.0
     private var dx = 0
     private var dy = 0
@@ -36,6 +38,9 @@ class Renderer private constructor() : Runnable {
         }
 
         scale = oScale to oScale
+        op =
+            AffineTransformOp(AffineTransform.getScaleInstance(oScale, oScale), AffineTransformOp.TYPE_NEAREST_NEIGHBOR)
+        scaled = true
     }
 
     private fun fullScreen() {
@@ -55,6 +60,8 @@ class Renderer private constructor() : Runnable {
 
     private fun paintImpl(bufferRender: Graphics2D) {
         val logger = Renderer::class.logger()
+        bufferRender.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+        bufferRender.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
         when (GenericFlags.gameState.get()) {
             GenericFlags.STATE_PLAYING -> {
                 try {
@@ -95,32 +102,32 @@ class Renderer private constructor() : Runnable {
     private fun paintScreen(r: Graphics2D, buffer: BufferedImage) {
         if (!fullScreen) {
             val insets = Graphics.getFrameInsets()
-            r.drawImage(
-                buffer,
-                AffineTransformOp(AffineTransform(), AffineTransformOp.TYPE_NEAREST_NEIGHBOR),
-                insets.left, insets.top
-            )
+            if (scaled)
+                r.drawImage(buffer, op, insets.left + dx, insets.top + dy)
+            else
+                r.drawImage(buffer, Texture.NORMAL_MATRIX, insets.left, insets.top)
         } else
-            r.drawImage(
-                buffer,
-                AffineTransformOp(
-                    AffineTransform.getScaleInstance(scale.first, scale.second),
-                    AffineTransformOp.TYPE_NEAREST_NEIGHBOR
-                ),
-                dx, dy
-            )
+            r.drawImage(buffer, op, dx, dy)
     }
 
     private fun paintScreen(r: Graphics2D, buffer: VolatileImage) {
         if (!fullScreen) {
             val insets = Graphics.getFrameInsets()
-            r.drawImage(buffer, insets.left, insets.top, null)
+            if (scaled)
+                r.drawImage(
+                    buffer.getScaledInstance(
+                        (buffer.width * scale.first).toInt(),
+                        (buffer.height * scale.second).toInt(),
+                        Image.SCALE_DEFAULT
+                    ), insets.left + dx, insets.top + dy, null
+                ) else
+                r.drawImage(buffer, insets.left, insets.top, null)
         } else
             r.drawImage(
                 buffer.getScaledInstance(
-                    buffer.width * scale.first.toInt(),
-                    buffer.height * scale.second.toInt(),
-                    Image.SCALE_SMOOTH
+                    (buffer.width * scale.first).toInt(),
+                    (buffer.height * scale.second).toInt(),
+                    Image.SCALE_DEFAULT
                 ),
                 dx, dy, null
             )
@@ -148,7 +155,7 @@ class Renderer private constructor() : Runnable {
         while (repaintCount++ <= VRAM_MAX_REPAINT_COUNT) {
             val vRender = vImg.createGraphics()
             vRender.color = Color.WHITE
-            vRender.setPaintMode()
+            //vRender.setPaintMode()
             paintImpl(vRender)
             if (!vImg.contentsLost())
                 break
@@ -183,6 +190,8 @@ class Renderer private constructor() : Runnable {
 
         fun fullScreen() = instance.fullScreen()
 
+        fun scale(targetWidth: Int, targetHeight: Int) = instance.scale(targetWidth, targetHeight)
+
         @JvmOverloads
         fun useVRAM(maxRepaintCount: Int = 32) {
             instance.useVRAM = true
@@ -192,6 +201,15 @@ class Renderer private constructor() : Runnable {
         fun monitorSize(): Dimension {
             val monitorMode = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.displayMode
             return Dimension(monitorMode.width, monitorMode.height)
+        }
+
+        fun actualScaledSize(targetWidth: Int, targetHeight: Int): Dimension {
+            val transform =
+                GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.defaultConfiguration.defaultTransform
+            return Dimension(
+                (targetWidth / transform.scaleX).toInt() + 14,
+                (targetHeight / transform.scaleY).toInt() + 37
+            )
         }
     }
 }

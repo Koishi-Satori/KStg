@@ -8,8 +8,10 @@ import java.awt.image.BufferedImage
 import java.awt.image.VolatileImage
 import javax.swing.JFrame
 
+@Suppress("unused")
 object Graphics {
     private lateinit var VRAM_BUFFER: VolatileImage
+
     private lateinit var BUFFER: BufferedImage
 
     private lateinit var GC: GraphicsConfiguration
@@ -50,7 +52,7 @@ object Graphics {
         setBufferSize(size.width, size.height)
     }
 
-    fun setRender(r: Graphics2D) {
+    private fun setRender(r: Graphics2D) {
         render = r
         render.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON)
         render.setRenderingHint(KEY_RENDERING, VALUE_RENDER_QUALITY)
@@ -84,14 +86,17 @@ object Graphics {
         BUFFER = createBuffer(width, height)
     }
 
-    fun createBuffer(width: Int, height: Int) = BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
+    internal fun createBuffer(width: Int, height: Int) = BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
 
-    fun buffer() = BUFFER
+    internal fun buffer() = BUFFER
 
-    fun vramBuffer(): VolatileImage {
+    internal fun vramBuffer(): VolatileImage {
         val copy = VRAM_BUFFER
         if (copy.validate(GC) == VolatileImage.IMAGE_INCOMPATIBLE)
             VRAM_BUFFER = GC.createCompatibleVolatileImage(copy.width, copy.height)
+
+        makeTranslucent(VRAM_BUFFER)
+
         return VRAM_BUFFER
     }
 
@@ -119,5 +124,12 @@ object Graphics {
 
     fun dispose() = container.dispose()
 
-    fun getGraphicsConfiguration() = GC
+    internal fun getGraphicsConfiguration() = GC
+
+    internal fun makeTranslucent(vImg: VolatileImage) {
+        val r = vImg.createGraphics()
+        r.background = Color(0, 0, 0, 0)
+        r.clearRect(0, 0, vImg.width, vImg.height)
+        r.dispose()
+    }
 }

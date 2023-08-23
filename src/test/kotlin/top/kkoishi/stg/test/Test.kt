@@ -54,9 +54,9 @@ object Test {
         Renderer.useVRAM()
         val load = LoadingFrame(ImageIO.read(File("${Threads.workdir()}/test/load.jpg")))
         val fullScreen = args.isNotEmpty() && args[0] == "fullscreen"
-        initJFrame(fullScreen)
         loadResources()
         Graphics.setFont("sidebar", Font("Times New Roman", Font.PLAIN, 20))
+        initJFrame(fullScreen)
         load.end()
         menu()
         FastBootstrapper.beginThreads()
@@ -72,7 +72,10 @@ object Test {
         })
         FastBootstrapper.setIconImage(f, "${Threads.workdir()}/resources/logo.ico")
         FastBootstrapper.autoSync(f)
-        FastBootstrapper.display(f, 640, 480, Insets(16, 36, 16, 220), fullScreen)
+        if (fullScreen)
+            FastBootstrapper.display(f, 640, 480, Insets(16, 36, 16, 220), true)
+        else
+            FastBootstrapper.display(f, 640, 480, Insets(16, 36, 16, 220), 1600, 900)
         FastBootstrapper.keyBinds(
             f,
             Player.VK_C,
@@ -90,7 +93,7 @@ object Test {
 
     private fun loadResources() {
         // load textures from scripts
-        GFXLoader("${Threads.workdir()}/test/gfx", true).loadDefinitions()
+        GFXLoader("${Threads.workdir()}/test/gfx").loadDefinitions()
 
         Sounds.loadAudio("bk_0", "${Threads.workdir()}/test/audio/sounds/bk_0.wav")
         Sounds.loadAudio("bk_1", "${Threads.workdir()}/test/audio/sounds/bk_1.wav")

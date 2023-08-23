@@ -87,7 +87,25 @@ object FastBootstrapper {
             Graphics.setScreenSize(Dimension(width, height))
             Graphics.setBufferSize(width, height)
         }
-        with (uiInsets) {
+        with(uiInsets) {
+            Graphics.setUIInsets(top, left, bottom, right)
+        }
+
+        return f
+    }
+
+    fun display(f: JFrame, width: Int, height: Int, uiInsets: Insets, scaledWidth: Int, scsledHeight: Int): JFrame {
+        f.isResizable = false
+        f.setSize(width, height)
+        f.isVisible = true
+        Graphics.refresh(f)
+        Graphics.setScreenSize(Dimension(width, height))
+        Graphics.setBufferSize(width, height)
+
+        f.size = Renderer.actualScaledSize(scaledWidth, scsledHeight)
+        Renderer.scale(scaledWidth, scsledHeight)
+
+        with(uiInsets) {
             Graphics.setUIInsets(top, left, bottom, right)
         }
 

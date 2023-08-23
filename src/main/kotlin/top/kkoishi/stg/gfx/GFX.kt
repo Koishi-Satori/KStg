@@ -19,7 +19,7 @@ import kotlin.io.path.inputStream
 object GFX {
     private val logger = GFX::class.logger()
 
-    const val KEY_NOT_FOUND = "NOT_FOUND"
+    private const val KEY_NOT_FOUND = "NOT_FOUND"
 
     @JvmStatic
     private var NOT_FOUND: Texture
@@ -45,8 +45,8 @@ object GFX {
     }
 
     /**
-     * According to the given rectangular range, cut out another texture from one texture, and the texture to be cut is
-     * given by its key; the key of the new texture is the parameter nKey.
+     * According to the given rectangular range, it will cut out another texture from one texture,
+     * and the texture to be cut is given by its key; the key of the new texture is the parameter nKey.
      *
      * @param key the key of the texture which will be shea red
      * @param nKey the new key of the new texture
@@ -81,7 +81,7 @@ object GFX {
             val ins = ImageIO.createImageInputStream(seekTexture(p))
             val img = ImageIO.read(ins)
             if (useVRAM)
-                textures[key] = Texture.Volatile(img, Graphics.getGraphicsConfiguration())
+                textures[key] = Texture.Volatile(img)
             else
                 textures[key] = Texture(img)
         } catch (e: IOException) {

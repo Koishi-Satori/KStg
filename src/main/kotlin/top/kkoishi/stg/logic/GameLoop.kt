@@ -16,8 +16,7 @@ class GameLoop private constructor() : Runnable {
      */
     fun update() {
         val logger = GameLoop::class.logger()
-        val gameState = GenericFlags.gameState.get()
-        when (gameState) {
+        when (GenericFlags.gameState.get()) {
             GenericFlags.STATE_PLAYING -> {
                 try {
                     // update player logic first.
