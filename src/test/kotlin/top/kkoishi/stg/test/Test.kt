@@ -16,6 +16,7 @@ import top.kkoishi.stg.exceptions.ThreadExceptionHandler
 import top.kkoishi.stg.gfx.Renderer
 import top.kkoishi.stg.gfx.replay.ReplayRecorder
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
+import top.kkoishi.stg.script.AudioLoader
 import top.kkoishi.stg.script.GFXLoader
 import top.kkoishi.stg.test.common.GameSystem
 import top.kkoishi.stg.test.common.actions.TestBoss0Action0
@@ -117,9 +118,10 @@ object Test {
         // load textures from scripts
         GFXLoader("${Threads.workdir()}/test/gfx", true).loadDefinitions()
 
+        AudioLoader("${Threads.workdir()}/test/audio").loadDefinitions()
         Sounds.loadAudio("bk_0", "${Threads.workdir()}/test/audio/sounds/bk_0.wav")
         Sounds.loadAudio("bk_1", "${Threads.workdir()}/test/audio/sounds/bk_1.wav")
-        Sounds.loadAudio("test_player_shot", "${Threads.workdir()}/test/audio/sounds/th15_player_shot_0.wav")
+        //Sounds.loadAudio("test_player_shot", "${Threads.workdir()}/test/audio/sounds/th15_player_shot_0.wav")
         Sounds.loadAudio("th15_enemy_damage_01", "${Threads.workdir()}/test/audio/sounds/th15_enemy_damage_01.wav")
         Sounds.loadAudio("th15_enemy_damage_02", "${Threads.workdir()}/test/audio/sounds/th15_enemy_damage_02.wav")
         Sounds.loadAudio("enemy_dead", "${Threads.workdir()}/test/audio/sounds/enemy_dead_0.wav")

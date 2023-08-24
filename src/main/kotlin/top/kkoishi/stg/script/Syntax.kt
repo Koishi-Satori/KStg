@@ -8,6 +8,7 @@ import top.kkoishi.stg.exceptions.ScriptException
 import top.kkoishi.stg.script.VM.parseVMInstructions
 import java.io.IOException
 import java.io.Reader
+import kotlin.reflect.KClass
 
 internal enum class Type {
     KEY,
@@ -492,4 +493,58 @@ internal open class ResourcesScriptLexer(rest: CharIterator) : Lexer(rest) {
 internal object ScriptConstants {
     const val SCOPE_GFX_LOADER = "gfx_loader"
     const val SCOPE_AUDIO_LOADER = "audio_loader"
+
+    @JvmStatic
+    private val storedInstructionInfo = HashMap<KClass<out VM.Instruction>, ParseInfo.InstructionInfo>()
+
+    @JvmStatic
+    fun registerInstructionInfo(kClass: KClass<out VM.Instruction>, info: ParseInfo.InstructionInfo) {
+        storedInstructionInfo[kClass] = info
+    }
+
+    @JvmStatic
+    fun getInstructionInfo(kClass: KClass<out VM.Instruction>) = storedInstructionInfo[kClass]
+}
+
+internal object ResourcesInstructions {
+    internal operator fun InstructionSequence.invoke(begin: Int, end: Int, varName: String?, vars: LocalVariables) =
+        if (varName != null)
+            (begin..end).forEach {
+                vars.setVar<Number>(varName, it)
+                forEach { inst -> if (inst.needVars()) inst(vars) else inst() }
+            }
+        else
+            (begin..end).forEach { _ -> forEach { inst -> inst(vars) } }
+
+    internal class Loop(
+        private val begin: Int,
+        private val end: Int,
+        private val name: String?,
+        private val instructions: InstructionSequence,
+    ) : VM.Instruction(0x20) {
+        override fun needVars(): Boolean = true
+
+        override fun invoke(vars: LocalVariables) {
+            instructions(begin, end, name, vars)
+        }
+    }
+
+    internal class LoopInfo : ParseInfo.InstructionInfo("loop") {
+        init {
+            add(ParseInfo.OptionalParameterInfo("begin", 0))
+            add(ParseInfo.OptionalParameterInfo("end", 0))
+            add(ParseInfo.CommonParameterInfo("var_name"))
+            add(ParseInfo.ComplexParameterInfo("load"))
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        override fun allocate(parameters: Map<String, Any>): VM.Instruction {
+            return Loop(
+                parameters["begin"]!!.toString().toInt(),
+                parameters["end"]!!.toString().toInt(),
+                parameters["var_name"]!!.toString(),
+                (parameters["load"]!! as InstructionSequence)
+            )
+        }
+    }
 }

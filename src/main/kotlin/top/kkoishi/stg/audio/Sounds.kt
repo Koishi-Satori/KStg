@@ -1,15 +1,16 @@
 package top.kkoishi.stg.audio
 
+import top.kkoishi.stg.Resources
+import top.kkoishi.stg.Resources.Companion.KEY_NOT_FOUND
 import top.kkoishi.stg.exceptions.CrashReportGenerator
 import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.logic.Threads
 import java.nio.file.Path
 import kotlin.io.path.exists
+import kotlin.system.exitProcess
 
-object Sounds {
-    const val KEY_NOT_FOUND = "NOT_FOUND"
-
+object Sounds: Resources<Audio, String> {
     @JvmStatic
     val NOT_FOUND: Audio
 
@@ -24,7 +25,7 @@ object Sounds {
         val generator = CrashReportGenerator()
         generator.description("Lack of engine resources")
         CrashReporter().report(generator.generate(FailedLoadingResourceException("Lack of engine resources")))
-        throw FailedLoadingResourceException("Lack of engine resources")
+        exitProcess(1)
     }
 
     fun getAudio(key: String): Audio {
@@ -42,4 +43,8 @@ object Sounds {
             throw FailedLoadingResourceException(e)
         }
     }
+
+    override fun get(key: String): Audio = getAudio(key)
+
+    override fun set(key: String, value: String) = loadAudio(key, value)
 }

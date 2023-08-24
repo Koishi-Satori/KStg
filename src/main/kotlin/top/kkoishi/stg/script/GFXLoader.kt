@@ -60,7 +60,7 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
 
     private inner class GFXScriptParser(lexer: Lexer) : InfoParser(lexer, "gfx_items", scopeName) {
         override fun buildParseInfo() {
-            root.add(loopInfo())
+            root.add(ResourcesInstructions.LoopInfo())
             root.add(gfxInfo())
             root.add(shearInfo())
         }
@@ -73,28 +73,6 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
                 return instructions
             }
             throw ScriptException()
-        }
-    }
-
-    private operator fun InstructionSequence.invoke(begin: Int, end: Int, varName: String?, vars: LocalVariables) =
-        if (varName != null)
-            (begin..end).forEach {
-                vars.setVar<Number>(varName, it)
-                forEach { inst -> if (inst.needVars()) inst(vars) else inst() }
-            }
-        else
-            (begin..end).forEach { _ -> forEach { inst -> inst(vars) } }
-
-    private inner class loop(
-        private val begin: Int,
-        private val end: Int,
-        private val name: String?,
-        private val instructions: InstructionSequence,
-    ) : Instruction(0x20) {
-        override fun needVars(): Boolean = true
-
-        override fun invoke(vars: LocalVariables) {
-            instructions(begin, end, name, vars)
         }
     }
 
@@ -157,25 +135,6 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
                 parameters["y"]!!.toString(),
                 parameters["w"]!!.toString(),
                 parameters["h"]!!.toString()
-            )
-        }
-    }
-
-    internal inner class loopInfo : ParseInfo.InstructionInfo("loop") {
-        init {
-            add(ParseInfo.OptionalParameterInfo("begin", 0))
-            add(ParseInfo.OptionalParameterInfo("end", 0))
-            add(ParseInfo.CommonParameterInfo("var_name"))
-            add(ParseInfo.ComplexParameterInfo("load"))
-        }
-
-        @Suppress("UNCHECKED_CAST")
-        override fun allocate(parameters: Map<String, Any>): Instruction {
-            return loop(
-                parameters["begin"]!!.toString().toInt(),
-                parameters["end"]!!.toString().toInt(),
-                parameters["var_name"]!!.toString(),
-                (parameters["load"]!! as InstructionSequence)
             )
         }
     }
