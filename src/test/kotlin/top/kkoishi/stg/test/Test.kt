@@ -36,6 +36,12 @@ import javax.swing.JFrame
 import kotlin.system.exitProcess
 
 object Test {
+    private const val WIDTH = 640
+    private const val HEIGHT = 480
+
+    @JvmStatic
+    val UI_INSETS = Insets(16, 36, 16, 220)
+
     @JvmStatic
     fun main(args: Array<String>) {
         FastBootstrapper.setAccelerationProperties()
@@ -54,15 +60,30 @@ object Test {
         Renderer.useVRAM()
         val load = LoadingFrame(ImageIO.read(File("${Threads.workdir()}/test/load.jpg")))
         val fullScreen = args.isNotEmpty() && args[0] == "fullscreen"
+        val scale: Pair<Int, Int>? = if (args.isNotEmpty() && args[0] == "scale") {
+            val width: Int
+            val height: Int
+            if (args.size >= 3) {
+                try {
+                    width = args[1].toInt()
+                    height = args[2].toInt()
+                    width to height
+                } catch (e: Exception) {
+                    null
+                }
+            } else
+                null
+        } else
+            null
         loadResources()
         Graphics.setFont("sidebar", Font("Times New Roman", Font.PLAIN, 20))
-        initJFrame(fullScreen)
+        initJFrame(fullScreen, scale)
         load.end()
         menu()
         FastBootstrapper.beginThreads()
     }
 
-    private fun initJFrame(fullScreen: Boolean) {
+    private fun initJFrame(fullScreen: Boolean, scale: Pair<Int, Int>?) {
         val f = JFrame("KKoishi_ STG Engine test")
         f.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(e: WindowEvent?) {
@@ -72,10 +93,11 @@ object Test {
         })
         FastBootstrapper.setIconImage(f, "${Threads.workdir()}/resources/logo.ico")
         FastBootstrapper.autoSync(f)
-        if (fullScreen)
-            FastBootstrapper.display(f, 640, 480, Insets(16, 36, 16, 220), true)
-        else
-            FastBootstrapper.display(f, 640, 480, Insets(16, 36, 16, 220), 1600, 900)
+        when {
+            fullScreen -> FastBootstrapper.display(f, WIDTH, HEIGHT, UI_INSETS, true)
+            scale != null -> FastBootstrapper.display(f, WIDTH, HEIGHT, UI_INSETS, scale.first, scale.second)
+            else -> FastBootstrapper.display(f, WIDTH, HEIGHT, UI_INSETS, false)
+        }
         FastBootstrapper.keyBinds(
             f,
             Player.VK_C,
@@ -93,7 +115,7 @@ object Test {
 
     private fun loadResources() {
         // load textures from scripts
-        GFXLoader("${Threads.workdir()}/test/gfx").loadDefinitions()
+        GFXLoader("${Threads.workdir()}/test/gfx", true).loadDefinitions()
 
         Sounds.loadAudio("bk_0", "${Threads.workdir()}/test/audio/sounds/bk_0.wav")
         Sounds.loadAudio("bk_1", "${Threads.workdir()}/test/audio/sounds/bk_1.wav")

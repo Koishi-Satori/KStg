@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage
 import java.awt.image.VolatileImage
 import javax.swing.JFrame
 
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 object Graphics {
     private lateinit var VRAM_BUFFER: VolatileImage
 
@@ -34,6 +34,16 @@ object Graphics {
 
     private lateinit var container: JFrame
 
+    @JvmStatic
+    private val renderingHints: MutableMap<Key, Any> = HashMap()
+
+    init {
+        setRenderingHint(KEY_INTERPOLATION, VALUE_INTERPOLATION_BICUBIC)
+        setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON)
+        setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON)
+        setRenderingHint(KEY_RENDERING, VALUE_RENDER_QUALITY)
+    }
+
     init {
         setFont("fps_render", DEFAULT_FONT)
     }
@@ -54,8 +64,14 @@ object Graphics {
 
     private fun setRender(r: Graphics2D) {
         render = r
-        render.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON)
-        render.setRenderingHint(KEY_RENDERING, VALUE_RENDER_QUALITY)
+        setRenderingHints(render)
+    }
+
+    internal fun setRenderingHints(render: Graphics2D) =
+        renderingHints.entries.forEach { (key, value) -> render.setRenderingHint(key, value) }
+
+    fun setRenderingHint(key: Key, value: Any) {
+        renderingHints[key] = value
     }
 
     fun render() = render

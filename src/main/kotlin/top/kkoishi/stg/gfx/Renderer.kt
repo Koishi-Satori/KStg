@@ -111,37 +111,18 @@ class Renderer private constructor() : Runnable {
     }
 
     private fun paintScreen(r: Graphics2D, buffer: VolatileImage) {
-        if (!fullScreen) {
-            val insets = Graphics.getFrameInsets()
-            if (scaled)
-                r.drawImage(
-                    buffer.getScaledInstance(
-                        (buffer.width * scale.first).toInt(),
-                        (buffer.height * scale.second).toInt(),
-                        Image.SCALE_DEFAULT
-                    ), insets.left + dx, insets.top + dy, null
-                ) else
-                r.drawImage(buffer, insets.left, insets.top, null)
-        } else
-            r.drawImage(
-                buffer.getScaledInstance(
-                    (buffer.width * scale.first).toInt(),
-                    (buffer.height * scale.second).toInt(),
-                    Image.SCALE_DEFAULT
-                ),
-                dx, dy, null
-            )
+        paintScreen(r, buffer.snapshot)
     }
 
     fun paint() {
-        val r = Graphics.render()
         val buffer = Graphics.buffer()
         val bRender = buffer.createGraphics()
+        Graphics.setRenderingHints(bRender)
         bRender.color = Color.WHITE
         bRender.setPaintMode()
 
         paintImpl(bRender)
-        paintScreen(r, buffer)
+        paintScreen(Graphics.render(), buffer)
 
         frame.incrementAndGet()
     }
@@ -149,18 +130,18 @@ class Renderer private constructor() : Runnable {
     @Suppress("MemberVisibilityCanBePrivate")
     fun paintWithVRAM() {
         val vImg: VolatileImage = Graphics.vramBuffer()
-        val r = Graphics.render()
         var repaintCount = 0
 
         while (repaintCount++ <= VRAM_MAX_REPAINT_COUNT) {
             val vRender = vImg.createGraphics()
+            Graphics.setRenderingHints(vRender)
             vRender.color = Color.WHITE
             //vRender.setPaintMode()
             paintImpl(vRender)
             if (!vImg.contentsLost())
                 break
         }
-        paintScreen(r, vImg)
+        paintScreen(Graphics.render(), vImg)
 
         frame.incrementAndGet()
     }

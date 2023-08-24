@@ -108,7 +108,6 @@ open class Texture internal constructor(protected val texture: BufferedImage) {
         Texture(texture) {
         private var vImg: VolatileImage
         private val gc: GraphicsConfiguration
-        private val data = DoubleArray(6)
 
         init {
             Volatile::class.logger().log(System.Logger.Level.INFO, "Use VolatileImage.")
@@ -156,11 +155,7 @@ open class Texture internal constructor(protected val texture: BufferedImage) {
                 }
             }
 
-            op.transform.getMatrix(data)
-            data[4] = x.toDouble()
-            data[5] = y.toDouble()
-
-            r.drawImage(vImg, AffineTransform(data), null)
+            r.drawImage(vImg.snapshot, op, x, y)
         }
 
         override fun cut(x: Int, y: Int, w: Int, h: Int): Texture =
