@@ -1,25 +1,13 @@
 package top.kkoishi.stg.script
 
 import top.kkoishi.stg.exceptions.ScriptException
-import top.kkoishi.stg.logic.Parser
-import top.kkoishi.stg.logic.Type
-import top.kkoishi.stg.logic.isVarChar
 import kotlin.minus as kminus
 import java.math.BigDecimal
 import java.math.BigInteger
 
 object VM {
     @JvmStatic
-    private val DEC_FLOAT_MAX = BigDecimal(Float.MAX_VALUE.toDouble())
-
-    @JvmStatic
     private val DEC_DOUBLE_MAX = BigDecimal(Double.MAX_VALUE)
-
-    @JvmStatic
-    private val INT_SHORT_MAX = BigInteger("7fff", 16)
-
-    @JvmStatic
-    private val INT_SHORT_MIN = BigInteger("-8000", 16)
 
     @JvmStatic
     private val INT_INT_MAX = BigInteger("7fffffff", 16)
@@ -40,14 +28,14 @@ object VM {
             "div_var" -> div_var(this)
             "add_var" -> add_var(this)
             "minus_var" -> minus_var(this)
-            else -> throw ScriptException("Incorrect key: $key at ${lexer.line}:${lexer.col}")
+            else -> throw ScriptException("Illegal name: Can not parse instruction name $key at ${lexer.line}:${lexer.col}")
         }
     }
 
     private fun set_var(parser: Parser): SNInstruction.Companion.set_var {
         with(parser) {
-            val (key1, value1: String) = checkProperty()
-            val (_, value2: String) = checkProperty()
+            val (key1, value1: String) = checkMixedParameters()
+            val (_, value2: String) = checkMixedParameters()
             check(Type.L_BLANKET_R)
 
             return if (key1 == "name") {
@@ -60,8 +48,8 @@ object VM {
 
     private fun mul_var(parser: Parser): SNInstruction.Companion.mul_var {
         with(parser) {
-            val (key1, value1: String) = checkProperty()
-            val (_, value2: String) = checkProperty()
+            val (key1, value1: String) = checkMixedParameters()
+            val (_, value2: String) = checkMixedParameters()
             check(Type.L_BLANKET_R)
             return if (key1 == "name")
                 SNInstruction.Companion.mul_var(value1, value2)
@@ -72,8 +60,8 @@ object VM {
 
     private fun add_var(parser: Parser): SNInstruction.Companion.add_var {
         with(parser) {
-            val (key1, value1: String) = checkProperty()
-            val (_, value2: String) = checkProperty()
+            val (key1, value1: String) = checkMixedParameters()
+            val (_, value2: String) = checkMixedParameters()
             check(Type.L_BLANKET_R)
             return if (key1 == "name")
                 SNInstruction.Companion.add_var(value1, value2)
@@ -84,8 +72,8 @@ object VM {
 
     private fun div_var(parser: Parser): SNInstruction.Companion.div_var {
         with(parser) {
-            val (key1, value1: String) = checkProperty()
-            val (_, value2: String) = checkProperty()
+            val (key1, value1: String) = checkMixedParameters()
+            val (_, value2: String) = checkMixedParameters()
             check(Type.L_BLANKET_R)
             return if (key1 == "name")
                 SNInstruction.Companion.div_var(value1, value2)
@@ -96,8 +84,8 @@ object VM {
 
     private fun minus_var(parser: Parser): SNInstruction.Companion.minus_var {
         with(parser) {
-            val (key1, value1: String) = checkProperty()
-            val (_, value2: String) = checkProperty()
+            val (key1, value1: String) = checkMixedParameters()
+            val (_, value2: String) = checkMixedParameters()
             check(Type.L_BLANKET_R)
             return if (key1 == "name")
                 SNInstruction.Companion.minus_var(value1, value2)
@@ -244,22 +232,19 @@ object VM {
             val dec = BigDecimal(this)
             val abs = dec.abs()
             return when {
-                abs <= DEC_FLOAT_MAX -> dec.toFloat()
-                abs <= DEC_DOUBLE_MAX -> dec.toFloat()
+                abs <= DEC_DOUBLE_MAX -> dec.toDouble()
                 else -> dec
             }
         } else {
             val int = BigInteger(this)
             return if (int.signum() == -1) {
                 when {
-                    int >= INT_SHORT_MIN -> int.toShort()
                     int >= INT_INT_MIN -> int.toInt()
                     int >= INT_LONG_MIN -> int.toLong()
                     else -> int
                 }
             } else {
                 when {
-                    int <= INT_SHORT_MAX -> int.toShort()
                     int <= INT_INT_MAX -> int.toInt()
                     int <= INT_LONG_MAX -> int.toLong()
                     else -> int

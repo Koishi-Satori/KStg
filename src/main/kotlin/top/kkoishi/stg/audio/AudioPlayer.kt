@@ -9,7 +9,7 @@ class AudioPlayer private constructor() : Runnable {
     private val lock = Any()
     private val rest: ArrayDeque<String> = ArrayDeque(64)
     private val clips: HashMap<String, Clip> = HashMap(64)
-    private val backgroud: Clip = AudioSystem.getClip()
+    private val background: Clip = AudioSystem.getClip()
 
     override fun run() {
         val logger = AudioPlayer::class.logger()
@@ -18,7 +18,7 @@ class AudioPlayer private constructor() : Runnable {
             var key: String
             while (rest.isNotEmpty()) {
                 key = rest.removeFirst()
-                val audio = Sounds.getAudio(key)
+                val audio = Sounds[key]
                 var clip = clips[key]
                 if (clip == null) {
                     clip = AudioSystem.getClip()
@@ -56,14 +56,14 @@ class AudioPlayer private constructor() : Runnable {
 
         fun setBackground(background: Audio) {
             val logger = Companion::class.logger()
-            instance.backgroud.stop()
-            instance.backgroud.close()
+            instance.background.stop()
+            instance.background.close()
             logger.log(System.Logger.Level.INFO, "Stop current background.")
 
             logger.log(System.Logger.Level.INFO, "Opening new background audio...")
             try {
-                instance.backgroud.open(background.stream())
-                instance.backgroud.loop(Clip.LOOP_CONTINUOUSLY)
+                instance.background.open(background.stream())
+                instance.background.loop(Clip.LOOP_CONTINUOUSLY)
             } catch (e: Exception) {
                 logger.log(System.Logger.Level.ERROR, e)
             }

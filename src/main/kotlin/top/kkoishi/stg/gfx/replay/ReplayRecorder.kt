@@ -55,7 +55,8 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
             sleep(Threads.period())
         }
 
-        ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "End to record replay.")
+        ReplayRecorder::class.logger()
+            .log(System.Logger.Level.INFO, "End to record replay, Frames: 0x${frames.get().toString(16)}")
     }
 
     protected open fun recordFrame() {

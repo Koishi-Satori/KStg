@@ -1,5 +1,7 @@
 package top.kkoishi.stg.gfx
 
+import top.kkoishi.stg.Resources
+import top.kkoishi.stg.Resources.Companion.KEY_NOT_FOUND
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.Threads
@@ -14,12 +16,11 @@ import kotlin.io.path.inputStream
 
 /**
  * Used to load and get the textures.
+ *
  * @author KKoishi_
  */
-object GFX {
+object GFX: Resources<Texture, String> {
     private val logger = GFX::class.logger()
-
-    private const val KEY_NOT_FOUND = "NOT_FOUND"
 
     @JvmStatic
     private var NOT_FOUND: Texture
@@ -96,4 +97,10 @@ object GFX {
             throw FailedLoadingResourceException("Can not find texture: $path")
         return path.inputStream()
     }
+
+    override fun get(key: String): Texture = getTexture(key)
+
+    override fun set(key: String, value: String) = loadTexture(key, value)
+
+    operator fun set(key: String, useVRAM: Boolean, path: String) = loadTexture(key, path, useVRAM)
 }
