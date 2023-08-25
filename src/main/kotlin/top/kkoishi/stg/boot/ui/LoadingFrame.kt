@@ -9,6 +9,7 @@ import javax.swing.JFrame
 class LoadingFrame(val background: BufferedImage): JFrame() {
     init {
         size = Dimension(background.width, background.height)
+        defaultCloseOperation = DISPOSE_ON_CLOSE
         isUndecorated = true
         isResizable = false
         isVisible = true

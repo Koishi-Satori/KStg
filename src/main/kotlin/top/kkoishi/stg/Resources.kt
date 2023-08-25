@@ -1,6 +1,12 @@
 package top.kkoishi.stg
 
+import top.kkoishi.stg.audio.Sounds
+import top.kkoishi.stg.exceptions.CrashReportGenerator
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
+import top.kkoishi.stg.gfx.GFX
+import top.kkoishi.stg.logic.InfoSystem.Companion.logger
+import java.io.InputStream
+import java.lang.RuntimeException
 
 /**
  * An interface declared that the class which implements this, is used to manage the game resources
@@ -12,7 +18,7 @@ import top.kkoishi.stg.exceptions.FailedLoadingResourceException
  * @param LoadType the type of value required to load the game resource.
  * @author KKoishi_
  */
-interface Resources<ResourceType, LoadType> {
+internal interface Resources<ResourceType, LoadType> {
     /**
      * Get the [ResourceType] by provide the specified key.
      *
@@ -33,5 +39,23 @@ interface Resources<ResourceType, LoadType> {
 
     companion object {
         internal const val KEY_NOT_FOUND = "NOT_FOUND"
+
+        @Suppress("NOTHING_TO_INLINE")
+        internal inline fun getEngineResources(): InputStream? {
+            val callerClass = getCallerClass()
+            callerClass.kotlin.logger()
+                .log(System.Logger.Level.INFO, "Try to get engine resources, CallerClass: $callerClass")
+            when (callerClass) {
+                GFX.javaClass ->
+                    return Companion::class.java.getResourceAsStream("TEXTURE_NOT_FOUND.png")
+
+                Sounds.javaClass ->
+                    return Companion::class.java.getResourceAsStream("SOUND_NOT_FOUND.wav")
+
+                CrashReportGenerator::class.java ->
+                    return Companion::class.java.getResourceAsStream(".comments")
+            }
+            return null
+        }
     }
 }

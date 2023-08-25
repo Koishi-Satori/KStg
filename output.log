@@ -1,268 +1,249 @@
-[10:31:42 AM] [main<-Threads/INFO]: Set workdir to D:\ProjectKotlin\KStg\.
-[10:31:42 AM] [main<-ThreadExceptionHandler/INFO]: Crash Handler Command: [java, -jar, "D:\ProjectKotlin\KStg\./crash_handle/KStg.CrashHandler.jar", D:\ProjectKotlin\KStg\., 9168]
-[10:31:42 AM] [main<-ThreadExceptionHandler/INFO]: Set Crash Handler, pid: 5156
-[10:31:42 AM] [main<-GFXLoader/INFO]: Load textures from scripts.
-[10:31:42 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\boss.kgfx
-[10:31:42 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\./resources/TEXTURE_NOT_FOUND.png
-[10:31:42 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/test_boss_0.png
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_0
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=80
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_1
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (64, 0), w=64, h=80
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_2
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (128, 0), w=64, h=80
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_3
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (192, 0), w=64, h=80
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_0
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (0, 80), w=64, h=80
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_1
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (64, 80), w=64, h=80
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_2
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (128, 80), w=64, h=80
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_3
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (192, 80), w=64, h=80
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_0
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (0, 160), w=64, h=80
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_1
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (64, 160), w=64, h=80
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_2
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (128, 160), w=64, h=80
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_3
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (192, 160), w=64, h=80
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\boss.kgfx
-[10:31:42 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\bullets.kgfx
-[10:31:42 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/test_img.png
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/mirror.png
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/bg_1_1.png
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/ghost_fire.png
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_0
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (0, 0), w=48, h=64
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_1
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (48, 0), w=48, h=64
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_2
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (96, 0), w=48, h=64
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_3
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (144, 0), w=48, h=64
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_4
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (192, 0), w=48, h=64
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_5
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (240, 0), w=48, h=64
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_6
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (288, 0), w=48, h=64
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_7
-[10:31:42 AM] [main<-GFX/INFO]: Begin: (336, 0), w=48, h=64
-[10:31:42 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:42 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\bullets.kgfx
-[10:31:42 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\player.kgfx
-[10:31:43 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/center.png
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/planes_koishi.png
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/slow_effect.png
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/bullets_0.png
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/player_koishi_description.png
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/player_koishi_me.png
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: player_koishi_me_full -> player_koishi_me
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (100, 0), w=412, h=512
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (220, 144), w=36, h=16
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_0
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (177, 146), w=32, h=16
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_1
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (220, 160), w=36, h=16
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: slow_effect -> slow_effect_final
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=64
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: bullets_0 -> test_bullet
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (16, 68), w=16, h=15
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_0
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (0, 0), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_1
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (32, 0), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_2
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (64, 0), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_3
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (96, 0), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_4
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (128, 0), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_5
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (160, 0), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_6
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (192, 0), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_7
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (224, 0), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_0
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (0, 48), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_1
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (32, 48), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_2
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (64, 48), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_3
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (96, 48), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_4
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (128, 48), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_5
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (160, 48), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_6
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (192, 48), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_7
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (224, 48), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_0
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (0, 96), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_1
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (32, 96), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_2
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (64, 96), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_3
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (96, 96), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_4
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (128, 96), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_5
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (160, 96), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_6
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (192, 96), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_7
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (224, 96), w=32, h=48
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\player.kgfx
-[10:31:43 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\ui_objects.kgfx
-[10:31:43 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/interface.png
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/ui.png
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/menu_bg.png
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/main_menu_items.png
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/main_menu_select.png
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/stage_clear.png
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_sidebar
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (0, 0), w=640, h=480
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: interface -> ui_diff_easy
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (0, 61), w=68, h=26
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_score
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (704, 0), w=60, h=21
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_0
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (1, 209), w=300, h=30
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_1
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (1, 239), w=300, h=30
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_2
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (1, 269), w=300, h=30
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_3
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (1, 299), w=300, h=30
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_start
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (20, 14), w=150, h=30
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_extra_start
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (20, 44), w=150, h=30
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_practice
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (20, 74), w=150, h=30
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_exit
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (20, 284), w=150, h=30
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> reimu_baisi
-[10:31:43 AM] [main<-GFX/INFO]: Begin: (0, 544), w=640, h=480
-[10:31:43 AM] [main<-Volatile/INFO]: Use VolatileImage.
-[10:31:43 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\ui_objects.kgfx
-[10:31:43 AM] [main<-AudioLoader/INFO]: Load audios from scripts.
-[10:31:43 AM] [main<-AudioLoader/INFO]: Try to audios textures from D:\ProjectKotlin\KStg\.\test\audio\effects.txt
-[10:31:43 AM] [main<-AudioLoader/INFO]: Success to load all the audios from D:\ProjectKotlin\KStg\.\test\audio\effects.txt
-[10:31:43 AM] [AWT-EventQueue-0<-null/INFO]: Gained focus, try to resync again.
-[10:31:43 AM] [main<-Companion/INFO]: Stop current background.
-[10:31:43 AM] [main<-Companion/INFO]: Opening new background audio...
-[10:31:44 AM] [main<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\sounds\bk_0.wav)
-[10:31:44 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.InfoSystem@50a638b5
-[10:31:44 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.gfx.Renderer@6ca8564a
-[10:31:44 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: Try to GC.
-[10:31:44 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.GameLoop@31368b99
-[10:31:44 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.audio.AudioPlayer@1725dc0f
-[10:31:46 AM] [Pool-1[3] Worker<-MainMenuItem/INFO]: Press key: 40
-[10:31:46 AM] [Pool-1[0] Worker<-MainMenuItem/INFO]: Press key: 90
-[10:31:46 AM] [Pool-1[0] Worker<-ReplayRecorder/INFO]: Initialize record replay.
-[10:31:46 AM] [Pool-1[0] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@1deb8b87
-[10:31:46 AM] [Pool-1[0] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@48ead0e4
-[10:31:46 AM] [Pool-1[0] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.Test$start$3@39844ed
-[10:31:46 AM] [Pool-1[0] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.Test$start$5@6c120639
-[10:31:46 AM] [Pool-1[0] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.Test$start$7@590dc925
-[10:31:46 AM] [Thread-1<-ReplayRecorder/INFO]: Start record replay.
-[10:31:46 AM] [Pool-1[2] Worker<-Companion/INFO]: Stop current background.
-[10:31:46 AM] [Pool-1[2] Worker<-Companion/INFO]: Opening new background audio...
-[10:31:46 AM] [Pool-1[2] Worker<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\sounds\bk_1.wav)
-[10:31:46 AM] [Pool-1[2] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@1deb8b87
-[10:31:47 AM] [Pool-1[0] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@48ead0e4
-[10:31:47 AM] [Pool-1[2] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=D:\ProjectKotlin\KStg\.\test\audio\sounds\enemy_shoot.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@709a7c30
-[10:31:50 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 46.698113207547166, FPS: 29.952830188679243;Bullets count: 93
-[10:31:54 AM] [main<-Player/INFO]: top.kkoishi.stg.test.common.TestPlayerKoishi@1a587943 is hit by Bullet@1360081933-java.awt.Point[x=38,y=464]
-[10:31:56 AM] [Pool-1[2] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.5, FPS: 38.59375;Bullets count: 90
-[10:31:59 AM] [AWT-EventQueue-0<-null/WARNING]: Lose focus!
-[10:32:03 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFrame pre second: 62.5, FPS: 35.46875;Bullets count: 108
-[10:32:07 AM] [AWT-EventQueue-0<-null/INFO]: Gained focus, try to resync again.
-[10:32:09 AM] [AWT-EventQueue-0<-SingleInstanceEnsurer/INFO]: Release the file lock on java.io.RandomAccessFile@742a10c4
-[10:32:09 AM] [Thread-0<-CrashReporter/INFO]: Bin file cleared.
+[9:56:28 PM] [main<-Threads/INFO]: Set workdir to D:\ProjectKotlin\KStg\.
+[9:56:28 PM] [main<-ThreadExceptionHandler/INFO]: Crash Handler Command: [java, -jar, "D:\ProjectKotlin\KStg\./crash_handle/KStg.CrashHandler.jar", D:\ProjectKotlin\KStg\., 14772]
+[9:56:28 PM] [main<-ThreadExceptionHandler/INFO]: Set Crash Handler, pid: 16388
+[9:56:28 PM] [main<-GFXLoader/INFO]: Load textures from scripts.
+[9:56:28 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\boss.kgfx
+[9:56:28 PM] [main<-GFX/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.gfx.GFX
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\./resources/TEXTURE_NOT_FOUND.png
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/test_boss_0.png
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_0
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=80
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_1
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (64, 0), w=64, h=80
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_2
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (128, 0), w=64, h=80
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_3
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (192, 0), w=64, h=80
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_0
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (0, 80), w=64, h=80
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_1
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (64, 80), w=64, h=80
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_2
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (128, 80), w=64, h=80
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_3
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (192, 80), w=64, h=80
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_0
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (0, 160), w=64, h=80
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_1
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (64, 160), w=64, h=80
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_2
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (128, 160), w=64, h=80
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_3
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (192, 160), w=64, h=80
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\boss.kgfx
+[9:56:28 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\bullets.kgfx
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/test_img.png
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/mirror.png
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/bg_1_1.png
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/ghost_fire.png
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_0
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (0, 0), w=48, h=64
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_1
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (48, 0), w=48, h=64
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_2
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (96, 0), w=48, h=64
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_3
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (144, 0), w=48, h=64
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_4
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (192, 0), w=48, h=64
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_5
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (240, 0), w=48, h=64
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_6
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (288, 0), w=48, h=64
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_7
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (336, 0), w=48, h=64
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\bullets.kgfx
+[9:56:28 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\player.kgfx
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/center.png
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/planes_koishi.png
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/slow_effect.png
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/bullets_0.png
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/player_koishi_description.png
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/player_koishi_me.png
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: player_koishi_me_full -> player_koishi_me
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (100, 0), w=412, h=512
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (220, 144), w=36, h=16
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_0
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (177, 146), w=32, h=16
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_1
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (220, 160), w=36, h=16
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: slow_effect -> slow_effect_final
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=64
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: bullets_0 -> test_bullet
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (16, 68), w=16, h=15
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_0
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (0, 0), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_1
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (32, 0), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_2
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (64, 0), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_3
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (96, 0), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_4
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (128, 0), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_5
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (160, 0), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_6
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (192, 0), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_7
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (224, 0), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_0
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (0, 48), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_1
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (32, 48), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_2
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (64, 48), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_3
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (96, 48), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_4
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (128, 48), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_5
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (160, 48), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_6
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (192, 48), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_7
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (224, 48), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_0
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (0, 96), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_1
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (32, 96), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_2
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (64, 96), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_3
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (96, 96), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_4
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (128, 96), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_5
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (160, 96), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_6
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (192, 96), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_7
+[9:56:28 PM] [main<-GFX/INFO]: Begin: (224, 96), w=32, h=48
+[9:56:28 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:28 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\player.kgfx
+[9:56:28 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\ui_objects.kgfx
+[9:56:28 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/interface.png
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/ui.png
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/menu_bg.png
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/main_menu_items.png
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/main_menu_select.png
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/stage_clear.png
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_sidebar
+[9:56:29 PM] [main<-GFX/INFO]: Begin: (0, 0), w=640, h=480
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to cut the texture: interface -> ui_diff_easy
+[9:56:29 PM] [main<-GFX/INFO]: Begin: (0, 61), w=68, h=26
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_score
+[9:56:29 PM] [main<-GFX/INFO]: Begin: (704, 0), w=60, h=21
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_0
+[9:56:29 PM] [main<-GFX/INFO]: Begin: (1, 209), w=300, h=30
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_1
+[9:56:29 PM] [main<-GFX/INFO]: Begin: (1, 239), w=300, h=30
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_2
+[9:56:29 PM] [main<-GFX/INFO]: Begin: (1, 269), w=300, h=30
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_3
+[9:56:29 PM] [main<-GFX/INFO]: Begin: (1, 299), w=300, h=30
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_start
+[9:56:29 PM] [main<-GFX/INFO]: Begin: (20, 14), w=150, h=30
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_extra_start
+[9:56:29 PM] [main<-GFX/INFO]: Begin: (20, 44), w=150, h=30
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_practice
+[9:56:29 PM] [main<-GFX/INFO]: Begin: (20, 74), w=150, h=30
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_exit
+[9:56:29 PM] [main<-GFX/INFO]: Begin: (20, 284), w=150, h=30
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> reimu_baisi
+[9:56:29 PM] [main<-GFX/INFO]: Begin: (0, 544), w=640, h=480
+[9:56:29 PM] [main<-Volatile/INFO]: Use VolatileImage.
+[9:56:29 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\ui_objects.kgfx
+[9:56:29 PM] [main<-AudioLoader/INFO]: Load audios from scripts.
+[9:56:29 PM] [main<-AudioLoader/INFO]: Try to audios textures from D:\ProjectKotlin\KStg\.\test\audio\effects.txt
+[9:56:29 PM] [main<-Sounds/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.audio.Sounds
+[9:56:29 PM] [main<-AudioLoader/INFO]: Success to load all the audios from D:\ProjectKotlin\KStg\.\test\audio\effects.txt
+[9:56:29 PM] [AWT-EventQueue-0<-null/INFO]: Gained focus, try to resync again.
+[9:56:29 PM] [main<-Companion/INFO]: Stop current background.
+[9:56:29 PM] [main<-Companion/INFO]: Opening new background audio...
+[9:56:29 PM] [main<-Companion/INFO]: Set the background to top.kkoishi.stg.audio.Audio$Common@72a7c7e0
+[9:56:29 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.InfoSystem@15eb5ee5
+[9:56:29 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.gfx.Renderer@39529185
+[9:56:29 PM] [Pool-1[0] Worker<-InfoSystem/INFO]: Try to GC.
+[9:56:29 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.GameLoop@3daa422a
+[9:56:29 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.audio.AudioPlayer@31c88ec8
+[9:56:31 PM] [AWT-EventQueue-0<-SingleInstanceEnsurer/INFO]: Release the file lock on java.io.RandomAccessFile@17178958
+[9:56:31 PM] [Thread-0<-CrashReporter/INFO]: Bin file cleared.

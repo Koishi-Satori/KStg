@@ -2,10 +2,11 @@ package top.kkoishi.stg.audio
 
 import top.kkoishi.stg.Resources
 import top.kkoishi.stg.Resources.Companion.KEY_NOT_FOUND
+import top.kkoishi.stg.Resources.Companion.getEngineResources
 import top.kkoishi.stg.exceptions.CrashReportGenerator
 import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
-import top.kkoishi.stg.logic.Threads
+import java.io.InputStream
 import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.system.exitProcess
@@ -17,7 +18,7 @@ object Sounds: Resources<Audio, String> {
     private val audios: MutableMap<String, Audio> = HashMap(1024)
 
     init {
-        loadAudio(KEY_NOT_FOUND, "${Threads.workdir()}/resources/SOUND_NOT_FOUND.wav")
+        loadAudio(KEY_NOT_FOUND, getEngineResources()!!)
         NOT_FOUND = audios[KEY_NOT_FOUND] ?: crash()
     }
 
@@ -38,7 +39,16 @@ object Sounds: Resources<Audio, String> {
             val p = Path.of(path)
             if (!p.exists())
                 throw FailedLoadingResourceException("Can not find texture: $path")
-            audios[key] = Audio(p)
+            audios[key] = Audio.Common(p)
+        } catch (e: Exception) {
+            throw FailedLoadingResourceException(e)
+        }
+    }
+
+    @Suppress("SameParameterValue")
+    private fun loadAudio(key: String, ins: InputStream) {
+        try {
+            audios[key] = Audio.audio(ins)
         } catch (e: Exception) {
             throw FailedLoadingResourceException(e)
         }

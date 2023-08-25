@@ -1,6 +1,7 @@
 package top.kkoishi.stg.exceptions
 
 import top.kkoishi.stg.Loader
+import top.kkoishi.stg.Resources
 import top.kkoishi.stg.logic.Threads
 import java.lang.management.ManagementFactory
 import java.nio.file.Path
@@ -73,7 +74,7 @@ class CrashReportGenerator @JvmOverloads constructor(val head: String = DEFAULT_
         private val comments: ArrayDeque<String> = ArrayDeque(16)
 
         init {
-            val br = Path.of("${Threads.workdir()}/resources/.comments").inputStream().bufferedReader()
+            val br = Resources.getEngineResources()!!.bufferedReader()
             br.lineSequence().forEach(::addComment)
             br.close()
             if (comments.isEmpty())
@@ -113,9 +114,9 @@ class CrashReportGenerator @JvmOverloads constructor(val head: String = DEFAULT_
                 .append(mxBean.vmVersion)
                 .append("\n\tJVM uptime(ms): ").append(mxBean.uptime)
                 .append("\n\tJVM Execute Mode: ").append(properties.getProperty("java.vm.info"))
-                .append("\n\tJVM Free Memory").append(r.freeMemory())
-                .append("\n\tJVM Total Memory").append(r.totalMemory())
-                .append("\n\tJVM Max Memory").append(r.maxMemory())
+                .append("\n\tJVM Free Memory: ").append(r.freeMemory())
+                .append("\n\tJVM Total Memory: ").append(r.totalMemory())
+                .append("\n\tJVM Max Memory: ").append(r.maxMemory())
                 .append("\n\tGPU Acceleration: ").append(properties.getProperty("sun.java2d.opengl") == "true")
                 .append("\n\tAnti-aliasing: ").append(properties.getProperty("swing.aatext") == "true")
                 .append("\n\tNative Double Buffering: ")
