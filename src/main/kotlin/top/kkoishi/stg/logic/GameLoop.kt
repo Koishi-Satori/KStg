@@ -22,6 +22,7 @@ class GameLoop private constructor() : Runnable {
                     // update player logic first.
                     ObjectPool.player().update()
 
+                    // update the stage logic.
                     var cur = PlayerManager.cur
                     if (cur.toNextStage()) {
                         cur = cur.nextStage()
@@ -48,9 +49,16 @@ class GameLoop private constructor() : Runnable {
                     logger.log(System.Logger.Level.ERROR, e)
                 }
             }
+
             GenericFlags.STATE_PAUSE -> {
                 // menu logic
+                try {
+                    ObjectPool.uiObjects().forEach { it.update() }
+                } catch (e: Throwable) {
+                    logger.log(System.Logger.Level.ERROR, e)
+                }
             }
+
             GenericFlags.STATE_MENU -> {
                 // main menu
                 try {

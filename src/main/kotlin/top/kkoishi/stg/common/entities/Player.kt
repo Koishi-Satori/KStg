@@ -3,9 +3,12 @@ package top.kkoishi.stg.common.entities
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.logic.GenericFlags
+import top.kkoishi.stg.logic.GenericFlags.gameState
+import top.kkoishi.stg.logic.GenericFlags.STATE_PLAYING
 import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.PlayerManager
+import top.kkoishi.stg.logic.PlayerManager.life
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.Shape
@@ -13,14 +16,21 @@ import java.util.concurrent.atomic.AtomicReference
 import kotlin.collections.HashMap
 
 /**
- * The basic class of player.
+ * The basic class of player. After reinitialize the [top.kkoishi.stg.logic.ObjectPool.player], you can switch
+ * the GameStage([gameState]) to [STATE_PLAYING], then this class can be render and upgrade correctly.
+ *
+ * You can change the events in [keyEvents] to override the behavior of the player, or implement [actionsImpl] method.
+ * Please make sure that you recreate the Player instance or set its position to the initial position.
+ *
+ * The rest life is held by [PlayerManager], so you can get it by invoking [life] method for upgrading the information.
  *
  * @param initialX the initial X coordinate of the player.
  * @param initialY the initial Y coordinate of the player.
+ * @param invincible if the player is invincible.
  * @author KKoishi_
  */
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
+abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = false) : Entity(0) {
     /**
      * The X coordinate of the player.
      */
@@ -45,6 +55,12 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     protected var shotCoolCount = 0
 
     /**
+     * The protection time after the player is hit(in logic frame count).
+     */
+    protected var protectionTime = 5
+    protected var protectionCount = 0
+
+    /**
      * If player is in slow state.
      */
     protected var slower: Boolean = false
@@ -53,7 +69,14 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     protected val lock = Any()
     protected val logger = Player::class.logger()
 
+    /**
+     * the X coordinate of the player.
+     */
     fun x() = x.get().toInt()
+
+    /**
+     * the Y coordinate of the player.
+     */
     fun y() = y.get().toInt()
 
     fun setPlayerPower(p: Float) {
@@ -68,7 +91,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
         }
     }
 
-    override fun isDead(): Boolean = PlayerManager.life() == 0
+    override fun isDead(): Boolean = life() <= 0
 
     abstract fun bulletDamage(): Int
 
@@ -79,9 +102,12 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
     abstract fun bomb()
 
     override fun beingHit(o: Object) {
-        val oldLife = PlayerManager.life()
-        PlayerManager.setLife(oldLife - 1)
-        logger.log(System.Logger.Level.INFO, "$this is hit by $o")
+        if (protectionCount++ >= protectionTime) {
+            protectionCount = 0
+            val oldLife = life()
+            PlayerManager.setLife(oldLife - 1)
+            logger.log(System.Logger.Level.INFO, "$this is hit by $o")
+        }
     }
 
     open fun shot() = PlayerManager.addBullet(bullet())
@@ -121,9 +147,13 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
         }
     }
 
-    final override fun move() {}
+    @Deprecated("Move function is implemented in key events")
+    final override fun move() {
+    }
 
     override fun collide(o: Object): Boolean {
+        if (invincible)
+            return false
         if (o is Entity) {
             if (CollideSystem.collide(this, o)) {
                 o.beingHit(this)
@@ -132,7 +162,6 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
         }
         return false
     }
-
 
     override fun paint(g: Graphics2D) {
         val key = texture()
@@ -194,6 +223,10 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
         /** Constant for the ESCAPE virtual key.  */
         const val VK_ESCAPE = 0x1B
 
+        /**
+         * Key events which is used to store the functions of the game player instance when
+         * player pressing the specified keys.
+         */
         @JvmStatic
         val keyEvents: MutableMap<Int, (Player) -> Unit> = HashMap(
             mapOf(VK_LEFT to {
@@ -238,12 +271,12 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
             }, VK_C to {
                 // unbind
             }, VK_ESCAPE to {
-                val gameState = GenericFlags.gameState.get()
-                if (gameState == GenericFlags.STATE_PLAYING) {
+                val gameState = gameState.get()
+                if (gameState == STATE_PLAYING) {
                     GenericFlags.gameState.set(GenericFlags.STATE_PAUSE)
                     it.logger.log(System.Logger.Level.INFO, "Pause the game.")
                 } else if (gameState == GenericFlags.STATE_PAUSE) {
-                    GenericFlags.gameState.set(GenericFlags.STATE_PLAYING)
+                    GenericFlags.gameState.set(STATE_PLAYING)
                     it.logger.log(System.Logger.Level.INFO, "Continue the game.")
                 }
                 PlayerManager.binds[VK_ESCAPE] = false
@@ -252,7 +285,7 @@ abstract class Player(initialX: Int, initialY: Int) : Entity(0) {
             })
         )
 
-        class EmptyPlayer : Player(25, 25) {
+        class EmptyPlayer : Player(25, 25, true) {
             override fun dead() {}
 
             override fun beingHit(o: Object) {}

@@ -11,6 +11,7 @@ import java.io.OutputStream
 import java.io.RandomAccessFile
 import java.nio.channels.FileLock
 import java.nio.file.Path
+import java.util.TreeSet
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.io.path.*
 
@@ -33,7 +34,7 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
     private val fileLock: FileLock = temp.channel.tryLock()
     protected val playerID = serializePlayer(player)
     protected val frames = AtomicLong(0L)
-    protected val keyCodeSets: MutableSet<Int> = HashSet(recordedKeyCodes.toList())
+    protected val keyCodeSets: MutableSet<Int> = TreeSet(recordedKeyCodes.toList())
 
     init {
         ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Initialize record replay.")
