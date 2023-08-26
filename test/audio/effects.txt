@@ -1,0 +1,34 @@
+sounds = {
+    audio = {
+        name = "test_player_shot"
+        path = "./sounds/th15_player_shot_0.wav"
+    }
+    audio = {
+        name = "bk_0"
+        path = "./sounds/bk_0.wav"
+    }
+    audio = {
+        name = "bk_1"
+        path = "./sounds/bk_1.wav"
+    }
+    audio = {
+        name = "th15_enemy_damage_01"
+        path = "./sounds/th15_enemy_damage_01.wav"
+    }
+    audio = {
+        name = "th15_enemy_damage_02"
+        path = "./sounds/th15_enemy_damage_02.wav"
+    }
+    audio = {
+        name = "enemy_dead"
+        path = "./sounds/enemy_dead_0.wav"
+    }
+    audio = {
+        name = "enemy_shoot"
+        path = "./sounds/enemy_shoot.wav"
+    }
+    audio = {
+        name = "test_boss_0_bgm"
+        path = "./sounds/test_boss_0_bgm.wav"
+    }
+}

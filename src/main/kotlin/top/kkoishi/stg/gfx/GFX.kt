@@ -18,7 +18,7 @@ import kotlin.io.path.inputStream
  *
  * @author KKoishi_
  */
-object GFX: Resources<Texture, String> {
+object GFX : Resources<Texture, String> {
     private val logger = GFX::class.logger()
 
     @JvmStatic
@@ -27,8 +27,16 @@ object GFX: Resources<Texture, String> {
     private val textures: MutableMap<String, Texture> = HashMap(1024)
 
     init {
-        loadTexture(KEY_NOT_FOUND, "${Threads.workdir()}/resources/TEXTURE_NOT_FOUND.png")
+        try {
+            val ins = Resources.getEngineResources()
+            val imageInput = ImageIO.createImageInputStream(ins)
+            textures[KEY_NOT_FOUND] = Texture(ImageIO.read(imageInput))
+            ins!!.close()
+        } catch (e: Exception) {
+            logger.log(System.Logger.Level.TRACE, e)
+        }
         NOT_FOUND = textures[KEY_NOT_FOUND] ?: tryInitNotFound()
+        logger.log(System.Logger.Level.INFO, "Init TEXTURE_NOT_FOUND")
     }
 
     private fun tryInitNotFound(): Texture {
@@ -41,7 +49,9 @@ object GFX: Resources<Texture, String> {
         g.fillRect(0, 20, 20, 20)
         g.fillRect(20, 0, 20, 20)
         g.dispose()
-        return Texture(buf)
+        val texture = Texture(buf)
+        textures[KEY_NOT_FOUND] = texture
+        return texture
     }
 
     /**
