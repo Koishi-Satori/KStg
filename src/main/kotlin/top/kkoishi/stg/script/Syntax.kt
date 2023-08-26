@@ -1,32 +1,167 @@
 @file:Suppress("unused")
-@file:JvmName("ScriptSyntax")
+@file:JvmName("  ScriptSyntax")
 
 package top.kkoishi.stg.script
 
 import top.kkoishi.stg.exceptions.InternalError
 import top.kkoishi.stg.exceptions.ScriptException
 import top.kkoishi.stg.script.VM.parseVMInstructions
+import java.io.File
 import java.io.IOException
+import java.io.InputStream
 import java.io.Reader
+import java.nio.charset.Charset
+import java.nio.file.Path
+import java.math.BigDecimal
+import java.math.BigInteger
+import kotlin.io.path.inputStream
 import kotlin.reflect.KClass
 
+/**
+ * The Token type.
+ *
+ * @author KKoishi_
+ */
 internal enum class Type {
+    /*----------------------- Non-Constant Token Type ------------------------*/
+    /**
+     * A token type represented the key of key-value entry.
+     *
+     * e.g. the name is a key: name = "xxx" or name = {}
+     */
     KEY,
-    EQUAL, BG, SM, BG_EQ, SM_EQ,
-    CALL, FUNC_CALL, VAR, STRING,
-    L_BLANKET_L, L_BLANKET_R, NUMBER
+    CALL, FUNC_CALL,
+
+    /**
+     * The variables.
+     *
+     * if you want to use a variable, you should use $variable_name or $(variable_name).
+     *
+     * The variable has its [LocalVariables], and its name can be local_variables_name::variable_name.
+     */
+    VAR,
+
+    /**
+     * The strings.
+     *
+     * You can use variables in strings using "xxx$variable_name" or "xxx$(variable_name)xxx", and the value of
+     * the variable will be inserted to the string.
+     */
+    STRING,
+
+    /**
+     * The numbers.
+     *
+     * This engine use Double, [BigDecimal] for floating numbers, and Int, Long, [BigInteger] for interval numbers.
+     */
+    NUMBER,
+
+
+    /*----------------------- Constant Token Type ------------------------*/
+
+    /**
+     * A token type represented '='
+     */
+    EQUAL,
+
+    /**
+     * A token type represented '>'
+     */
+    BG,
+
+    /**
+     * A token type represented '<'
+     */
+    SM,
+
+    /**
+     * A token type represented '>='
+     */
+    BG_EQ,
+
+    /**
+     * A token type represented '<='
+     */
+    SM_EQ,
+
+    /**
+     * A token type represented '{'
+     */
+    L_BLANKET_L,
+
+    /**
+     * A token type represented '}'
+     */
+    L_BLANKET_R
 }
 
+/**
+ * The token used for lexing.
+ *
+ * @param content the contents of the token.
+ * @param type the type of the token.
+ * @author KKoishi_
+ */
 internal data class Token(val content: String, val type: Type)
 
+/**
+ * A constant token represents '{'.
+ *
+ * ### When you are using a token ```Token("", Type.L_BLANKET_L)```, you should use this constant instead for optimizing the performance.
+ */
 internal val L_BLANKET_L = Token("", Type.L_BLANKET_L)
+
+
+/**
+ * A constant token represents '}'.
+ *
+ * ### When you are using a token ```Token("", Type.L_BLANKET_R)```, you should use this constant instead for optimizing the performance.
+ */
 internal val L_BLANKET_R = Token("", Type.L_BLANKET_R)
+
+
+/**
+ * A constant token represents '='.
+ *
+ * ### When you are using a token ```Token("", Type.EQUAL)```, you should use this constant instead for optimizing the performance.
+ */
 internal val EQUAL = Token("", Type.EQUAL)
+
+
+/**
+ * A constant token represents '>'.
+ *
+ * ### When you are using a token ```Token("", Type.BG)```, you should use this constant instead for optimizing the performance.
+ */
 internal val BG = Token("", Type.BG)
+
+/**
+ * A constant token represents '>='.
+ *
+ * ### When you are using a token ```Token("", Type.BG_EQ)```, you should use this constant instead for optimizing the performance.
+ */
 internal val BG_EQ = Token("", Type.BG_EQ)
+
+/**
+ * A constant token represents '<'.
+ *
+ * ### When you are using a token ```Token("", Type.SM)```, you should use this constant instead for optimizing the performance.
+ */
 internal val SM = Token("", Type.SM)
+
+/**
+ * A constant token represents '<='.
+ *
+ * ### When you are using a token ```Token("", Type.SM_EQ)```, you should use this constant instead for optimizing the performance.
+ */
 internal val SM_EQ = Token("", Type.SM_EQ)
 
+/**
+ * Construct an iterator from the given Reader.
+ *
+ * @param rd the reader instance.
+ * @author KKoishi_
+ */
 internal class ReaderIterator(private val rd: Reader) : CharIterator() {
     private var peek = 0
 
@@ -57,17 +192,47 @@ internal class ReaderIterator(private val rd: Reader) : CharIterator() {
     fun close() = rd.close()
 }
 
-internal abstract class Lexer(protected val rest: CharIterator) {
+/**
+ * The super class for all the lexer, which used for tokenizing the input char sequence to tokens.
+ *
+ * If you do not know how to implement this, please read Compile Principle and follow its instructions.
+ *
+ * @param rest the rest char iterator
+ * @author KKoishi_
+ */
+internal abstract class Lexer(protected val rest: CharIterator) : Iterator<Token> {
+    /**
+     * The line number.
+     */
     var line = 0
+
+    /**
+     * The column number
+     */
     var col = 0
 
-    abstract fun next(): Token
-    abstract fun hasNext(): Boolean
+    abstract override fun next(): Token
+
+    abstract override fun hasNext(): Boolean
 }
 
+/**
+ * A parser use to convert the input tokens to the AST(Abstract Syntax Tree) or instructions.
+ *
+ * If you do not know how to implement this, please read Compile Principle and follow its instructions.
+ *
+ * @param lexer the lexer used for getting the input tokens.
+ * @author KKoishi_
+ */
 internal abstract class Parser(val lexer: Lexer) {
+    /**
+     * The token which is traversal latest.
+     */
     lateinit var tk: Token
 
+    /**
+     * Parse the tokens to a [InstructionSequence] instance.
+     */
     abstract fun parse(): InstructionSequence
 
     open fun check(vararg types: Type): String {
@@ -386,6 +551,17 @@ fun String.processEscapes(): String {
     }
     return String(chars, 0, to)
 }
+
+fun Reader.iterator(): CharIterator = ReaderIterator(this)
+
+@JvmOverloads
+fun InputStream.iterator(charset: Charset = Charsets.UTF_8): CharIterator = bufferedReader(charset).iterator()
+
+@JvmOverloads
+fun Path.contentIterator(charset: Charset = Charsets.UTF_8): CharIterator = inputStream().iterator(charset)
+
+@JvmOverloads
+fun File.contentIterator(charset: Charset = Charsets.UTF_8): CharIterator = inputStream().iterator(charset)
 
 internal open class ResourcesScriptLexer(rest: CharIterator) : Lexer(rest) {
     private var lookup = '\u0000'

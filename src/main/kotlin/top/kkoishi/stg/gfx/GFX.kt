@@ -4,7 +4,6 @@ import top.kkoishi.stg.Resources
 import top.kkoishi.stg.Resources.Companion.KEY_NOT_FOUND
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
-import top.kkoishi.stg.logic.Threads
 import java.awt.Color
 import java.io.IOException
 import java.io.InputStream
