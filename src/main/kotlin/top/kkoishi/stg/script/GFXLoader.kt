@@ -5,13 +5,27 @@ import top.kkoishi.stg.Loader.Companion.register
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.exceptions.ScriptException
 import top.kkoishi.stg.gfx.GFX
+import top.kkoishi.stg.gfx.TexturedFont
 import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
-import top.kkoishi.stg.script.ScriptConstants.SCOPE_GFX_LOADER
-import top.kkoishi.stg.script.VM.Instruction
-import top.kkoishi.stg.script.VM.processVars
+import top.kkoishi.stg.script.execution.*
+import top.kkoishi.stg.script.execution.InfoParser
+import top.kkoishi.stg.script.execution.InstructionSequence
+import top.kkoishi.stg.script.execution.Lexer
+import top.kkoishi.stg.script.execution.ParseInfo
+import top.kkoishi.stg.script.execution.ReaderIterator
+import top.kkoishi.stg.script.execution.ResourcesInstructions
+import top.kkoishi.stg.script.execution.ResourcesScriptLexer
+import top.kkoishi.stg.script.execution.ScriptConstants.SCOPE_GFX_LOADER
+import top.kkoishi.stg.script.execution.Type
+import top.kkoishi.stg.script.execution.VM.Instruction
+import top.kkoishi.stg.script.execution.VM.processVars
+import top.kkoishi.stg.script.reflect.ScriptLinker
 import java.io.File
 import java.nio.file.Path
+import javax.imageio.ImageIO
+import kotlin.io.path.exists
+import kotlin.io.path.inputStream
 
 @Suppress("ClassName")
 class GFXLoader @JvmOverloads constructor(private val root: Path, private val useVram: Boolean = false) :
@@ -106,6 +120,39 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
         }
     }
 
+    @Suppress("PrivatePropertyName")
+    private inner class font(
+        private val name: String,
+        private val path: String,
+        private val width: Int,
+        private val height: Int,
+        private val jvm_method_descriptor: String,
+    ) : Instruction(0x23) {
+        override fun needVars(): Boolean = false
+
+        @Suppress("UNCHECKED_CAST")
+        private fun getFunction(): (Char) -> Pair<Int, Int> {
+            return ScriptLinker.bind(jvm_method_descriptor) { methodHandle, method ->
+                if (methodHandle != null) {
+                    return@bind { methodHandle(it) as Pair<Int, Int> }
+                } else if (method != null) {
+                    return@bind { method(null, it) as Pair<Int, Int> }
+                } else {
+                    throw ScriptException("Can not link to method $jvm_method_descriptor")
+                }
+            }
+        }
+
+        override fun invoke() {
+            val p = Path.of(path)
+            if (!p.exists())
+                throw FailedLoadingResourceException("Can not find texture: $path")
+            val img = ImageIO.read(ImageIO.createImageInputStream(p.inputStream()))
+            val find: (Char) -> Pair<Int, Int> = getFunction()
+            GFX.register(name, TexturedFont(img, width, height, find))
+        }
+    }
+
     internal inner class gfxInfo : ParseInfo.InstructionInfo("gfx") {
         init {
             add(ParseInfo.CommonParameterInfo("name"))
@@ -135,6 +182,26 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
                 parameters["y"]!!.toString(),
                 parameters["w"]!!.toString(),
                 parameters["h"]!!.toString()
+            )
+        }
+    }
+
+    internal inner class fontInfo : ParseInfo.InstructionInfo("font") {
+        init {
+            add(ParseInfo.CommonParameterInfo("name"))
+            add(ParseInfo.CommonParameterInfo("path"))
+            add(ParseInfo.CommonParameterInfo("width"))
+            add(ParseInfo.CommonParameterInfo("height"))
+            add(ParseInfo.CommonParameterInfo("jvm_md"))
+        }
+
+        override fun allocate(parameters: Map<String, Any>): Instruction {
+            return font(
+                parameters["name"]!!.toString(),
+                parameters["path"]!!.toString(),
+                parameters["width"]!!.toString().toInt(),
+                parameters["height"]!!.toString().toInt(),
+                parameters["jvm_md"]!!.toString()
             )
         }
     }

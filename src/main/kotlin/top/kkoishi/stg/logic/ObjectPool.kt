@@ -3,6 +3,7 @@ package top.kkoishi.stg.logic
 import top.kkoishi.stg.common.entities.Bullet
 import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.common.entities.Player
+import java.util.UUID
 import java.util.concurrent.atomic.AtomicReference
 
 object ObjectPool {
@@ -10,6 +11,8 @@ object ObjectPool {
     private val bullets = ArrayDeque<Bullet>(1024)
     private val objects = ArrayDeque<Object>(128)
     private val UIObjects = ArrayDeque<Object>(16)
+    internal val playerBullets: ArrayDeque<Bullet> = ArrayDeque(256)
+    internal val objectMap = HashMap<UUID, Object>(2048)
     private val lock = Any()
 
     fun player(): Player = player.get()
@@ -44,18 +47,21 @@ object ObjectPool {
     fun addObject(o: Object) {
         synchronized(lock) {
             objects.addLast(o)
+            objectMap[o.uuid] = o
         }
     }
 
     fun removeObject(index: Int) {
         synchronized(lock) {
-            objects.removeAt(index)
+            val uuid = objects.removeAt(index).uuid
+            objectMap.remove(uuid)
         }
     }
 
     fun addBullet(b: Bullet) {
         synchronized(lock) {
             bullets.addLast(b)
+            objectMap[b.uuid] = b
         }
     }
 

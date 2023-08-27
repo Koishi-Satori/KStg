@@ -6,15 +6,18 @@ package top.kkoishi.stg
 import sun.misc.Unsafe
 import java.lang.RuntimeException
 
-private val UNSAFE: Unsafe? = accessUnsafe()
+internal var canAccessUnsafe: Boolean = false
 
-private fun accessUnsafe(): Unsafe? {
+private val UNSAFE: Unsafe = accessUnsafe()
+
+private fun accessUnsafe(): Unsafe {
     return try{
         val field = Class.forName("sun.misc.Unsafe").getDeclaredField("theUnsafe")
         field.isAccessible = true
+        canAccessUnsafe = true
         field.get(null) as Unsafe
     } catch (e: Exception) {
-        null
+        throw RuntimeException(e)
     }
 }
 
@@ -25,3 +28,4 @@ internal inline fun getCallerClass(): Class<*> {
         return Class.forName(e.stackTrace[0].className)
     }
 }
+

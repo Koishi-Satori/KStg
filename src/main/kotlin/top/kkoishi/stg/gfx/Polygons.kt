@@ -14,54 +14,16 @@ internal object Polygons {
         val points2 = makePolygon(p2)
         when (method) {
             CollideSystem.PolygonIntersectMethod.SAT -> {
-                if (isConcave(points1)) {
-                    val polygons1 = divideConcave(points1)
-                    if (isConcave(points2)) {
-                        val polygons2 = divideConcave(points2)
-                        polygons1.forEach { p ->
-                            polygons2.forEach {
-                                if (SAT.convexIntersectConvexImpl(p, it))
-                                    return true
-                            }
-                        }
-                    } else
-                        polygons1.forEach {
-                            if (SAT.convexIntersectConvexImpl(it, points2))
-                                return true
-                        }
-                } else if (isConcave(points2)) {
-                    val polygons2 = divideConcave(points2)
-                    polygons2.forEach {
-                        if (SAT.convexIntersectConvexImpl(it, points1))
-                            return true
-                    }
-                } else
+                if (isConcave(points1) || isConcave(points2))
+                    throw UnsupportedOperationException("$p1 and $p2 must be convex, not concave!")
+                else
                     return SAT.convexIntersectConvexImpl(points1, points2)
             }
 
             CollideSystem.PolygonIntersectMethod.GJK -> {
-                if (isConcave(points1)) {
-                    val polygons1 = divideConcave(points1)
-                    if (isConcave(points2)) {
-                        val polygons2 = divideConcave(points2)
-                        polygons1.forEach { p ->
-                            polygons2.forEach {
-                                if (GJK.convexIntersectConvexImpl(p, it, p[0] - it[0]))
-                                    return true
-                            }
-                        }
-                    } else
-                        polygons1.forEach {
-                            if (GJK.convexIntersectConvexImpl(it, points2, it[0] - points2[0]))
-                                return true
-                        }
-                } else if (isConcave(points2)) {
-                    val polygons2 = divideConcave(points2)
-                    polygons2.forEach {
-                        if (GJK.convexIntersectConvexImpl(it, points1, it[0] - points1[0]))
-                            return true
-                    }
-                } else
+                if (isConcave(points1) || isConcave(points2))
+                    throw UnsupportedOperationException("$p1 and $p2 must be convex, not concave!")
+                else
                     return GJK.convexIntersectConvexImpl(points1, points2, points1[0] - points2[0])
             }
 
@@ -70,7 +32,6 @@ internal object Polygons {
                 return true
             }
         }
-        return false
     }
 
     private fun isConcave(p: Array<CollideSystem.VPoint>): Boolean {
@@ -95,40 +56,6 @@ internal object Polygons {
             c = d
         }
         return false
-    }
-
-    private fun divideConcave(p: Array<CollideSystem.VPoint>): Array<Array<CollideSystem.VPoint>> {
-        val result = ArrayDeque<Array<CollideSystem.VPoint>>()
-        (p.indices).forEach OutLoop@{ i ->
-            val index0 = (i + 1) % p.size
-            val index1 = (i + 2) % p.size
-            val p0 = p[i]
-            val p1 = p[index0]
-            val p2 = p[index1]
-            val edge = (p0 - p1)
-            val cross = edge x (p1 - p2)
-
-            if (cross > 0) {
-                (p.indices).forEach {
-                    val current = p[it]
-                    val index = (it + 1) % p.size
-                    val next = p[index]
-                    if (!(i == it || i == index)) {
-                        val cross0 = edge x (p0 - current)
-                        val cross1 = edge x (p1 - next)
-
-                        if (cross0 * cross1 < 0) {
-                            // TODO:spilt concave.
-                            return@OutLoop
-                        }
-                    }
-                }
-
-            }
-        }
-        val res = result.toTypedArray()
-        result.clear()
-        return res
     }
 
     private fun makePolygon(p: Polygon): Array<CollideSystem.VPoint> {

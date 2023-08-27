@@ -111,4 +111,9 @@ object GFX : Resources<Texture, String> {
     override fun set(key: String, value: String) = loadTexture(key, value)
 
     operator fun set(key: String, useVRAM: Boolean, path: String) = loadTexture(key, path, useVRAM)
+
+    @JvmName("  register  ")
+    internal fun register(key: String, value: Texture) {
+        textures[key] = value
+    }
 }

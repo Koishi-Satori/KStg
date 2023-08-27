@@ -17,7 +17,7 @@ import kotlin.collections.HashMap
 
 /**
  * The basic class of player. After reinitialize the [top.kkoishi.stg.logic.ObjectPool.player], you can switch
- * the GameStage([gameState]) to [STATE_PLAYING], then this class can be render and upgrade correctly.
+ * the GameStage([gameState]) to [STATE_PLAYING], then this class can be rendered and upgrade correctly.
  *
  * You can change the events in [keyEvents] to override the behavior of the player, or implement [actionsImpl] method.
  * Please make sure that you recreate the Player instance or set its position to the initial position.
@@ -29,17 +29,47 @@ import kotlin.collections.HashMap
  * @param invincible if the player is invincible.
  * @author KKoishi_
  */
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate", "unused")
 abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = false) : Entity(0) {
     /**
      * The X coordinate of the player.
      */
-    val x = AtomicReference(initialX.toDouble())
+    private val x = AtomicReference(initialX.toDouble())
 
     /**
      * The Y coordinate of the player.
      */
-    val y = AtomicReference(initialY.toDouble())
+    private val y = AtomicReference(initialY.toDouble())
+
+    /**
+     *  Get the X coordinate of the player in Double.
+     *
+     *  @see AtomicReference.getAcquire
+     */
+    fun x(): Double = x.acquire
+
+    /**
+     *  Get the Y coordinate of the player in Double.
+     *
+     *  @see AtomicReference.getAcquire
+     */
+    fun y(): Double = y.acquire
+
+    /**
+     *  Set the X coordinate of the player.
+     *
+     * @param newX the new X coordinate.
+     *  @see AtomicReference.setRelease
+     */
+    fun x(newX: Double) = x.setRelease(newX)
+
+    /**
+     *  Set the Y coordinate of the player.
+     *
+     * @param newY the new Y coordinate.
+     *  @see AtomicReference.setRelease
+     */
+    fun y(newY: Double) = y.setRelease(newY)
 
     /**
      * The speed of the player.
@@ -70,14 +100,14 @@ abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = fa
     protected val logger = Player::class.logger()
 
     /**
-     * the X coordinate of the player.
+     * the X coordinate of the player in Integer.
      */
-    fun x() = x.get().toInt()
+    fun xInt() = x().toInt()
 
     /**
-     * the Y coordinate of the player.
+     * the Y coordinate of the player in Integer.
      */
-    fun y() = y.get().toInt()
+    fun yInt() = y().toInt()
 
     fun setPlayerPower(p: Float) {
         synchronized(lock) {
@@ -166,8 +196,8 @@ abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = fa
     override fun paint(g: Graphics2D) {
         val key = texture()
         val t = GFX.getTexture(key)
-        val xI = x.get()
-        val yI = y.get()
+        val xI = x()
+        val yI = y()
         val point = t.renderPoint(xI, yI)
         t.paint(g, t.normalMatrix(), point.x, point.y)
 
@@ -181,6 +211,10 @@ abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = fa
         PlayerManager.updateBullets()
         actions()
         return false
+    }
+
+    override fun toString(): String {
+        return "Player{$invincible, ($x, $y), uuid=$uuid}"
     }
 
     companion object {
@@ -231,34 +265,34 @@ abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = fa
         val keyEvents: MutableMap<Int, (Player) -> Unit> = HashMap(
             mapOf(VK_LEFT to {
                 it.moveState = STATE_LEFT
-                val oldX = it.x.get()
+                val oldX = it.x()
                 var newX = oldX - it.speed
                 val limitX = Graphics.getUIInsets().left.toDouble()
                 if (newX < limitX)
                     newX = limitX
-                it.x.set(newX)
+                it.x(newX)
             }, VK_RIGHT to {
                 it.moveState = STATE_RIGHT
-                val oldX = it.x.get()
+                val oldX = it.x()
                 var newX = oldX + it.speed
                 val limitX = Graphics.getScreenSize().width - Graphics.getUIInsets().right
                 if (newX > limitX)
                     newX = limitX
-                it.x.set(newX)
+                it.x(newX)
             }, VK_UP to {
-                val oldY = it.y.get()
+                val oldY = it.y()
                 var newY = oldY - it.speed
                 val limitY = Graphics.getUIInsets().top.toDouble()
                 if (newY < limitY)
                     newY = limitY
-                it.y.set(newY)
+                it.y(newY)
             }, VK_DOWN to {
-                val oldY = it.y.get()
+                val oldY = it.y()
                 var newY = oldY + it.speed
                 val limitY = Graphics.getScreenSize().height - Graphics.getUIInsets().bottom
                 if (newY > limitY)
                     newY = limitY
-                it.y.set(newY)
+                it.y(newY)
             }, VK_Z to {
                 if (it.shotCoolCount++ == it.shotCoolDown) {
                     it.shotCoolCount = 0
@@ -291,11 +325,11 @@ abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = fa
             override fun beingHit(o: Object) {}
             override fun actionsImpl() {}
 
-            override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 5)
+            override fun shape(): Shape = CollideSystem.Circle(Point(xInt(), yInt()), 5)
 
             override fun bulletDamage(): Int = 0
 
-            override fun bullet(dx: Int, dy: Int): PlayerBullet = EmptyBullet(x() + dx, y() + dy)
+            override fun bullet(dx: Int, dy: Int): PlayerBullet = EmptyBullet(xInt() + dx, yInt() + dy)
 
             override fun texture(): String = "NOT_FOUND"
 
@@ -309,7 +343,10 @@ abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = fa
                 setY(y() + 1)
             }
 
-            override fun paint(g: Graphics2D) {}
+            override fun paint(g: Graphics2D) {
+            }
         }
     }
+
+
 }

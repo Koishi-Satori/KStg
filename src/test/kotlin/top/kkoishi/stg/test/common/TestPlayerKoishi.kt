@@ -32,7 +32,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
 
     override fun bullet(dx: Int, dy: Int): PlayerBullet =
         if (slower)
-            object : PlayerBullet(this.x() + dx, this.y() + dy) {
+            object : PlayerBullet(this.xInt() + dx, this.yInt() + dy) {
                 override fun move() {
                     setY(y() - 6)
                 }
@@ -48,7 +48,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
                 }
             }
         else
-            object : PlayerBullet(this.x() + dx, this.y() + dy) {
+            object : PlayerBullet(this.xInt() + dx, this.yInt() + dy) {
                 override fun move() {
                     setY(y() - 4)
                 }
@@ -116,14 +116,14 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
     override fun dead() {
     }
 
-    override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 5)
+    override fun shape(): Shape = CollideSystem.Circle(Point(xInt(), yInt()), 5)
 
     override fun paint(g: Graphics2D) {
         if (slower) {
             val key = texture()
             val t = GFX.getTexture(key)
-            val xI = x.get()
-            val yI = y.get()
+            val xI = x()
+            val yI = y()
             val effect = GFX.getTexture("slow_effect_final")
             var rd = effect.renderPoint(xI, yI)
             effect.paint(g, effect.normalMatrix(), rd.x, rd.y)
@@ -136,8 +136,8 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
         } else {
             val key = texture()
             val t = GFX.getTexture(key)
-            val xI = x.get()
-            val yI = y.get()
+            val xI = x()
+            val yI = y()
             val point = t.renderPoint(xI, yI)
             t.paint(g, t.normalMatrix(), point.x, point.y)
         }

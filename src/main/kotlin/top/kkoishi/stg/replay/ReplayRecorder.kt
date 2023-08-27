@@ -1,4 +1,4 @@
-package top.kkoishi.stg.gfx.replay
+package top.kkoishi.stg.replay
 
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.logic.GenericFlags
@@ -64,8 +64,8 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
         temp.writeInt(InfoSystem.fps())
         val binds = PlayerManager.binds
         keyCodeSets.forEach { temp.writeBoolean(binds[it]) }
-        temp.writeDouble(player.x.get())
-        temp.writeDouble(player.y.get())
+        temp.writeDouble(player.x())
+        temp.writeDouble(player.y())
     }
 
     fun save(dir: String, name: String, id: Long) = save(Path.of(dir), name, id)

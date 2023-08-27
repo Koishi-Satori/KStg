@@ -160,7 +160,6 @@ open class Texture internal constructor(protected val texture: BufferedImage) {
 
         override fun cut(x: Int, y: Int, w: Int, h: Int): Texture =
             Volatile(texture.getSubimage(x, y, w, h))
-
     }
 
     companion object {

@@ -3,15 +3,17 @@ package top.kkoishi.stg.logic
 import top.kkoishi.stg.common.entities.Bullet
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.common.Stage
+import top.kkoishi.stg.logic.ObjectPool.objectMap
+import top.kkoishi.stg.logic.ObjectPool.playerBullets
 import java.awt.Graphics2D
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
+import java.util.UUID
 import javax.swing.JFrame
 
 object PlayerManager {
     private var life = 2
     private val lock = Any()
-    private val bullets: ArrayDeque<Bullet> = ArrayDeque(256)
     val binds = BooleanArray(526)
         get(): BooleanArray {
             synchronized(lock) {
@@ -40,19 +42,20 @@ object PlayerManager {
 
     fun addBullet(b: Bullet) {
         synchronized(lock) {
-            bullets.addLast(b)
+            playerBullets.addLast(b)
+            objectMap[b.uuid] = b
         }
     }
 
     fun countBullets(): Int {
         synchronized(lock) {
-            return bullets.size
+            return playerBullets.size
         }
     }
 
     fun paintBullets(g: Graphics2D) {
         synchronized(lock) {
-            for (b in bullets)
+            for (b in playerBullets)
                 b.paint(g)
         }
     }
@@ -60,9 +63,12 @@ object PlayerManager {
     fun updateBullets() {
         synchronized(lock) {
             var index = 0
-            for (b in bullets.toTypedArray().iterator()) {
-                if (b.update())
-                    bullets.removeAt(index--)
+            var uuid: UUID
+            for (b in playerBullets.toTypedArray().iterator()) {
+                if (b.update()) {
+                    uuid = playerBullets.removeAt(index--).uuid
+                    objectMap.remove(uuid)
+                }
                 ++index
             }
         }

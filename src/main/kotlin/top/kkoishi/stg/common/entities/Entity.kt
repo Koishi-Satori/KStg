@@ -5,6 +5,7 @@ import top.kkoishi.stg.gfx.CollideSystem.Circle
 import java.awt.Polygon
 import java.awt.Shape
 import java.awt.geom.*
+import java.util.*
 
 /**
  * All the entities' base class.
@@ -13,6 +14,11 @@ import java.awt.geom.*
  * @author KKoishi_
  */
 abstract class Entity(protected var health: Int) : Object {
+    private val entityUUID = UUID.randomUUID()
+
+    override val uuid: UUID
+        get() = entityUUID
+
     /**
      * If the entity is dead.
      */

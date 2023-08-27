@@ -1,11 +1,12 @@
 @file:Suppress("unused")
 @file:JvmName("  ScriptSyntax")
 
-package top.kkoishi.stg.script
+package top.kkoishi.stg.script.execution
 
 import top.kkoishi.stg.exceptions.InternalError
 import top.kkoishi.stg.exceptions.ScriptException
-import top.kkoishi.stg.script.VM.parseVMInstructions
+import top.kkoishi.stg.script.LocalVariables
+import top.kkoishi.stg.script.execution.VM.parseVMInstructions
 import java.io.File
 import java.io.IOException
 import java.io.InputStream

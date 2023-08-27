@@ -1,6 +1,7 @@
-package top.kkoishi.stg.script
+package top.kkoishi.stg.script.execution
 
 import top.kkoishi.stg.exceptions.ScriptException
+import top.kkoishi.stg.script.LocalVariables
 import kotlin.minus as kminus
 import java.math.BigDecimal
 import java.math.BigInteger

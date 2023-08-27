@@ -188,8 +188,8 @@ object Bullets {
                 init {
                     val x = x()
                     val y = y()
-                    val dx = ObjectPool.player().y.get() - y
-                    val dy = ObjectPool.player().x.get() - x
+                    val dx = ObjectPool.player().y() - y
+                    val dy = ObjectPool.player().x() - x
                     val scale = sqrt(dx * dx + dy * dy)
                     sin = dy / scale
                     cos = dx / scale
@@ -231,8 +231,8 @@ object Bullets {
             init {
                 val x = x()
                 val y = y()
-                val dx = (ObjectPool.player().y.get() - y).toDouble()
-                val dy = (ObjectPool.player().x.get() - x).toDouble()
+                val dx = (ObjectPool.player().y() - y)
+                val dy = (ObjectPool.player().x() - x)
                 val scale = sqrt(dx * dx + dy * dy)
                 sin = dy / scale
                 cos = dx / scale

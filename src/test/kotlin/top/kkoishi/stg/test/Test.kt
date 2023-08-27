@@ -14,7 +14,7 @@ import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.exceptions.InternalError
 import top.kkoishi.stg.exceptions.ThreadExceptionHandler
 import top.kkoishi.stg.gfx.Renderer
-import top.kkoishi.stg.gfx.replay.ReplayRecorder
+import top.kkoishi.stg.replay.ReplayRecorder
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.script.AudioLoader
 import top.kkoishi.stg.script.GFXLoader
@@ -148,8 +148,8 @@ object Test {
         GameSystem.randomSeed = Threads.randomSeed()
         GameSystem.rand = Threads.random()
         val player = GameSystem.players[playerIndex]
-        player.x.set(Graphics.getCenterX().toDouble())
-        player.y.set(355.0)
+        player.x(Graphics.getCenterX().toDouble())
+        player.y(355.0)
         ObjectPool.player(player)
         val recorder = ReplayRecorder(
             GameSystem.randomSeed, player, intArrayOf(

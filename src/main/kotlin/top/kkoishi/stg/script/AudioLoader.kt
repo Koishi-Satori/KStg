@@ -5,7 +5,16 @@ import top.kkoishi.stg.Loader.Companion.register
 import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.exceptions.ScriptException
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
-import top.kkoishi.stg.script.ScriptConstants.SCOPE_AUDIO_LOADER
+import top.kkoishi.stg.script.execution.*
+import top.kkoishi.stg.script.execution.InfoParser
+import top.kkoishi.stg.script.execution.InstructionSequence
+import top.kkoishi.stg.script.execution.Lexer
+import top.kkoishi.stg.script.execution.ParseInfo
+import top.kkoishi.stg.script.execution.ReaderIterator
+import top.kkoishi.stg.script.execution.ResourcesInstructions
+import top.kkoishi.stg.script.execution.ResourcesScriptLexer
+import top.kkoishi.stg.script.execution.ScriptConstants.SCOPE_AUDIO_LOADER
+import top.kkoishi.stg.script.execution.Type
 import java.io.File
 import java.nio.file.Path
 
@@ -67,7 +76,7 @@ class AudioLoader(private val root: Path) : LocalVariables(SCOPE_AUDIO_LOADER), 
         }
     }
 
-    private inner class audio(private val name: String, private val path: String) : VM.Instruction(0x23) {
+    private inner class audio(private val name: String, private val path: String) : VM.Instruction(0x24) {
         override fun needVars(): Boolean = false
         override fun invoke() {
             Sounds[name] = "$root/$path"
