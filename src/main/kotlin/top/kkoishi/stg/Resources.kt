@@ -1,12 +1,12 @@
 package top.kkoishi.stg
 
 import top.kkoishi.stg.audio.Sounds
+import top.kkoishi.stg.boot.FastBootstrapper
 import top.kkoishi.stg.exceptions.CrashReportGenerator
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.io.InputStream
-import java.lang.RuntimeException
 
 /**
  * An interface declared that the class which implements this, is used to manage the game resources
@@ -54,6 +54,8 @@ internal interface Resources<ResourceType, LoadType> {
 
                 CrashReportGenerator::class.java ->
                     return Companion::class.java.getResourceAsStream(".comments")
+                FastBootstrapper::class.java ->
+                    return Companion::class.java.getResourceAsStream("logo.ico")
             }
             return null
         }

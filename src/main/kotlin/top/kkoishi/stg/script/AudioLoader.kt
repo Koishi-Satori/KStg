@@ -1,7 +1,7 @@
 package top.kkoishi.stg.script
 
-import top.kkoishi.stg.Loader
-import top.kkoishi.stg.Loader.Companion.register
+import top.kkoishi.stg.DefinitionsLoader
+import top.kkoishi.stg.DefinitionsLoader.Companion.register
 import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.exceptions.ScriptException
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
@@ -18,7 +18,7 @@ import top.kkoishi.stg.script.execution.Type
 import java.io.File
 import java.nio.file.Path
 
-class AudioLoader(private val root: Path) : LocalVariables(SCOPE_AUDIO_LOADER), Loader {
+class AudioLoader(private val root: Path) : LocalVariables(SCOPE_AUDIO_LOADER), DefinitionsLoader {
     init {
         LocalVariables[scopeName] = this
     }

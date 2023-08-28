@@ -88,11 +88,12 @@ object Test {
         val f = JFrame("KKoishi_ STG Engine test")
         f.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(e: WindowEvent?) {
+                Test::class.logger().log(System.Logger.Level.INFO, "Window is closing.")
                 SingleInstanceEnsurer.release()
                 exitProcess(CrashReporter.EXIT_OK)
             }
         })
-        FastBootstrapper.setIconImage(f, "${Threads.workdir()}/resources/logo.ico")
+        FastBootstrapper.useEngineIconImage(f)
         FastBootstrapper.autoSync(f)
         when {
             fullScreen -> FastBootstrapper.display(f, WIDTH, HEIGHT, UI_INSETS, true)
@@ -138,7 +139,8 @@ object Test {
     private fun menu() {
         AudioPlayer.setBackground(Sounds.getAudio("bk_0"))
         val mainMenu = GameSystem.mainMenu
-        ObjectPool.addUIObject(mainMenu)
+        if (!ObjectPool.containsUIObject(mainMenu))
+            ObjectPool.addUIObject(mainMenu)
         // switch to menu
         GenericFlags.gameState.set(GenericFlags.STATE_MENU)
     }
@@ -217,7 +219,9 @@ object Test {
         })
         PlayerManager.cur = stage1
         val sideBar = GameSystem.sideBar
-        ObjectPool.addUIObject(sideBar)
+        sideBar.reset()
+        if (!ObjectPool.containsUIObject(sideBar))
+            ObjectPool.addUIObject(sideBar)
 
         // start game
         GenericFlags.gameState.set(GenericFlags.STATE_PLAYING)

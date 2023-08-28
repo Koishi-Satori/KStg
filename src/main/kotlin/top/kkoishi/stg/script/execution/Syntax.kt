@@ -236,6 +236,12 @@ internal abstract class Parser(val lexer: Lexer) {
      */
     abstract fun parse(): InstructionSequence
 
+    /**
+     * Checks if the type of next token is one of which contains in the given types.
+     *
+     * @param types check list.
+     * @return if matches
+     */
     open fun check(vararg types: Type): String {
         if (!lexer.hasNext())
             throw ScriptException("Illegal script format: expect ${types.contentToString()} at ${lexer.line}:${lexer.col}, but got nothing")

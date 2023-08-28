@@ -126,7 +126,6 @@ open class Texture internal constructor(protected val texture: BufferedImage) {
             r.dispose()
         }
 
-
         override fun paint(r: Graphics2D, op: AffineTransformOp, x: Int, y: Int) {
             if (vImg.contentsLost()) {
                 makeTranslucent(vImg)

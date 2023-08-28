@@ -32,6 +32,13 @@ object ObjectPool {
         }
     }
 
+    fun containsUIObject(o: Object): Boolean {
+        val copy = synchronized(lock) {
+            UIObjects.toTypedArray()
+        }
+        return copy.contains(o)
+    }
+
     fun bullets(): Iterator<Bullet> {
         synchronized(lock) {
             return bullets.toTypedArray().iterator()

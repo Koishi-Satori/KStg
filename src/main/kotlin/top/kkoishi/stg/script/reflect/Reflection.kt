@@ -3,6 +3,7 @@ package top.kkoishi.stg.script.reflect
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
+import java.lang.invoke.MethodHandles.Lookup
 import java.lang.invoke.MethodType
 import java.lang.reflect.*
 import java.util.*
@@ -15,25 +16,58 @@ object Reflection {
 
     internal fun <T> parseMethod(descriptor: String, allocator: (MethodHandle?, Method?) -> T): T {
         val info = parseMethodDescriptor(descriptor)
+        val lookup = MethodHandles.lookup()
         var methodHandle: MethodHandle? = null
         var method: Method? = null
-        try {
-            val type = MethodType.methodType(info.requiredReturnType(), info.parameterTypes())
-            methodHandle = MethodHandles.lookup().findStatic(info.ownerClass(), info.methodName(), type)
+        with(Reflection::class.logger()) {
+            log(System.Logger.Level.INFO, "Parse Method Descriptor: $descriptor")
+            log(System.Logger.Level.INFO, "Method Owner: ${info.ownerClass()}")
+            log(System.Logger.Level.INFO, "Method Return: ${info.requiredReturnType()}")
+            log(System.Logger.Level.INFO, "Method Name: ${info.methodName()}")
+            log(System.Logger.Level.INFO, "Method Parameter: ${info.parameterTypes().contentToString()}")
+
+            try {
+                val type = MethodType.methodType(info.requiredReturnType(), info.parameterTypes())
+                methodHandle = lookup.findStatic(info.ownerClass(), info.methodName(), type)
+            } catch (e: IllegalAccessException) {
+                log(System.Logger.Level.WARNING, e)
+                methodHandle = tryAccessPrivate(info, lookup)
+            } catch (e: Exception) {
+                log(System.Logger.Level.WARNING, e)
+                method = tryGetMethod(info, descriptor)
+            }
+
+            log(System.Logger.Level.INFO, "Parse method to ($methodHandle, $method)")
+        }
+        return allocator(methodHandle, method)
+    }
+
+    private fun tryAccessPrivate(info: ScriptLinker.LinkInfo, lookup: Lookup): MethodHandle? {
+        return try {
+            MethodHandles.privateLookupIn(info.ownerClass(), lookup).findStatic(
+                info.ownerClass(),
+                info.methodName(),
+                MethodType.methodType(info.requiredReturnType(), info.parameterTypes())
+            )
         } catch (e: Exception) {
             Reflection::class.logger().log(System.Logger.Level.TRACE, e)
-            try {
-                method = getMethod(info.ownerClass(), info.methodName(), *info.parameterTypes())
-                if (!isStatic(method)) {
-                    method = null
-                    Reflection::class.logger().log(System.Logger.Level.WARNING, "$descriptor should be static!")
-                }
-            } catch (e: Exception) {
-                Reflection::class.logger().log(System.Logger.Level.TRACE, e)
-            }
+            null
         }
+    }
 
-        return allocator(methodHandle, method)
+    private fun tryGetMethod(info: ScriptLinker.LinkInfo, descriptor: String): Method? {
+        var method: Method? = null
+        try {
+            method = getMethod(info.ownerClass(), info.methodName(), *info.parameterTypes())
+            method.isAccessible = true
+            if (!isStatic(method)) {
+                method = null
+                Reflection::class.logger().log(System.Logger.Level.ERROR, "$descriptor should be static!")
+            }
+        } catch (e: Exception) {
+            Reflection::class.logger().log(System.Logger.Level.TRACE, e)
+        }
+        return method
     }
 
     @JvmStatic
@@ -57,6 +91,8 @@ object Reflection {
                 }
 
                 '(' -> {
+                    if (classNameBuffer.last() == '.')
+                        classNameBuffer.deleteCharAt(classNameBuffer.lastIndex)
                     className = classNameBuffer.toString()
                     actualName = buffer.toString()
                     buffer.clear()
@@ -106,9 +142,12 @@ object Reflection {
             'L' -> {
                 while (rest.hasNext()) {
                     lookup = rest.next()
-                    if (lookup == ';') {
+                    if (lookup == ';')
                         break
-                    } else buffer.append(lookup)
+                    else if (lookup == '/')
+                        buffer.append('.')
+                    else
+                        buffer.append(lookup)
                 }
                 if (lookup != ';')
                     throw IllegalArgumentException("Illegal Class Descriptor: Invalid class descriptor.")
@@ -129,8 +168,8 @@ object Reflection {
     private fun methodToDescriptor(clz: Class<*>, name: String, argTypes: Array<out Class<*>>): String {
         return (clz.name + '.' + name +
                 if (argTypes.isEmpty()) "()" else Arrays.stream(argTypes)
-                    .map { c: Class<*>? -> if (c == null) "null" else c.name }
-                    .collect(Collectors.joining(",", "(", ")")))
+                    .map { c: Class<*>? -> if (c == null) "null" else c.descriptorString() }
+                    .collect(Collectors.joining("", "(", ")")))
     }
 
     private fun getMethod(clz: Class<*>, methodName: String, vararg parameterClasses: Class<*>): Method {
@@ -177,5 +216,8 @@ object Reflection {
         override fun methodName(): String = name
 
         override fun ownerClass(): Class<*> = clz
+        override fun toString(): String {
+            return "${methodToDescriptor(clz, name, parameterClasses)}${returnType.descriptorString()}"
+        }
     }
 }

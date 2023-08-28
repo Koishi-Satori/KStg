@@ -1,5 +1,6 @@
 package top.kkoishi.stg.boot
 
+import top.kkoishi.stg.Resources
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.gfx.Renderer
@@ -38,6 +39,15 @@ object FastBootstrapper {
         return f
     }
 
+    fun useEngineIconImage(f: JFrame): JFrame {
+        try {
+            f.iconImage = ImageIO.read(Resources.getEngineResources())
+        } catch (e: IOException) {
+            FastBootstrapper::class.logger().log(System.Logger.Level.WARNING, e)
+        }
+        return f
+    }
+
     @JvmStatic
     fun keyBinds(f: JFrame, vararg keyCodes: Int): JFrame {
         PlayerManager.keyBinds(f, *keyCodes)
@@ -68,6 +78,7 @@ object FastBootstrapper {
     fun display(f: JFrame, width: Int, height: Int, uiInsets: Insets, fullscreen: Boolean = false): JFrame {
         f.isResizable = false
         f.isUndecorated = fullscreen
+        f.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         if (fullscreen) {
             f.setSize(width, height)
             f.isVisible = true

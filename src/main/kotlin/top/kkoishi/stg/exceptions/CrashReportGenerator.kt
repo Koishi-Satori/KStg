@@ -1,15 +1,12 @@
 package top.kkoishi.stg.exceptions
 
-import top.kkoishi.stg.Loader
+import top.kkoishi.stg.DefinitionsLoader
 import top.kkoishi.stg.Resources
-import top.kkoishi.stg.logic.Threads
 import java.lang.management.ManagementFactory
-import java.nio.file.Path
 import java.text.DateFormat
 import java.time.Instant
 import java.util.*
 import kotlin.collections.ArrayDeque
-import kotlin.io.path.inputStream
 import kotlin.math.abs
 import kotlin.random.Random
 
@@ -41,7 +38,7 @@ class CrashReportGenerator @JvmOverloads constructor(val head: String = DEFAULT_
         // print stack traces
         buffer.append("\nStack Trace: \n").append(r.stackTraceToString()).append("\nLoaded Scripts: ")
 
-        val restNames = Loader.scriptNames()
+        val restNames = DefinitionsLoader.scriptNames()
         while (restNames.hasNext()) {
             buffer.append(restNames.next())
             if (!restNames.hasNext())

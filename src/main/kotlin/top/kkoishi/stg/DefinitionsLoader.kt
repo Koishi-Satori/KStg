@@ -1,7 +1,7 @@
 package top.kkoishi.stg
 
-interface Loader {
-    fun loadDefinitions() {}
+interface DefinitionsLoader {
+    fun loadDefinitions()
 
     companion object {
         private val registeredNames = ArrayDeque<String>()

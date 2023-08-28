@@ -1,7 +1,7 @@
 package top.kkoishi.stg.script
 
-import top.kkoishi.stg.Loader
-import top.kkoishi.stg.Loader.Companion.register
+import top.kkoishi.stg.DefinitionsLoader
+import top.kkoishi.stg.DefinitionsLoader.Companion.register
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.exceptions.ScriptException
 import top.kkoishi.stg.gfx.GFX
@@ -29,7 +29,7 @@ import kotlin.io.path.inputStream
 
 @Suppress("ClassName")
 class GFXLoader @JvmOverloads constructor(private val root: Path, private val useVram: Boolean = false) :
-    LocalVariables(SCOPE_GFX_LOADER), Loader {
+    LocalVariables(SCOPE_GFX_LOADER), DefinitionsLoader {
 
     init {
         LocalVariables[scopeName] = this
@@ -64,7 +64,7 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
 
         for (it in instructions) {
             try {
-                if (it.needVars()) it.invoke(this@GFXLoader) else it.invoke()
+                if (it.needVars()) it(this@GFXLoader) else it()
             } catch (e: Exception) {
                 logger.log(System.Logger.Level.ERROR, e)
             }
@@ -77,6 +77,8 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
             root.add(ResourcesInstructions.LoopInfo())
             root.add(gfxInfo())
             root.add(shearInfo())
+            root.add(fontInfo())
+            root.add(shear_fontInfo())
         }
 
         override fun parseComplexParameter(name: String): InstructionSequence {
@@ -117,6 +119,29 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
                 processVars<Int>(w, scopeName),
                 processVars<Int>(h, scopeName)
             )
+        }
+    }
+
+    @Suppress("PrivatePropertyName")
+    private inner class shear_font(
+        private val name: String,
+        private val key: String,
+        private val width: Int,
+        private val height: Int,
+        private val jvm_method_descriptor: String,
+    ) : Instruction(0x23) {
+        override fun needVars(): Boolean = false
+
+        private fun getFunction(): (Char) -> Pair<Int, Int> {
+            return ScriptLinker.bind(jvm_method_descriptor, ScriptLinker.function1Allocator())
+        }
+
+        override fun invoke() {
+            val texture = GFX.getTexture(key)
+            if (texture == GFX.notFound())
+                throw FailedLoadingResourceException("Can not find texture: $key")
+            val find: (Char) -> Pair<Int, Int> = getFunction()
+            GFX.register(name, TexturedFont(texture(), width, height, find))
         }
     }
 
@@ -199,6 +224,26 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
             return font(
                 parameters["name"]!!.toString(),
                 parameters["path"]!!.toString(),
+                parameters["width"]!!.toString().toInt(),
+                parameters["height"]!!.toString().toInt(),
+                parameters["jvm_md"]!!.toString()
+            )
+        }
+    }
+
+    internal inner class shear_fontInfo : ParseInfo.InstructionInfo("shear_font") {
+        init {
+            add(ParseInfo.CommonParameterInfo("name"))
+            add(ParseInfo.CommonParameterInfo("key"))
+            add(ParseInfo.CommonParameterInfo("width"))
+            add(ParseInfo.CommonParameterInfo("height"))
+            add(ParseInfo.CommonParameterInfo("jvm_md"))
+        }
+
+        override fun allocate(parameters: Map<String, Any>): Instruction {
+            return shear_font(
+                parameters["name"]!!.toString(),
+                parameters["key"]!!.toString(),
                 parameters["width"]!!.toString().toInt(),
                 parameters["height"]!!.toString().toInt(),
                 parameters["jvm_md"]!!.toString()

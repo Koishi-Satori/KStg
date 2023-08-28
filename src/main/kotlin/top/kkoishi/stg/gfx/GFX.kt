@@ -5,6 +5,7 @@ import top.kkoishi.stg.Resources.Companion.KEY_NOT_FOUND
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.awt.Color
+import java.awt.Graphics2D
 import java.io.IOException
 import java.io.InputStream
 import java.nio.file.Path
@@ -17,6 +18,7 @@ import kotlin.io.path.inputStream
  *
  * @author KKoishi_
  */
+@Suppress("unused")
 object GFX : Resources<Texture, String> {
     private val logger = GFX::class.logger()
 
@@ -81,6 +83,8 @@ object GFX : Resources<Texture, String> {
         return textures[key] ?: NOT_FOUND
     }
 
+    fun notFound() = NOT_FOUND
+
     @JvmOverloads
     @Throws(FailedLoadingResourceException::class)
     fun loadTexture(key: String, path: String, useVRAM: Boolean = false) {
@@ -115,5 +119,59 @@ object GFX : Resources<Texture, String> {
     @JvmName("  register  ")
     internal fun register(key: String, value: Texture) {
         textures[key] = value
+    }
+
+    @JvmStatic
+    fun Graphics2D.renderString(s: String, x: Int, y: Int, texturedFont: String) {
+        val texture = getTexture(texturedFont)
+        if (texture == NOT_FOUND || texture !is TexturedFont)
+            drawString(s, x, y)
+        else
+            texture.render(this, s, x, y)
+    }
+
+    @JvmStatic
+    fun Graphics2D.renderNumber(n: Number, x: Int, y: Int, texturedFont: String) {
+        val texture = getTexture(texturedFont)
+        if (texture == NOT_FOUND || texture !is TexturedFont)
+            drawString(n.toString(), x, y)
+        else
+            texture.render(this, n, x, y)
+    }
+
+    @JvmStatic
+    @JvmOverloads
+    fun Graphics2D.renderTypedNumber(n: Long, x: Int, y: Int, texturedFont: String, maxLength: Int = 10) =
+        renderString(getTypeString(n, maxLength), x, y, texturedFont)
+
+    @JvmStatic
+    private fun longToChars(l: Long, maxLength: Int = 10): CharArray {
+        if (l < 0)
+            return longToChars(-l, maxLength)
+        if (l == 0L)
+            return CharArray(maxLength) { '0' }
+
+        val res = CharArray(maxLength) { '0' }
+        var copy = l
+        var count = 0
+        while (count < maxLength) {
+            res[maxLength - 1 - count++] = Char((copy % 10 + 48).toInt())
+            copy /= 10
+        }
+        if (copy >= 1)
+            return CharArray(maxLength) { '9' }
+        return res
+    }
+
+    @JvmStatic
+    private fun getTypeString(num: Long, maxLength: Int): String {
+        val sb = StringBuilder()
+        val cs = longToChars(num, maxLength)
+        for ((count, it) in ((maxLength - 1) downTo 0).withIndex()) {
+            if (count % 3 == 0 && count != 0)
+                sb.append(',')
+            sb.append(cs[it])
+        }
+        return sb.reverse().toString()
     }
 }

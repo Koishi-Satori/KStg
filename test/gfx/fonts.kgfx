@@ -1,0 +1,21 @@
+gfx_items = {
+    gfx = {
+        name = "font_num"
+        path = "./icons/font_num.png"
+    }
+    shear = {
+        name = "score_num"
+        key = "font_num"
+        x = 0
+        y = 18
+        w = 256
+        h = 18
+    }
+    shear_font = {
+        name = "score_font"
+        key = "score_num"
+        width = 13
+        height = 18
+        jvm_md = "top.kkoishi.stg.test.Fonts.getScoreNumIndexes(C)Lkotlin/Pair;"
+    }
+}
