@@ -22,7 +22,7 @@ class TestEnemy0(
     initialX: Int,
     initialY: Int,
     health: Int,
-    val texture: String,
+    private val texture: String,
     val moveFunc: (AtomicInteger, AtomicInteger) -> Unit,
 ) : Enemy(health) {
     private var x = AtomicInteger(initialX)
@@ -113,7 +113,7 @@ class TestEnemy0(
             SBullet(
                 this.x.get(),
                 this.y.get(),
-                ang
+                ang % (2 * PI)
             )
         )
         bulletCount++

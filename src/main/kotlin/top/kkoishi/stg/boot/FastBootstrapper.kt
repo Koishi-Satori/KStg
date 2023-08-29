@@ -79,6 +79,7 @@ object FastBootstrapper {
         f.isResizable = false
         f.isUndecorated = fullscreen
         f.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        f.ignoreRepaint = true
         if (fullscreen) {
             f.setSize(width, height)
             f.isVisible = true
@@ -101,6 +102,7 @@ object FastBootstrapper {
         with(uiInsets) {
             Graphics.setUIInsets(top, left, bottom, right)
         }
+        //f.createBufferStrategy(2)
 
         return f
     }

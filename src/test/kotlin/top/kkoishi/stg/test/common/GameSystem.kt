@@ -4,6 +4,8 @@ import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.Threads
+import top.kkoishi.stg.test.common.ui.GameSideBar
+import top.kkoishi.stg.test.common.ui.MainMenu
 
 object GameSystem {
     val mainMenu = MainMenu()

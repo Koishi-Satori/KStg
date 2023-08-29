@@ -13,7 +13,6 @@ import top.kkoishi.stg.boot.ui.LoadingFrame
 import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.exceptions.InternalError
 import top.kkoishi.stg.exceptions.ThreadExceptionHandler
-import top.kkoishi.stg.gfx.Renderer
 import top.kkoishi.stg.replay.ReplayRecorder
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.script.AudioLoader
@@ -23,6 +22,7 @@ import top.kkoishi.stg.test.common.actions.TestBoss0Action0
 import top.kkoishi.stg.test.common.enemy.TestBoss0
 import top.kkoishi.stg.test.common.enemy.TestEnemy0
 import top.kkoishi.stg.test.common.enemy.TestEnemy1
+import top.kkoishi.stg.test.common.render.TestStageClearObject
 import top.kkoishi.stg.test.common.stages.Stage1
 import java.awt.*
 import java.awt.event.KeyEvent
@@ -46,7 +46,7 @@ object Test {
     @JvmStatic
     fun main(args: Array<String>) {
         FastBootstrapper.setAccelerationProperties()
-        GenericFlags.logToFile = true
+        GenericSystem.logToFile = true
         val settings = Settings.INI("./engine.ini")
         if (settings.read())
             settings.load()
@@ -58,7 +58,7 @@ object Test {
     }
 
     private fun load(args: Array<String>) {
-        Renderer.useVRAM()
+        //Renderer.useVRAM()
         val load = LoadingFrame(ImageIO.read(File("${Threads.workdir()}/test/load.jpg")))
         val fullScreen = args.isNotEmpty() && args[0] == "fullscreen"
         val scale: Pair<Int, Int>? = if (args.isNotEmpty() && args[0] == "scale") {
@@ -85,7 +85,13 @@ object Test {
     }
 
     private fun initJFrame(fullScreen: Boolean, scale: Pair<Int, Int>?) {
-        val f = JFrame("KKoishi_ STG Engine test")
+        val f = object : JFrame("KKoishi_ STG Engine test") {
+            override fun paintAll(g: java.awt.Graphics?) {
+            }
+
+            override fun paintComponents(g: java.awt.Graphics?) {
+            }
+        }
         f.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(e: WindowEvent?) {
                 Test::class.logger().log(System.Logger.Level.INFO, "Window is closing.")
@@ -142,7 +148,7 @@ object Test {
         if (!ObjectPool.containsUIObject(mainMenu))
             ObjectPool.addUIObject(mainMenu)
         // switch to menu
-        GenericFlags.gameState.set(GenericFlags.STATE_MENU)
+        GenericSystem.gameState.set(GenericSystem.STATE_MENU)
     }
 
     fun start(playerIndex: Int = 0) {
@@ -200,11 +206,20 @@ object Test {
                 return false
             }
         })
+        stage1.addAction(object : StageAction(200L, action = {
+            ObjectPool.addObject(TestStageClearObject(230, 270))
+        }) {
+            override fun canAction(): Boolean {
+                if (!ObjectPool.objects().hasNext())
+                    return super.canAction()
+                return false
+            }
+        })
         stage1.addAction(object : StageAction(500L, action = {
             AudioPlayer.setBackground(Sounds.getAudio("bk_0"))
             GameSystem.mainMenu.curLevel = GameSystem.rootMainMenu
             // switch to menu
-            GenericFlags.gameState.set(GenericFlags.STATE_MENU)
+            GenericSystem.gameState.set(GenericSystem.STATE_MENU)
             recorder.save(
                 "${Threads.workdir()}/replay",
                 SimpleDateFormat("'KStg-TestReplay-'yyyy-MM-dd_HH.mm.ss").format(Date.from(Instant.now())),
@@ -224,6 +239,6 @@ object Test {
             ObjectPool.addUIObject(sideBar)
 
         // start game
-        GenericFlags.gameState.set(GenericFlags.STATE_PLAYING)
+        GenericSystem.gameState.set(GenericSystem.STATE_PLAYING)
     }
 }

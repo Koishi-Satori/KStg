@@ -4,6 +4,7 @@ package top.kkoishi.stg.gfx
 
 import top.kkoishi.stg.gfx.Graphics.makeTranslucent
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
+import top.kkoishi.stg.logic.Mth.setScale
 import java.awt.*
 import java.awt.geom.AffineTransform
 import java.awt.image.AffineTransformOp
@@ -17,6 +18,8 @@ import kotlin.math.cos
 open class Texture internal constructor(protected val texture: BufferedImage) {
     val width = texture.width
     val height = texture.height
+    protected val cached = HashMap<AffineTransformOp, BufferedImage>()
+    protected val scaled = HashMap<Pair<Double, Double>, BufferedImage>()
     fun renderPoint(x: Int, y: Int): Point {
         val dx = width / 2
         val dy = height / 2
@@ -63,18 +66,38 @@ open class Texture internal constructor(protected val texture: BufferedImage) {
     }
 
     fun rotate(radian: Double): AffineTransformOp {
-        val transform = AffineTransform.getRotateInstance(radian, width.toDouble() / 2, height.toDouble() / 2)
-        return AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC)
+        val scaled = radian.setScale()
+        var op = cachedRotateOps1[scaled]
+        if (op == null)
+            op = createRotate(scaled)
+        return op
     }
 
     fun rotate(sin: Double, cos: Double): AffineTransformOp {
+        var op = cachedRotateOps2[sin to cos]
+        if (op == null)
+            op = createRotate(sin, cos)
+        return op
+    }
+
+    private fun createRotate(radian: Double): AffineTransformOp {
+        val transform = AffineTransform.getRotateInstance(radian, width.toDouble() / 2, height.toDouble() / 2)
+        val temp = AffineTransformOp(transform, TYPE_NEAREST_NEIGHBOR)
+        //Texture::class.logger().log(System.Logger.Level.DEBUG, "Create Cache for $radian")
+        cachedRotateOps1[radian] = temp
+        return temp
+    }
+
+    private fun createRotate(sin: Double, cos: Double): AffineTransformOp {
         val hw = width / 2.0
         val hh = height / 2.0
         val m01 = -1 * sin
         val m02 = hw - hw * cos + hh * sin
         val m12 = hh - hw * sin - hh * cos
         val transform = AffineTransform(cos, sin, m01, cos, m02, m12)
-        return AffineTransformOp(transform, TYPE_NEAREST_NEIGHBOR)
+        val temp = AffineTransformOp(transform, TYPE_NEAREST_NEIGHBOR)
+        cachedRotateOps2[sin to cos] = temp
+        return temp
     }
 
     /**
@@ -94,8 +117,19 @@ open class Texture internal constructor(protected val texture: BufferedImage) {
 
     operator fun invoke() = texture
 
+    protected fun createCache(op: AffineTransformOp): BufferedImage {
+        val temp: BufferedImage
+        temp = op.filter(texture, null)
+        cached[op] = temp
+        //Texture::class.logger().log(System.Logger.Level.DEBUG, "Create Cached Image for $op")
+        return temp
+    }
+
     open fun paint(r: Graphics2D, op: AffineTransformOp, x: Int, y: Int) {
-        r.drawImage(texture, op, x, y)
+        var img = cached[op]
+        if (img == null)
+            img = createCache(op)
+        r.drawImage(img, x, y, null)
     }
 
     /**
@@ -166,5 +200,11 @@ open class Texture internal constructor(protected val texture: BufferedImage) {
 
         @JvmStatic
         internal val NORMAL_MATRIX = AffineTransformOp(AffineTransform(), TYPE_NEAREST_NEIGHBOR)
+
+        @JvmStatic
+        internal val cachedRotateOps1 = HashMap<Double, AffineTransformOp>()
+
+        @JvmStatic
+        internal val cachedRotateOps2 = HashMap<Pair<Double, Double>, AffineTransformOp>()
     }
 }

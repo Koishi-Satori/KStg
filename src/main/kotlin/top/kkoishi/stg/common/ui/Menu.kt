@@ -1,7 +1,7 @@
 package top.kkoishi.stg.common.ui
 
 import top.kkoishi.stg.gfx.Graphics
-import top.kkoishi.stg.logic.GenericFlags
+import top.kkoishi.stg.logic.GenericSystem
 import java.awt.Font
 import java.awt.Graphics2D
 
@@ -16,7 +16,7 @@ abstract class Menu(private val actionState: Int): UIObject(0, 0) {
 
     abstract fun paintBackground(r: Graphics2D)
 
-    final override fun shouldAction(): Boolean = GenericFlags.gameState.get() == actionState
+    final override fun shouldAction(): Boolean = GenericSystem.gameState.get() == actionState
 
     override fun font(): Font = Graphics.font("menu")
 

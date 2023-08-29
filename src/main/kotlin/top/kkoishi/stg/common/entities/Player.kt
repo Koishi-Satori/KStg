@@ -2,13 +2,14 @@ package top.kkoishi.stg.common.entities
 
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.CollideSystem
-import top.kkoishi.stg.logic.GenericFlags
-import top.kkoishi.stg.logic.GenericFlags.gameState
-import top.kkoishi.stg.logic.GenericFlags.STATE_PLAYING
+import top.kkoishi.stg.logic.GenericSystem
+import top.kkoishi.stg.logic.GenericSystem.gameState
+import top.kkoishi.stg.logic.GenericSystem.STATE_PLAYING
 import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.PlayerManager
 import top.kkoishi.stg.logic.PlayerManager.life
+import top.kkoishi.stg.logic.Timer
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.Shape
@@ -30,7 +31,7 @@ import kotlin.collections.HashMap
  * @author KKoishi_
  */
 @Suppress("MemberVisibilityCanBePrivate", "unused")
-abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = false) : Entity(0) {
+abstract class Player(var initialX: Int, var initialY: Int, val invincible: Boolean = false) : Entity(0) {
     /**
      * The X coordinate of the player.
      */
@@ -72,32 +73,48 @@ abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = fa
     fun y(newY: Double) = y.setRelease(newY)
 
     /**
-     * The speed of the player.
+     * The current speed of the player.
      */
     protected var speed = 7.0
+
+    /**
+     * The higher speed of the player.
+     */
     protected var higherSpeed = 7.0
+
+    /**
+     * The slower speed of the player.
+     */
     protected var lowerSpeed = 3.0
 
     /**
-     * The shot coll down of the player.
+     * The shot coll down timer of the player.
      */
-    protected var shotCoolDown = 3
-    protected var shotCoolCount = 0
+    protected var shotCollDownTimer = Timer.Loop(3)
 
     /**
      * The protection time after the player is hit(in logic frame count).
      */
-    protected var protectionTime = 5
-    protected var protectionCount = 0
+    protected var protectionTimer = Timer.Loop(5)
 
     /**
      * If player is in slow state.
      */
     protected var slower: Boolean = false
+
+    /**
+     * The move state of player, used to judge if the player is moving to left, right or forward/down.
+     *
+     * This state should be one of [STATE_STILL], [STATE_RIGHT], [STATE_LEFT]
+     */
     protected var moveState: Int = STATE_STILL
+
+    /**
+     * The firepower of the player.
+     */
     protected var power: Float = 1.0f
     protected val lock = Any()
-    protected val logger = Player::class.logger()
+    val logger = Player::class.logger()
 
     /**
      * the X coordinate of the player in Integer.
@@ -109,12 +126,39 @@ abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = fa
      */
     fun yInt() = y().toInt()
 
+    /**
+     * Reinitialize the player's state.
+     */
+    open fun reinitialize() {
+        synchronized(lock) {
+            x(initialX.toDouble())
+            y(initialY.toDouble())
+            power = 1.0f
+            protectionTimer.reset()
+            shotCollDownTimer.reset()
+            slower = false
+            speed = higherSpeed
+            moveState = STATE_STILL
+            keyEvents.keys.forEach { PlayerManager.binds[it] = false }
+        }
+    }
+
+    /**
+     * Set the player's firepower to the given float number.
+     *
+     * @param p the new firepower.
+     */
     fun setPlayerPower(p: Float) {
         synchronized(lock) {
             power = p
         }
     }
 
+    /**
+     * Get the firepower of the player
+     *
+     * @return firepower in float.
+     */
     fun power(): Float {
         synchronized(lock) {
             return power
@@ -132,11 +176,15 @@ abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = fa
     abstract fun bomb()
 
     override fun beingHit(o: Object) {
-        if (protectionCount++ >= protectionTime) {
-            protectionCount = 0
+        if (protectionTimer.end()) {
             val oldLife = life()
-            PlayerManager.setLife(oldLife - 1)
-            logger.log(System.Logger.Level.INFO, "$this is hit by $o")
+            if (oldLife <= 1) {
+                dead()
+                logger.log(System.Logger.Level.INFO, "$this has already dead.")
+            } else {
+                PlayerManager.setLife(oldLife - 1)
+                logger.log(System.Logger.Level.INFO, "$this is hit by $o")
+            }
         }
     }
 
@@ -294,10 +342,8 @@ abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = fa
                     newY = limitY
                 it.y(newY)
             }, VK_Z to {
-                if (it.shotCoolCount++ == it.shotCoolDown) {
-                    it.shotCoolCount = 0
+                if (it.shotCollDownTimer.end())
                     it.shot()
-                }
             }, VK_X to {
                 it.bomb()
                 // avoid bomb continually
@@ -307,10 +353,10 @@ abstract class Player(initialX: Int, initialY: Int, val invincible: Boolean = fa
             }, VK_ESCAPE to {
                 val gameState = gameState.get()
                 if (gameState == STATE_PLAYING) {
-                    GenericFlags.gameState.set(GenericFlags.STATE_PAUSE)
+                    GenericSystem.gameState.set(GenericSystem.STATE_PAUSE)
                     it.logger.log(System.Logger.Level.INFO, "Pause the game.")
-                } else if (gameState == GenericFlags.STATE_PAUSE) {
-                    GenericFlags.gameState.set(STATE_PLAYING)
+                } else if (gameState == GenericSystem.STATE_PAUSE) {
+                    GenericSystem.gameState.set(STATE_PLAYING)
                     it.logger.log(System.Logger.Level.INFO, "Continue the game.")
                 }
                 PlayerManager.binds[VK_ESCAPE] = false

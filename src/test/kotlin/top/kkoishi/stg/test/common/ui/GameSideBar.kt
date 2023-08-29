@@ -1,4 +1,4 @@
-package top.kkoishi.stg.test.common
+package top.kkoishi.stg.test.common.ui
 
 import top.kkoishi.stg.common.ui.SideBar
 import top.kkoishi.stg.gfx.GFX

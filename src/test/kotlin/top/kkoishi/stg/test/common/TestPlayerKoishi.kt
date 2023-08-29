@@ -6,8 +6,8 @@ import top.kkoishi.stg.common.entities.PlayerBullet
 import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.Renderer
-import top.kkoishi.stg.logic.GenericFlags
-import top.kkoishi.stg.logic.GenericFlags.gameState
+import top.kkoishi.stg.logic.GenericSystem
+import top.kkoishi.stg.logic.GenericSystem.gameState
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.ObjectPool
 import top.kkoishi.stg.logic.PlayerManager
@@ -158,7 +158,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
             val img = BufferedImage(640, 480, BufferedImage.TYPE_INT_ARGB)
             val bRender = img.createGraphics()
             when (gameState.get()) {
-                GenericFlags.STATE_PLAYING -> {
+                GenericSystem.STATE_PLAYING -> {
                     try {
                         PlayerManager.cur.paint(bRender)
                         ObjectPool.player().paint(bRender)
@@ -171,7 +171,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
                     }
                 }
 
-                GenericFlags.STATE_PAUSE -> {
+                GenericSystem.STATE_PAUSE -> {
                     PlayerManager.cur.paint(bRender)
                     ObjectPool.player().paint(bRender)
                     ObjectPool.objects().forEach { it.paint(bRender) }
@@ -179,7 +179,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
                     ObjectPool.uiObjects().forEach { it.paint(bRender) }
                 }
 
-                GenericFlags.STATE_MENU -> {
+                GenericSystem.STATE_MENU -> {
                     try {
                         // main menu
                         ObjectPool.uiObjects().forEach { it.paint(bRender) }

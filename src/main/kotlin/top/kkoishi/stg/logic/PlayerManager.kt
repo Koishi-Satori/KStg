@@ -1,7 +1,6 @@
 package top.kkoishi.stg.logic
 
 import top.kkoishi.stg.common.entities.Bullet
-import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.common.Stage
 import top.kkoishi.stg.logic.ObjectPool.objectMap
 import top.kkoishi.stg.logic.ObjectPool.playerBullets
@@ -14,6 +13,7 @@ import javax.swing.JFrame
 object PlayerManager {
     private var life = 2
     private val lock = Any()
+    @JvmStatic
     val binds = BooleanArray(526)
         get(): BooleanArray {
             synchronized(lock) {
@@ -31,12 +31,6 @@ object PlayerManager {
     fun setLife(nLife: Int) {
         synchronized(lock) {
             life = nLife
-        }
-    }
-
-    fun getDamage(p: Player): Int {
-        synchronized(lock) {
-            return p.bulletDamage()
         }
     }
 

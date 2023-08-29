@@ -3,7 +3,7 @@ package top.kkoishi.stg.logic
 import top.kkoishi.stg.common.ui.*
 import java.util.concurrent.atomic.AtomicInteger
 
-object GenericFlags {
+object GenericSystem {
     /**
      * Identify that the game engine should display menus.
      *

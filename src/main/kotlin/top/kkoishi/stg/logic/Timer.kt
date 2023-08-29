@@ -4,32 +4,40 @@ import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import kotlin.math.abs
 
 /**
- * A simple timer for timing, the time unit is a logical frame, and the current logical frame can be obtained
- * by using the [GameLoop.logicFrame] method.
+ * A simple timer for timing, and the time unit of it is logic frames.
  *
  * @author KKoishi_
  */
-sealed class Timer(
-    protected var delay: Long,
-    protected val begin: Long = GameLoop.logicFrame(),
-) {
+sealed class Timer(delay: Long, protected var modifier: Long = 0) {
+    protected val time: Long
 
     init {
         if (delay < 0) {
-            delay = abs(delay)
             Timer::class.logger().log(System.Logger.Level.WARNING, "The delay should be positive!")
-        }
+            this.time = abs(delay)
+        } else
+            this.time = delay
     }
 
-    open fun end(): Boolean = GameLoop.logicFrame() - begin >= delay
+    open fun end(): Boolean = modifier++ >= time
 
-    class Default(delay: Long) : Timer(delay)
-    class Delayed(delay: Long, begin: Long) : Timer(delay, begin) {
+    fun time() = time
+    fun cur() = modifier
+
+    class Default(time: Long) : Timer(time)
+    class Delayed(time: Long, delay: Long) : Timer(time, -delay)
+
+    class Loop(interval: Long) : Timer(interval, 0) {
         override fun end(): Boolean {
-            val cur = GameLoop.logicFrame()
-            if (cur < begin)
-                return false
-            return cur - begin >= delay
+            if (modifier++ >= time) {
+                reset()
+                return true
+            }
+            return false
+        }
+
+        fun reset() {
+            modifier = 0
         }
     }
 }

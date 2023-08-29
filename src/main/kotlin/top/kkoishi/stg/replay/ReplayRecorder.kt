@@ -1,7 +1,7 @@
 package top.kkoishi.stg.replay
 
 import top.kkoishi.stg.common.entities.Player
-import top.kkoishi.stg.logic.GenericFlags
+import top.kkoishi.stg.logic.GenericSystem
 import top.kkoishi.stg.logic.InfoSystem
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.PlayerManager
@@ -48,8 +48,8 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
     final override fun run() {
         ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Start record replay.")
 
-        while (GenericFlags.gameState.get() == GenericFlags.STATE_PLAYING ||
-            GenericFlags.gameState.get() == GenericFlags.STATE_PAUSE
+        while (GenericSystem.gameState.get() == GenericSystem.STATE_PLAYING ||
+            GenericSystem.gameState.get() == GenericSystem.STATE_PAUSE
         ) {
             recordFrame()
             frames.incrementAndGet()

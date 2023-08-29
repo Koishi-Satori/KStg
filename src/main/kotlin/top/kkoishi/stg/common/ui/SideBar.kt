@@ -2,7 +2,7 @@ package top.kkoishi.stg.common.ui
 
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.Graphics
-import top.kkoishi.stg.logic.GenericFlags
+import top.kkoishi.stg.logic.GenericSystem
 import java.awt.Font
 import java.awt.Graphics2D
 
@@ -11,7 +11,7 @@ abstract class SideBar(x: Int, y: Int) : UIObject(x, y) {
 
     abstract fun paintInfo(r: Graphics2D)
 
-    override fun shouldAction(): Boolean = GenericFlags.gameState.get() != GenericFlags.STATE_MENU
+    override fun shouldAction(): Boolean = GenericSystem.gameState.get() != GenericSystem.STATE_MENU
 
     override fun font(): Font = Graphics.font("sidebar")
 

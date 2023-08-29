@@ -1,11 +1,11 @@
-package top.kkoishi.stg.test.common
+package top.kkoishi.stg.test.common.ui
 
 import top.kkoishi.stg.common.ui.Menu
 import top.kkoishi.stg.common.ui.MenuItem
 import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.Texture
-import top.kkoishi.stg.logic.GenericFlags
+import top.kkoishi.stg.logic.GenericSystem
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.PlayerManager
 import top.kkoishi.stg.logic.SingleInstanceEnsurer
@@ -14,7 +14,7 @@ import java.awt.Graphics2D
 import java.awt.event.KeyEvent
 import kotlin.system.exitProcess
 
-class MainMenu : Menu(GenericFlags.STATE_MENU) {
+class MainMenu : Menu(GenericSystem.STATE_MENU) {
     private val bg = GFX.getTexture("menu_bg")
 
     override fun paintBackground(r: Graphics2D) {

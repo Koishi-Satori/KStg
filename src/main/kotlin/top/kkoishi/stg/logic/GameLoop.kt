@@ -16,8 +16,8 @@ class GameLoop private constructor() : Runnable {
      */
     fun update() {
         val logger = GameLoop::class.logger()
-        when (GenericFlags.gameState.get()) {
-            GenericFlags.STATE_PLAYING -> {
+        when (GenericSystem.gameState.get()) {
+            GenericSystem.STATE_PLAYING -> {
                 try {
                     // update player logic first.
                     ObjectPool.player().update()
@@ -50,7 +50,7 @@ class GameLoop private constructor() : Runnable {
                 }
             }
 
-            GenericFlags.STATE_PAUSE -> {
+            GenericSystem.STATE_PAUSE -> {
                 // menu logic
                 try {
                     ObjectPool.uiObjects().forEach { it.update() }
@@ -59,7 +59,7 @@ class GameLoop private constructor() : Runnable {
                 }
             }
 
-            GenericFlags.STATE_MENU -> {
+            GenericSystem.STATE_MENU -> {
                 // main menu
                 try {
                     ObjectPool.uiObjects().forEach { it.update() }

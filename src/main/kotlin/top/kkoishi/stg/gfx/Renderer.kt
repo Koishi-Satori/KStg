@@ -14,7 +14,7 @@ class Renderer private constructor() : Runnable {
     private var fullScreen = false
     private var scaled = false
     private var useVRAM = false
-    private var op: AffineTransformOp = AffineTransformOp(AffineTransform(), AffineTransformOp.TYPE_NEAREST_NEIGHBOR)
+    private var op: AffineTransformOp = Texture.NORMAL_MATRIX
     private var scale: Pair<Double, Double> = 1.0 to 1.0
     private var dx = 0
     private var dy = 0
@@ -60,10 +60,8 @@ class Renderer private constructor() : Runnable {
 
     private fun paintImpl(bufferRender: Graphics2D) {
         val logger = Renderer::class.logger()
-        bufferRender.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
-        bufferRender.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
-        when (GenericFlags.gameState.get()) {
-            GenericFlags.STATE_PLAYING -> {
+        when (GenericSystem.gameState.get()) {
+            GenericSystem.STATE_PLAYING -> {
                 try {
                     PlayerManager.cur.paint(bufferRender)
                     ObjectPool.player().paint(bufferRender)
@@ -77,7 +75,7 @@ class Renderer private constructor() : Runnable {
                 }
             }
 
-            GenericFlags.STATE_PAUSE -> {
+            GenericSystem.STATE_PAUSE -> {
                 PlayerManager.cur.paint(bufferRender)
                 ObjectPool.player().paint(bufferRender)
                 ObjectPool.objects().forEach { it.paint(bufferRender) }
@@ -86,7 +84,7 @@ class Renderer private constructor() : Runnable {
                 renderFPS(bufferRender)
             }
 
-            GenericFlags.STATE_MENU -> {
+            GenericSystem.STATE_MENU -> {
                 try {
                     // main menu
                     ObjectPool.uiObjects().forEach { it.paint(bufferRender) }
@@ -154,17 +152,27 @@ class Renderer private constructor() : Runnable {
     }
 
     companion object {
+        @JvmStatic
         private var VRAM_MAX_REPAINT_COUNT = 32
 
+        @JvmStatic
         private val instance = Renderer()
+
+        @JvmStatic
+        internal fun scale() = instance.scale
+
+        @JvmStatic
+        internal fun scaled() = instance.scaled
 
         @JvmStatic
         fun start(threads: Threads) {
             threads.schedule(instance, Threads.period())
         }
 
+        @JvmStatic
         fun frame(): Long = instance.frame.get()
 
+        @JvmStatic
         fun syncFrame() {
             instance.frame.set(GameLoop.logicFrame())
         }
@@ -173,17 +181,20 @@ class Renderer private constructor() : Runnable {
 
         fun scale(targetWidth: Int, targetHeight: Int) = instance.scale(targetWidth, targetHeight)
 
+        @JvmStatic
         @JvmOverloads
         fun useVRAM(maxRepaintCount: Int = 32) {
             instance.useVRAM = true
             VRAM_MAX_REPAINT_COUNT = maxRepaintCount
         }
 
+        @JvmStatic
         fun monitorSize(): Dimension {
             val monitorMode = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.displayMode
             return Dimension(monitorMode.width, monitorMode.height)
         }
 
+        @JvmStatic
         fun actualScaledSize(targetWidth: Int, targetHeight: Int): Dimension {
             val transform =
                 GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.defaultConfiguration.defaultTransform
