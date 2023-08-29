@@ -11,7 +11,8 @@ abstract class SideBar(x: Int, y: Int) : UIObject(x, y) {
 
     abstract fun paintInfo(r: Graphics2D)
 
-    override fun shouldAction(): Boolean = GenericSystem.gameState.get() != GenericSystem.STATE_MENU
+    override fun shouldAction(): Boolean = GenericSystem.gameState.get() == GenericSystem.STATE_PLAYING
+    override fun shouldRender(): Boolean = GenericSystem.gameState.get() != GenericSystem.STATE_MENU
 
     override fun font(): Font = Graphics.font("sidebar")
 
@@ -23,7 +24,7 @@ abstract class SideBar(x: Int, y: Int) : UIObject(x, y) {
     }
 
     override fun paint(g: Graphics2D) {
-        if (shouldAction()) {
+        if (shouldRender()) {
             // render background
             val texture = GFX.getTexture(background())
             texture.paint(g, texture.normalMatrix(), x, y)

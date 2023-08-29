@@ -17,6 +17,7 @@ abstract class Menu(private val actionState: Int): UIObject(0, 0) {
     abstract fun paintBackground(r: Graphics2D)
 
     final override fun shouldAction(): Boolean = GenericSystem.gameState.get() == actionState
+    override fun shouldRender(): Boolean  = shouldAction()
 
     override fun font(): Font = Graphics.font("menu")
 

@@ -11,6 +11,7 @@ abstract class MenuItem(x: Int, y: Int, val menu: Menu) : UIObject(x, y) {
     val items = ArrayDeque<Texture>(4)
 
     final override fun shouldAction(): Boolean = false
+    override fun shouldRender(): Boolean = true
 
     override fun font(): Font = Graphics.font("menu_item_default")
 

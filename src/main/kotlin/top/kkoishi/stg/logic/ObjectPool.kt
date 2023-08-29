@@ -6,6 +6,11 @@ import top.kkoishi.stg.common.entities.Player
 import java.util.UUID
 import java.util.concurrent.atomic.AtomicReference
 
+/**
+ * An object pool used to store the game objects like UI, player, enemies, bullets and so on.
+ *
+ * @author KKoishi_
+ */
 object ObjectPool {
     private val player: AtomicReference<Player> = AtomicReference()
     private val bullets = ArrayDeque<Bullet>(1024)

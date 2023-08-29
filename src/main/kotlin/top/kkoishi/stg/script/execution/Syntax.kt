@@ -287,16 +287,56 @@ internal abstract class Parser(val lexer: Lexer) {
     }
 }
 
+/**
+ * The parse type if [ParseInfo].
+ *
+ * @param isNode is the type can be node.
+ */
 internal enum class ParseType(val isNode: Boolean = false) {
     // Node Types
-    INSTRUCTION(true), ROOT(true),
+    /**
+     * The instructions.
+     */
+    INSTRUCTION(true),
+
+    /**
+     * The root type.
+     */
+    ROOT(true),
 
     // Parameter Types
-    PARAMETER, OPTIONAL_PARAMETER, COMPLEX_PARAMETER(true)
+    /**
+     * Common parameter which can only use String, vaiables and Numbers.
+     */
+    PARAMETER,
+
+    /**
+     * Optional parameters.
+     */
+    OPTIONAL_PARAMETER,
+
+    /**
+     * Complex parameter which can contain instructions.
+     */
+    COMPLEX_PARAMETER(true)
 }
 
+/**
+ * The ParseInfo is used in [InfoParser] and its subclasses, and describes how to parse the tokens.
+ *
+ * @author KKoishi_
+ */
 internal sealed interface ParseInfo {
+    /**
+     * The name of this Info.
+     *
+     * In parser, it is used for verifying the "key" token.
+     */
     val name: String
+
+    /**
+     * The type of this Info.
+     */
     val type: ParseType
     fun isNode() = type.isNode
     fun children(): Iterator<ParseInfo>
@@ -360,11 +400,30 @@ internal sealed interface ParseInfo {
     }
 }
 
+/**
+ * A parser which can be easily extended and implemented its methods, can parse the tokens to instructions and verify
+ * the key of the root node.
+ *
+ * @param lexer the lexer used for producing the token stream.
+ * @param rootName the name of the root node.
+ * @param scopeName the scope name used for [LocalVariables]
+ * @author KKoishi_
+ */
 @Suppress("MemberVisibilityCanBePrivate")
 internal abstract class InfoParser(lexer: Lexer, rootName: String, val scopeName: String) : Parser(lexer) {
+    /**
+     * The root node.
+     */
     protected val root: ParseInfo.RootInfo = ParseInfo.RootInfo(rootName)
+
+    /**
+     * Determines how to build the parse info.
+     */
     abstract fun buildParseInfo()
 
+    /**
+     * The way of parse the complex parameters to InstructionSequence.
+     */
     @Throws(ScriptException::class)
     abstract fun parseComplexParameter(name: String): InstructionSequence
 
@@ -505,6 +564,35 @@ internal fun Char.isVarChar(): Boolean {
     return isLetter() || this == '_' || this == ':'
 }
 
+/**
+ * Returns a string whose value is this string, with escape sequences translated as if in a string literal,
+ * and this method is used for translate the escape chars in the string of scripts.
+ *
+ * Escape sequences are translated as follows;
+ * ```
+ * Translation
+ * Escape                  Name       Translation
+ * \b                   backspace        U+0008
+ * \t                  horizontal tab    U+0009
+ * \n                   line feed        U+000A
+ * \f                   form feed        U+000C
+ * \r                  carriage return   U+000D
+ * \s                     space          U+0020
+ * \"                  double quote      U+0022
+ * \'                  single quote      U+0027
+ * \\                   backslash        U+005C
+ * \0 - \377           octal escape      code point equivalents
+ * \<line-terminator>  continuation      discard
+ * ```
+ *
+ * ## This method does not translate Unicode escapes such as "\u2022".
+ * ## Unicode escapes are translated by the Java compiler when reading input characters and are not part of the string literal specification.
+ *
+ * @return String with escape sequences translated.
+ * @throws IllegalArgumentException when an escape sequence is malformed.
+ *
+ */
+@Throws(IllegalArgumentException::class)
 fun String.processEscapes(): String {
     if (isEmpty())
         return ""
@@ -559,17 +647,40 @@ fun String.processEscapes(): String {
     return String(chars, 0, to)
 }
 
+/**
+ * Construct an iterator from the Reader.
+ */
 fun Reader.iterator(): CharIterator = ReaderIterator(this)
 
+/**
+ * Construct an iterator from a buffered reader created on this input stream using UTF-8 or the specified charset.
+ *
+ * @param charset the Charset used for the iterator.
+ */
 @JvmOverloads
 fun InputStream.iterator(charset: Charset = Charsets.UTF_8): CharIterator = bufferedReader(charset).iterator()
 
+/**
+ * Constructs an iterator from a buffered reader created on this input stream of this file and returns it as a result,
+ * using UTF-8 or the specified charset.
+ *
+ * @param charset the Charset used for the iterator.
+ */
 @JvmOverloads
 fun Path.contentIterator(charset: Charset = Charsets.UTF_8): CharIterator = inputStream().iterator(charset)
 
+/**
+ * Constructs an iterator from a buffered reader created on this input stream of this file and returns it as a result,
+ * using UTF-8 or the specified charset.
+ *
+ * @param charset the Charset used for the iterator.
+ */
 @JvmOverloads
 fun File.contentIterator(charset: Charset = Charsets.UTF_8): CharIterator = inputStream().iterator(charset)
 
+/**
+ * The Script Lexer is used for the Resources of the game.
+ */
 internal open class ResourcesScriptLexer(rest: CharIterator) : Lexer(rest) {
     private var lookup = '\u0000'
 
