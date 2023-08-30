@@ -9,7 +9,7 @@ import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.PlayerManager
 import top.kkoishi.stg.logic.PlayerManager.life
-import top.kkoishi.stg.logic.Timer
+import top.kkoishi.stg.util.Timer
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.Shape

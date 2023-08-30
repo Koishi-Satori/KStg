@@ -9,14 +9,14 @@ import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.logic.ObjectPool
 import top.kkoishi.stg.test.common.GameSystem
+import top.kkoishi.stg.util.Mth.cos
+import top.kkoishi.stg.util.Mth.sin
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.Shape
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.PI
 import kotlin.math.absoluteValue
-import kotlin.math.cos
-import kotlin.math.sin
 
 class TestEnemy0(
     initialX: Int,

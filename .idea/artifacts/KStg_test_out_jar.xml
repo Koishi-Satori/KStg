@@ -1,0 +1,34 @@
+<component name="ArtifactManager">
+  <artifact name="KStg_test_out:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/KStg_test_out_jar</output-path>
+    <root id="root">
+      <element id="archive" name="KStg.jar">
+        <element id="module-output" name="KStg.main" />
+        <element id="module-test-output" name="KStg.test" />
+        <element id="module-output" name="KStg.CrashHandler.main" />
+        <element id="module-test-output" name="KStg.CrashHandler.test" />
+      </element>
+      <element id="library" level="project" name="Gradle: org.opentest4j:opentest4j:1.2.0" />
+      <element id="library" level="project" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.9.1" />
+      <element id="library" level="project" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.31" />
+      <element id="library" level="project" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.9.1" />
+      <element id="library" level="project" name="Gradle: org.apiguardian:apiguardian-api:1.1.2" />
+      <element id="library" level="project" name="Gradle: org.apiguardian:apiguardian-api:1.1.0" />
+      <element id="library" level="project" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.31" />
+      <element id="library" level="project" name="Gradle: org.jetbrains:annotations:13.0" />
+      <element id="library" level="project" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.6.0" />
+      <element id="library" level="project" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.9.1" />
+      <element id="library" level="project" name="Gradle: org.junit.platform:junit-platform-commons:1.9.1" />
+      <element id="library" level="project" name="Gradle: org.jetbrains.kotlin:kotlin-test-junit5:1.5.31" />
+      <element id="library" level="project" name="Gradle: org.junit.platform:junit-platform-engine:1.6.0" />
+      <element id="library" level="project" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.6.0" />
+      <element id="library" level="project" name="Gradle: org.junit.jupiter:junit-jupiter:5.9.1" />
+      <element id="library" level="project" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.4.2" />
+      <element id="library" level="project" name="Gradle: org.junit.platform:junit-platform-commons:1.6.0" />
+      <element id="library" level="project" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.5.31" />
+      <element id="library" level="project" name="Gradle: org.jetbrains.kotlin:kotlin-test:1.5.31" />
+      <element id="library" level="project" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.5.31" />
+      <element id="library" level="project" name="Gradle: org.junit.platform:junit-platform-engine:1.9.1" />
+    </root>
+  </artifact>
+</component>

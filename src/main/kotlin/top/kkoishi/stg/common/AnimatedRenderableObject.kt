@@ -2,7 +2,7 @@ package top.kkoishi.stg.common
 
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.Texture
-import top.kkoishi.stg.logic.Timer
+import top.kkoishi.stg.util.Timer
 import java.awt.Graphics2D
 import java.awt.image.AffineTransformOp
 

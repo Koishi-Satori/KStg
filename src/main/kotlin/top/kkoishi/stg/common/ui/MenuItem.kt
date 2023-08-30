@@ -4,10 +4,26 @@ import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.gfx.Texture
 import java.awt.Font
 
+/**
+ * The menu item controls the content of the menu, and it is structured as a dynamic tree, which nodes count is
+ * dynamic and nodes can be null to specified special logic.
+ *
+ * The content of the menu should be the [Menu.curLevel].
+ *
+ * @author KKoishi_
+ */
 abstract class MenuItem(x: Int, y: Int, val menu: Menu) : UIObject(x, y) {
     var parent: MenuItem? = null
     var select: Int = 0
+
+    /**
+     * The children menu item.
+     */
     val children: ArrayDeque<MenuItem?> = ArrayDeque(4)
+
+    /**
+     * The textures of the children items.
+     */
     val items = ArrayDeque<Texture>(4)
 
     final override fun shouldAction(): Boolean = false

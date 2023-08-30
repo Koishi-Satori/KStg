@@ -80,6 +80,7 @@ object Test {
         Graphics.setFont("sidebar", Font("Times New Roman", Font.PLAIN, 20))
         initJFrame(fullScreen, scale)
         load.end()
+        initPauseMenu()
         menu()
         FastBootstrapper.beginThreads()
     }
@@ -142,9 +143,16 @@ object Test {
         )
     }
 
-    private fun menu() {
+    private fun initPauseMenu() {
+        val pauseMenu = GameSystem.pauseMenu
+        if (!ObjectPool.containsUIObject(pauseMenu))
+            ObjectPool.addUIObject(pauseMenu)
+    }
+
+    fun menu() {
         AudioPlayer.setBackground(Sounds.getAudio("bk_0"))
         val mainMenu = GameSystem.mainMenu
+        mainMenu.curLevel = GameSystem.rootMainMenu
         if (!ObjectPool.containsUIObject(mainMenu))
             ObjectPool.addUIObject(mainMenu)
         // switch to menu
@@ -152,6 +160,10 @@ object Test {
     }
 
     fun start(playerIndex: Int = 0) {
+        GameSystem.playerIndex = playerIndex
+        if (ReplayRecorder.hasRunningRecorder())
+            ReplayRecorder.tryDisposeRecorder()
+        ObjectPool.clearAll()
         Threads.refreshRandomSeed()
         GameSystem.randomSeed = Threads.randomSeed()
         GameSystem.rand = Threads.random()

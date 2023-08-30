@@ -1,3 +1,12 @@
 Manifest-Version: 1.0
-Main-Class: top.kkoishi.stg.crash.HandlerMain
+Main-Class: top.kkoishi.stg.test.Test
+Class-Path: opentest4j-1.2.0.jar junit-jupiter-engine-5.9.1.jar kotlin-s
+ tdlib-jdk8-1.5.31.jar junit-jupiter-params-5.9.1.jar apiguardian-api-1.
+ 1.2.jar apiguardian-api-1.1.0.jar kotlin-stdlib-jdk7-1.5.31.jar annotat
+ ions-13.0.jar junit-jupiter-api-5.6.0.jar junit-jupiter-api-5.9.1.jar j
+ unit-platform-commons-1.9.1.jar kotlin-test-junit5-1.5.31.jar junit-pla
+ tform-engine-1.6.0.jar junit-jupiter-engine-5.6.0.jar junit-jupiter-5.9
+ .1.jar kotlinx-coroutines-core-jvm-1.4.2.jar junit-platform-commons-1.6
+ .0.jar kotlin-stdlib-1.5.31.jar kotlin-test-1.5.31.jar kotlin-stdlib-co
+ mmon-1.5.31.jar junit-platform-engine-1.9.1.jar
 

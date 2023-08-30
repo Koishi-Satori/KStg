@@ -2,11 +2,11 @@ package top.kkoishi.stg.common.entities
 
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.CollideSystem
+import top.kkoishi.stg.util.Mth
 import top.kkoishi.stg.logic.ObjectPool
 import java.awt.Graphics2D
 import java.awt.Shape
 import java.util.concurrent.atomic.AtomicReference
-import kotlin.math.sqrt
 
 /**
  * More abstracted class of the bullets, and it is easy to extend it.
@@ -180,19 +180,19 @@ object Bullets {
         if (rotated) {
             return object : AbstractBullet(initialX, initialY) {
                 val texture = GFX.getTexture(gfx)
-                val sin: Double
-                val cos: Double
                 val vx: Double
                 val vy: Double
+                val delta: Double
 
                 init {
                     val x = x()
                     val y = y()
                     val dx = ObjectPool.player().y() - y
                     val dy = ObjectPool.player().x() - x
-                    val scale = sqrt(dx * dx + dy * dy)
-                    sin = dy / scale
-                    cos = dx / scale
+                    val scale = Mth.sqrt(dx * dx + dy * dy)
+                    val sin = dy / scale
+                    val cos = dx / scale
+                    delta = Mth.asin(sin)
                     vx = speed * sin
                     vy = speed * cos
                 }
@@ -215,8 +215,8 @@ object Bullets {
                 override fun paint(g: Graphics2D) {
                     val x = xD()
                     val y = yD()
-                    val p = texture.renderPoint(x, y)
-                    texture.paint(g, texture.rotate(-sin, cos), p.x, p.y)
+                    val p = texture.renderPoint(x, y, delta)
+                    texture.paint(g, texture.rotate(delta), p.x, p.y)
                 }
             }
         }
@@ -233,7 +233,7 @@ object Bullets {
                 val y = y()
                 val dx = (ObjectPool.player().y() - y)
                 val dy = (ObjectPool.player().x() - x)
-                val scale = sqrt(dx * dx + dy * dy)
+                val scale = Mth.sqrt(dx * dx + dy * dy)
                 sin = dy / scale
                 cos = dx / scale
                 vx = speed * sin

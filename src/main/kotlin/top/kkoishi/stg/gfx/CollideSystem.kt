@@ -2,6 +2,7 @@ package top.kkoishi.stg.gfx
 
 import top.kkoishi.stg.common.entities.Bullet
 import top.kkoishi.stg.common.entities.Entity
+import top.kkoishi.stg.util.Mth.sqrt
 import java.awt.Point
 import java.awt.Polygon
 import java.awt.Rectangle
@@ -12,7 +13,6 @@ import java.awt.geom.PathIterator
 import java.awt.geom.Point2D
 import java.awt.geom.Rectangle2D
 import kotlin.math.absoluteValue
-import kotlin.math.sqrt
 
 @Suppress("RedundantConstructorKeyword")
 object CollideSystem {

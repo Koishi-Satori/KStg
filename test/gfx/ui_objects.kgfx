@@ -16,6 +16,10 @@ gfx_items = {
         path = "./icons/main_menu_items.png"
     }
     gfx = {
+        name = "pause_menu_items"
+        path = "./icons/pause_menu_items.png"
+    }
+    gfx = {
             name = "main_menu_select"
             path = "./icons/main_menu_select.png"
     }
@@ -118,5 +122,29 @@ gfx_items = {
         y = 544
         w = 640
         h = 480
+    }
+    shear = {
+        name = "pause_continue"
+        key = "pause_menu_items"
+        x = 0
+        y = 0
+        w = 180
+        h = 34
+    }
+    shear = {
+        name = "pause_restart"
+        key = "pause_menu_items"
+        x = 0
+        y = 152
+        w = 180
+        h = 34
+    }
+    shear = {
+        name = "pause_return_menu"
+        key = "pause_menu_items"
+        x = 0
+        y = 37
+        w = 180
+        h = 34
     }
 }

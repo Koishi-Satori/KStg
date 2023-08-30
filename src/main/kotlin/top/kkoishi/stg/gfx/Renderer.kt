@@ -9,6 +9,12 @@ import java.awt.image.BufferedImage
 import java.awt.image.VolatileImage
 import java.util.concurrent.atomic.AtomicLong
 
+/**
+ * The render class controls the rendering thread of the game, and to start the render thread, you can use
+ * [Renderer.start] method.
+ *
+ * @author KKoishi_
+ */
 class Renderer private constructor() : Runnable {
     private val frame = AtomicLong(0)
     private var fullScreen = false
@@ -164,11 +170,19 @@ class Renderer private constructor() : Runnable {
         @JvmStatic
         internal fun scaled() = instance.scaled
 
+        /**
+         * Start the render thread.
+         *
+         * @param threads the thread pool.
+         */
         @JvmStatic
         fun start(threads: Threads) {
             threads.schedule(instance, Threads.period())
         }
 
+        /**
+         * The rendered frames.
+         */
         @JvmStatic
         fun frame(): Long = instance.frame.get()
 

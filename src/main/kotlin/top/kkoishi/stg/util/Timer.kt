@@ -1,4 +1,4 @@
-package top.kkoishi.stg.logic
+package top.kkoishi.stg.util
 
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import kotlin.math.abs

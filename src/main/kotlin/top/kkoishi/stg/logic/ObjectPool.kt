@@ -88,4 +88,14 @@ object ObjectPool {
             return bullets.size
         }
     }
+
+    fun clearAll() {
+        synchronized(lock) {
+            bullets.clear()
+            objects.clear()
+            playerBullets.clear()
+            objectMap.clear()
+            uiObjects().forEach { objectMap[it.uuid] = it }
+        }
+    }
 }

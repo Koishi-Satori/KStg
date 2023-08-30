@@ -6,6 +6,7 @@ import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.Threads
 import top.kkoishi.stg.test.common.ui.GameSideBar
 import top.kkoishi.stg.test.common.ui.MainMenu
+import top.kkoishi.stg.test.common.ui.PauseMenu
 
 object GameSystem {
     val mainMenu = MainMenu()
@@ -24,7 +25,22 @@ object GameSystem {
             )
         )
 
+    val pauseMenu = PauseMenu()
+    val rootPauseMenu = PauseMenu.PauseMenuItem(
+        50,
+        150,
+        pauseMenu,
+        ArrayDeque(
+            listOf(
+                GFX.getTexture("main_menu_select_0"),
+                GFX.getTexture("main_menu_select_1"),
+                GFX.getTexture("main_menu_select_2")
+            )
+        )
+    )
+
     init {
+        // init main menu
         val startSelectPlayer = MainMenu.PlayerSelectMenuItem(
             150,
             0,
@@ -43,6 +59,15 @@ object GameSystem {
         rootMainMenu.children.add(null)
         rootMainMenu.children.add(null)
         mainMenu.setRoot(rootMainMenu)
+
+        // init pause menu
+        rootPauseMenu.items.add(GFX.getTexture("pause_continue"))
+        rootPauseMenu.items.add(GFX.getTexture("pause_return_menu"))
+        rootPauseMenu.items.add(GFX.getTexture("pause_restart"))
+        rootPauseMenu.children.add(null)
+        rootPauseMenu.children.add(null)
+        rootPauseMenu.children.add(null)
+        pauseMenu.setRoot(rootPauseMenu)
     }
 
     var randomSeed = Threads.randomSeed()
@@ -51,4 +76,5 @@ object GameSystem {
     val players: Array<Player> = arrayOf(
         TestPlayerKoishi(Graphics.getCenterX(), 55, "bullet_koishi")
     )
+    var playerIndex = 0
 }

@@ -16,13 +16,13 @@ import java.util.concurrent.atomic.AtomicLong
 import kotlin.io.path.*
 
 @Suppress("MemberVisibilityCanBePrivate")
-open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructor(
+class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructor(
     randomSeed: Long,
     val player: Player,
     recordedKeyCodes: IntArray,
     serializePlayer: (Player) -> Int,
 ) : Thread() {
-    protected val tempPath: Path = Path.of("${Threads.workdir()}/temp_replay.bin")
+    private val tempPath: Path = Path.of("${Threads.workdir()}/temp_replay.bin")
 
     init {
         if (tempPath.exists())
@@ -30,27 +30,35 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
         tempPath.createFile()
     }
 
-    protected val temp = RandomAccessFile(tempPath.toFile(), "rw")
+    private val temp = RandomAccessFile(tempPath.toFile(), "rw")
     private val fileLock: FileLock = temp.channel.tryLock()
-    protected val playerID = serializePlayer(player)
-    protected val frames = AtomicLong(0L)
-    protected val keyCodeSets: MutableSet<Int> = TreeSet(recordedKeyCodes.toList())
+    private val playerID = serializePlayer(player)
+    private val frames = AtomicLong(0L)
+    private val keyCodeSets: MutableSet<Int> = TreeSet(recordedKeyCodes.toList())
+    private var disposed = false
 
     init {
+        hasRunningRecorder = true
         ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Initialize record replay.")
         temp.write(FILE_HEAD)
         temp.writeLong(randomSeed)
         temp.writeInt(playerID)
         temp.writeInt(keyCodeSets.size)
         keyCodeSets.forEach(temp::writeInt)
+
+        runningInstance = this
     }
 
-    final override fun run() {
+    override fun run() {
         ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Start record replay.")
 
         while (GenericSystem.gameState.get() == GenericSystem.STATE_PLAYING ||
             GenericSystem.gameState.get() == GenericSystem.STATE_PAUSE
         ) {
+            if (disposed) {
+                ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "dispose.")
+                return
+            }
             recordFrame()
             frames.incrementAndGet()
             sleep(Threads.period())
@@ -60,12 +68,22 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
             .log(System.Logger.Level.INFO, "End to record replay, Frames: 0x${frames.get().toString(16)}")
     }
 
-    protected open fun recordFrame() {
+    private fun recordFrame() {
         temp.writeInt(InfoSystem.fps())
         val binds = PlayerManager.binds
         keyCodeSets.forEach { temp.writeBoolean(binds[it]) }
         temp.writeDouble(player.x())
         temp.writeDouble(player.y())
+    }
+
+    fun dispose() {
+        hasRunningRecorder = false
+        disposed = true
+        if (temp.channel.isOpen && fileLock.isValid)
+            fileLock.release()
+        temp.close()
+        tempPath.deleteIfExists()
+        ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Delete the temp file.")
     }
 
     fun save(dir: String, name: String, id: Long) = save(Path.of(dir), name, id)
@@ -106,7 +124,7 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
     }
 
     @Throws(IOException::class)
-    protected open fun saveImpl(replay: Path) {
+    private fun saveImpl(replay: Path) {
         synchronized(temp) {
             temp.seek(0)
 
@@ -147,21 +165,26 @@ open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructo
         }
     }
 
-    internal class FrameInfo(val fps: Int, val pressedKeys: ShortArray, val x: Double, val y: Double) {
-        fun length() = 24 + pressedKeys.size * 2
+    companion object {
+        @JvmStatic
+        private lateinit var runningInstance: ReplayRecorder
 
-        fun write(oos: OutputStream) {
-            with(oos) {
-                writeInt(fps)
-                writeInt(pressedKeys.size)
-                pressedKeys.forEach { writeShort(it.toInt()) }
-                writeDouble(x)
-                writeDouble(y)
+        @JvmStatic
+        private var hasRunningRecorder: Boolean = false
+
+        @JvmStatic
+        fun hasRunningRecorder() = hasRunningRecorder
+
+        @JvmStatic
+        fun tryDisposeRecorder() {
+            if (this::runningInstance.isInitialized) {
+                if (!runningInstance.disposed) {
+                    ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "$runningInstance is disposed.")
+                    runningInstance.dispose()
+                }
             }
         }
-    }
 
-    companion object {
         @JvmStatic
         val FILE_HEAD: ByteArray = "Koishi_Replay".toByteArray()
         internal fun OutputStream.writeInt(v: Int) {
