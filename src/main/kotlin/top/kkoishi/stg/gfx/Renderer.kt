@@ -121,7 +121,7 @@ class Renderer private constructor() : Runnable {
     fun paint() {
         val buffer = Graphics.buffer()
         val bRender = buffer.createGraphics()
-        Graphics.setRenderingHints(bRender)
+        Graphics.applyRenderingHints(bRender)
         bRender.color = Color.WHITE
         bRender.setPaintMode()
 
@@ -138,7 +138,7 @@ class Renderer private constructor() : Runnable {
 
         while (repaintCount++ <= VRAM_MAX_REPAINT_COUNT) {
             val vRender = vImg.createGraphics()
-            Graphics.setRenderingHints(vRender)
+            Graphics.applyRenderingHints(vRender)
             vRender.color = Color.WHITE
             //vRender.setPaintMode()
             paintImpl(vRender)

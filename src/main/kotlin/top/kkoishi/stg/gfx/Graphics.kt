@@ -64,10 +64,10 @@ object Graphics {
 
     private fun setRender(r: Graphics2D) {
         render = r
-        setRenderingHints(render)
+        applyRenderingHints(render)
     }
 
-    internal fun setRenderingHints(render: Graphics2D) =
+    internal fun applyRenderingHints(render: Graphics2D) =
         renderingHints.entries.forEach { (key, value) -> render.setRenderingHint(key, value) }
 
     fun setRenderingHint(key: Key, value: Any) {

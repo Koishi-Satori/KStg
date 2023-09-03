@@ -14,7 +14,7 @@ abstract class Menu(private val actionState: Int) : UIObject(0, 0) {
     /**
      * The root item of the menu.
      */
-    private lateinit var rootItem: MenuItem
+    lateinit var rootItem: MenuItem
 
     /**
      * Current item of the menu.

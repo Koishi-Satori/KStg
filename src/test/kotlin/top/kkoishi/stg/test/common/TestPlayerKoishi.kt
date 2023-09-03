@@ -37,10 +37,10 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
                     setY(y() - 6)
                 }
 
-                override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 4)
+                override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 5)
 
                 override fun paint(g: Graphics2D) {
-                    // 16 * 35
+                    // 16 * 32
                     val x = xD()
                     val y = yD()
                     val rd = slowBullet.renderPoint(x, y, PI / 2)
@@ -56,7 +56,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
                 override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 5)
 
                 override fun paint(g: Graphics2D) {
-                    // 16 * 35
+                    // 16 * 36
                     val x = xD()
                     val y = yD()
                     val rd = bullet.renderPoint(x, y, PI / 2)

@@ -4,14 +4,13 @@ import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.Texture
 import top.kkoishi.stg.util.Timer
 import java.awt.Graphics2D
-import java.awt.image.AffineTransformOp
 
 abstract class AnimatedRenderableObject(initialX: Int, initialY: Int, frames: Long, initialTexture: String) :
     RenderableObject(initialX, initialY) {
     private val timer = Timer.Default(frames)
     private val lock = Any()
     protected var curTexture: Texture = GFX[initialTexture]
-    protected var op: AffineTransformOp = Texture.NORMAL_MATRIX
+    protected var op: Texture.TextureOp = Texture.NORMAL_MATRIX
 
     abstract fun texture(curFrame: Long): String
     abstract fun transform(curFrame: Long)

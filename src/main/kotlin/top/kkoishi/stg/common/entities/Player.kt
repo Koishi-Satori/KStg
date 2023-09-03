@@ -9,6 +9,7 @@ import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.PlayerManager
 import top.kkoishi.stg.logic.PlayerManager.life
+import top.kkoishi.stg.util.Options
 import top.kkoishi.stg.util.Timer
 import java.awt.Graphics2D
 import java.awt.Point
@@ -180,10 +181,12 @@ abstract class Player(var initialX: Int, var initialY: Int, val invincible: Bool
             val oldLife = life()
             if (oldLife <= 1) {
                 dead()
-                logger.log(System.Logger.Level.INFO, "$this has already dead.")
+                if (Options.State.debug)
+                    logger.log(System.Logger.Level.DEBUG, "$this has already dead.")
             } else {
                 PlayerManager.setLife(oldLife - 1)
-                logger.log(System.Logger.Level.INFO, "$this is hit by $o")
+                if (Options.State.debug)
+                    logger.log(System.Logger.Level.DEBUG, "$this is hit by $o")
             }
         }
     }

@@ -10,10 +10,18 @@ sealed class Audio(private val path: Path) {
         return AudioSystem.getAudioInputStream(path.toFile())
     }
 
-    class Common(path: Path): Audio(path)
-    private class Special(val ins: InputStream): Audio(Path.of("SOUND_NOT_FOUND.wav")) {
+    override fun toString(): String {
+        return "Audio(path=$path)"
+    }
+
+    class Common(path: Path) : Audio(path)
+    private class Special(val ins: InputStream) : Audio(Path.of("SOUND_NOT_FOUND.wav")) {
         override fun stream(): AudioInputStream {
             return AudioSystem.getAudioInputStream(ins)
+        }
+
+        override fun toString(): String {
+            return "Audio.Special(ins=$ins)"
         }
     }
 

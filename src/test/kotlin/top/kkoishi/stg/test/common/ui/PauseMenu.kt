@@ -51,6 +51,8 @@ class PauseMenu : Menu(GenericSystem.STATE_PAUSE) {
                 else -> { /* do nothing */
                 }
             }
+
+            menu.curLevel = menu.rootItem
         }
 
         override fun shouldRender(): Boolean = GenericSystem.gameState.get() == GenericSystem.STATE_PAUSE

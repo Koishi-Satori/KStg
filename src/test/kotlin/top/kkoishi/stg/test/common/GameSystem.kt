@@ -9,6 +9,8 @@ import top.kkoishi.stg.test.common.ui.MainMenu
 import top.kkoishi.stg.test.common.ui.PauseMenu
 
 object GameSystem {
+    private const val PLAYER_INIT_Y = 355
+
     val mainMenu = MainMenu()
     val rootMainMenu =
         MainMenu.MainMenuItem(
@@ -74,7 +76,7 @@ object GameSystem {
     var rand = Threads.random()
     val sideBar = GameSideBar()
     val players: Array<Player> = arrayOf(
-        TestPlayerKoishi(Graphics.getCenterX(), 55, "bullet_koishi")
+        TestPlayerKoishi(Graphics.getCenterX(), PLAYER_INIT_Y, "bullet_koishi")
     )
     var playerIndex = 0
 }

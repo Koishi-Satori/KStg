@@ -72,7 +72,7 @@ object GFX : Resources<Texture, String> {
         val texture = getTexture(key)
         try {
             logger.log(System.Logger.Level.INFO, "Begin: ($x, $y), w=$w, h=$h")
-            textures[nKey] = texture.cut(x, y, w, h)
+            textures[nKey] = texture.cut(x, y, w, h, nKey)
         } catch (e: Exception) {
             logger.log(System.Logger.Level.WARNING, "Failed to load the texture $nKey")
             throw FailedLoadingResourceException(e)
@@ -94,9 +94,9 @@ object GFX : Resources<Texture, String> {
             val ins = ImageIO.createImageInputStream(seekTexture(p))
             val img = ImageIO.read(ins)
             if (useVRAM)
-                textures[key] = Texture.Volatile(img)
+                textures[key] = Texture.Volatile(img, key)
             else
-                textures[key] = Texture(img)
+                textures[key] = Texture(img, key)
         } catch (e: IOException) {
             logger.log(System.Logger.Level.WARNING, "Failed to load the texture $key")
             throw FailedLoadingResourceException(e)
