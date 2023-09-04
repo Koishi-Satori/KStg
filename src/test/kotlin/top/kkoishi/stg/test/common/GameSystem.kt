@@ -43,6 +43,7 @@ object GameSystem {
 
     init {
         // init main menu
+        mainMenu.initKeyEvents()
         val startSelectPlayer = MainMenu.PlayerSelectMenuItem(
             150,
             0,
@@ -63,6 +64,7 @@ object GameSystem {
         mainMenu.setRoot(rootMainMenu)
 
         // init pause menu
+        pauseMenu.initKeyEvents()
         rootPauseMenu.items.add(GFX.getTexture("pause_continue"))
         rootPauseMenu.items.add(GFX.getTexture("pause_return_menu"))
         rootPauseMenu.items.add(GFX.getTexture("pause_restart"))

@@ -401,7 +401,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
         }
     }
 
-    private class IdentifyOp : TextureOp(AffineTransform()) {
+    private object IdentifyOp : TextureOp(AffineTransform()) {
         override fun createDestImage(texture: BufferedImage): BufferedImage =
             BufferedImage(texture.width, texture.height, BufferedImage.TYPE_INT_ARGB)
 
@@ -438,6 +438,6 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
         private const val VRAM_MAX_REPAINT_COUNT = 32
 
         @JvmStatic
-        internal val NORMAL_MATRIX: TextureOp = IdentifyOp()
+        internal val NORMAL_MATRIX: TextureOp = IdentifyOp
     }
 }

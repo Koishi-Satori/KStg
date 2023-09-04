@@ -1,6 +1,7 @@
 package top.kkoishi.stg.logic
 
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
+import top.kkoishi.stg.logic.keys.KeyBinds
 import java.util.concurrent.atomic.AtomicLong
 
 /**
@@ -23,10 +24,10 @@ class GameLoop private constructor() : Runnable {
                     ObjectPool.player().update()
 
                     // update the stage logic.
-                    var cur = PlayerManager.cur
+                    var cur = PlayerManager.curStage
                     if (cur.toNextStage()) {
                         cur = cur.nextStage()
-                        PlayerManager.cur = cur
+                        PlayerManager.curStage = cur
                     }
                     cur.action()
 
@@ -68,6 +69,8 @@ class GameLoop private constructor() : Runnable {
                 }
             }
         }
+        KeyBinds.invokeGenericBinds()
+
         logicFrame.incrementAndGet()
     }
 

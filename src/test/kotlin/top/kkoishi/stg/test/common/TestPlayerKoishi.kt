@@ -5,24 +5,14 @@ import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.common.entities.PlayerBullet
 import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.gfx.GFX
-import top.kkoishi.stg.gfx.Renderer
-import top.kkoishi.stg.logic.GenericSystem
-import top.kkoishi.stg.logic.GenericSystem.gameState
-import top.kkoishi.stg.logic.InfoSystem.Companion.logger
-import top.kkoishi.stg.logic.ObjectPool
-import top.kkoishi.stg.logic.PlayerManager
-import top.kkoishi.stg.logic.Threads
+import top.kkoishi.stg.logic.*
+import top.kkoishi.stg.test.Test
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.Shape
-import java.awt.event.KeyEvent
-import java.awt.image.BufferedImage
-import java.nio.file.Path
-import javax.imageio.ImageIO
-import kotlin.io.path.outputStream
 import kotlin.math.PI
 
-class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Player(initialX, initialY) {
+class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Player(initialX, initialY, Test.invincible) {
     private var textureIndex = 0
     private val bullet = GFX.getTexture(bulletTexture)
     private val slowBullet = GFX.getTexture("bullet_koishi_slow_0")
@@ -147,51 +137,5 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
     }
 
     override fun actionsImpl() {
-        if (PlayerManager.binds[KeyEvent.VK_F11]) {
-            this::class.logger().log(System.Logger.Level.INFO, "Screenshot pressed.")
-            PlayerManager.binds[KeyEvent.VK_F11] = false
-            // save screenshot
-            val out =
-                Path.of("${Threads.workdir()}/screenshots/screenshot_${System.currentTimeMillis()}_${Renderer.frame()}.png")
-                    .outputStream()
-            val imageOut = ImageIO.createImageOutputStream(out)
-            val img = BufferedImage(640, 480, BufferedImage.TYPE_INT_ARGB)
-            val bRender = img.createGraphics()
-            when (gameState.get()) {
-                GenericSystem.STATE_PLAYING -> {
-                    try {
-                        PlayerManager.cur.paint(bRender)
-                        ObjectPool.player().paint(bRender)
-                        ObjectPool.objects().forEach { it.paint(bRender) }
-                        ObjectPool.bullets().forEach { it.paint(bRender) }
-                        ObjectPool.uiObjects().forEach { it.paint(bRender) }
-                        bRender.dispose()
-                    } catch (e: Throwable) {
-                        logger.log(System.Logger.Level.ERROR, e)
-                    }
-                }
-
-                GenericSystem.STATE_PAUSE -> {
-                    PlayerManager.cur.paint(bRender)
-                    ObjectPool.player().paint(bRender)
-                    ObjectPool.objects().forEach { it.paint(bRender) }
-                    ObjectPool.bullets().forEach { it.paint(bRender) }
-                    ObjectPool.uiObjects().forEach { it.paint(bRender) }
-                }
-
-                GenericSystem.STATE_MENU -> {
-                    try {
-                        // main menu
-                        ObjectPool.uiObjects().forEach { it.paint(bRender) }
-                    } catch (e: Throwable) {
-                        logger.log(System.Logger.Level.ERROR, e)
-                    }
-                }
-            }
-            bRender.dispose()
-            ImageIO.write(img, "png", imageOut)
-            imageOut.close()
-            out.close()
-        }
     }
 }

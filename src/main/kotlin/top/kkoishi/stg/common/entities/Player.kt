@@ -7,6 +7,8 @@ import top.kkoishi.stg.logic.GenericSystem.gameState
 import top.kkoishi.stg.logic.GenericSystem.STATE_PLAYING
 import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
+import top.kkoishi.stg.logic.keys.KeyBindInvoker
+import top.kkoishi.stg.logic.keys.KeyBinds
 import top.kkoishi.stg.logic.PlayerManager
 import top.kkoishi.stg.logic.PlayerManager.life
 import top.kkoishi.stg.util.Options
@@ -140,7 +142,7 @@ abstract class Player(var initialX: Int, var initialY: Int, val invincible: Bool
             slower = false
             speed = higherSpeed
             moveState = STATE_STILL
-            keyEvents.keys.forEach { PlayerManager.binds[it] = false }
+            keyEvents.keys.forEach(KeyBinds::release)
         }
     }
 
@@ -177,6 +179,10 @@ abstract class Player(var initialX: Int, var initialY: Int, val invincible: Bool
     abstract fun bomb()
 
     override fun beingHit(o: Object) {
+        if (invincible) {
+            logger.log(System.Logger.Level.INFO, "$this is invincible.")
+            return
+        }
         if (protectionTimer.end()) {
             val oldLife = life()
             if (oldLife <= 1) {
@@ -195,6 +201,7 @@ abstract class Player(var initialX: Int, var initialY: Int, val invincible: Bool
 
     fun actions() {
         for (keyCode in keyEvents.keys) {
+            preAction(keyCode)
             action(keyCode)
         }
         actionsImpl()
@@ -202,11 +209,11 @@ abstract class Player(var initialX: Int, var initialY: Int, val invincible: Bool
 
     abstract fun actionsImpl()
 
-    private fun action(keyCode: Int) {
+    protected open fun preAction(keyCode: Int) {
         when (keyCode) {
             VK_SHIFT -> {
                 // press shift
-                speed = if (PlayerManager.binds[keyCode]) {
+                speed = if (KeyBinds.isPressed(keyCode)) {
                     slower = true
                     lowerSpeed
                 } else {
@@ -216,16 +223,16 @@ abstract class Player(var initialX: Int, var initialY: Int, val invincible: Bool
             }
 
             VK_LEFT, VK_RIGHT -> {
-                if (!PlayerManager.binds[keyCode]) {
+                if (!KeyBinds.isPressed(keyCode)) {
                     moveState = STATE_STILL
                 }
             }
         }
-        if (PlayerManager.binds[keyCode]) {
-            val func = keyEvents[keyCode]
-            if (func != null)
-                func(this)
-        }
+    }
+
+    protected open fun action(keyCode: Int) {
+        if (KeyBinds.isPressed(keyCode))
+            KeyBinds(keyCode, this)
     }
 
     @Deprecated("Move function is implemented in key events")
@@ -308,70 +315,78 @@ abstract class Player(var initialX: Int, var initialY: Int, val invincible: Bool
         /** Constant for the ESCAPE virtual key.  */
         const val VK_ESCAPE = 0x1B
 
+        @JvmStatic
+        private val DEFAULT_KEY_EVENTS = HashMap<Int, (Player) -> Unit>(mapOf(VK_LEFT to {
+            it.moveState = STATE_LEFT
+            val oldX = it.x()
+            var newX = oldX - it.speed
+            val limitX = Graphics.getUIInsets().left.toDouble()
+            if (newX < limitX)
+                newX = limitX
+            it.x(newX)
+        }, VK_RIGHT to {
+            it.moveState = STATE_RIGHT
+            val oldX = it.x()
+            var newX = oldX + it.speed
+            val limitX = Graphics.getScreenSize().width - Graphics.getUIInsets().right
+            if (newX > limitX)
+                newX = limitX
+            it.x(newX)
+        }, VK_UP to {
+            val oldY = it.y()
+            var newY = oldY - it.speed
+            val limitY = Graphics.getUIInsets().top.toDouble()
+            if (newY < limitY)
+                newY = limitY
+            it.y(newY)
+        }, VK_DOWN to {
+            val oldY = it.y()
+            var newY = oldY + it.speed
+            val limitY = Graphics.getScreenSize().height - Graphics.getUIInsets().bottom
+            if (newY > limitY)
+                newY = limitY
+            it.y(newY)
+        }, VK_Z to {
+            if (it.shotCollDownTimer.end())
+                it.shot()
+        }, VK_X to {
+            it.bomb()
+            // avoid bomb continually
+            KeyBinds.release(VK_X)
+        }, VK_C to {
+            // unbind
+        }, VK_ESCAPE to {
+            val gameState = gameState.get()
+            if (gameState == STATE_PLAYING) {
+                GenericSystem.gameState.set(GenericSystem.STATE_PAUSE)
+                it.logger.log(System.Logger.Level.INFO, "Pause the game.")
+            } else if (gameState == GenericSystem.STATE_PAUSE) {
+                GenericSystem.gameState.set(STATE_PLAYING)
+                it.logger.log(System.Logger.Level.INFO, "Continue the game.")
+            }
+            KeyBinds.release(VK_ESCAPE)
+        }, VK_SHIFT to {
+            // empty
+        }))
+
         /**
          * Key events which is used to store the functions of the game player instance when
          * player pressing the specified keys.
          */
         @JvmStatic
-        val keyEvents: MutableMap<Int, (Player) -> Unit> = HashMap(
-            mapOf(VK_LEFT to {
-                it.moveState = STATE_LEFT
-                val oldX = it.x()
-                var newX = oldX - it.speed
-                val limitX = Graphics.getUIInsets().left.toDouble()
-                if (newX < limitX)
-                    newX = limitX
-                it.x(newX)
-            }, VK_RIGHT to {
-                it.moveState = STATE_RIGHT
-                val oldX = it.x()
-                var newX = oldX + it.speed
-                val limitX = Graphics.getScreenSize().width - Graphics.getUIInsets().right
-                if (newX > limitX)
-                    newX = limitX
-                it.x(newX)
-            }, VK_UP to {
-                val oldY = it.y()
-                var newY = oldY - it.speed
-                val limitY = Graphics.getUIInsets().top.toDouble()
-                if (newY < limitY)
-                    newY = limitY
-                it.y(newY)
-            }, VK_DOWN to {
-                val oldY = it.y()
-                var newY = oldY + it.speed
-                val limitY = Graphics.getScreenSize().height - Graphics.getUIInsets().bottom
-                if (newY > limitY)
-                    newY = limitY
-                it.y(newY)
-            }, VK_Z to {
-                if (it.shotCollDownTimer.end())
-                    it.shot()
-            }, VK_X to {
-                it.bomb()
-                // avoid bomb continually
-                PlayerManager.binds[VK_X] = false
-            }, VK_C to {
-                // unbind
-            }, VK_ESCAPE to {
-                val gameState = gameState.get()
-                if (gameState == STATE_PLAYING) {
-                    GenericSystem.gameState.set(GenericSystem.STATE_PAUSE)
-                    it.logger.log(System.Logger.Level.INFO, "Pause the game.")
-                } else if (gameState == GenericSystem.STATE_PAUSE) {
-                    GenericSystem.gameState.set(STATE_PLAYING)
-                    it.logger.log(System.Logger.Level.INFO, "Continue the game.")
-                }
-                PlayerManager.binds[VK_ESCAPE] = false
-            }, VK_SHIFT to {
-                // empty
-            })
-        )
+        val keyEvents: MutableMap<Int, (Player) -> Unit> = HashMap(DEFAULT_KEY_EVENTS)
+
+        /**
+         * Register the key events in [keyEvents] to [KeyBinds].
+         */
+        @JvmStatic
+        fun registerKeyEvents() {
+            keyEvents.map { it.key to KeyBindInvoker(it.value) }.forEach { KeyBinds.bind(it.first, it.second) }
+        }
 
         class EmptyPlayer : Player(25, 25, true) {
             override fun dead() {}
 
-            override fun beingHit(o: Object) {}
             override fun actionsImpl() {}
 
             override fun shape(): Shape = CollideSystem.Circle(Point(xInt(), yInt()), 5)
@@ -396,6 +411,4 @@ abstract class Player(var initialX: Int, var initialY: Int, val invincible: Bool
             }
         }
     }
-
-
 }

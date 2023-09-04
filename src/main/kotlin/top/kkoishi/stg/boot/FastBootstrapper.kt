@@ -4,11 +4,9 @@ import top.kkoishi.stg.Resources
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.gfx.Renderer
-import top.kkoishi.stg.logic.GameLoop
-import top.kkoishi.stg.logic.InfoSystem
+import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
-import top.kkoishi.stg.logic.PlayerManager
-import top.kkoishi.stg.logic.Threads
+import top.kkoishi.stg.logic.keys.KeyBinds
 import java.awt.Dimension
 import java.awt.GraphicsEnvironment
 import java.awt.Insets
@@ -49,8 +47,8 @@ object FastBootstrapper {
     }
 
     @JvmStatic
-    fun keyBinds(f: JFrame, vararg keyCodes: Int): JFrame {
-        PlayerManager.keyBinds(f, *keyCodes)
+    fun keyBinds(f: JFrame): JFrame {
+        KeyBinds.bind(f)
         return f
     }
 

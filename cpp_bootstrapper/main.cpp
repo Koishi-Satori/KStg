@@ -7,7 +7,8 @@
 
 #include "bin/util.h"
 #include <algorithm>
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstdlib>
 #include <emmintrin.h>
 #include <filesystem>
 #include <immintrin.h>

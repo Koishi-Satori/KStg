@@ -20,6 +20,7 @@ class InfoSystem private constructor() : Runnable {
     private var logicBefore = GameLoop.logicFrame()
     private var frameBefore = Renderer.frame()
     private var fps = AtomicInteger(60)
+
     override fun run() {
         val logger = InfoSystem::class.logger()
         if (count % 900 == 0) {
@@ -39,7 +40,7 @@ class InfoSystem private constructor() : Runnable {
             this.fps.set(fps.toInt())
             logger.log(
                 Level.INFO,
-                "LogicFrame pre second: $logicFps, FPS: $fps;Bullets count: ${ObjectPool.countBullets() + PlayerManager.countBullets()}"
+                "LogicFPS: $logicFps, FPS: $fps | Bullets: ${ObjectPool.countBullets() + PlayerManager.countBullets()}"
             )
 
             before = cur

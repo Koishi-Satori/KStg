@@ -69,7 +69,7 @@ class Renderer private constructor() : Runnable {
         when (GenericSystem.gameState.get()) {
             GenericSystem.STATE_PLAYING -> {
                 try {
-                    PlayerManager.cur.paint(bufferRender)
+                    PlayerManager.curStage.paint(bufferRender)
                     ObjectPool.player().paint(bufferRender)
                     ObjectPool.objects().forEach { it.paint(bufferRender) }
                     ObjectPool.bullets().forEach { it.paint(bufferRender) }
@@ -82,7 +82,7 @@ class Renderer private constructor() : Runnable {
             }
 
             GenericSystem.STATE_PAUSE -> {
-                PlayerManager.cur.paint(bufferRender)
+                PlayerManager.curStage.paint(bufferRender)
                 ObjectPool.player().paint(bufferRender)
                 ObjectPool.objects().forEach { it.paint(bufferRender) }
                 ObjectPool.bullets().forEach { it.paint(bufferRender) }

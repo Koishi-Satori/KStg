@@ -20,7 +20,7 @@ object GenericSystem {
      * ## Instructions of this constant
      * Before switch the game state to this, please make sure you have initialized or reinitialized the stage and
      * player instance, and you should add a pause menu into UIObjects at the mean time.
-     * ### They are located in [PlayerManager.cur], [ObjectPool.player] and [ObjectPool.UIObjects].
+     * ### They are located in [PlayerManager.curStage], [ObjectPool.player] and [ObjectPool.UIObjects].
      * Also, some [UIObject] which are added to UIObjects and can action during playing will
      * be rendered and calculated.
      *
@@ -33,7 +33,7 @@ object GenericSystem {
      * ## Instructions of this constant
      * Before switch the game state to this, please make sure you have initialized or reinitialized the stage
      * and the player correctly.
-     * ### They are located in [PlayerManager.cur] and [ObjectPool.player].
+     * ### They are located in [PlayerManager.curStage] and [ObjectPool.player].
      * Also, some [UIObject] which are added to [ObjectPool.UIObjects] and can action during playing will
      * be rendered and calculated.
      *

@@ -5,7 +5,6 @@ import top.kkoishi.stg.common.BossAction
 import top.kkoishi.stg.common.entities.BaseBoss
 import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.gfx.CollideSystem
-import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.logic.ObjectPool
 import top.kkoishi.stg.test.common.GameSystem
 import java.awt.Graphics2D

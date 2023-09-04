@@ -1,28 +1,24 @@
 package top.kkoishi.stg.test.common.ui
 
-import top.kkoishi.stg.common.ui.Menu
-import top.kkoishi.stg.common.ui.MenuItem
+import top.kkoishi.stg.common.ui.BaseMenu
 import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.Texture
 import top.kkoishi.stg.logic.GenericSystem
-import top.kkoishi.stg.logic.InfoSystem.Companion.logger
-import top.kkoishi.stg.logic.PlayerManager
 import top.kkoishi.stg.logic.SingleInstanceEnsurer
 import top.kkoishi.stg.test.Test
 import java.awt.Graphics2D
-import java.awt.event.KeyEvent
 import kotlin.system.exitProcess
 
-class MainMenu : Menu(GenericSystem.STATE_MENU) {
+class MainMenu : BaseMenu(GenericSystem.STATE_MENU) {
     private val bg = GFX.getTexture("menu_bg")
 
     override fun paintBackground(r: Graphics2D) {
         bg.paint(r, bg.normalMatrix(), x, y)
     }
 
-    open class MainMenuItem(x: Int, y: Int, menu: Menu, protected val selectedTextures: ArrayDeque<Texture>) :
-        MenuItem(x, y, menu) {
+    open class MainMenuItem(x: Int, y: Int, menu: BaseMenu, selectedTextures: ArrayDeque<Texture>) :
+        AbstractMenuItem(x, y, menu, selectedTextures) {
 
         // 灵梦白丝
         private val baisi = GFX.getTexture("reimu_baisi")
@@ -39,61 +35,26 @@ class MainMenu : Menu(GenericSystem.STATE_MENU) {
             }
         }
 
-        override fun updateInfo() {
-            keyEvents.keys.forEach(this::action)
-        }
-
-        private fun action(keyCode: Int) {
-            if (PlayerManager.binds[keyCode]) {
-                this::class.logger().log(System.Logger.Level.INFO, "Press key: $keyCode")
-                keyEvents[keyCode]?.invoke(this)
-                PlayerManager.binds[keyCode] = false
-            }
-        }
-
-        protected open fun nullAction() {
+        override fun invoke() {
             when (select) {
                 3 -> {
                     SingleInstanceEnsurer.release()
                     exitProcess(CrashReporter.EXIT_OK)
                 }
+
                 0, 1, 2 -> Test.start(0)
                 else -> { /* do nothing */
                 }
             }
         }
-
-        companion object {
-            val keyEvents: MutableMap<Int, (MainMenuItem) -> Unit> = mutableMapOf(
-                KeyEvent.VK_UP to {
-                    if (it.select == 0)
-                        it.select = it.items.size - 1
-                    else
-                        it.select--
-                },
-                KeyEvent.VK_DOWN to {
-                    if (it.select == it.items.size - 1)
-                        it.select = 0
-                    else
-                        it.select++
-                },
-                KeyEvent.VK_Z to {
-                    val item = it.children[it.select]
-                    if (item != null)
-                        it.menu.curLevel = item
-                    else
-                        it.nullAction()
-                },
-                KeyEvent.VK_X to {
-                    val root = it.parent
-                    if (root != null)
-                        it.menu.curLevel = root
-                }
-            )
-        }
     }
 
-    class PlayerSelectMenuItem(x: Int, y: Int, menu: Menu, selectedTextures: ArrayDeque<Texture>) : MainMenuItem(
+    class PlayerSelectMenuItem(
+        x: Int,
+        y: Int,
+        menu: BaseMenu,
+        selectedTextures: ArrayDeque<Texture>,
+    ) : MainMenuItem(
         x, y, menu,
         selectedTextures
     ) {
@@ -107,7 +68,7 @@ class MainMenu : Menu(GenericSystem.STATE_MENU) {
             }
         }
 
-        override fun nullAction() {
+        override fun invoke() {
             when (select) {
                 0 -> Test.start(0)
                 else -> { /* do nothing */

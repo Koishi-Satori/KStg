@@ -1,18 +1,19 @@
 package top.kkoishi.stg.replay
 
 import top.kkoishi.stg.common.entities.Player
-import top.kkoishi.stg.logic.GenericSystem
-import top.kkoishi.stg.logic.InfoSystem
+import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
-import top.kkoishi.stg.logic.PlayerManager
-import top.kkoishi.stg.logic.Threads
+import top.kkoishi.stg.logic.keys.KeyBinds
 import java.io.IOException
+import java.io.InputStream
 import java.io.OutputStream
 import java.io.RandomAccessFile
 import java.nio.channels.FileLock
 import java.nio.file.Path
 import java.util.TreeSet
 import java.util.concurrent.atomic.AtomicLong
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 import kotlin.io.path.*
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -70,7 +71,7 @@ class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructor(
 
     private fun recordFrame() {
         temp.writeInt(InfoSystem.fps())
-        val binds = PlayerManager.binds
+        val binds = KeyBinds.keys
         keyCodeSets.forEach { temp.writeBoolean(binds[it]) }
         temp.writeDouble(player.x())
         temp.writeDouble(player.y())
@@ -125,13 +126,16 @@ class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructor(
 
     @Throws(IOException::class)
     private fun saveImpl(replay: Path) {
+        val cache = Path.of("./latest_rep.bin")
+        cache.deleteIfExists()
+        cache.createFile()
+        val cacheOut = cache.outputStream()
+
         synchronized(temp) {
             temp.seek(0)
-
-            val out = replay.outputStream()
-
             temp.skipBytes(FILE_HEAD.size)
-            with(out) {
+
+            with(cacheOut) {
                 write(FILE_HEAD)
                 writeLong(temp.readLong())
                 writeInt(temp.readInt())
@@ -160,9 +164,32 @@ class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructor(
                 writeLong(temp.readLong())
             }
 
-            out.flush()
-            out.close()
         }
+        cacheOut.flush()
+        cacheOut.close()
+
+        compress(cache.inputStream(), replay.outputStream(), replay.fileName.toString())
+        cache.deleteIfExists()
+    }
+
+    private fun compress(bin: InputStream, dst: OutputStream, entryName: String) {
+        val zip = ZipOutputStream(dst)
+        val buf = ByteArray(1024)
+        var len: Int
+
+        zip.putNextEntry(ZipEntry(entryName))
+        while (true) {
+            len = bin.read(buf)
+            if (len == -1)
+                break
+            zip.write(buf, 0, len)
+        }
+
+        zip.closeEntry()
+        zip.flush()
+        zip.close()
+        bin.close()
+        dst.close()
     }
 
     companion object {

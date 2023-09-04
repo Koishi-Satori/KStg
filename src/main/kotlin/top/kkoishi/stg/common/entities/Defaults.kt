@@ -32,6 +32,8 @@ abstract class AbstractBullet(initialX: Int, initialY: Int) : Bullet(initialX, i
 
     override fun collide(o: Object): Boolean {
         if (o is Entity) {
+            if (o is Player && o.invincible)
+                return false
             val from = from()
             if (from == null || from != o)
                 if (CollideSystem.collide(o, this)) {

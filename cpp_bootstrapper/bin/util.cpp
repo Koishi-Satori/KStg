@@ -1,14 +1,23 @@
 //
 // Created by KKoishi_ on 2023/8/15.
 //
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "bugprone-misplaced-pointer-arithmetic-in-alloc"
+#pragma GCC optimize("O3")
+#pragma GCC optimize("Ofast,no-stack-protector,unroll-loops,fast-math")
+#pragma GCC target( \
+		"sse,sse2,sse3,ssse3,sse4.1,sse4.2,avx,avx2,popcnt,tune=native")
 
-#include "filesystem"
 #include <algorithm>
-#include <bits/stdc++.h>
-#include <emmintrin.h>
-#include <immintrin.h>
+#include <fstream>
+#include <ios>
+#include <iostream>
+#include <map>
+#include <string>
 #include <sys/stat.h>
+#include <unordered_map>
 #include <utility>
+#include <vector>
 
 #define default_vm_option                                                      \
 	" -Dsun.java2d.ddscale=true -Dsun.java2d.opengl=true -Dswing.aatext=true " \

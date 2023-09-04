@@ -69,7 +69,7 @@ class Stage1(player: Player, playerIndex: Int): AbstractStage() {
             }
         })
         addAction(object : StageAction(200L, action = {
-            ObjectPool.addObject(TestStageClearObject(230, 270))
+            ObjectPool.addObject(TestStageClearObject(100, 100))
         }) {
             override fun canAction(): Boolean {
                 if (!ObjectPool.objects().hasNext())

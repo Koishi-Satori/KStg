@@ -26,6 +26,11 @@ abstract class MenuItem(x: Int, y: Int, val menu: Menu) : UIObject(x, y) {
      */
     val items = ArrayDeque<Texture>(4)
 
+    /**
+     * Determines what to happen when the selected is confirmed.
+     */
+    abstract operator fun invoke()
+
     final override fun shouldAction(): Boolean = false
     override fun shouldRender(): Boolean = true
 

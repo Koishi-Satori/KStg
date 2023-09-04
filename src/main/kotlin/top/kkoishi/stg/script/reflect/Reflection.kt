@@ -14,6 +14,11 @@ object Reflection {
     @JvmStatic
     internal fun isStatic(mth: Method): Boolean = Modifier.isStatic(mth.modifiers)
 
+    @JvmStatic
+    internal fun isStatic(field: Field): Boolean = Modifier.isStatic(field.modifiers)
+    @JvmStatic
+    internal fun isFinal(field: Field): Boolean = Modifier.isFinal(field.modifiers)
+
     internal fun <T> parseMethod(descriptor: String, allocator: (MethodHandle?, Method?) -> T): T {
         val info = parseMethodDescriptor(descriptor)
         val lookup = MethodHandles.lookup()

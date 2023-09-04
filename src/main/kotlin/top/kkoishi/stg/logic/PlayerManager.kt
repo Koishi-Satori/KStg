@@ -5,22 +5,12 @@ import top.kkoishi.stg.common.Stage
 import top.kkoishi.stg.logic.ObjectPool.objectMap
 import top.kkoishi.stg.logic.ObjectPool.playerBullets
 import java.awt.Graphics2D
-import java.awt.event.KeyEvent
-import java.awt.event.KeyListener
 import java.util.UUID
-import javax.swing.JFrame
 
 object PlayerManager {
     private var life = 2
     private val lock = Any()
-    @JvmStatic
-    val binds = BooleanArray(526)
-        get(): BooleanArray {
-            synchronized(lock) {
-                return field
-            }
-        }
-    lateinit var cur: Stage
+    lateinit var curStage: Stage
 
     fun life(): Int {
         synchronized(lock) {
@@ -66,26 +56,5 @@ object PlayerManager {
                 ++index
             }
         }
-    }
-
-    fun keyBind(f: JFrame, keyCode: Int) {
-        binds[keyCode] = false
-        f.addKeyListener(object : KeyListener {
-            override fun keyTyped(e: KeyEvent) {
-            }
-
-            override fun keyPressed(e: KeyEvent) {
-                binds[e.keyCode] = true
-            }
-
-            override fun keyReleased(e: KeyEvent) {
-                binds[e.keyCode] = false
-            }
-        })
-    }
-
-    fun keyBinds(f: JFrame, vararg keyCodes: Int) {
-        for (keyCode in keyCodes)
-            keyBind(f, keyCode)
     }
 }

@@ -4,16 +4,19 @@ import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.boot.FastBootstrapper
 import top.kkoishi.stg.boot.Settings
-import top.kkoishi.stg.common.entities.Player
-import top.kkoishi.stg.gfx.Graphics
-import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.boot.ui.LoadingFrame
+import top.kkoishi.stg.common.entities.Object
+import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.exceptions.InternalError
 import top.kkoishi.stg.exceptions.ThreadExceptionHandler
 import top.kkoishi.stg.gfx.Renderer
-import top.kkoishi.stg.replay.ReplayRecorder
+import top.kkoishi.stg.gfx.Screen
+import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
+import top.kkoishi.stg.logic.keys.KeyBindEventWithCaller
+import top.kkoishi.stg.logic.keys.KeyBinds
+import top.kkoishi.stg.replay.ReplayRecorder
 import top.kkoishi.stg.script.AudioLoader
 import top.kkoishi.stg.script.GFXLoader
 import top.kkoishi.stg.test.common.GameSystem
@@ -21,20 +24,23 @@ import top.kkoishi.stg.test.common.stages.Stage1
 import top.kkoishi.stg.util.OptimizedContainer
 import top.kkoishi.stg.util.Option
 import top.kkoishi.stg.util.Options
-import java.awt.*
-import java.awt.event.KeyEvent
+import java.awt.Insets
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
-import java.io.File
-import javax.imageio.ImageIO
 import kotlin.system.exitProcess
 
 object Test {
     private const val WIDTH = 640
     private const val HEIGHT = 480
 
+    /** Constant for the F11 function key.  */
+    private const val VK_F11 = 0x7A
+
     @JvmStatic
     val UI_INSETS = Insets(16, 36, 16, 220)
+
+    @JvmStatic
+    var invincible = false
 
     @JvmStatic
     private var fullScreen: Boolean = false
@@ -77,6 +83,7 @@ object Test {
             }
         })
         Options.addOption(Option(false, "useVRAM", "vram") { _, _ -> useVRAM = true })
+        Options.addOption(Option(false, "invincible", "inv") { _, _ -> invincible = true })
     }
 
     private fun load(args: Array<String>) {
@@ -87,10 +94,10 @@ object Test {
         }
         if (useVRAM)
             Renderer.useVRAM()
-        val load = LoadingFrame(ImageIO.read(File("${Threads.workdir()}/test/load.jpg")))
+        val load = LoadingFrame("${Threads.workdir()}/test/load.jpg")
         loadResources()
-        Graphics.setFont("sidebar", Font("Times New Roman", Font.PLAIN, 20))
         initJFrame()
+        keyBinds()
         load.end()
         initPauseMenu()
         menu()
@@ -114,20 +121,27 @@ object Test {
             FastBootstrapper.display(f, WIDTH, HEIGHT, UI_INSETS, scale.first, scale.second)
         else
             FastBootstrapper.display(f, WIDTH, HEIGHT, UI_INSETS, fullScreen)
+        FastBootstrapper.keyBinds(f)
+    }
 
-        FastBootstrapper.keyBinds(
-            f,
-            Player.VK_C,
-            Player.VK_DOWN,
-            Player.VK_ESCAPE,
-            Player.VK_LEFT,
-            Player.VK_RIGHT,
-            Player.VK_SHIFT,
-            Player.VK_UP,
-            Player.VK_X,
-            Player.VK_Z,
-            KeyEvent.VK_F11
-        )
+    private fun keyBinds() {
+        Player.keyEvents[Player.VK_ESCAPE] = {
+            GameSystem.pauseMenu.restore()
+            val gameState = GenericSystem.gameState.get()
+            if (gameState == GenericSystem.STATE_PLAYING) {
+                GenericSystem.gameState.set(GenericSystem.STATE_PAUSE)
+                it.logger.log(System.Logger.Level.INFO, "Pause the game.")
+            } else if (gameState == GenericSystem.STATE_PAUSE) {
+                GenericSystem.gameState.set(GenericSystem.STATE_PLAYING)
+                it.logger.log(System.Logger.Level.INFO, "Continue the game.")
+            }
+            KeyBinds.release(Player.VK_ESCAPE)
+        }
+        KeyBinds.bindGeneric(
+            VK_F11, KeyBindEventWithCaller(null) { _: Object? ->
+                Screen.takeScreenshot("${Threads.workdir()}/screenshots/screenshot_${System.currentTimeMillis()}_${Renderer.frame()}.png")
+            })
+        Player.registerKeyEvents()
     }
 
     private fun loadResources() {
@@ -160,7 +174,7 @@ object Test {
     fun menu() {
         AudioPlayer.setBackground(Sounds.getAudio("bk_0"))
         val mainMenu = GameSystem.mainMenu
-        mainMenu.curLevel = GameSystem.rootMainMenu
+        mainMenu.restore()
         if (!ObjectPool.containsUIObject(mainMenu))
             ObjectPool.addUIObject(mainMenu)
         // switch to menu
@@ -178,7 +192,7 @@ object Test {
         val player = GameSystem.players[playerIndex]
         player.reinitialize()
         ObjectPool.player(player)
-        PlayerManager.cur = Stage1(player, playerIndex)
+        PlayerManager.curStage = Stage1(player, playerIndex)
         val sideBar = GameSystem.sideBar
         sideBar.reset()
         if (!ObjectPool.containsUIObject(sideBar))
