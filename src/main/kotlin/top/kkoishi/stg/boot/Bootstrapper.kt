@@ -226,6 +226,11 @@ class Bootstrapper {
     }
 
     companion object {
+        /**
+         * This method can enable the hardware acceleration for Java2D, which implemented in OpenGL.
+         *
+         * You can also set them in vm-options.
+         */
         @JvmStatic
         @Suppress("NOTHING_TO_INLINE")
         inline fun enableHardwareAccelerationProperties() {

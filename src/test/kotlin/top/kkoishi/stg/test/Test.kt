@@ -47,18 +47,20 @@ object Test {
 
     @JvmStatic
     fun main(args: Array<String>) {
+        // enable hardware acceleration for java2d.
         Bootstrapper.enableHardwareAccelerationProperties()
         handleArgs(args)
         GenericSystem.logToFile = true
         Bootstrapper.readEngineSettings()
         val load = LoadingFrame("${Threads.workdir()}/test/load.jpg")
         initThreadHandler()
+        // ensure single instance of this engine.
         if (SingleInstanceEnsurer.setLockedFile("./.lock") == null) {
             if (Options.State.debug) {
                 Test::class.logger().log(System.Logger.Level.DEBUG, "Debug mode on.")
                 Test::class.logger().log(System.Logger.Level.DEBUG, "Program arguments: ${args.contentToString()}")
             }
-
+            // fast bootstrap
             Bootstrapper().size(WIDTH, HEIGHT).autoSync().containerTitle("KKoishi_ Stg Engine Test")
                 .fullscreen(fullScreen).scale(scale).useEngineDefaultIcon().useVRAM(useVRAM).uiInsets(
                     UI_INSETS.top, UI_INSETS.left, UI_INSETS.bottom, UI_INSETS.right
@@ -73,6 +75,11 @@ object Test {
         }
     }
 
+    /**
+     * Process the arguments.
+     *
+     * @param args arguments.
+     */
     private fun handleArgs(args: Array<String>) {
         Options.addOption(Option(false, "fullscreen") { _, _ -> fullScreen = true })
         Options.addOption(Option(true, "scale") { o, arg ->

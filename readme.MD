@@ -10,6 +10,7 @@ Java2D for rendering, and it allows you to implement the basic functions of a ST
 JVM parameters for enabling hardware acceleration:
 
 ```vmoptions 
+// https://docs.oracle.com/javase/8/docs/technotes/guides/2d/flags.html
 -Dsun.java2d.ddscale=true
 -Dsun.java2d.opengl=true
 -Dswing.aatext=true

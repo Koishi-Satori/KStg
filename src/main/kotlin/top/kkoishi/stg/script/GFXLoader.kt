@@ -6,6 +6,7 @@ import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.exceptions.ScriptException
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.TexturedFont
+import top.kkoishi.stg.gfx.Texture
 import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.script.execution.*
@@ -27,24 +28,93 @@ import javax.imageio.ImageIO
 import kotlin.io.path.exists
 import kotlin.io.path.inputStream
 
+/**
+ * GFXLoader can load map textures ([Texture]) from local scripts, and five instructions are provided in
+ * the loading scripts: gfx/shear/loop/font/shear_font. Also, some instructions are provided in [VM].
+ *
+ * ## The instructions for using the script
+ *
+ * The script header is gfx_items and follows the following format:
+ * ```
+ * gfx_items = {
+ *     ...
+ * }
+ * ```
+ * All instructions follow the format ``` name = {parameters} ```, where parameters are key-value pairs,
+ * which values can be variables, strings, and numbers, and variables can be referenced within strings.
+ *
+ * ## Ways to reference variables
+ * Variable names should be preceded by symbols, and if the variable is surrounded by characters,
+ * parentheses '(', ')' should be added around its name
+ * ```
+ * xxx$variable_name
+ * xxx$(variable_name)xxx
+ * ```
+ * The variable format: $variable_name
+ *
+ * ## Format of instructions
+ * | Instruction Name | Parameters  | Parameters Instructions | Functions |
+ * | :--------------: | :---------- | ----------------------- | --------- |
+ * |        gfx       | name, path | name = "xxx", fill in the name of the texture. <br/> path = "xxx", fill in the path to the image file corresponding to the texture. | Loads a texture map based on the given file path |
+ * |       shear      | name, key, x, y, w, h | name is same as ```gfx```. <br/> key = "xxx", the key of the source texture to fill in the clipping texture. <br/> x = [number], fill in the x coordinate where cropping starts. <br/> y = [number], fill in the y coordinate to start clipping. <br/> w = [number], fill in the width of the crop area. <br/> h = [number], fill in the height of the cropping area. | Cut one texture from another. |
+ * |       loop       | var_name, begin, end, load | var_name = "xxx", fill in the variable declared while loop, its value will be set from "begin" to "end" during invoking the loop. <br/> begin = [number], optional parameter, the number at which the loop starts. The loop will continue until the previous variable is set to end. The default is 0. <br/> end = [number], optional parameter, the number to terminate the loop, the default is 0. <br/> load = {} Composite parameters, inside the brackets are a series of instructions that need to be executed during the loop. | Execute loop. |
+ *
+ * e.g.
+ * ```
+ *     gfx = {
+ *         name = "planes_koishi"
+ *         path = "./icons/planes_koishi.png"
+ *     }
+ *     loop = {
+ *         var_name = "state"
+ *         end = 2
+ *         load = {
+ *             loop = {
+ *                 var_name = "i"
+ *                 end = 7
+ *                 load = {
+ *                     set_var = { name = "x" value = $i }
+ *                     set_var = { name = "y" value = $state }
+ *                     mul_var = { name = "x" value = 32 }
+ *                     mul_var = { name = "y" value = 48 }
+ *                     shear = {
+ *                         name = "plane_koishi_$(state)_$i"
+ *                         key = "planes_koishi"
+ *                         x = $x
+ *                         y = $y
+ *                         w = 32
+ *                         h = 48
+ *                     }
+ *                 }
+ *             }
+ *         }
+ *     }
+ * ```
+ *
+ * It needs to provide the root of the directory to be loaded, and all image paths are given as paths relative to the root.
+ *
+ * @author KKoishi_
+ */
 @Suppress("ClassName")
-class GFXLoader @JvmOverloads constructor(private val root: Path, private val useVram: Boolean = false) :
+class GFXLoader
+/**
+ * Construct a GFXLoader instance.
+ *
+ * @param root the root path.
+ * @param useVram if using the VRAM to store the textures([java.awt.image.VolatileImage])
+ */ @JvmOverloads constructor(private val root: Path, private val useVram: Boolean = false) :
     LocalVariables(SCOPE_GFX_LOADER), DefinitionsLoader {
-
-    init {
-        LocalVariables[scopeName] = this
-    }
 
     @JvmOverloads
     constructor(root: String, useVRAM: Boolean = false) : this(Path.of(root), useVRAM) {
         LocalVariables[scopeName] = this
     }
 
-    private val unloaded = HashMap<String, Instruction>()
+    private val unloaded: HashMap<String, Instruction>
 
-    private val unnamedUnloaded = ArrayDeque<Instruction>()
+    private val unnamedUnloaded: ArrayDeque<Instruction>
 
-    private val logger = GFXLoader::class.logger()
+    private val logger: InfoSystem.Companion.Logger
 
     override fun loadDefinitions() {
         logger.log(System.Logger.Level.INFO, "Load textures from scripts.")
@@ -319,5 +389,12 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
     private interface InstWithReference {
         val name: String
         val key: String
+    }
+
+    init {
+        LocalVariables[scopeName] = this
+        this.unloaded = HashMap()
+        this.unnamedUnloaded = ArrayDeque()
+        this.logger = GFXLoader::class.logger()
     }
 }
