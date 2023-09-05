@@ -1,195 +1,236 @@
-[8:02:15 PM] [main<-Threads/INFO]: Set workdir to D:\ProjectKotlin\KStg\.
-[8:02:16 PM] [main<-ThreadExceptionHandler/INFO]: Crash Handler Command: [java, -jar, "D:\ProjectKotlin\KStg\./crash_handle/KStg.CrashHandler.jar", D:\ProjectKotlin\KStg\., 8700]
-[8:02:16 PM] [main<-ThreadExceptionHandler/INFO]: Set Crash Handler, pid: 10640
-[8:02:16 PM] [main<-Bootstrapper/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.boot.Bootstrapper
-[8:02:16 PM] [main<-GFX/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.gfx.GFX
-[8:02:16 PM] [main<-GFX/INFO]: Init TEXTURE_NOT_FOUND
-[8:02:16 PM] [main<-Sounds/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.audio.Sounds
-[8:02:16 PM] [main<-GFXLoader/INFO]: Load textures from scripts.
-[8:02:16 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\boss.kgfx
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/test_boss_0.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_0
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=80
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_1
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (64, 0), w=64, h=80
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_2
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (128, 0), w=64, h=80
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_3
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (192, 0), w=64, h=80
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_0
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (0, 80), w=64, h=80
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_1
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (64, 80), w=64, h=80
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_2
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (128, 80), w=64, h=80
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_3
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (192, 80), w=64, h=80
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_0
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (0, 160), w=64, h=80
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_1
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (64, 160), w=64, h=80
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_2
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (128, 160), w=64, h=80
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_3
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (192, 160), w=64, h=80
-[8:02:16 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\boss.kgfx
-[8:02:16 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\bullets.kgfx
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/test_img.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/mirror.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/bg_1_1.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/ghost_fire.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_0
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (0, 0), w=48, h=64
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_1
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (48, 0), w=48, h=64
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_2
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (96, 0), w=48, h=64
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_3
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (144, 0), w=48, h=64
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_4
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (192, 0), w=48, h=64
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_5
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (240, 0), w=48, h=64
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_6
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (288, 0), w=48, h=64
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_7
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (336, 0), w=48, h=64
-[8:02:16 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\bullets.kgfx
-[8:02:16 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\fonts.kgfx
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/font_num.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: font_num -> score_num
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (0, 18), w=256, h=18
-[8:02:16 PM] [main<-Reflection/INFO]: Parse Method Descriptor: top.kkoishi.stg.test.Fonts.getScoreNumIndexes(C)Lkotlin/Pair;
-[8:02:16 PM] [main<-Reflection/INFO]: Method Owner: class top.kkoishi.stg.test.Fonts
-[8:02:16 PM] [main<-Reflection/INFO]: Method Return: class kotlin.Pair
-[8:02:16 PM] [main<-Reflection/INFO]: Method Name: getScoreNumIndexes
-[8:02:16 PM] [main<-Reflection/INFO]: Method Parameter: [char]
-[8:02:16 PM] [main<-Reflection/INFO]: Parse method to (MethodHandle(char)Pair, null)
-[8:02:16 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\fonts.kgfx
-[8:02:16 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\player.kgfx
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/center.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/planes_koishi.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/slow_effect.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/bullets_0.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/player_koishi_description.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/player_koishi_me.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: player_koishi_me_full -> player_koishi_me
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (100, 0), w=412, h=512
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (220, 144), w=36, h=16
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_0
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (177, 146), w=32, h=16
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_1
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (220, 160), w=36, h=16
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: slow_effect -> slow_effect_final
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=64
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: bullets_0 -> test_bullet
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (16, 68), w=16, h=15
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_0
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (0, 0), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_1
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (32, 0), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_2
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (64, 0), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_3
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (96, 0), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_4
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (128, 0), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_5
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (160, 0), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_6
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (192, 0), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_7
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (224, 0), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_0
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (0, 48), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_1
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (32, 48), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_2
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (64, 48), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_3
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (96, 48), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_4
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (128, 48), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_5
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (160, 48), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_6
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (192, 48), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_7
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (224, 48), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_0
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (0, 96), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_1
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (32, 96), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_2
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (64, 96), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_3
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (96, 96), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_4
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (128, 96), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_5
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (160, 96), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_6
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (192, 96), w=32, h=48
-[8:02:16 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_7
-[8:02:16 PM] [main<-GFX/INFO]: Begin: (224, 96), w=32, h=48
-[8:02:16 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\player.kgfx
-[8:02:16 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\ui_objects.kgfx
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/interface.png
-[8:02:16 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/ui.png
-[8:02:17 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/menu_bg.png
-[8:02:17 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/main_menu_items.png
-[8:02:17 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/pause_menu_items.png
-[8:02:17 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/main_menu_select.png
-[8:02:17 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/stage_clear.png
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_sidebar
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (0, 0), w=640, h=480
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: interface -> ui_diff_easy
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (0, 61), w=68, h=26
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_score
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (704, 0), w=60, h=21
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_0
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (1, 209), w=300, h=30
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_1
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (1, 239), w=300, h=30
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_2
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (1, 269), w=300, h=30
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_3
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (1, 299), w=300, h=30
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_start
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (20, 14), w=150, h=30
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_extra_start
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (20, 44), w=150, h=30
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_practice
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (20, 74), w=150, h=30
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_exit
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (20, 284), w=150, h=30
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> reimu_baisi
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (0, 544), w=640, h=480
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: pause_menu_items -> pause_continue
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (0, 0), w=180, h=34
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: pause_menu_items -> pause_restart
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (0, 152), w=180, h=34
-[8:02:17 PM] [main<-GFX/INFO]: Try to cut the texture: pause_menu_items -> pause_return_menu
-[8:02:17 PM] [main<-GFX/INFO]: Begin: (0, 37), w=180, h=34
-[8:02:17 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\ui_objects.kgfx
-[8:02:17 PM] [main<-AudioLoader/INFO]: Load audios from scripts.
-[8:02:17 PM] [main<-AudioLoader/INFO]: Try to audios textures from D:\ProjectKotlin\KStg\.\test\audio\effects.txt
-[8:02:17 PM] [main<-AudioLoader/INFO]: Success to load all the audios from D:\ProjectKotlin\KStg\.\test\audio\effects.txt
-[8:02:17 PM] [AWT-EventQueue-0<-null/INFO]: Gained focus, try to resync again.
-[8:02:17 PM] [main<-Companion/INFO]: Stop current background.
-[8:02:17 PM] [main<-Companion/INFO]: Opening new background audio...
-[8:02:17 PM] [main<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\bk_0.wav)
-[8:02:17 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.InfoSystem@4ac3c60d
-[8:02:17 PM] [Pool-1[0] Worker<-InfoSystem/INFO]: Try to GC.
-[8:02:17 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.gfx.Renderer@76508ed1
-[8:02:17 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.GameLoop@15c43bd9
-[8:02:17 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.audio.AudioPlayer@4f209819
-[8:02:19 PM] [Pool-1[1] Worker<-MainMenuItem/INFO]: Press key: vk_up(38)
-[8:02:20 PM] [Pool-1[0] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
-[8:02:20 PM] [Pool-1[1] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
-[8:02:20 PM] [Pool-1[5] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
-[8:02:21 PM] [Pool-1[5] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
-[8:02:21 PM] [Pool-1[7] Worker<-MainMenuItem/INFO]: Press key: vk_z(90)
-[8:02:21 PM] [Pool-1[7] Worker<-SingleInstanceEnsurer/INFO]: Release the file lock on java.io.RandomAccessFile@51cb8172
-[8:02:21 PM] [Thread-0<-CrashReporter/INFO]: Bin file cleared.
+[2:24:57 AM] [main<-Threads/INFO]: Set workdir to D:\ProjectKotlin\KStg\.
+[2:24:58 AM] [main<-ThreadExceptionHandler/INFO]: Crash Handler Command: [java, -jar, "D:\ProjectKotlin\KStg\./crash_handle/KStg.CrashHandler.jar", D:\ProjectKotlin\KStg\., 3292]
+[2:24:58 AM] [main<-ThreadExceptionHandler/INFO]: Set Crash Handler, pid: 12596
+[2:24:58 AM] [main<-Bootstrapper/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.boot.Bootstrapper
+[2:24:58 AM] [main<-GFX/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.gfx.GFX
+[2:24:58 AM] [main<-GFX/INFO]: Init TEXTURE_NOT_FOUND
+[2:24:58 AM] [main<-Sounds/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.audio.Sounds
+[2:24:58 AM] [main<-GFXLoader/INFO]: Load textures from scripts.
+[2:24:58 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\boss.kgfx
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/test_boss_0.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_0
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=80
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_1
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (64, 0), w=64, h=80
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_2
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (128, 0), w=64, h=80
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_3
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (192, 0), w=64, h=80
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_0
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 80), w=64, h=80
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_1
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (64, 80), w=64, h=80
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_2
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (128, 80), w=64, h=80
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_3
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (192, 80), w=64, h=80
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_0
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 160), w=64, h=80
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_1
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (64, 160), w=64, h=80
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_2
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (128, 160), w=64, h=80
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_3
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (192, 160), w=64, h=80
+[2:24:58 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\boss.kgfx
+[2:24:58 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\bullets.kgfx
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/test_img.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/mirror.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/bg_1_1.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/ghost_fire.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_0
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 0), w=48, h=64
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_1
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (48, 0), w=48, h=64
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_2
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (96, 0), w=48, h=64
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_3
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (144, 0), w=48, h=64
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_4
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (192, 0), w=48, h=64
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_5
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (240, 0), w=48, h=64
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_6
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (288, 0), w=48, h=64
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_7
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (336, 0), w=48, h=64
+[2:24:58 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\bullets.kgfx
+[2:24:58 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\faces.kgfx
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/face_koishi_angry.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: face_koishi_an -> face_koishi_angry
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (120, 0), w=320, h=450
+[2:24:58 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\faces.kgfx
+[2:24:58 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\fonts.kgfx
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/font_num.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: font_num -> score_num
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 18), w=256, h=18
+[2:24:58 AM] [main<-Reflection/INFO]: Parse Method Descriptor: top.kkoishi.stg.test.Fonts.getScoreNumIndexes(C)Lkotlin/Pair;
+[2:24:58 AM] [main<-Reflection/INFO]: Method Owner: class top.kkoishi.stg.test.Fonts
+[2:24:58 AM] [main<-Reflection/INFO]: Method Return: class kotlin.Pair
+[2:24:58 AM] [main<-Reflection/INFO]: Method Name: getScoreNumIndexes
+[2:24:58 AM] [main<-Reflection/INFO]: Method Parameter: [char]
+[2:24:58 AM] [main<-Reflection/INFO]: Parse method to (MethodHandle(char)Pair, null)
+[2:24:58 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\fonts.kgfx
+[2:24:58 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\player.kgfx
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/center.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/planes_koishi.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/slow_effect.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/bullets_0.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/player_koishi_description.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/player_koishi_me.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: player_koishi_me_full -> player_koishi_me
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (100, 0), w=412, h=512
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (220, 144), w=36, h=16
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_0
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (177, 146), w=32, h=16
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_1
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (220, 160), w=36, h=16
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: slow_effect -> slow_effect_final
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=64
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: bullets_0 -> test_bullet
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (16, 68), w=16, h=15
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_0
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 0), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_1
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (32, 0), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_2
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (64, 0), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_3
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (96, 0), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_4
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (128, 0), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_5
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (160, 0), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_6
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (192, 0), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_7
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (224, 0), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_0
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 48), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_1
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (32, 48), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_2
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (64, 48), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_3
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (96, 48), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_4
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (128, 48), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_5
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (160, 48), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_6
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (192, 48), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_7
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (224, 48), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_0
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 96), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_1
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (32, 96), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_2
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (64, 96), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_3
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (96, 96), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_4
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (128, 96), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_5
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (160, 96), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_6
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (192, 96), w=32, h=48
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_7
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (224, 96), w=32, h=48
+[2:24:58 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\player.kgfx
+[2:24:58 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\ui_objects.kgfx
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/interface.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/ui.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/menu_bg.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/main_menu_items.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/pause_menu_items.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/main_menu_select.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/stage_clear.png
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_sidebar
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 0), w=640, h=480
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: interface -> ui_diff_easy
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 61), w=68, h=26
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_score
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (704, 0), w=60, h=21
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_0
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (1, 209), w=300, h=30
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_1
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (1, 239), w=300, h=30
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_2
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (1, 269), w=300, h=30
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_3
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (1, 299), w=300, h=30
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_start
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (20, 14), w=150, h=30
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_extra_start
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (20, 44), w=150, h=30
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_practice
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (20, 74), w=150, h=30
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_exit
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (20, 284), w=150, h=30
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> reimu_baisi
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 544), w=640, h=480
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: pause_menu_items -> pause_continue
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 0), w=180, h=34
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: pause_menu_items -> pause_restart
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 152), w=180, h=34
+[2:24:58 AM] [main<-GFX/INFO]: Try to cut the texture: pause_menu_items -> pause_return_menu
+[2:24:58 AM] [main<-GFX/INFO]: Begin: (0, 37), w=180, h=34
+[2:24:58 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\ui_objects.kgfx
+[2:24:58 AM] [main<-AudioLoader/INFO]: Load audios from scripts.
+[2:24:58 AM] [main<-AudioLoader/INFO]: Try to audios textures from D:\ProjectKotlin\KStg\.\test\audio\effects.txt
+[2:24:58 AM] [main<-AudioLoader/INFO]: Success to load all the audios from D:\ProjectKotlin\KStg\.\test\audio\effects.txt
+[2:24:58 AM] [AWT-EventQueue-0<-null/INFO]: Gained focus, try to resync again.
+[2:24:59 AM] [main<-Companion/INFO]: Stop current background.
+[2:24:59 AM] [main<-Companion/INFO]: Opening new background audio...
+[2:24:59 AM] [main<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\bk_0.wav)
+[2:24:59 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.InfoSystem@27ce24aa
+[2:24:59 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.gfx.Renderer@3d51f06e
+[2:24:59 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: Try to GC.
+[2:24:59 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.GameLoop@28eaa59a
+[2:24:59 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.audio.AudioPlayer@647e447
+[2:24:59 AM] [Pool-1[1] Worker<-Texture/INFO]: Constructing a convolve kernel with [0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556]
+[2:25:00 AM] [Pool-1[0] Worker<-MainMenuItem/INFO]: Press key: vk_z(90)
+[2:25:00 AM] [Pool-1[7] Worker<-PlayerSelectMenuItem/INFO]: Press key: vk_z(90)
+[2:25:00 AM] [Pool-1[7] Worker<-ReplayRecorder/INFO]: Initialize record replay.
+[2:25:00 AM] [Pool-1[7] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@48dd18ac
+[2:25:00 AM] [Pool-1[7] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@3a4df7c3
+[2:25:00 AM] [Pool-1[7] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.common.stages.Stage1$3@274f08fb
+[2:25:00 AM] [Pool-1[7] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.common.stages.Stage1$5@11ef62a2
+[2:25:00 AM] [Pool-1[7] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.WaitStageAction@6d505cab
+[2:25:00 AM] [Pool-1[7] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.WaitStageAction@cb6bc85
+[2:25:00 AM] [Thread-1<-ReplayRecorder/INFO]: Start record replay.
+[2:25:00 AM] [Pool-1[1] Worker<-Companion/INFO]: Stop current background.
+[2:25:00 AM] [Pool-1[1] Worker<-Companion/INFO]: Opening new background audio...
+[2:25:00 AM] [Pool-1[1] Worker<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\bk_1.wav)
+[2:25:00 AM] [Pool-1[1] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@48dd18ac
+[2:25:01 AM] [Pool-1[5] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\th15_player_shot_0.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@684dd3ea
+[2:25:01 AM] [Pool-1[0] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@3a4df7c3
+[2:25:01 AM] [Pool-1[1] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\enemy_shoot.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@36d8973f
+[2:25:01 AM] [Pool-1[2] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\th15_enemy_damage_02.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@63d8f967
+[2:25:01 AM] [Pool-1[3] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\th15_enemy_damage_01.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@bea3673
+[2:25:02 AM] [Pool-1[6] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\enemy_dead_0.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@2de05732
+[2:25:05 AM] [Pool-1[1] Worker<-InfoSystem/INFO]: LogicFPS: 49.278247884519665, FPS: 49.278247884519665 | Bullets: 54
+[2:25:06 AM] [Pool-1[0] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.test.common.stages.Stage1$3@274f08fb
+[2:25:11 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: LogicFPS: 62.5, FPS: 62.5 | Bullets: 113
+[2:25:18 AM] [Pool-1[7] Worker<-InfoSystem/INFO]: LogicFPS: 62.50976715111736, FPS: 62.50976715111736 | Bullets: 114
+[2:25:24 AM] [Pool-1[3] Worker<-InfoSystem/INFO]: LogicFPS: 62.49023590064053, FPS: 62.49023590064053 | Bullets: 119
+[2:25:26 AM] [Pool-1[6] Worker<-Companion/INFO]: Stop current background.
+[2:25:26 AM] [Pool-1[6] Worker<-Companion/INFO]: Opening new background audio...
+[2:25:26 AM] [Pool-1[6] Worker<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\test_boss_0_bgm.wav)
+[2:25:26 AM] [Pool-1[6] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.test.common.stages.Stage1$5@11ef62a2
+[2:25:31 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: LogicFPS: 62.5, FPS: 62.5 | Bullets: 0
+[2:25:33 AM] [main<-Player/INFO]: Pause the game.
+[2:25:34 AM] [Pool-1[5] Worker<-PauseMenuItem/INFO]: Press key: vk_down(40)
+[2:25:34 AM] [Pool-1[3] Worker<-PauseMenuItem/INFO]: Press key: vk_z(90)
+[2:25:34 AM] [Pool-1[3] Worker<-Companion/INFO]: Stop current background.
+[2:25:34 AM] [Pool-1[3] Worker<-Companion/INFO]: Opening new background audio...
+[2:25:34 AM] [Pool-1[3] Worker<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\bk_0.wav)
+[2:25:34 AM] [Thread-1<-ReplayRecorder/INFO]: End to record replay, Frames: 0x7f5
+[2:25:35 AM] [Pool-1[5] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
+[2:25:35 AM] [Pool-1[5] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
+[2:25:35 AM] [Pool-1[7] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
+[2:25:35 AM] [Pool-1[4] Worker<-MainMenuItem/INFO]: Press key: vk_z(90)
+[2:25:35 AM] [Pool-1[4] Worker<-SingleInstanceEnsurer/INFO]: Release the file lock on java.io.RandomAccessFile@2afbd883
+[2:25:35 AM] [Thread-0<-CrashReporter/INFO]: Bin file cleared.

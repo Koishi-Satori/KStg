@@ -14,7 +14,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-class TestBoss0Action0(health: Int, frames: Long) : BossAction(health, frames) {
+class TestBoss0Action0(health: Int, frames: Long, val couldAction: () -> Boolean) : BossAction(health, frames) {
     private var bulletCount = 0
     private var ang = 0.0
 
@@ -44,6 +44,8 @@ class TestBoss0Action0(health: Int, frames: Long) : BossAction(health, frames) {
 
         bulletCount++
     }
+
+    override fun canAction(): Boolean = couldAction()
 
     class BossBullet(
         iX: Int,

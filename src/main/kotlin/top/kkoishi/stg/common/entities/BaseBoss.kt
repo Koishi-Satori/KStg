@@ -20,11 +20,13 @@ abstract class BaseBoss(initialX: Int, initialY: Int, firstAction: BossAction) :
 
     override fun action() {
         synchronized(lock) {
-            if (cur.frames >= 0)
-                cur.action(this)
-            if (cur.frames <= 0 && actions.isNotEmpty()) {
-                cur = actions.removeFirst()
-                health = cur.health
+            if (cur.canAction()) {
+                if (cur.frames >= 0)
+                    cur.action(this)
+                if (cur.frames <= 0 && actions.isNotEmpty()) {
+                    cur = actions.removeFirst()
+                    health = cur.health
+                }
             }
         }
     }

@@ -23,7 +23,7 @@ class MainMenu : BaseMenu(GenericSystem.STATE_MENU) {
         // 灵梦白丝
         private val baisi = GFX.getTexture("reimu_baisi")
         override fun paint(g: Graphics2D) {
-            baisi.paint(g, baisi.normalMatrix(), 0, 0)
+            baisi.paint(g, baisi.alphaConvolve(0.5f), 0, 0)
             var pY = y
             items.forEachIndexed { index, item ->
                 if (index == select) {

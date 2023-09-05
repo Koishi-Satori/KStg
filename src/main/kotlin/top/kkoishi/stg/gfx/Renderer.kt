@@ -70,8 +70,8 @@ class Renderer private constructor() : Runnable {
             GenericSystem.STATE_PLAYING -> {
                 try {
                     PlayerManager.curStage.paint(bufferRender)
-                    ObjectPool.player().paint(bufferRender)
                     ObjectPool.objects().forEach { it.paint(bufferRender) }
+                    ObjectPool.player().paint(bufferRender)
                     ObjectPool.bullets().forEach { it.paint(bufferRender) }
                     ObjectPool.uiObjects().forEach { it.paint(bufferRender) }
                     renderFPS(bufferRender)

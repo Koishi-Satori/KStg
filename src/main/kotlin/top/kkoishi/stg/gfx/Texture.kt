@@ -211,6 +211,26 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
         return temp
     }
 
+    fun gaussianBlurConvolve(factor: Float): TextureOp {
+        return createConvolve33Op(gaussianFunction33(factor))
+    }
+
+    @Strictfp
+    fun alphaConvolve(factor: Float): TextureOp {
+        return createConvolve33Op(FloatArray(9) { factor / 9f })
+    }
+
+    private fun createConvolve33Op(data: FloatArray): Convolve33Op {
+        var convolve = cachedConvolve33Op[data]
+        if (convolve != null)
+            return convolve
+        Texture::class.logger()
+            .log(System.Logger.Level.INFO, "Constructing a convolve kernel with ${data.contentToString()}")
+        convolve = Convolve33Op(data)
+        cachedConvolve33Op[data] = convolve
+        return convolve
+    }
+
     /**
      * Returns a Texture operation without any change.
      * The matrix is:
@@ -318,6 +338,20 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
 
         override fun cut(x: Int, y: Int, w: Int, h: Int, name: String): Texture =
             Volatile(texture.getSubimage(x, y, w, h), name)
+    }
+
+    protected class Convolve33Op(kernelMatrix: FloatArray) : TextureOp(AffineTransform()) {
+        private val convolveOp = ConvolveOp(Kernel(3, 3, kernelMatrix))
+
+        override fun createDestImage(texture: BufferedImage): BufferedImage =
+            BufferedImage(texture.width, texture.height, BufferedImage.TYPE_INT_ARGB)
+
+        override fun apply(g: Graphics2D, texture: BufferedImage) {
+            val temp = convolveOp.filter(texture, null)
+            Graphics.applyRenderingHints(g)
+            g.drawImage(temp, 0, 0, null)
+            g.dispose()
+        }
     }
 
     /**
@@ -438,6 +472,54 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
         private const val VRAM_MAX_REPAINT_COUNT = 32
 
         @JvmStatic
+        private val kernel33Coordinates = intArrayOf(
+            -1, 1, 0, 1, 1, 1,
+            -1, 0, 0, 0, 1, 0,
+            -1, -1, 0, -1, 1, -1
+        )
+
+        @JvmStatic
         internal val NORMAL_MATRIX: TextureOp = IdentifyOp
+
+        @JvmStatic
+        private val cachedConvolve33Op = TreeMap<FloatArray, Convolve33Op>(Arrays::compare)
+
+        @Strictfp
+        @JvmStatic
+        private fun gaussianFunction(factor: Float, x: Int, y: Int): Float {
+            val temp = 2 * factor * factor
+            val index = -(x * x + y * y) / temp
+            return (StrictMath.pow(StrictMath.E, index.toDouble()) / (PI * temp)).toFloat()
+        }
+
+        private val cachedGaussianFunction33 = TreeMap<Float, FloatArray>()
+
+        @Strictfp
+        @JvmStatic
+        private fun gaussianFunction33(factor: Float): FloatArray {
+            var res = cachedGaussianFunction33[factor]
+            if (res != null)
+                return res
+
+            var x: Int
+            var y: Int
+            var total = 0f
+            res = FloatArray(9)
+            (0..8).forEach {
+                x = kernel33Coordinates[it * 2]
+                y = kernel33Coordinates[it * 2 + 1]
+                val value = gaussianFunction(factor, x, y)
+                res[it] = value
+                total += value
+            }
+
+            // make the total is 1.
+            res.indices.forEach {
+                res[it] /= total
+            }
+
+            cachedGaussianFunction33[factor] = res
+            return res
+        }
     }
 }

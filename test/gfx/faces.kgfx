@@ -1,0 +1,14 @@
+gfx_items = {
+    gfx = {
+        name = "face_koishi_an"
+        path = "./icons/face_koishi_angry.png"
+    }
+    shear = {
+        name = "face_koishi_angry"
+        key = "face_koishi_an"
+        x = 120
+        y = 0
+        w = 320
+        h = 450
+    }
+}

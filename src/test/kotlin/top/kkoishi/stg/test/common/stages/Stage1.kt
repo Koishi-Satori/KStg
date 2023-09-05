@@ -2,10 +2,7 @@ package top.kkoishi.stg.test.common.stages
 
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.audio.Sounds
-import top.kkoishi.stg.common.AbstractStage
-import top.kkoishi.stg.common.Stage
-import top.kkoishi.stg.common.StageAction
-import top.kkoishi.stg.common.WaitStageAction
+import top.kkoishi.stg.common.*
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.logic.GenericSystem
 import top.kkoishi.stg.logic.ObjectPool
@@ -17,11 +14,13 @@ import top.kkoishi.stg.test.common.enemy.TestBoss0
 import top.kkoishi.stg.test.common.enemy.TestEnemy0
 import top.kkoishi.stg.test.common.enemy.TestEnemy1
 import top.kkoishi.stg.test.common.render.TestStageClearObject
+import java.awt.Graphics2D
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.*
+import kotlin.collections.ArrayDeque
 
-class Stage1(player: Player, playerIndex: Int): AbstractStage() {
+class Stage1(player: Player, playerIndex: Int) : AbstractStage() {
     init {
         val recorder = ReplayRecorder(
             GameSystem.randomSeed, player, intArrayOf(
@@ -56,7 +55,22 @@ class Stage1(player: Player, playerIndex: Int): AbstractStage() {
             }
         })
         addAction(object : StageAction(100L, action = {
-            ObjectPool.addObject(TestBoss0(230, 270, TestBoss0Action0(2000, 2000L)))
+            val testDialog =
+                object : Dialogs(
+                    ArrayDeque(
+                        listOf(
+                            Dialog(
+                                ArrayDeque(listOf(Face("face_koishi_angry", 0, 150, FaceState.DISPLAY))),
+                                "Test Message"
+                            )
+                        )
+                    ), 40, 350, 10, 320
+                ) {
+                    override fun paintBackground(g: Graphics2D) {
+                    }
+                }
+            ObjectPool.addObject(testDialog)
+            ObjectPool.addObject(TestBoss0(230, 270, TestBoss0Action0(2000, 2000L) { testDialog.isEnd() }))
         }) {
             override fun invoke(stage: AbstractStage) {
                 AudioPlayer.setBackground(Sounds.getAudio("test_boss_0_bgm"))
@@ -84,7 +98,7 @@ class Stage1(player: Player, playerIndex: Int): AbstractStage() {
             )
         }))
     }
-    
+
     override fun backgroundName(): String = "bg_1_0"
 
     override fun nextStageImpl(): Stage? = null

@@ -5,7 +5,6 @@ import top.kkoishi.stg.Resources
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.exceptions.CrashReporter
-import top.kkoishi.stg.exceptions.ThreadExceptionHandler
 import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.gfx.Renderer
 import top.kkoishi.stg.logic.GameLoop

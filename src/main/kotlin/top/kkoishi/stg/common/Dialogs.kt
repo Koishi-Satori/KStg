@@ -1,32 +1,106 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package top.kkoishi.stg.common
 
+import top.kkoishi.stg.common.entities.Player
+import top.kkoishi.stg.gfx.GFX
+import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.gfx.Texture
+import top.kkoishi.stg.logic.keys.KeyBinds
+import java.awt.Color
 import java.awt.Graphics2D
 
-class Dialogs(
-    val dialogs: ArrayDeque<Dialog>,
+abstract class Dialogs(
+    dialogs: ArrayDeque<Dialog>,
     private val messageX: Int,
     private val messageY: Int,
     initialX: Int,
     initialY: Int,
 ) : RenderableObject(initialX, initialY) {
-    class Dialog(private val faces: ArrayDeque<Face>, private val message: String) {
-        fun paintMessage(g: Graphics2D, x: Int, y: Int) {
+    private val lock = Any()
 
+    protected val dialogQueue: ArrayDeque<Dialog> = dialogs
+
+    protected var cur: Dialog? = null
+
+    init {
+        if (dialogQueue.isNotEmpty())
+            cur = dialogQueue.removeFirst()
+    }
+
+    open class Dialog(val faces: ArrayDeque<Face>, val message: String) {
+        val font = Graphics.font("Dialog")
+        open fun paintFaces(g: Graphics2D) {
+            faces.forEach {
+                if (it.state != FaceState.HIDE) {
+                    val texture = it.face
+                    val op = when (it.state) {
+                        FaceState.DISPLAY -> texture.normalMatrix()
+                        FaceState.SHADOW -> texture.alphaConvolve(0.5f)
+                        else -> texture.normalMatrix()
+                    }
+                    it.face.paint(g, op, it.x, it.y)
+                }
+            }
+        }
+
+        open fun paintMessage(g: Graphics2D, x: Int, y: Int) {
+            val oldFont = g.font
+            val oldColor = g.color
+            g.color = Color.WHITE
+            g.font = font
+            g.drawString(message, x, y)
+            g.font = oldFont
+            g.color = oldColor
         }
     }
 
-    data class Face(private val face: Texture, private val x: Int, private val y: Int, private val state: FaceState)
+    data class Face(val face: Texture, val x: Int, val y: Int, val state: FaceState) {
+        constructor(face: String, x: Int, y: Int, state: FaceState) : this(GFX[face], x, y, state)
+    }
 
     enum class FaceState {
         DISPLAY, SHADOW, HIDE
     }
 
+    abstract fun paintBackground(g: Graphics2D)
+
+    open fun action() {
+        if (KeyBinds.isPressed(Player.VK_Z)) {
+            KeyBinds.release(Player.VK_Z)
+            cur = if (dialogQueue.isEmpty())
+                null
+            else
+                dialogQueue.removeFirst()
+        }
+    }
+
+    fun isEnd() = dialogQueue.isEmpty() && cur == null
+
     override fun update(): Boolean {
-        TODO("Not yet implemented")
+        if (dialogQueue.isEmpty() && cur == null)
+            return true
+        synchronized(lock) {
+            action()
+        }
+        return false
     }
 
     override fun paint(g: Graphics2D) {
-        TODO("Not yet implemented")
+        var cur: Dialog?
+        synchronized(lock) {
+            cur = this.cur
+            if (dialogQueue.isEmpty() && cur == null) {
+                paintBackground(g)
+                return
+            }
+        }
+        if (cur == null) {
+            paintBackground(g)
+            return
+        }
+        cur!!.paintFaces(g)
+        paintBackground(g)
+        cur!!.paintMessage(g, messageX, messageY)
     }
 }

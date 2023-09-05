@@ -1,3 +1,5 @@
+@file:Suppress("KotlinConstantConditions")
+
 package top.kkoishi.stg.gfx
 
 import top.kkoishi.stg.common.entities.Bullet
@@ -162,6 +164,7 @@ object CollideSystem {
         companion object {
             @JvmStatic
             val ORIGIN = VPoint(0, 0)
+
             @JvmStatic
             val ILLEGAL = VPoint(Double.NaN, Double.NaN)
         }
