@@ -6,9 +6,17 @@ import top.kkoishi.stg.logic.GenericSystem
 import top.kkoishi.stg.test.Test
 import top.kkoishi.stg.test.common.GameSystem
 import java.awt.Graphics2D
+import java.awt.event.KeyEvent
 
 
 class PauseMenu : BaseMenu(GenericSystem.STATE_PAUSE) {
+    override fun initKeyEvents() {
+        super.initKeyEvents()
+        keyEvents[KeyEvent.VK_ESCAPE] = {
+            GenericSystem.gameState.set(GenericSystem.STATE_PLAYING)
+        }
+    }
+
     open class PauseMenuItem(x: Int, y: Int, menu: BaseMenu, selectedTextures: ArrayDeque<Texture>) :
         AbstractMenuItem(x, y, menu, selectedTextures) {
         override fun paint(g: Graphics2D) {
@@ -26,9 +34,9 @@ class PauseMenu : BaseMenu(GenericSystem.STATE_PAUSE) {
         override fun invoke() {
             when (select) {
                 0 -> GenericSystem.gameState.set(GenericSystem.STATE_PLAYING)
-                1 -> Test.menu()
+                1 -> Test.mainMenu()
                 2 -> {
-                    Test.menu()
+                    Test.mainMenu()
                     Test.start(GameSystem.playerIndex)
                 }
 

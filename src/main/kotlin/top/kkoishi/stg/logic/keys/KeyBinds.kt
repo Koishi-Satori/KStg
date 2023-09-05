@@ -31,7 +31,7 @@ object KeyBinds {
     }
 
     @JvmStatic
-    fun bind(f: JFrame) {
+    fun attach(f: JFrame) {
         f.addKeyListener(SimpleListener())
     }
 

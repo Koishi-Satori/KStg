@@ -2,12 +2,10 @@ package top.kkoishi.stg.test
 
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.audio.Sounds
-import top.kkoishi.stg.boot.FastBootstrapper
-import top.kkoishi.stg.boot.Settings
+import top.kkoishi.stg.boot.Bootstrapper
 import top.kkoishi.stg.boot.ui.LoadingFrame
 import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.common.entities.Player
-import top.kkoishi.stg.exceptions.CrashReporter
 import top.kkoishi.stg.exceptions.InternalError
 import top.kkoishi.stg.exceptions.ThreadExceptionHandler
 import top.kkoishi.stg.gfx.Renderer
@@ -21,13 +19,9 @@ import top.kkoishi.stg.script.AudioLoader
 import top.kkoishi.stg.script.GFXLoader
 import top.kkoishi.stg.test.common.GameSystem
 import top.kkoishi.stg.test.common.stages.Stage1
-import top.kkoishi.stg.util.OptimizedContainer
 import top.kkoishi.stg.util.Option
 import top.kkoishi.stg.util.Options
 import java.awt.Insets
-import java.awt.event.WindowAdapter
-import java.awt.event.WindowEvent
-import kotlin.system.exitProcess
 
 object Test {
     private const val WIDTH = 640
@@ -46,27 +40,40 @@ object Test {
     private var fullScreen: Boolean = false
 
     @JvmStatic
-    private var useVRAM: Boolean = false
-
-    @JvmStatic
     private var scale: Pair<Int, Int>? = null
 
     @JvmStatic
+    private var useVRAM = false
+
+    @JvmStatic
     fun main(args: Array<String>) {
-        FastBootstrapper.setAccelerationProperties()
+        Bootstrapper.enableHardwareAccelerationProperties()
+        handleArgs(args)
         GenericSystem.logToFile = true
-        val settings = Settings.INI("./engine.ini")
-        if (settings.read())
-            settings.load()
-        else
-            Test::class.logger().log(System.Logger.Level.WARNING, "Failed to read ${settings.file}")
+        Bootstrapper.readEngineSettings()
+        val load = LoadingFrame("${Threads.workdir()}/test/load.jpg")
         initThreadHandler()
-        initOptions()
-        if (SingleInstanceEnsurer.setLockedFile("./.lock") == null)
-            load(args)
+        if (SingleInstanceEnsurer.setLockedFile("./.lock") == null) {
+            if (Options.State.debug) {
+                Test::class.logger().log(System.Logger.Level.DEBUG, "Debug mode on.")
+                Test::class.logger().log(System.Logger.Level.DEBUG, "Program arguments: ${args.contentToString()}")
+            }
+
+            Bootstrapper().size(WIDTH, HEIGHT).autoSync().containerTitle("KKoishi_ Stg Engine Test")
+                .fullscreen(fullScreen).scale(scale).useEngineDefaultIcon().useVRAM(useVRAM).uiInsets(
+                    UI_INSETS.top, UI_INSETS.left, UI_INSETS.bottom, UI_INSETS.right
+                ).append(GFXLoader("${Threads.workdir()}/test/gfx"))
+                .append(AudioLoader("${Threads.workdir()}/test/audio")).initMethod {
+                    keyBinds()
+                    initPauseMenu()
+                    initMainMenu()
+                    load.end()
+                    mainMenu()
+                }.start()
+        }
     }
 
-    private fun initOptions() {
+    private fun handleArgs(args: Array<String>) {
         Options.addOption(Option(false, "fullscreen") { _, _ -> fullScreen = true })
         Options.addOption(Option(true, "scale") { o, arg ->
             if (fullScreen)
@@ -84,44 +91,7 @@ object Test {
         })
         Options.addOption(Option(false, "useVRAM", "vram") { _, _ -> useVRAM = true })
         Options.addOption(Option(false, "invincible", "inv") { _, _ -> invincible = true })
-    }
-
-    private fun load(args: Array<String>) {
         Options.handleArguments(args)
-        if (Options.State.debug) {
-            Test::class.logger().log(System.Logger.Level.DEBUG, "Debug mode on.")
-            Test::class.logger().log(System.Logger.Level.DEBUG, "Program arguments: ${args.contentToString()}")
-        }
-        if (useVRAM)
-            Renderer.useVRAM()
-        val load = LoadingFrame("${Threads.workdir()}/test/load.jpg")
-        loadResources()
-        initJFrame()
-        keyBinds()
-        load.end()
-        initPauseMenu()
-        menu()
-        FastBootstrapper.beginThreads()
-    }
-
-    private fun initJFrame() {
-        val f = OptimizedContainer("KKoishi_ Stg Engine Test")
-        f.addWindowListener(object : WindowAdapter() {
-            override fun windowClosing(e: WindowEvent?) {
-                Test::class.logger().log(System.Logger.Level.INFO, "Window is closing.")
-                SingleInstanceEnsurer.release()
-                exitProcess(CrashReporter.EXIT_OK)
-            }
-        })
-        FastBootstrapper.useEngineIconImage(f)
-        FastBootstrapper.autoSync(f)
-
-        val scale = scale
-        if (scale != null)
-            FastBootstrapper.display(f, WIDTH, HEIGHT, UI_INSETS, scale.first, scale.second)
-        else
-            FastBootstrapper.display(f, WIDTH, HEIGHT, UI_INSETS, fullScreen)
-        FastBootstrapper.keyBinds(f)
     }
 
     private fun keyBinds() {
@@ -141,13 +111,6 @@ object Test {
             VK_F11, KeyBindEventWithCaller(null) { _: Object? ->
                 Screen.takeScreenshot("${Threads.workdir()}/screenshots/screenshot_${System.currentTimeMillis()}_${Renderer.frame()}.png")
             })
-        Player.registerKeyEvents()
-    }
-
-    private fun loadResources() {
-        // load from scripts
-        GFXLoader("${Threads.workdir()}/test/gfx").loadDefinitions()
-        AudioLoader("${Threads.workdir()}/test/audio").loadDefinitions()
     }
 
     private fun initThreadHandler() {
@@ -171,12 +134,15 @@ object Test {
             ObjectPool.addUIObject(pauseMenu)
     }
 
-    fun menu() {
-        AudioPlayer.setBackground(Sounds.getAudio("bk_0"))
+    private fun initMainMenu() {
         val mainMenu = GameSystem.mainMenu
-        mainMenu.restore()
         if (!ObjectPool.containsUIObject(mainMenu))
             ObjectPool.addUIObject(mainMenu)
+    }
+
+    fun mainMenu() {
+        AudioPlayer.setBackground(Sounds.getAudio("bk_0"))
+        GameSystem.mainMenu.restore()
         // switch to menu
         GenericSystem.gameState.set(GenericSystem.STATE_MENU)
     }

@@ -30,14 +30,14 @@ class TestBoss0Action0(health: Int, frames: Long) : BossAction(health, frames) {
                 BossBullet(
                     boss.x().toInt(),
                     boss.y().toInt() + 20,
-                    ang % PI
+                    ang
                 )
             )
             ObjectPool.addBullet(
                 BossBullet(
                     boss.x().toInt(),
                     boss.y().toInt() - 20,
-                    ang % PI + PI
+                    ang + PI
                 )
             )
         }

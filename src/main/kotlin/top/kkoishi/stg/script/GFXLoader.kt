@@ -40,7 +40,12 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
         LocalVariables[scopeName] = this
     }
 
+    private val unloaded = HashMap<String, Instruction>()
+
+    private val unnamedUnloaded = ArrayDeque<Instruction>()
+
     private val logger = GFXLoader::class.logger()
+
     override fun loadDefinitions() {
         logger.log(System.Logger.Level.INFO, "Load textures from scripts.")
         for (path in root.toFile().listFiles()!!) {
@@ -54,6 +59,61 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
                     logger.log(System.Logger.Level.ERROR, e)
                 }
         }
+
+        tryLoadUnloaded()
+    }
+
+    private fun tryLoadUnloaded() {
+        // load named first.
+        // if catch an exception, will load the instruction directly.
+        val rest = unloaded.map { it.key }.toCollection(ArrayDeque(unloaded.size))
+        var name: String? = null
+        while (rest.isNotEmpty()) {
+            if (name == null)
+                name = rest.removeFirst()
+            val inst = unloaded[name] ?: continue
+
+            val newName = tryLoadInstruction(inst as InstWithReference)
+            if (newName != null) {
+                if (unloaded[newName] == null) {
+                    try {
+                        if (inst.needVars()) inst(this@GFXLoader) else inst()
+                    } catch (e: Exception) {
+                        logger.log(System.Logger.Level.ERROR, e)
+                    }
+                    name = null
+                    continue
+                }
+                rest.addFirst(name)
+            }
+            name = newName
+        }
+        unloaded.clear()
+
+        // load the unnamed.
+        unnamedUnloaded.forEach {
+            try {
+                if (it.needVars()) it(this@GFXLoader) else it()
+            } catch (e: Exception) {
+                logger.log(System.Logger.Level.ERROR, e)
+            }
+        }
+        unnamedUnloaded.clear()
+    }
+
+    /**
+     * Try to load [InstWithReference], if the reference [InstWithReference.key] is not loaded, will return
+     * its name, or null.
+     */
+    private fun tryLoadInstruction(inst: InstWithReference): String? {
+        val key = inst.key
+        return if (GFX[key] == GFX.notFound())
+            key
+        else {
+            val it = inst as Instruction
+            if (it.needVars()) it(this@GFXLoader) else it()
+            null
+        }
     }
 
     private fun loadDefinitionFile(path: File) {
@@ -66,7 +126,12 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
             try {
                 if (it.needVars()) it(this@GFXLoader) else it()
             } catch (e: Exception) {
-                logger.log(System.Logger.Level.ERROR, e)
+                logger.log(System.Logger.Level.TRACE, e)
+                logger.log(System.Logger.Level.INFO, "$it will be load at last.")
+                if (it is InstWithReference)
+                    unloaded[it.name] = it
+                else
+                    unnamedUnloaded.addLast(it)
             }
         }
         rest.close()
@@ -100,13 +165,13 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
     }
 
     private inner class shear(
-        private val name: String,
-        private val key: String,
+        override val name: String,
+        override val key: String,
         private val x: String,
         private val y: String,
         private val w: String,
         private val h: String,
-    ) : Instruction(0x22) {
+    ) : Instruction(0x22), InstWithReference {
         override fun needVars(): Boolean = false
 
         @Throws(FailedLoadingResourceException::class)
@@ -124,12 +189,12 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
 
     @Suppress("PrivatePropertyName")
     private inner class shear_font(
-        private val name: String,
-        private val key: String,
+        override val name: String,
+        override val key: String,
         private val width: Int,
         private val height: Int,
         private val jvm_method_descriptor: String,
-    ) : Instruction(0x23) {
+    ) : Instruction(0x23), InstWithReference {
         override fun needVars(): Boolean = false
 
         private fun getFunction(): (Char) -> Pair<Int, Int> {
@@ -249,5 +314,10 @@ class GFXLoader @JvmOverloads constructor(private val root: Path, private val us
                 parameters["jvm_md"]!!.toString()
             )
         }
+    }
+
+    private interface InstWithReference {
+        val name: String
+        val key: String
     }
 }

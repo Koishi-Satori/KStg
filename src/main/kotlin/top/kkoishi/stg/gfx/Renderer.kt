@@ -49,7 +49,7 @@ class Renderer private constructor() : Runnable {
         scaled = true
     }
 
-    private fun fullScreen() {
+    private fun fullscreen() {
         val monitorMode = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.displayMode
         scale(monitorMode.width, monitorMode.height)
         fullScreen = true
@@ -191,7 +191,7 @@ class Renderer private constructor() : Runnable {
             instance.frame.set(GameLoop.logicFrame())
         }
 
-        fun fullScreen() = instance.fullScreen()
+        fun fullscreen() = instance.fullscreen()
 
         fun scale(targetWidth: Int, targetHeight: Int) = instance.scale(targetWidth, targetHeight)
 

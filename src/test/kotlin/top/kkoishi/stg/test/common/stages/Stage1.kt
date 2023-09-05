@@ -5,6 +5,7 @@ import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.common.AbstractStage
 import top.kkoishi.stg.common.Stage
 import top.kkoishi.stg.common.StageAction
+import top.kkoishi.stg.common.WaitStageAction
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.logic.GenericSystem
 import top.kkoishi.stg.logic.ObjectPool
@@ -68,16 +69,10 @@ class Stage1(player: Player, playerIndex: Int): AbstractStage() {
                 return false
             }
         })
-        addAction(object : StageAction(200L, action = {
+        addAction(WaitStageAction(50L, action = {
             ObjectPool.addObject(TestStageClearObject(100, 100))
-        }) {
-            override fun canAction(): Boolean {
-                if (!ObjectPool.objects().hasNext())
-                    return super.canAction()
-                return false
-            }
-        })
-        addAction(object : StageAction(500L, action = {
+        }))
+        addAction(WaitStageAction(100L, action = {
             AudioPlayer.setBackground(Sounds.getAudio("bk_0"))
             // switch to menu
             GameSystem.mainMenu.curLevel = GameSystem.rootMainMenu
@@ -87,13 +82,7 @@ class Stage1(player: Player, playerIndex: Int): AbstractStage() {
                 SimpleDateFormat("'KStg-TestReplay-'yyyy-MM-dd_HH.mm.ss").format(Date.from(Instant.now())),
                 0L
             )
-        }) {
-            override fun canAction(): Boolean {
-                if (!ObjectPool.objects().hasNext())
-                    return super.canAction()
-                return false
-            }
-        })
+        }))
     }
     
     override fun backgroundName(): String = "bg_1_0"

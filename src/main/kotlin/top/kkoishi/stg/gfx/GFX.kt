@@ -83,6 +83,11 @@ object GFX : Resources<Texture, String> {
         return textures[key] ?: NOT_FOUND
     }
 
+    /**
+     * Get the texture returned when the key is not found.
+     *
+     * @return Not Found Texture.
+     */
     fun notFound() = NOT_FOUND
 
     @JvmOverloads

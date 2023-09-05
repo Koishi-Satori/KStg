@@ -1,7 +1,7 @@
 package top.kkoishi.stg
 
 import top.kkoishi.stg.audio.Sounds
-import top.kkoishi.stg.boot.FastBootstrapper
+import top.kkoishi.stg.boot.Bootstrapper
 import top.kkoishi.stg.exceptions.CrashReportGenerator
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.gfx.GFX
@@ -54,7 +54,7 @@ internal interface Resources<ResourceType, LoadType> {
 
                 CrashReportGenerator::class.java ->
                     return Companion::class.java.getResourceAsStream(".comments")
-                FastBootstrapper::class.java ->
+                Bootstrapper::class.java ->
                     return Companion::class.java.getResourceAsStream("logo.ico")
             }
             return null
