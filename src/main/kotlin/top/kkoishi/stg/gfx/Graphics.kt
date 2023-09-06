@@ -30,6 +30,16 @@ object Graphics {
 
     private val DEFAULT_FONT = Font("Times New Roman", Font.BOLD, 20)
 
+    @JvmStatic
+    private val FONT_STYLES = HashMap<String, Int>(
+        mapOf(
+            "BOLD" to Font.BOLD,
+            "PLAIN" to Font.PLAIN,
+            "ITALIC" to Font.ITALIC,
+            "PLAIN_ITALIC" to Font.ITALIC + Font.BOLD
+        )
+    )
+
     private val INSETS: Insets = Insets(0, 0, 0, 0)
 
     private lateinit var container: JFrame
@@ -148,4 +158,6 @@ object Graphics {
         r.clearRect(0, 0, vImg.width, vImg.height)
         r.dispose()
     }
+
+    fun parseFontStyle(name: String): Int = FONT_STYLES[name] ?: 1
 }

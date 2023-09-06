@@ -11,4 +11,64 @@ gfx_items = {
         w = 320
         h = 450
     }
+    gfx = {
+        name = "face_koishi_pz"
+        path = "./icons/face_koishi_puzzle.png"
+    }
+    shear = {
+        name = "face_koishi_puzzle"
+        key = "face_koishi_pz"
+        x = 120
+        y = 0
+        w = 320
+        h = 450
+    }
+    gfx = {
+        name = "face_koishi_nb"
+        path = "./icons/face_koishi_nanbeng.png"
+    }
+    shear = {
+        name = "face_koishi_nanbeng"
+        key = "face_koishi_nb"
+        x = 120
+        y = 0
+        w = 320
+        h = 450
+    }
+    gfx = {
+        name = "face_seiryuu_lo"
+        path = "./icons/face_seiryuu_low.png"
+    }
+    shear = {
+        name = "face_seiryuu_low"
+        key = "face_seiryuu_lo"
+        x = 100
+        y = 0
+        w = 295
+        h = 450
+    }
+    gfx = {
+        name = "face_seiryuu_ct"
+        path = "./icons/face_seiryuu_cat.png"
+    }
+    shear = {
+        name = "face_seiryuu_cat"
+        key = "face_seiryuu_ct"
+        x = 100
+        y = 0
+        w = 295
+        h = 450
+    }
+    shear = {
+        name = "dialog"
+        key = "objects"
+        x = 0
+        y = 44
+        w = 384
+        h = 104
+    }
+    gfx = {
+        name = "objects"
+        path = "./icons/objs.png"
+    }
 }

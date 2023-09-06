@@ -4,6 +4,7 @@ import top.kkoishi.stg.common.ui.SideBar
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.GFX.renderTypedNumber
 import top.kkoishi.stg.gfx.Graphics
+import top.kkoishi.stg.logic.GenericSystem
 import java.awt.Color
 import java.awt.Graphics2D
 import java.util.concurrent.atomic.AtomicLong
@@ -41,6 +42,7 @@ class GameSideBar : SideBar(0, 0) {
     }
 
     override fun updateInfo() {
-        score.getAndAdd(10)
+        if (!GenericSystem.inDialog)
+            score.getAndAdd(10)
     }
 }

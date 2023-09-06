@@ -1,6 +1,7 @@
 package top.kkoishi.stg.logic
 
 import top.kkoishi.stg.common.ui.*
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 
 object GenericSystem {
@@ -51,4 +52,12 @@ object GenericSystem {
 
     @JvmStatic
     var logToFile: Boolean = false
+
+    @JvmStatic
+    private val inDialogImpl = AtomicBoolean(false)
+
+    @JvmStatic
+    var inDialog: Boolean
+        set(value) = inDialogImpl.set(value)
+        get() = inDialogImpl.get()
 }

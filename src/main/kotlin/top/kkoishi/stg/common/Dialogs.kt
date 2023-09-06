@@ -6,6 +6,7 @@ import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.gfx.Texture
+import top.kkoishi.stg.logic.GenericSystem
 import top.kkoishi.stg.logic.keys.KeyBinds
 import java.awt.Color
 import java.awt.Graphics2D
@@ -29,7 +30,7 @@ abstract class Dialogs(
     }
 
     open class Dialog(val faces: ArrayDeque<Face>, val message: String) {
-        val font = Graphics.font("Dialog")
+        val font = Graphics.font("dialog")
         open fun paintFaces(g: Graphics2D) {
             faces.forEach {
                 if (it.state != FaceState.HIDE) {
@@ -52,6 +53,10 @@ abstract class Dialogs(
             g.drawString(message, x, y)
             g.font = oldFont
             g.color = oldColor
+        }
+
+        override fun toString(): String {
+            return "Dialog(faces=$faces, message='$message')"
         }
     }
 
@@ -78,8 +83,11 @@ abstract class Dialogs(
     fun isEnd() = dialogQueue.isEmpty() && cur == null
 
     override fun update(): Boolean {
-        if (dialogQueue.isEmpty() && cur == null)
+        if (dialogQueue.isEmpty() && cur == null) {
+            GenericSystem.inDialog = false
             return true
+        }
+        GenericSystem.inDialog = true
         synchronized(lock) {
             action()
         }
@@ -102,5 +110,16 @@ abstract class Dialogs(
         cur!!.paintFaces(g)
         paintBackground(g)
         cur!!.paintMessage(g, messageX, messageY)
+    }
+
+    companion object {
+        @JvmStatic
+        private val storedDialogs = HashMap<String, Dialogs>()
+
+        fun addDialog(key: String, dialogs: Dialogs) {
+            storedDialogs[key] = dialogs
+        }
+
+        fun getDialog(key: String) = storedDialogs[key]
     }
 }

@@ -55,22 +55,15 @@ class Stage1(player: Player, playerIndex: Int) : AbstractStage() {
             }
         })
         addAction(object : StageAction(100L, action = {
-            val testDialog =
-                object : Dialogs(
-                    ArrayDeque(
-                        listOf(
-                            Dialog(
-                                ArrayDeque(listOf(Face("face_koishi_angry", 0, 150, FaceState.DISPLAY))),
-                                "Test Message"
-                            )
-                        )
-                    ), 40, 350, 10, 320
-                ) {
-                    override fun paintBackground(g: Graphics2D) {
-                    }
-                }
-            ObjectPool.addObject(testDialog)
-            ObjectPool.addObject(TestBoss0(230, 270, TestBoss0Action0(2000, 2000L) { testDialog.isEnd() }))
+            val dialog = Dialogs.getDialog("test_0")
+            if (dialog != null)
+                ObjectPool.addObject(dialog)
+            ObjectPool.addObject(
+                TestBoss0(
+                    230,
+                    270,
+                    TestBoss0Action0(2000, 2000L) { dialog?.isEnd() ?: true })
+            )
         }) {
             override fun invoke(stage: AbstractStage) {
                 AudioPlayer.setBackground(Sounds.getAudio("test_boss_0_bgm"))

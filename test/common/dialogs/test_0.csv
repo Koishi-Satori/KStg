@@ -1,0 +1,6 @@
+test_0,dialog,40,370,10,320
+Test START Message,2,face_koishi_puzzle,0,150,SHADOW,face_seiryuu_low,200,150,DISPLAY
+Test Message\nTest Message,2,face_koishi_puzzle,0,150,DISPLAY,face_seiryuu_low,200,150,SHADOW
+Test Message\nTest Message,2,face_koishi_nanbeng,0,150,DISPLAY,face_seiryuu_low,200,150,SHADOW
+Test Message\nTest Message,2,face_koishi_nanbeng,0,150,SHADOW,face_seiryuu_cat,200,150,DISPLAY
+Test END Message,1,face_koishi_angry,0,150,DISPLAY

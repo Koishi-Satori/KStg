@@ -3,11 +3,13 @@ package top.kkoishi.stg.test
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.boot.Bootstrapper
+import top.kkoishi.stg.boot.Settings
 import top.kkoishi.stg.boot.ui.LoadingFrame
 import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.exceptions.InternalError
 import top.kkoishi.stg.exceptions.ThreadExceptionHandler
+import top.kkoishi.stg.gfx.Graphics
 import top.kkoishi.stg.gfx.Renderer
 import top.kkoishi.stg.gfx.Screen
 import top.kkoishi.stg.logic.*
@@ -16,11 +18,13 @@ import top.kkoishi.stg.logic.keys.KeyBindEventWithCaller
 import top.kkoishi.stg.logic.keys.KeyBinds
 import top.kkoishi.stg.replay.ReplayRecorder
 import top.kkoishi.stg.script.AudioLoader
+import top.kkoishi.stg.script.DialogsLoader
 import top.kkoishi.stg.script.GFXLoader
 import top.kkoishi.stg.test.common.GameSystem
 import top.kkoishi.stg.test.common.stages.Stage1
 import top.kkoishi.stg.util.Option
 import top.kkoishi.stg.util.Options
+import java.awt.Font
 import java.awt.Insets
 
 object Test {
@@ -50,8 +54,8 @@ object Test {
         // enable hardware acceleration for java2d.
         Bootstrapper.enableHardwareAccelerationProperties()
         handleArgs(args)
+        readSettings()
         GenericSystem.logToFile = true
-        Bootstrapper.readEngineSettings()
         val load = LoadingFrame("${Threads.workdir()}/test/load.jpg")
         initThreadHandler()
         // ensure single instance of this engine.
@@ -65,6 +69,7 @@ object Test {
                 .fullscreen(fullScreen).scale(scale).useEngineDefaultIcon().useVRAM(useVRAM).uiInsets(
                     UI_INSETS.top, UI_INSETS.left, UI_INSETS.bottom, UI_INSETS.right
                 ).append(GFXLoader("${Threads.workdir()}/test/gfx"))
+                .append(DialogsLoader("${Threads.workdir()}/test/common/dialogs"))
                 .append(AudioLoader("${Threads.workdir()}/test/audio")).initMethod {
                     keyBinds()
                     initPauseMenu()
@@ -72,6 +77,24 @@ object Test {
                     load.end()
                     mainMenu()
                 }.start()
+        }
+    }
+
+    private fun readSettings() {
+        Bootstrapper.readEngineSettings()
+        val fonts = Settings.INI("${Threads.workdir()}/test/fonts.ini")
+        var dialogFontName = ""
+        var dialogFontStyle = Font.BOLD
+        var dialogFontSize = 20
+        fonts.addHandler("dialog::name") { dialogFontName = it }
+        fonts.addHandler("dialog::style") { dialogFontStyle = Graphics.parseFontStyle(it) }
+        fonts.addHandler("dialog::size") { dialogFontSize = it.toInt() }
+
+        if (fonts.read())
+            fonts.load()
+        if (dialogFontName.isNotEmpty()) {
+            Graphics.setFont(dialogFontName, Font(dialogFontName, dialogFontStyle, dialogFontSize))
+            Test::class.logger().log(System.Logger.Level.INFO, "Set dialog font to $dialogFontName")
         }
     }
 

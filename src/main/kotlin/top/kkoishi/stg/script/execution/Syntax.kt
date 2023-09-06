@@ -568,22 +568,21 @@ internal fun Char.isVarChar(): Boolean {
  * Returns a string whose value is this string, with escape sequences translated as if in a string literal,
  * and this method is used for translate the escape chars in the string of scripts.
  *
- * Escape sequences are translated as follows;
- * ```
- * Translation
- * Escape                  Name       Translation
- * \b                   backspace        U+0008
- * \t                  horizontal tab    U+0009
- * \n                   line feed        U+000A
- * \f                   form feed        U+000C
- * \r                  carriage return   U+000D
- * \s                     space          U+0020
- * \"                  double quote      U+0022
- * \'                  single quote      U+0027
- * \\                   backslash        U+005C
- * \0 - \377           octal escape      code point equivalents
- * \<line-terminator>  continuation      discard
- * ```
+ * Escape sequences are translated as follows:
+ *
+ * |       Escape       |      Name        |       Translation       |
+ * |  :--------------:  | :--------------  | ----------------------- |
+ * | \b                 |   backspace      |  U+0008                 |
+ * | \t                 |  horizontal tab  |  U+0009                 |
+ * | \n                 |   line feed      |  U+000A                 |
+ * | \f                 |   form feed      |  U+000C                 |
+ * | \r                 |  carriage return |  U+000D                 |
+ * | \s                 |     space        |  U+0020                |
+ * | \"                 |  double quote    |  U+0022                 |
+ * | \'                 |  single quote    |  U+0027                 |
+ * | \\                 |   backslash      |  U+005C                 |
+ * | \0 - \377          |  octal escape    |  code point equivalents |
+ * | \<line-terminator> |  continuation    |  discard                |
  *
  * ## This method does not translate Unicode escapes such as "\u2022".
  * ## Unicode escapes are translated by the Java compiler when reading input characters and are not part of the string literal specification.
