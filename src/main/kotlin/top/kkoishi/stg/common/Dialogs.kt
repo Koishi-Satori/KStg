@@ -11,6 +11,11 @@ import top.kkoishi.stg.logic.keys.KeyBinds
 import java.awt.Color
 import java.awt.Graphics2D
 
+/**
+ * Dialogs of the game, used to explain the useless game background.
+ *
+ * @author KKoishi_
+ */
 abstract class Dialogs(
     dialogs: ArrayDeque<Dialog>,
     private val messageX: Int,

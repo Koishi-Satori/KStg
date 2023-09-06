@@ -2,6 +2,7 @@
 
 package top.kkoishi.stg.gfx
 
+import top.kkoishi.stg.exceptions.InternalError
 import top.kkoishi.stg.gfx.Graphics.makeTranslucent
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.util.Mth.cos
@@ -211,13 +212,61 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
         return temp
     }
 
+    /**
+     * Return an instance of TextureOp which implements a convolution from the source texture to the destination
+     * texture provided a Gaussian blur effect for textures, and its convolve kernel conforms to the Gaussian
+     * distribution with sum of 1.
+     *
+     * For the edge pixels of the image, the default value of missing pixels within the convolution radius is
+     * set to 0 when performing convolution operations.
+     *
+     * @param factor the factor of the transparency and brightness.
+     * @return an instance of TextureOp which implements a convolution from the source texture to the destination.
+     */
     fun gaussianBlurConvolve(factor: Float): TextureOp {
         return createConvolve33Op(gaussianFunction33(factor))
     }
 
+    /**
+     * Return an instance of TextureOp which implements a convolution from the source texture to the destination
+     * texture with the ability adjusting the transparency and brightness of this texture.
+     *
+     * For the edge pixels of the image, the default value of missing pixels within the convolution radius is
+     * set to 0 when performing convolution operations.
+     *
+     * @param factor the factor of the transparency and brightness.
+     * @return an instance of TextureOp which implements a convolution from the source texture to the destination.
+     */
     @Strictfp
     fun alphaConvolve(factor: Float): TextureOp {
         return createConvolve33Op(FloatArray(9) { factor / 9f })
+    }
+
+    /**
+     * Return an instance of TextureOp which implements a convolution from the source texture to the destination texture.
+     * Convolution using a convolution kernel is a spatial operation that computes the output pixel from an input pixel
+     * by multiplying the kernel with the surround of the input pixel. This allows the output pixel to be affected by
+     * the immediate neighborhood in a way that can be mathematically specified with a kernel, and the kernel size
+     * is 3 * 3 by passing in a float array with the length of 9.
+     *
+     * The destination texture always has a alpha channel, and color components will be pre-multiplied with
+     * the alpha component. The convolution operation provides a free transformation effect for the input
+     * texture, and two predefined convolution operations are provided in the Texture class, which are
+     * transparency and Gaussian blur([alphaConvolve] and [gaussianBlurConvolve]). Also, you can use the method
+     * [convolve] to get an instance of this class. All convolution operations and processed textures will be
+     * cached by the Texture class to improve rendering performance.
+     *
+     * For the edge pixels of the image, the default value of missing pixels within the convolution radius is
+     * set to 0 when performing convolution operations.
+     *
+     * @param data the kernel of the convolution.
+     * @return an instance of TextureOp which implements a convolution from the source texture to the destination texture.
+     */
+    fun convolve(data: FloatArray): TextureOp {
+        assert(data.size == 9) {
+            throw InternalError("The matrix of the convolve kernel must be 3 * 3, you should pass an float array with length of 9")
+        }
+        return createConvolve33Op(data)
     }
 
     private fun createConvolve33Op(data: FloatArray): Convolve33Op {
@@ -340,6 +389,25 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
             Volatile(texture.getSubimage(x, y, w, h), name)
     }
 
+    /**
+     * This class implements a convolution from the source texture to the destination texture. Convolution using
+     * a convolution kernel is a spatial operation that computes the output pixel from an input pixel by multiplying
+     * the kernel with the surround of the input pixel. This allows the output pixel to be affected by the immediate
+     * neighborhood in a way that can be mathematically specified with a kernel, and the kernel size is 3 * 3 by
+     * passing in a float array with the length of 9.
+     *
+     * The destination texture always has a alpha channel, and color components will be pre-multiplied with
+     * the alpha component. The convolution operation provides a free transformation effect for the input
+     * texture, and two predefined convolution operations are provided in the Texture class, which are
+     * transparency and Gaussian blur([alphaConvolve] and [gaussianBlurConvolve]). Also, you can use the method
+     * [convolve] to get an instance of this class. All convolution operations and processed textures will be
+     * cached by the Texture class to improve rendering performance.
+     *
+     * For the edge pixels of the image, the default value of missing pixels within the convolution radius is
+     * set to 0 when performing convolution operations.
+     *
+     * @author KKoishi_
+     */
     protected class Convolve33Op(kernelMatrix: FloatArray) : TextureOp(AffineTransform()) {
         private val convolveOp = ConvolveOp(Kernel(3, 3, kernelMatrix))
 
