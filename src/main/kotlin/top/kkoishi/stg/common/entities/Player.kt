@@ -1,5 +1,6 @@
 package top.kkoishi.stg.common.entities
 
+import top.kkoishi.stg.common.bullets.PlayerBullet
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.logic.GenericSystem

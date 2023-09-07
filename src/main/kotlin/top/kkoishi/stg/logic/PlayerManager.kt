@@ -1,6 +1,6 @@
 package top.kkoishi.stg.logic
 
-import top.kkoishi.stg.common.entities.Bullet
+import top.kkoishi.stg.common.bullets.Bullet
 import top.kkoishi.stg.common.Stage
 import top.kkoishi.stg.logic.ObjectPool.objectMap
 import top.kkoishi.stg.logic.ObjectPool.playerBullets

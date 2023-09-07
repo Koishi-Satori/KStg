@@ -12,7 +12,7 @@ import top.kkoishi.stg.util.Options
 import java.awt.*
 import java.awt.geom.AffineTransform
 import java.awt.image.*
-import java.awt.image.AffineTransformOp.TYPE_NEAREST_NEIGHBOR
+import java.awt.image.AffineTransformOp.TYPE_BILINEAR
 import java.lang.StrictMath.PI
 import java.util.*
 import kotlin.math.absoluteValue
@@ -29,10 +29,12 @@ import java.awt.image.ConvolveOp as Java2DConvolveOp
  * | name | return type | instructions |
  * | :--: | :---------: | :----------- |
  * | [rotate] | [RotateOp] | Provides TextureOp can be used for rotating the texture around its center point |
- * | [alphaConvolve] | [ConvolveOp] | Provides convolution filters that can adjust texture transparency and brightness |
- * | [alphaConvolve33] | [Convolve33Op] | Provides convolution filters that can adjust texture transparency and brightness, but with a 3 * 3 convolution kernel. |
- * | [gaussianFunction] | [ConvolveOp] | Provides a convolution filter that can perform Gaussian blur processing on textures and with its convolution kernel follows a two-dimensional Gaussian distribution. |
- * | [gaussianFunction33] | [Convolve33Op] | Provides a convolution filter that can perform Gaussian blur processing on textures and with its convolution kernel which is in the size of 3 * 3, follows a two-dimensional Gaussian distribution. |
+ * | [averageConvolve] | [ConvolveOp] | Provides convolution filters that can remove the image noise of this texture. |
+ * | [averageConvolve33] | [Convolve33Op] | Provides convolution filters that can remove the image noise of this texture, but with a 3 * 3 convolution kernel. |
+ * | [gaussianBlurConvolve] | [ConvolveOp] | Provides a convolution filter that can perform Gaussian blur processing on textures and with its convolution kernel follows a two-dimensional Gaussian distribution. |
+ * | [gaussianBlurConvolve33] | [Convolve33Op] | Provides a convolution filter that can perform Gaussian blur processing on textures and with its convolution kernel which is in the size of 3 * 3, follows a two-dimensional Gaussian distribution. |
+ * | [sharpenConvolve] | [ConvolveOp] | Provides a convolution filter that can sharpen the texture. |
+ * | [strokeConvolve] | [ConvolveOp] | Provides a convolution filter that can stroke the texture. |
  *
  * Also, this class uses some method in [top.kkoishi.stg.util.Mth] to calculate, which will cache the results
  * to optimize the performance of math calculation. And you can use [Texture.renderPoint] methods to calculate
@@ -207,7 +209,8 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
     fun rotate(radian: Double): TextureOp {
         val scaled = radian.setScale()
         var op = cachedRotateOps[scaled]
-        if (op == null) op = createRotate(scaled)
+        if (op == null)
+            op = createRotate(scaled)
         return op
     }
 
@@ -240,7 +243,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
 
     /**
      * Return an instance of TextureOp which implements a convolution from the source texture to the destination
-     * texture with the ability adjusting the transparency and brightness of this texture, and the kernel is
+     * texture with the ability removing the image noise of this texture., and the kernel is
      * a 3 * 3 matrix.
      *
      * For the edge pixels of the image, the default value of missing pixels within the convolution radius is
@@ -250,7 +253,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * @return an instance of TextureOp which implements a convolution from the source texture to the destination.
      */
     @Strictfp
-    fun alphaConvolve33(factor: Float): TextureOp {
+    fun averageConvolve33(factor: Float): TextureOp {
         return createConvolve33Op(FloatArray(9) { factor / 9f })
     }
 
@@ -274,7 +277,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
 
     /**
      * Return an instance of TextureOp which implements a convolution from the source texture to the destination
-     * texture with the ability adjusting the transparency and brightness of this texture.
+     * texture with the ability removing the image noise of this texture.
      *
      * For the edge pixels of the image, the default value of missing pixels within the convolution radius is
      * set to 0 when performing convolution operations.
@@ -284,12 +287,26 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * @return an instance of TextureOp which implements a convolution from the source texture to the destination.
      */
     @Strictfp
-    fun alphaConvolve(factor: Float, length: Int): TextureOp {
+    fun averageConvolve(factor: Float, length: Int): TextureOp {
         if (length <= 0)
             throw IllegalArgumentException("length should be positive.")
         val amount = length * length
         return createConvolveOp(FloatArray(amount) { factor / amount.toFloat() }, length)
     }
+
+    fun sharpenConvolve(factor: Float, length: Int): TextureOp {
+        if (length <= 0)
+            throw IllegalArgumentException("length should be positive.")
+        val amount = length * length
+        val data = FloatArray(amount) { -1f }
+        if (length / 2 * 2 != length)
+            data[length / 2] = factor
+        else
+            throw IllegalArgumentException("length should be odd, but got $length")
+        return createConvolveOp(data, length)
+    }
+
+    fun strokeConvolve(length: Int) = sharpenConvolve(length * length - 1f, length)
 
     /**
      * Return an instance of TextureOp which implements a convolution from the source texture to the destination texture.
@@ -301,7 +318,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * The destination texture always has a alpha channel, and color components will be pre-multiplied with
      * the alpha component. The convolution operation provides a free transformation effect for the input
      * texture, and two predefined convolution operations are provided in the Texture class, which are
-     * transparency and Gaussian blur([alphaConvolve33] and [gaussianBlurConvolve33]). Also, you can use the method
+     * transparency and Gaussian blur([averageConvolve33] and [gaussianBlurConvolve33]). Also, you can use the method
      * [convolve] to get an instance of this class. All convolution operations and processed textures will be
      * cached by the Texture class to improve rendering performance.
      *
@@ -384,7 +401,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
         caches[op] = dst
         if (Options.State.debug)
             Texture::class.logger()
-                .log(System.Logger.Level.DEBUG, "Create Cached Texture for ${op.transform} and $this.")
+                .log(System.Logger.Level.DEBUG, "Create Cached Texture for op and $this.")
         return dst
     }
 
@@ -431,7 +448,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
 
         private fun copyContent() {
             val r = vImg.createGraphics()
-            r.drawImage(texture, AffineTransformOp(AffineTransform(), TYPE_NEAREST_NEIGHBOR), 0, 0)
+            r.drawImage(texture, AffineTransformOp(AffineTransform(), TYPE_BILINEAR), 0, 0)
             r.dispose()
         }
 
@@ -489,7 +506,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * The destination texture always has a alpha channel, and color components will be pre-multiplied with
      * the alpha component. The convolution operation provides a free transformation effect for the input
      * texture, and two predefined convolution operations are provided in the Texture class, which are
-     * transparency and Gaussian blur([alphaConvolve33], [gaussianBlurConvolve33] and so on). Also, you can use the
+     * transparency and Gaussian blur([averageConvolve33], [gaussianBlurConvolve33] and so on). Also, you can use the
      * method [convolve] to get an instance of this class. All convolution operations and processed textures will be
      * cached by the Texture class to improve rendering performance.
      *
@@ -502,7 +519,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * @param length the length of the kernel (square) matrix.
      * @author KKoishi_
      */
-    open class ConvolveOp(private val kernelData: FloatArray, length: Int) : TextureOp(NORMAL_MATRIX.transform) {
+    open class ConvolveOp(private val kernelData: FloatArray, length: Int) : TextureOp {
         init {
             verifyKernel(kernelData, length)
         }
@@ -545,7 +562,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * The destination texture always has a alpha channel, and color components will be pre-multiplied with
      * the alpha component. The convolution operation provides a free transformation effect for the input
      * texture, and two predefined convolution operations are provided in the Texture class, which are
-     * transparency and Gaussian blur([alphaConvolve33], [gaussianBlurConvolve33] and so on). Also, you can use the
+     * transparency and Gaussian blur([averageConvolve33], [gaussianBlurConvolve33] and so on). Also, you can use the
      * method [convolve] to get an instance of this class. All convolution operations and processed textures will be
      * cached by the Texture class to improve rendering performance.
      *
@@ -562,13 +579,13 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * This class is only used for rotation, although it actually works for other type of affine-transform matrix,
      * for example Translation.
      *
-     * @param rad the rotate radian, should be the same as the one [xform] keeps.
      * @param xform the AffineTransform
+     * @param rad the rotate radian, should be the same as the one xform keeps.
      * @author KKoishi_
      */
-    protected inner class RotateOp(rad: Double, xform: AffineTransform) : TextureOp(xform) {
+    protected inner class RotateOp(rad: Double, xform: AffineTransform) : TextureOp, AffineTextureOp(xform, TYPE_BILINEAR) {
         /**
-         * The bounding box of the transformed [Texture.texture], this cache can avoid that invoke [getBounds2D]
+         * The bounding box of the transformed [Texture.texture], this cache can avoid that invoke getBounds2D
          * every time while the methods [createDestImage] and [apply] is called.
          */
         private val bounds = getBounds2D(texture).bounds
@@ -640,7 +657,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
         }
     }
 
-    private object IdentifyOp : TextureOp(AffineTransform()) {
+    private object IdentifyOp : TextureOp {
         override fun createDestImage(texture: BufferedImage): BufferedImage =
             BufferedImage(texture.width, texture.height, BufferedImage.TYPE_INT_ARGB)
 
@@ -655,24 +672,27 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
         }
     }
 
+    abstract class AffineTextureOp(xform: AffineTransform, interpolationType: Int) : TextureOp,
+        AffineTransformOp(xform, interpolationType) {
+        override fun toString(): String {
+            return "AffineTextureOp($transform)"
+        }
+    }
+
     /**
      * An filiter/transform used for image processing.
      *
      * @author KKoishi_
      */
     @Suppress("unused")
-    abstract class TextureOp : AffineTransformOp {
-        @JvmOverloads
-        constructor(xform: AffineTransform, interpolationType: Int = TYPE_BILINEAR) : super(xform, interpolationType)
-        constructor(xform: AffineTransform, hints: RenderingHints) : super(xform, hints)
-
+    interface TextureOp {
         /**
          * Creates a zeroed destination image with the correct size and number of bands.
          *
          * @param texture input image.
          * @return an image.
          */
-        abstract fun createDestImage(texture: BufferedImage): BufferedImage
+        fun createDestImage(texture: BufferedImage): BufferedImage
 
         /**
          * Apply this operation to the specified [Graphics2D] [g] and render the texture using [g].
@@ -680,11 +700,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
          * @param g the Graphics2D used for rendering.
          * @param texture input image.
          */
-        abstract fun apply(g: Graphics2D, texture: BufferedImage)
-
-        override fun toString(): String {
-            return "TextureOp($transform)"
-        }
+        fun apply(g: Graphics2D, texture: BufferedImage)
     }
 
     companion object {
@@ -708,6 +724,9 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
 
         @JvmStatic
         internal val NORMAL_MATRIX: TextureOp = IdentifyOp
+
+        @JvmStatic
+        internal val NORMAL_OP = AffineTransformOp(AffineTransform(), TYPE_BILINEAR)
 
         /**
          * The cached convolution used for optimizing the performance.

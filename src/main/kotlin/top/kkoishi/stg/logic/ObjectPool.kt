@@ -1,6 +1,6 @@
 package top.kkoishi.stg.logic
 
-import top.kkoishi.stg.common.entities.Bullet
+import top.kkoishi.stg.common.bullets.Bullet
 import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.common.entities.Player
 import java.util.UUID

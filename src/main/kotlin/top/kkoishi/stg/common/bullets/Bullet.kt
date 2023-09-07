@@ -1,13 +1,14 @@
-package top.kkoishi.stg.common.entities
+package top.kkoishi.stg.common.bullets
 
+import top.kkoishi.stg.common.entities.Object
 import java.awt.Point
 import java.awt.Shape
 import java.util.*
 import java.util.concurrent.atomic.AtomicReference
 
 abstract class Bullet(initialX: Int, initialY: Int) : Object {
-    private val x = AtomicReference<Double>(initialX.toDouble())
-    private val y = AtomicReference<Double>(initialY.toDouble())
+    private val x = AtomicReference(initialX.toDouble())
+    private val y = AtomicReference(initialY.toDouble())
     private val bulletUUID = UUID.randomUUID()
 
     override val uuid: UUID

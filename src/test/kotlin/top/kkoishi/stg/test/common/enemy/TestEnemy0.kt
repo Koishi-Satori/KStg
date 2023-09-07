@@ -1,10 +1,10 @@
 package top.kkoishi.stg.test.common.enemy
 
 import top.kkoishi.stg.audio.AudioPlayer
-import top.kkoishi.stg.common.entities.AbstractBullet
+import top.kkoishi.stg.common.bullets.AbstractBullet
 import top.kkoishi.stg.common.entities.Enemy
 import top.kkoishi.stg.common.entities.Object
-import top.kkoishi.stg.common.entities.PlayerBullet
+import top.kkoishi.stg.common.bullets.PlayerBullet
 import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.logic.ObjectPool

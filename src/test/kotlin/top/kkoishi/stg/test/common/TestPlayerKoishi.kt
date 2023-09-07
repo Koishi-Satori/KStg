@@ -2,7 +2,7 @@ package top.kkoishi.stg.test.common
 
 import top.kkoishi.stg.audio.AudioPlayer
 import top.kkoishi.stg.common.entities.Player
-import top.kkoishi.stg.common.entities.PlayerBullet
+import top.kkoishi.stg.common.bullets.PlayerBullet
 import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.logic.*
@@ -22,7 +22,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
 
     override fun bullet(dx: Int, dy: Int): PlayerBullet =
         if (slower)
-            object : PlayerBullet(this.xInt() + dx, this.yInt() + dy) {
+            object : PlayerBullet(xInt() + dx, yInt() + dy) {
                 override fun move() {
                     setY(y() - 6)
                 }
@@ -38,7 +38,7 @@ class TestPlayerKoishi(initialX: Int, initialY: Int, bulletTexture: String) : Pl
                 }
             }
         else
-            object : PlayerBullet(this.xInt() + dx, this.yInt() + dy) {
+            object : PlayerBullet(xInt() + dx, yInt() + dy) {
                 override fun move() {
                     setY(y() - 4)
                 }

@@ -15,10 +15,10 @@ class TexturedFont(
         if (t == null) {
             val pos = find(c)
             t = texture.getSubimage(pos.first * basicWidth, pos.second * basicHeight, basicWidth, basicHeight)
-            r.drawImage(t, NORMAL_MATRIX, x, y)
+            r.drawImage(t, NORMAL_OP, x, y)
             remembered[c] = t
         } else
-            r.drawImage(t, NORMAL_MATRIX, x, y)
+            r.drawImage(t, NORMAL_OP, x, y)
     }
 
     fun render(r: Graphics2D, str: String, x: Int, y: Int) {

@@ -20,7 +20,7 @@ class Renderer private constructor() : Runnable {
     private var fullScreen = false
     private var scaled = false
     private var useVRAM = false
-    private var op: AffineTransformOp = Texture.NORMAL_MATRIX
+    private var op: AffineTransformOp = Texture.NORMAL_OP
     private var scale: Pair<Double, Double> = 1.0 to 1.0
     private var dx = 0
     private var dy = 0
@@ -44,8 +44,7 @@ class Renderer private constructor() : Runnable {
         }
 
         scale = oScale to oScale
-        op =
-            AffineTransformOp(AffineTransform.getScaleInstance(oScale, oScale), AffineTransformOp.TYPE_NEAREST_NEIGHBOR)
+        op = AffineTransformOp(AffineTransform.getScaleInstance(oScale, oScale), AffineTransformOp.TYPE_NEAREST_NEIGHBOR)
         scaled = true
     }
 
@@ -109,7 +108,7 @@ class Renderer private constructor() : Runnable {
             if (scaled)
                 r.drawImage(buffer, op, insets.left + dx, insets.top + dy)
             else
-                r.drawImage(buffer, Texture.NORMAL_MATRIX, insets.left, insets.top)
+                r.drawImage(buffer, Texture.NORMAL_OP, insets.left, insets.top)
         } else
             r.drawImage(buffer, op, dx, dy)
     }

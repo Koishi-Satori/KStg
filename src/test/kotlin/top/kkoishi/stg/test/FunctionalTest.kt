@@ -7,5 +7,5 @@ fun main() {
     val testTexture = Texture(BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB), "test")
     println(testTexture.gaussianBlurConvolve(1.5f, 3))
     println(testTexture.gaussianBlurConvolve(1.5f, 7))
-    println(testTexture.alphaConvolve(0.5f, 5))
+    println(testTexture.averageConvolve(0.5f, 5))
 }

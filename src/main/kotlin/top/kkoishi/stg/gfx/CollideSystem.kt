@@ -2,7 +2,7 @@
 
 package top.kkoishi.stg.gfx
 
-import top.kkoishi.stg.common.entities.Bullet
+import top.kkoishi.stg.common.bullets.Bullet
 import top.kkoishi.stg.common.entities.Entity
 import top.kkoishi.stg.util.Mth.sqrt
 import java.awt.Point
