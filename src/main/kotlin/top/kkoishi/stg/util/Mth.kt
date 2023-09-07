@@ -24,6 +24,10 @@ object Mth {
 
     @Strictfp
     @JvmStatic
+    fun Float.setScale(newScale: Int = 5): Float = MathInner.setScale(this, newScale)
+
+    @Strictfp
+    @JvmStatic
     fun sin(radian: Double): Double {
         val scaled = radian.setScale()
         var cached = cachedSin[scaled]
@@ -87,6 +91,9 @@ object Mth {
         @JvmStatic
         private val SCALE_DOUBLES = TreeMap<Int, Double>()
 
+        @JvmStatic
+        private val SCALE_FLOATS = TreeMap<Int, Float>()
+
         init {
             init()
         }
@@ -96,11 +103,14 @@ object Mth {
         private fun init() {
             var i = 10
             var d = 10.0
+            var f = 10f
             for (scale in 1..24) {
                 SCALE_INTEGERS[scale] = i
                 SCALE_DOUBLES[scale] = d
+                SCALE_FLOATS[scale] = f
                 i *= 10
                 d *= 10.0
+                f *= 10f
             }
         }
 
@@ -108,6 +118,12 @@ object Mth {
         @JvmStatic
         fun setScale(d: Double, newScale: Int): Double {
             return (d * SCALE_INTEGERS[newScale]!!).toInt() / SCALE_DOUBLES[newScale]!!
+        }
+
+        @Strictfp
+        @JvmStatic
+        fun setScale(f: Float, newScale: Int): Float {
+            return (f * SCALE_INTEGERS[newScale]!!).toInt() / SCALE_FLOATS[newScale]!!
         }
     }
 }

@@ -1,4 +1,4 @@
-@file:Suppress("MemberVisibilityCanBePrivate", "unused")
+@file:Suppress("MemberVisibilityCanBePrivate")
 
 package top.kkoishi.stg.gfx
 
@@ -16,17 +16,28 @@ import java.awt.image.AffineTransformOp.TYPE_NEAREST_NEIGHBOR
 import java.lang.StrictMath.PI
 import java.util.*
 import kotlin.math.absoluteValue
+import java.awt.image.ConvolveOp as Java2DConvolveOp
 
 /**
  * The Texture class stores the textures used for rendering, which are loaded from local images,and provides
  * some methods for rotating this texture, and the ability of using caches to optimize the rendering performance.
  * It uses [TextureOp] for rendering, you can implement your TextureOp, or just use the provided method
- * to allocate the instances represented rotation.
+ * to allocate the instances.
+ *
+ * ### Provided TextureOp Methods
+ *
+ * | name | return type | instructions |
+ * | :--: | :---------: | :----------- |
+ * | [rotate] | [RotateOp] | Provides TextureOp can be used for rotating the texture around its center point |
+ * | [alphaConvolve] | [ConvolveOp] | Provides convolution filters that can adjust texture transparency and brightness |
+ * | [alphaConvolve33] | [Convolve33Op] | Provides convolution filters that can adjust texture transparency and brightness, but with a 3 * 3 convolution kernel. |
+ * | [gaussianFunction] | [ConvolveOp] | Provides a convolution filter that can perform Gaussian blur processing on textures and with its convolution kernel follows a two-dimensional Gaussian distribution. |
+ * | [gaussianFunction33] | [Convolve33Op] | Provides a convolution filter that can perform Gaussian blur processing on textures and with its convolution kernel which is in the size of 3 * 3, follows a two-dimensional Gaussian distribution. |
  *
  * Also, this class uses some method in [top.kkoishi.stg.util.Mth] to calculate, which will cache the results
- * to optimize the performance of math calculation.
- *
- * You can use [Texture.renderPoint] methods to calculate the right coordinates for rendering.
+ * to optimize the performance of math calculation. And you can use [Texture.renderPoint] methods to calculate
+ * the right coordinates for rendering which make sure that the center of the texture will be rendered at the
+ * given coordinates.
  *
  * There is a subclass using VRAM for rendering, [Texture.Volatile], and it has the better hardware acceleration
  * possibilities.
@@ -215,7 +226,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
     /**
      * Return an instance of TextureOp which implements a convolution from the source texture to the destination
      * texture provided a Gaussian blur effect for textures, and its convolve kernel conforms to the Gaussian
-     * distribution with sum of 1.
+     * distribution with sum of 1, and the kernel is a 3 * 3 matrix.
      *
      * For the edge pixels of the image, the default value of missing pixels within the convolution radius is
      * set to 0 when performing convolution operations.
@@ -223,8 +234,42 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * @param factor the factor of the transparency and brightness.
      * @return an instance of TextureOp which implements a convolution from the source texture to the destination.
      */
-    fun gaussianBlurConvolve(factor: Float): TextureOp {
+    fun gaussianBlurConvolve33(factor: Float): TextureOp {
         return createConvolve33Op(gaussianFunction33(factor))
+    }
+
+    /**
+     * Return an instance of TextureOp which implements a convolution from the source texture to the destination
+     * texture with the ability adjusting the transparency and brightness of this texture, and the kernel is
+     * a 3 * 3 matrix.
+     *
+     * For the edge pixels of the image, the default value of missing pixels within the convolution radius is
+     * set to 0 when performing convolution operations.
+     *
+     * @param factor the factor of the transparency and brightness.
+     * @return an instance of TextureOp which implements a convolution from the source texture to the destination.
+     */
+    @Strictfp
+    fun alphaConvolve33(factor: Float): TextureOp {
+        return createConvolve33Op(FloatArray(9) { factor / 9f })
+    }
+
+    /**
+     * Return an instance of TextureOp which implements a convolution from the source texture to the destination
+     * texture provided a Gaussian blur effect for textures, and its convolve kernel conforms to the Gaussian
+     * distribution with sum of 1, and the kernel is a 3 * 3 matrix, and the [length] should be odd.
+     *
+     * For the edge pixels of the image, the default value of missing pixels within the convolution radius is
+     * set to 0 when performing convolution operations.
+     *
+     * @param factor the factor of the transparency and brightness.
+     * @param length the length of the kernel.
+     * @return an instance of TextureOp which implements a convolution from the source texture to the destination.
+     */
+    fun gaussianBlurConvolve(factor: Float, length: Int): TextureOp {
+        if (length <= 0)
+            throw IllegalArgumentException("length should be positive.")
+        return createConvolveOp(gaussianFunction(factor, length), length)
     }
 
     /**
@@ -235,11 +280,15 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * set to 0 when performing convolution operations.
      *
      * @param factor the factor of the transparency and brightness.
+     * @param length the length of the kernel.
      * @return an instance of TextureOp which implements a convolution from the source texture to the destination.
      */
     @Strictfp
-    fun alphaConvolve(factor: Float): TextureOp {
-        return createConvolve33Op(FloatArray(9) { factor / 9f })
+    fun alphaConvolve(factor: Float, length: Int): TextureOp {
+        if (length <= 0)
+            throw IllegalArgumentException("length should be positive.")
+        val amount = length * length
+        return createConvolveOp(FloatArray(amount) { factor / amount.toFloat() }, length)
     }
 
     /**
@@ -252,7 +301,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * The destination texture always has a alpha channel, and color components will be pre-multiplied with
      * the alpha component. The convolution operation provides a free transformation effect for the input
      * texture, and two predefined convolution operations are provided in the Texture class, which are
-     * transparency and Gaussian blur([alphaConvolve] and [gaussianBlurConvolve]). Also, you can use the method
+     * transparency and Gaussian blur([alphaConvolve33] and [gaussianBlurConvolve33]). Also, you can use the method
      * [convolve] to get an instance of this class. All convolution operations and processed textures will be
      * cached by the Texture class to improve rendering performance.
      *
@@ -262,21 +311,43 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * @param data the kernel of the convolution.
      * @return an instance of TextureOp which implements a convolution from the source texture to the destination texture.
      */
-    fun convolve(data: FloatArray): TextureOp {
+    fun convolve(data: FloatArray, length: Int): TextureOp {
         assert(data.size == 9) {
             throw InternalError("The matrix of the convolve kernel must be 3 * 3, you should pass an float array with length of 9")
         }
-        return createConvolve33Op(data)
+        return createConvolveOp(data, length)
     }
 
-    private fun createConvolve33Op(data: FloatArray): Convolve33Op {
-        var convolve = cachedConvolve33Op[data]
+    /**
+     * Create the cache of a [ConvolveOp].
+     *
+     * @param data the kernel data array.
+     * @param length the length of the kernel matrix.
+     */
+    private fun createConvolveOp(data: FloatArray, length: Int): ConvolveOp {
+        var convolve = cachedConvolveOp[data]
+        if (convolve != null)
+            return convolve
+        Texture::class.logger()
+            .log(System.Logger.Level.INFO, "Constructing a convolve kernel with ${data.contentToString()}")
+        convolve = ConvolveOp(data, length)
+        cachedConvolveOp[data] = convolve
+        return convolve
+    }
+
+    /**
+     * Create the cache of a [Convolve33Op].
+     *
+     * @param data the kernel data array.
+     */
+    private fun createConvolve33Op(data: FloatArray): ConvolveOp {
+        var convolve = cachedConvolveOp[data]
         if (convolve != null)
             return convolve
         Texture::class.logger()
             .log(System.Logger.Level.INFO, "Constructing a convolve kernel with ${data.contentToString()}")
         convolve = Convolve33Op(data)
-        cachedConvolve33Op[data] = convolve
+        cachedConvolveOp[data] = convolve
         return convolve
     }
 
@@ -295,8 +366,17 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      */
     fun normalMatrix(): TextureOp = NORMAL_MATRIX
 
+    /**
+     * Get the texture.
+     */
     operator fun invoke() = texture
 
+    /**
+     * Create a cache of the texture which applied with [op].
+     *
+     * @param op [TextureOp] instance.
+     * @return created cache.
+     */
     protected fun createCache(op: TextureOp): BufferedImage {
         val dst: BufferedImage = op.createDestImage(texture)
         op.apply(dst.createGraphics(), texture)
@@ -382,11 +462,77 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
                 }
             }
 
-            r.drawImage(vImg.snapshot, op, x, y)
+            paintImpl(r, op, x, y)
+        }
+
+        private fun paintImpl(r: Graphics2D, op: TextureOp, x: Int, y: Int) {
+            var snapshot = super.caches[op]
+            if (snapshot == null) {
+                snapshot = op.createDestImage(texture)
+                op.apply(snapshot.createGraphics(), vImg.snapshot)
+                super.caches[op] = snapshot
+            }
+            r.drawImage(snapshot, x, y, null)
         }
 
         override fun cut(x: Int, y: Int, w: Int, h: Int, name: String): Texture =
             Volatile(texture.getSubimage(x, y, w, h), name)
+    }
+
+    /**
+     * This class implements a convolution from the source texture to the destination texture. Convolution using
+     * a convolution kernel is a spatial operation that computes the output pixel from an input pixel by multiplying
+     * the kernel with the surround of the input pixel. This allows the output pixel to be affected by the immediate
+     * neighborhood in a way that can be mathematically specified with a kernel, and the kernel size is length * length by
+     * passing in a float array with the length of length ^ 2.
+     *
+     * The destination texture always has a alpha channel, and color components will be pre-multiplied with
+     * the alpha component. The convolution operation provides a free transformation effect for the input
+     * texture, and two predefined convolution operations are provided in the Texture class, which are
+     * transparency and Gaussian blur([alphaConvolve33], [gaussianBlurConvolve33] and so on). Also, you can use the
+     * method [convolve] to get an instance of this class. All convolution operations and processed textures will be
+     * cached by the Texture class to improve rendering performance.
+     *
+     * For the edge pixels of the image, the default value of missing pixels within the convolution radius is
+     * set to 0 when performing convolution operations.
+     *
+     * The transform in its super class TextureOp is useless here for it is [NORMAL_MATRIX].
+     *
+     * @param kernelData kernel data in row major order.
+     * @param length the length of the kernel (square) matrix.
+     * @author KKoishi_
+     */
+    open class ConvolveOp(private val kernelData: FloatArray, length: Int) : TextureOp(NORMAL_MATRIX.transform) {
+        init {
+            verifyKernel(kernelData, length)
+        }
+
+        val convolveOp = Java2DConvolveOp(Kernel(length, length, kernelData))
+
+        /**
+         * Verify if the matrix constructed from the data float array is a square matrix.
+         */
+        private fun verifyKernel(kernelData: FloatArray, length: Int) {
+            if (length <= 0)
+                throw IllegalArgumentException("length should be positive.")
+            val exceptedSize = length * length
+            if (kernelData.size < exceptedSize)
+                throw ExceptionInInitializerError("The data array of the convolve kernel is tool small(${kernelData.size} should be $exceptedSize)")
+        }
+
+        override fun createDestImage(texture: BufferedImage): BufferedImage =
+            BufferedImage(texture.width, texture.height, BufferedImage.TYPE_INT_ARGB)
+
+        override fun apply(g: Graphics2D, texture: BufferedImage) {
+            val temp = convolveOp.filter(texture, null)
+            Graphics.applyRenderingHints(g)
+            g.drawImage(temp, 0, 0, null)
+            g.dispose()
+        }
+
+        override fun toString(): String {
+            return "ConvolveOp(${kernelData.contentToString()})"
+        }
     }
 
     /**
@@ -399,8 +545,8 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * The destination texture always has a alpha channel, and color components will be pre-multiplied with
      * the alpha component. The convolution operation provides a free transformation effect for the input
      * texture, and two predefined convolution operations are provided in the Texture class, which are
-     * transparency and Gaussian blur([alphaConvolve] and [gaussianBlurConvolve]). Also, you can use the method
-     * [convolve] to get an instance of this class. All convolution operations and processed textures will be
+     * transparency and Gaussian blur([alphaConvolve33], [gaussianBlurConvolve33] and so on). Also, you can use the
+     * method [convolve] to get an instance of this class. All convolution operations and processed textures will be
      * cached by the Texture class to improve rendering performance.
      *
      * For the edge pixels of the image, the default value of missing pixels within the convolution radius is
@@ -408,22 +554,13 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      *
      * @author KKoishi_
      */
-    protected class Convolve33Op(kernelMatrix: FloatArray) : TextureOp(AffineTransform()) {
-        private val convolveOp = ConvolveOp(Kernel(3, 3, kernelMatrix))
-
-        override fun createDestImage(texture: BufferedImage): BufferedImage =
-            BufferedImage(texture.width, texture.height, BufferedImage.TYPE_INT_ARGB)
-
-        override fun apply(g: Graphics2D, texture: BufferedImage) {
-            val temp = convolveOp.filter(texture, null)
-            Graphics.applyRenderingHints(g)
-            g.drawImage(temp, 0, 0, null)
-            g.dispose()
-        }
-    }
+    protected class Convolve33Op(kernelMatrix: FloatArray) : ConvolveOp(kernelMatrix, 3)
 
     /**
      * The inner rotate TextureOp has optimized performance.
+     *
+     * This class is only used for rotation, although it actually works for other type of affine-transform matrix,
+     * for example Translation.
      *
      * @param rad the rotate radian, should be the same as the one [xform] keeps.
      * @param xform the AffineTransform
@@ -471,7 +608,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
             val h = bounds.height
             val x = bounds.x.absoluteValue
             val y = bounds.y.absoluteValue
-            val temp = allocateTemp()
+            val temp = allocateTemp(texture)
 
             val dx = (x * sin).toInt().absoluteValue
             val dy = (y * cos).toInt().absoluteValue
@@ -480,7 +617,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
             g.dispose()
         }
 
-        private fun allocateTemp(): BufferedImage {
+        private fun allocateTemp(texture: BufferedImage): BufferedImage {
             val bounds = this.bounds
             val w = bounds.width
             val h = bounds.height
@@ -512,8 +649,18 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
             g.drawImage(texture, 0, 0, null)
             g.dispose()
         }
+
+        override fun toString(): String {
+            return "IdentifyOp"
+        }
     }
 
+    /**
+     * An filiter/transform used for image processing.
+     *
+     * @author KKoishi_
+     */
+    @Suppress("unused")
     abstract class TextureOp : AffineTransformOp {
         @JvmOverloads
         constructor(xform: AffineTransform, interpolationType: Int = TYPE_BILINEAR) : super(xform, interpolationType)
@@ -534,11 +681,18 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
          * @param texture input image.
          */
         abstract fun apply(g: Graphics2D, texture: BufferedImage)
+
+        override fun toString(): String {
+            return "TextureOp($transform)"
+        }
     }
 
     companion object {
         private const val VRAM_MAX_REPAINT_COUNT = 32
 
+        /**
+         * The coordinates used for calculating the convolution kernel and optimize its performance.
+         */
         @JvmStatic
         private val kernel33Coordinates = intArrayOf(
             -1, 1, 0, 1, 1, 1,
@@ -546,12 +700,29 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
             -1, -1, 0, -1, 1, -1
         )
 
+        /**
+         * The cached coordinates used for calculating the convolution kernel and optimize its performance.
+         */
+        @JvmStatic
+        private val generatedCoordinates = TreeMap<Int, IntArray>()
+
         @JvmStatic
         internal val NORMAL_MATRIX: TextureOp = IdentifyOp
 
+        /**
+         * The cached convolution used for optimizing the performance.
+         */
         @JvmStatic
-        private val cachedConvolve33Op = TreeMap<FloatArray, Convolve33Op>(Arrays::compare)
+        private val cachedConvolveOp = TreeMap<FloatArray, ConvolveOp>(Arrays::compare)
 
+        /**
+         * Calculate the function value of the two-dimensional Gaussian distribution function at a certain point.
+         *
+         * @param factor sigma in Gaussian distribution function.
+         * @param x x coordinate of the point.
+         * @param y y coordinate of the point.
+         * @return the function value of the two-dimensional Gaussian distribution function at a certain point.
+         */
         @Strictfp
         @JvmStatic
         private fun gaussianFunction(factor: Float, x: Int, y: Int): Float {
@@ -560,7 +731,99 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
             return (StrictMath.pow(StrictMath.E, index.toDouble()) / (PI * temp)).toFloat()
         }
 
+        @JvmStatic
         private val cachedGaussianFunction33 = TreeMap<Float, FloatArray>()
+
+        @JvmStatic
+        private val cachedGaussianFunction = TreeMap<Pair<Float, Int>, FloatArray> { p1, p2 ->
+            val len1 = p1.second
+            val len2 = p2.second
+            if (len1 != len2)
+                return@TreeMap len1 - len2
+            val f1 = p1.first
+            val f2 = p2.first
+            if (f1 == f2)
+                return@TreeMap 0
+            else if (f1 > f2)
+                return@TreeMap 1
+            return@TreeMap -1
+        }
+
+        @JvmStatic
+        private fun coordinates(length: Int): IntArray {
+            var coordinates = generatedCoordinates[length]
+            if (coordinates != null)
+                return coordinates
+            coordinates = IntArray(length * length * 2)
+            generateCoordinates(length, coordinates)
+            return coordinates
+        }
+
+        @JvmStatic
+        private fun generateCoordinates(length: Int, data: IntArray) {
+            data class Point(val x: Int, val y: Int)
+
+            val origin = Point(0, 0)
+            var value = length / 2
+            var cater = 0
+            val all = Array(length) { Array(length) { origin } }
+
+            //  (-len / 2, -len / 2) -> (len / 2, len / 2)
+            // (-cater_value, cater_value    ), (-cater_value + 1, cater_value), ... , (-cater_value + n, cater_value)
+            // (-cater_value, cater_value - 1)
+            // ...
+            // (-cater_value, cater_value - n)
+            while (cater < length) {
+                ((length - 1 - cater) downTo 0).forEachIndexed { index, pos ->
+                    val other = length - pos - 1
+                    all[cater][other] = Point(-value + index, value)
+                    all[other][cater] = Point(-value, value - index)
+                }
+                ++cater
+                --value
+            }
+
+            // fill in data
+            (0 until length).forEach { x ->
+                (0 until length).forEach { y ->
+                    val p = all[x][y]
+                    data[2 * (x * length + y)] = p.x
+                    data[2 * (x * length + y) + 1] = p.y
+                }
+            }
+        }
+
+        @Strictfp
+        @JvmStatic
+        private fun gaussianFunction(factor: Float, length: Int): FloatArray {
+            val key = factor to length
+            var res = cachedGaussianFunction[key]
+            if (res != null)
+                return res
+
+            var x: Int
+            var y: Int
+            var total = 0f
+            val len = length * length
+            val coordinates = coordinates(length)
+
+            res = FloatArray(len)
+            (0 until len).forEach {
+                x = coordinates[it * 2]
+                y = coordinates[it * 2 + 1]
+                val value = gaussianFunction(factor, x, y)
+                res[it] = value
+                total += value
+            }
+
+            // make the total is 1.
+            res.indices.forEach {
+                res[it] /= total
+            }
+
+            cachedGaussianFunction[key] = res
+            return res
+        }
 
         @Strictfp
         @JvmStatic

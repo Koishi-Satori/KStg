@@ -42,7 +42,7 @@ abstract class Dialogs(
                     val texture = it.face
                     val op = when (it.state) {
                         FaceState.DISPLAY -> texture.normalMatrix()
-                        FaceState.SHADOW -> texture.alphaConvolve(0.5f)
+                        FaceState.SHADOW -> texture.alphaConvolve33(0.5f)
                         else -> texture.normalMatrix()
                     }
                     it.face.paint(g, op, it.x, it.y)
