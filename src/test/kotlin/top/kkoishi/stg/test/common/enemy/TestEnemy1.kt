@@ -1,7 +1,6 @@
 package top.kkoishi.stg.test.common.enemy
 
 import top.kkoishi.stg.audio.AudioPlayer
-import top.kkoishi.stg.common.bullets.AbstractBullet
 import top.kkoishi.stg.common.entities.Enemy
 import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.common.bullets.PlayerBullet
@@ -9,11 +8,13 @@ import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.logic.ObjectPool
 import top.kkoishi.stg.test.common.GameSystem
+import top.kkoishi.stg.test.common.bullets.RedLaser
+import top.kkoishi.stg.test.common.bullets.TestBullet
+import top.kkoishi.stg.util.Timer
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.Shape
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.math.PI
 import kotlin.math.absoluteValue
 
 class TestEnemy1(
@@ -24,7 +25,7 @@ class TestEnemy1(
     private var y = AtomicInteger(initialY)
     private var which: Int = 0
     private var speed: Int = 3
-    private var count: Long = 0L
+    private val shotTimer = Timer.Loop(45)
 
     private fun texture(): String {
         if (which > 70)
@@ -77,33 +78,9 @@ class TestEnemy1(
     }
 
     private fun bullet() {
-        if (count++ % 45 == 0L) {
-            ObjectPool.addBullet(TestBullet(x.get(), y.get()))
-            ObjectPool.addBullet(TestBullet(x.get(), y.get() - 4))
-            ObjectPool.addBullet(TestBullet(x.get(), y.get() - 8))
-            ObjectPool.addBullet(TestBullet(x.get(), y.get() - 12))
-            ObjectPool.addBullet(TestBullet(x.get(), y.get() - 16))
-        }
-    }
-
-    class TestBullet(
-        iX: Int,
-        iY: Int,
-        private val speed: Double = 3.1,
-    ) : AbstractBullet(iX, iY) {
-        override fun move() {
-            val oldY = yD()
-            setY(oldY + speed)
-        }
-
-        override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 1)
-
-        override fun paint(g: Graphics2D) {
-            val t = GFX.getTexture("test_bullet")
-            val x = xD()
-            val y = yD()
-            val p = t.renderPoint(x, y, PI)
-            t.paint(g, t.rotate(PI), p.x, p.y)
+        if (shotTimer.end()) {
+            //ObjectPool.addBullet(TestBullet(x.get(), y.get()))
+            ObjectPool.addBullet(RedLaser(x.get() + 20, y.get(), 2.0))
         }
     }
 }

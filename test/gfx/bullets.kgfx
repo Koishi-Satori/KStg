@@ -15,6 +15,38 @@ gfx_items = {
         name = "ghost_fire"
         path = "./icons/ghost_fire.png"
     }
+    gfx = {
+        name = "laser"
+        path = "./icons/laser.png"
+    }
+    gfx = {
+        name = "bullets_0"
+        path = "./icons/bullets_0.png"
+    }
+    shear = {
+        name = "laser_red"
+        key = "laser"
+        x = 4
+        y = 3
+        w = 248
+        h = 10
+    }
+    shear = {
+        name = "test_bullet"
+        key = "bullets_0"
+        x = 16
+        y = 68
+        w = 16
+        h = 16
+    }
+    shear = {
+        name = "bullet_bg_ball_red"
+        key = "bullets_0"
+        x = 0
+        y = 267
+        w = 64
+        h = 64
+    }
     loop = {
         var_name = "i"
         end = 7
@@ -28,6 +60,22 @@ gfx_items = {
                 y = 0
                 w = 48
                 h = 64
+            }
+        }
+    }
+    loop = {
+        var_name = "i"
+        end = 7
+        load = {
+            set_var = { name = "x" value = $i }
+            mul_var = { name = "x" value = 31 }
+            shear = {
+                name = "laser_red_$i"
+                key = "laser_red"
+                x = $x
+                y = 0
+                w = 31
+                h = 10
             }
         }
     }

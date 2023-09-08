@@ -215,6 +215,8 @@ internal abstract class Lexer(protected val rest: CharIterator) : Iterator<Token
     abstract override fun next(): Token
 
     abstract override fun hasNext(): Boolean
+
+    abstract fun undo()
 }
 
 /**
@@ -530,8 +532,12 @@ internal abstract class InfoParser(lexer: Lexer, rootName: String, val scopeName
 
                 if (optional != null)
                     checkMixedParameterValue()
-                else
-                    throw ScriptException("Illegal script name: Can not parse parameter name $key at ${lexer.line}:${lexer.col}")
+                else if (containsInRoot(key)) {
+                    lexer.undo()
+                    lexer.undo()
+                    break
+                } else
+                    throw ScriptException("Illegal script name: Can not parse parameter name $key at ${lexer.line}:${lexer.col}. current: $tk")
             }
         }
 
@@ -545,6 +551,20 @@ internal abstract class InfoParser(lexer: Lexer, rootName: String, val scopeName
         parameters.clear()
         optionals.clear()
         return instParameters
+    }
+
+    private fun containsInRoot(key: String): Boolean {
+        root.children().forEach {
+            when (it.type) {
+                ParseType.INSTRUCTION, ParseType.ROOT -> {
+                    if (it.name == key)
+                        return true
+                }
+
+                else -> {}
+            }
+        }
+        return false
     }
 
     @Throws(ScriptException::class)
@@ -682,9 +702,15 @@ fun File.contentIterator(charset: Charset = Charsets.UTF_8): CharIterator = inpu
  */
 internal open class ResourcesScriptLexer(rest: CharIterator) : Lexer(rest) {
     private var lookup = '\u0000'
+    private val cached = ArrayDeque<Token>(4)
+    private var undoCount = 0
 
     @Throws(NoSuchElementException::class)
     override fun next(): Token {
+        if (undoCount > 0) {
+            --undoCount
+            return cached.removeFirst()
+        }
         return if (rest.hasNext())
             next0()
         else
@@ -707,6 +733,10 @@ internal open class ResourcesScriptLexer(rest: CharIterator) : Lexer(rest) {
                     return next0()
             }
         }
+
+        if (cached.size == 2)
+            cached.removeFirst()
+        cached.addLast(tk)
         return tk
     }
 
@@ -779,7 +809,12 @@ internal open class ResourcesScriptLexer(rest: CharIterator) : Lexer(rest) {
     }
 
     override fun hasNext(): Boolean {
-        return rest.hasNext()
+        return rest.hasNext() || undoCount > 0
+    }
+
+    override fun undo() {
+        if (undoCount < 2)
+            ++undoCount
     }
 }
 

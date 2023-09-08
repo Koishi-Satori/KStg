@@ -4,6 +4,7 @@ import top.kkoishi.stg.Resources
 import top.kkoishi.stg.Resources.Companion.KEY_NOT_FOUND
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
+import top.kkoishi.stg.util.Options
 import java.awt.Color
 import java.awt.Graphics2D
 import java.io.IOException
@@ -74,6 +75,8 @@ object GFX : Resources<Texture, String> {
             logger.log(System.Logger.Level.INFO, "Begin: ($x, $y), w=$w, h=$h")
             textures[nKey] = texture.cut(x, y, w, h, nKey)
         } catch (e: Exception) {
+            if (Options.State.debug)
+                logger.log(System.Logger.Level.DEBUG, "$key info: $texture")
             logger.log(System.Logger.Level.WARNING, "Failed to load the texture $nKey")
             throw FailedLoadingResourceException(e)
         }

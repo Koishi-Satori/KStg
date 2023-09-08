@@ -79,7 +79,8 @@ object ObjectPool {
 
     fun removeBullet(index: Int) {
         synchronized(lock) {
-            bullets.removeAt(index)
+            val uuid = bullets.removeAt(index).uuid
+            objectMap.remove(uuid)
         }
     }
 
@@ -98,4 +99,6 @@ object ObjectPool {
             uiObjects().forEach { objectMap[it.uuid] = it }
         }
     }
+
+    fun contains(o: Object): Boolean = synchronized(lock) { objectMap[o.uuid] != null }
 }

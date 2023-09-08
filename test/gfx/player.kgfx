@@ -12,10 +12,6 @@ gfx_items = {
         path = "./icons/slow_effect.png"
     }
     gfx = {
-        name = "bullets_0"
-        path = "./icons/bullets_0.png"
-    }
-    gfx = {
         name = "player_koishi_description"
         path = "./icons/player_koishi_description.png"
     }
@@ -62,14 +58,6 @@ gfx_items = {
         y = 0
         w = 64
         h = 64
-    }
-    shear = {
-        name = "test_bullet"
-        key = "bullets_0"
-        x = 16
-        y = 68
-        w = 16
-        h = 15
     }
     loop = {
         var_name = "state"

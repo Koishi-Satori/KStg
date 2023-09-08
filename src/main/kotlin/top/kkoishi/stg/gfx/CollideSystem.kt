@@ -266,4 +266,12 @@ object CollideSystem {
 
         return !(lengthMax < 0 || lengthMin > r)
     }
+
+    @Strictfp
+    @JvmStatic
+    fun createRectangle(centerX: Double, centerY: Double, weight: Double, height: Double): Rectangle2D {
+        val x = centerX - weight / 2
+        val y = centerY - height / 2
+        return Rectangle2D.Double(x, y, weight, height)
+    }
 }
