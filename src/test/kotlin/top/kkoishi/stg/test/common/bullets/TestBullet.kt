@@ -18,7 +18,7 @@ class TestBullet(
         setY(oldY + speed)
     }
 
-    override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 20)
+    override fun shape(): Shape = CollideSystem.Circle(Point(x(), y()), 16)
 
     override fun paint(g: Graphics2D) {
         val t = GFX.getTexture("bullet_bg_ball_red")

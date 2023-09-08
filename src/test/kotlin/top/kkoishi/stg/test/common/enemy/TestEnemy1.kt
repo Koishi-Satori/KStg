@@ -80,7 +80,7 @@ class TestEnemy1(
     private fun bullet() {
         if (shotTimer.end()) {
             ObjectPool.addBullet(TestBullet(x.get(), y.get()))
-            //ObjectPool.addBullet(RedLaser(x.get() + 20, y.get(), 2.0))
+            ObjectPool.addBullet(RedLaser(x.get() + 20, y.get(), 2.0))
         }
     }
 }

@@ -13,6 +13,10 @@ class RedLaser(initialX: Int, initialY: Int, val speed: Double) : Laser2unType(i
     init {
         addBullet(Head())
         addBullet(Body())
+        addBullet(Body())
+        addBullet(Body())
+        addBullet(Body())
+        addBullet(Body())
         addBullet(Tail())
     }
 
@@ -61,7 +65,7 @@ class RedLaser(initialX: Int, initialY: Int, val speed: Double) : Laser2unType(i
         override fun shape(): Shape = CollideSystem.createRectangle(xD(), yD() + 2, 21.0, 6.0)
     }
 
-    inner class Body() : LaserSub() {
+    inner class Body : LaserSub() {
         override val texture = GFX["laser_red_1"]
 
         override fun shape(): Shape = CollideSystem.createRectangle(xD(), yD(), 21.0, 10.0)

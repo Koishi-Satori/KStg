@@ -2,9 +2,6 @@ package top.kkoishi.stg.common.bullets
 
 import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.exceptions.InternalError
-import top.kkoishi.stg.logic.InfoSystem.Companion.logger
-import top.kkoishi.stg.logic.ObjectPool
-import top.kkoishi.stg.util.Options
 import java.awt.Graphics2D
 import java.awt.Shape
 import java.awt.geom.Point2D
@@ -57,9 +54,6 @@ abstract class Laser2unType : Bullet {
             val removeIndexes = ArrayDeque<Int>()
             rest.forEachIndexed { index, bullet ->
                 if (update(bullet)) {
-                    if (Options.State.debug)
-                        Laser2unType::class.logger()
-                            .log(System.Logger.Level.DEBUG, "$bullet in $this should be removed.")
                     removeIndexes.addLast(index)
                     return@forEachIndexed
                 }
@@ -73,7 +67,7 @@ abstract class Laser2unType : Bullet {
             }
         }
 
-        return count > 0
+        return count <= 0
     }
 
     override fun paint(g: Graphics2D) {
@@ -114,6 +108,8 @@ abstract class Laser2unType : Bullet {
      */
     @Deprecated("This method is useless.", level = DeprecationLevel.ERROR)
     final override fun shape(): Shape = throw InternalError("You should not invoke this method.")
+
+
 
     abstract class SubBullet : AbstractBullet(0, 0) {
         abstract fun calculatePos(laserHeadX: Double, laserHeadY: Double): Point2D

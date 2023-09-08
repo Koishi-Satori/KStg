@@ -1,13 +1,14 @@
 package top.kkoishi.stg.test
 
 import top.kkoishi.stg.localization.ClassLocalization
+import top.kkoishi.stg.logic.Threads
 import java.util.Locale
 
 @Suppress("ClassName")
 object TestDialog_zh_CN : ClassLocalization<TestDialog_zh_CN>(
     Locale.CHINESE,
     TestDialog_zh_CN::class.java,
-    "./test/localization/test_zh_CN.yml"
+    "${Threads.workdir()}/test/localization/test_zh_CN.yml"
 ) {
     override fun constantFieldsName(): Array<String>? = null
 
