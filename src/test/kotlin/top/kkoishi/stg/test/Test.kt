@@ -69,7 +69,7 @@ object Test {
                 .fullscreen(fullScreen).scale(scale).useEngineDefaultIcon().useVRAM(useVRAM).uiInsets(
                     UI_INSETS.top, UI_INSETS.left, UI_INSETS.bottom, UI_INSETS.right
                 ).append(GFXLoader("${Threads.workdir()}/test/gfx"))
-                .append(DialogsLoader("${Threads.workdir()}/test/common/dialogs"))
+                .append(DialogsLoader("${Threads.workdir()}/test/common/dialogs").localization(TestDialog_zh_CN))
                 .append(AudioLoader("${Threads.workdir()}/test/audio")).initMethod {
                     keyBinds()
                     initPauseMenu()

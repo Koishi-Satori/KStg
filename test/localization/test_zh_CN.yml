@@ -1,0 +1,10 @@
+# comment test
+test_0: 测试开始文字\tTest text
+# comment test
+
+# comment test
+test_1: 测试1文字\nTest text
+# comment test
+test_2: 测试2文字\"Test text\"
+test_3: 测试3文字\\Test text
+test_4: 测试结束文字Test text

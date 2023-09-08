@@ -16,9 +16,35 @@ object Reflection {
 
     @JvmStatic
     internal fun isStatic(field: Field): Boolean = Modifier.isStatic(field.modifiers)
+
     @JvmStatic
     internal fun isFinal(field: Field): Boolean = Modifier.isFinal(field.modifiers)
 
+    @JvmStatic
+    internal fun <AnnotationType : Annotation> getAnnotation(
+        field: Field,
+        annotationType: Class<AnnotationType>,
+    ): AnnotationType? {
+        return field.getDeclaredAnnotation(annotationType)
+    }
+
+    @JvmStatic
+    internal fun getAllPossibleConstantFields(clz: Class<*>, type: Class<*>): Array<Field> {
+        val fs = clz.declaredFields
+        val temp = ArrayDeque<Field>(fs.size)
+        fs.forEach {
+            if (isStatic(it) && it.type == type)
+                temp.addLast(it)
+        }
+        return temp.toTypedArray()
+    }
+
+    @JvmStatic
+    internal fun setField(ref: Any, field: Field, value: Any) {
+        field[ref] = value
+    }
+
+    @JvmStatic
     internal fun <T> parseMethod(descriptor: String, allocator: (MethodHandle?, Method?) -> T): T {
         val info = parseMethodDescriptor(descriptor)
         val lookup = MethodHandles.lookup()
@@ -47,6 +73,7 @@ object Reflection {
         return allocator(methodHandle, method)
     }
 
+    @JvmStatic
     private fun tryAccessPrivate(info: ScriptLinker.LinkInfo, lookup: Lookup): MethodHandle? {
         return try {
             MethodHandles.privateLookupIn(info.ownerClass(), lookup).findStatic(
@@ -60,6 +87,7 @@ object Reflection {
         }
     }
 
+    @JvmStatic
     private fun tryGetMethod(info: ScriptLinker.LinkInfo, descriptor: String): Method? {
         var method: Method? = null
         try {

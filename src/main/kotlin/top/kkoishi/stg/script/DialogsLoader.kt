@@ -4,6 +4,7 @@ import top.kkoishi.stg.DefinitionsLoader
 import top.kkoishi.stg.common.Dialogs
 import top.kkoishi.stg.exceptions.ScriptException
 import top.kkoishi.stg.gfx.GFX
+import top.kkoishi.stg.localization.Localization
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.script.execution.contentIterator
 import top.kkoishi.stg.script.execution.processEscapes
@@ -21,6 +22,8 @@ class DialogsLoader @JvmOverloads constructor(dir: String, private val separator
 
     private val root = Path.of(dir)
 
+    var localization: Localization<String, String>? = null
+
     init {
         if (!root.exists())
             throw FileNotFoundException(root.absolutePathString())
@@ -29,6 +32,11 @@ class DialogsLoader @JvmOverloads constructor(dir: String, private val separator
     }
 
     private val logger = DialogsLoader::class.logger()
+
+    fun localization(localization: Localization<String, String>): DialogsLoader {
+        this.localization = localization
+        return this
+    }
 
     override fun loadDefinitions() {
         logger.log(System.Logger.Level.INFO, "Load dialogs from scripts.")
@@ -46,6 +54,7 @@ class DialogsLoader @JvmOverloads constructor(dir: String, private val separator
     }
 
     private fun load(csv: File) {
+        val localization = this.localization
         val rest = CSVAnalysis(csv.contentIterator())
         val name = rest.next().value()
         val background = rest.next().value()
@@ -55,7 +64,7 @@ class DialogsLoader @JvmOverloads constructor(dir: String, private val separator
         val y = rest.next().num()
         val dialogs = ArrayDeque<Dialogs.Dialog>()
         while (rest.hasNext()) {
-            val message = rest.next().value()
+            var message = rest.next().value()
             val amount = rest.next().num()
             val faces = ArrayDeque<Dialogs.Face>(amount)
             (0 until amount).forEach { _ ->
@@ -66,6 +75,9 @@ class DialogsLoader @JvmOverloads constructor(dir: String, private val separator
                 faces.addLast(Dialogs.Face(face, faceX, faceY, state))
             }
 
+            if (localization != null) {
+                message = localization[message] ?: "${message}_value"
+            }
             dialogs.addLast(Dialogs.Dialog(faces, message.processEscapes()))
         }
 
