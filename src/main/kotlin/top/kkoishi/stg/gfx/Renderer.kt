@@ -2,6 +2,8 @@ package top.kkoishi.stg.gfx
 
 import top.kkoishi.stg.logic.*
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
+import top.kkoishi.stg.logic.coordinatespace.SubChunks
+import top.kkoishi.stg.util.Options
 import java.awt.*
 import java.awt.geom.AffineTransform
 import java.awt.image.AffineTransformOp
@@ -44,7 +46,8 @@ class Renderer private constructor() : Runnable {
         }
 
         scale = oScale to oScale
-        op = AffineTransformOp(AffineTransform.getScaleInstance(oScale, oScale), AffineTransformOp.TYPE_NEAREST_NEIGHBOR)
+        op =
+            AffineTransformOp(AffineTransform.getScaleInstance(oScale, oScale), AffineTransformOp.TYPE_NEAREST_NEIGHBOR)
         scaled = true
     }
 
@@ -74,6 +77,10 @@ class Renderer private constructor() : Runnable {
                     ObjectPool.bullets().forEach { it.paint(bufferRender) }
                     ObjectPool.uiObjects().forEach { it.paint(bufferRender) }
                     renderFPS(bufferRender)
+                    if (Options.State.debug) {
+                        SubChunks.show(bufferRender)
+                    }
+
                     bufferRender.dispose()
                 } catch (e: Throwable) {
                     logger.log(System.Logger.Level.ERROR, e)
@@ -86,6 +93,10 @@ class Renderer private constructor() : Runnable {
                 ObjectPool.objects().forEach { it.paint(bufferRender) }
                 ObjectPool.bullets().forEach { it.paint(bufferRender) }
                 ObjectPool.uiObjects().forEach { it.paint(bufferRender) }
+                if (Options.State.debug) {
+                    SubChunks.show(bufferRender)
+                }
+
                 renderFPS(bufferRender)
             }
 

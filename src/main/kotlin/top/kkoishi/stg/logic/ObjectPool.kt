@@ -18,6 +18,7 @@ object ObjectPool {
     private val UIObjects = ArrayDeque<Object>(16)
     internal val playerBullets: ArrayDeque<Bullet> = ArrayDeque(256)
     internal val objectMap = HashMap<UUID, Object>(2048)
+    private var usingSubChunk = false
     private val lock = Any()
 
     fun player(): Player = player.get()
@@ -101,4 +102,14 @@ object ObjectPool {
     }
 
     fun contains(o: Object): Boolean = synchronized(lock) { objectMap[o.uuid] != null }
+
+    fun useSubChunk() {
+        usingSubChunk = true
+    }
+
+    fun unuseSubChunk() {
+        usingSubChunk = false
+    }
+
+    fun usingSubChunk(): Boolean = synchronized(lock) { usingSubChunk }
 }

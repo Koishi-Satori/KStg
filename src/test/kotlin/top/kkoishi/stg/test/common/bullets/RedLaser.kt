@@ -36,7 +36,7 @@ class RedLaser(initialX: Int, initialY: Int, val speed: Double) : Laser2unType(i
         }
 
         override fun calculatePos(laserHeadX: Double, laserHeadY: Double): Point2D {
-            val dy = this@RedLaser.count() * 10
+            val dy = this@RedLaser.count() * 20
             return Point2D.Double(laserHeadX, dy + laserHeadY)
         }
     }
@@ -44,25 +44,20 @@ class RedLaser(initialX: Int, initialY: Int, val speed: Double) : Laser2unType(i
     inner class Head : LaserSub() {
         override val texture = GFX["laser_red_0"]
 
-        override fun move() {
-            val oldY = yD()
-            setY(oldY + speed)
-        }
+        override fun shape(): Shape = CollideSystem.createRectangle(xD(), yD(), 21.0, 10.0)
+    }
 
-        override fun shape(): Shape = CollideSystem.createRectangle(xD(), yD() - 2, 21.0, 6.0)
+    inner class Tail : LaserSub() {
+        override val texture = GFX["laser_red_0"]
+
+        override fun shape(): Shape = CollideSystem.createRectangle(xD(), yD(), 21.0, 10.0)
 
         override fun paint(g: Graphics2D) {
             val x = xD()
             val y = yD()
-            val rd = texture.renderPoint(x, y, -PI / 2)
-            texture.paint(g, texture.rotate(PI / 2), rd.x, rd.y)
+            val rd = texture.renderPoint(x, y, PI / 2)
+            texture.paint(g, texture.rotate(-PI / 2), rd.x, rd.y)
         }
-    }
-
-    inner class Tail : LaserSub() {
-        override val texture = GFX["laser_red_7"]
-
-        override fun shape(): Shape = CollideSystem.createRectangle(xD(), yD() + 2, 21.0, 6.0)
     }
 
     inner class Body : LaserSub() {

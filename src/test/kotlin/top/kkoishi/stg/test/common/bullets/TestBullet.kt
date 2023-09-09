@@ -24,7 +24,7 @@ class TestBullet(
         val t = GFX.getTexture("bullet_bg_ball_red")
         val x = xD()
         val y = yD()
-        val p = t.renderPoint(x, y, PI)
-        t.paint(g, t.rotate(PI), p.x, p.y)
+        val p = t.renderPoint(x, y)
+        t.paint(g, t.averageConvolve33(0.9f), p.x, p.y)
     }
 }

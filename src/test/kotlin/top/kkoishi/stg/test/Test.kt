@@ -5,6 +5,8 @@ import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.boot.Bootstrapper
 import top.kkoishi.stg.boot.Settings
 import top.kkoishi.stg.boot.ui.LoadingFrame
+import top.kkoishi.stg.common.AbstractStage
+import top.kkoishi.stg.common.Stage
 import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.exceptions.InternalError
@@ -65,6 +67,8 @@ object Test {
                 Test::class.logger().log(System.Logger.Level.DEBUG, "Program arguments: ${args.contentToString()}")
             }
             // fast bootstrap
+            // real size: 384 * 448
+            // 384 * 448 -> 192 * 224 -> 96 * 112 -> 48 * 56 -> 24 * 28 -> 6 * 7
             Bootstrapper().size(WIDTH, HEIGHT).autoSync().containerTitle("KKoishi_ Stg Engine Test")
                 .fullscreen(fullScreen).scale(scale).useEngineDefaultIcon().useVRAM(useVRAM).uiInsets(
                     UI_INSETS.top, UI_INSETS.left, UI_INSETS.bottom, UI_INSETS.right
@@ -72,6 +76,7 @@ object Test {
                 .append(DialogsLoader("${Threads.workdir()}/test/common/dialogs").localization(TestDialog_zh_CN))
                 .append(AudioLoader("${Threads.workdir()}/test/audio")).initMethod {
                     keyBinds()
+                    ObjectPool.useSubChunk()
                     initPauseMenu()
                     initMainMenu()
                     load.end()

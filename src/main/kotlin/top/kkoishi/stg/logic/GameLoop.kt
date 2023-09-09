@@ -1,6 +1,7 @@
 package top.kkoishi.stg.logic
 
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
+import top.kkoishi.stg.logic.coordinatespace.SubChunks
 import top.kkoishi.stg.logic.keys.KeyBinds
 import java.util.concurrent.atomic.AtomicLong
 
@@ -46,6 +47,8 @@ class GameLoop private constructor() : Runnable {
                             ObjectPool.removeBullet(index--)
                         ++index
                     }
+
+                    SubChunks.updateSpace()
                 } catch (e: Throwable) {
                     logger.log(System.Logger.Level.ERROR, e)
                 }

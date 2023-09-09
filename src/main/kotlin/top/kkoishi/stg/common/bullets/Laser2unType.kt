@@ -72,6 +72,7 @@ abstract class Laser2unType : Bullet {
 
     override fun paint(g: Graphics2D) {
         val rest = synchronized(lock) { bullets.toTypedArray() }
+        println("$uuid ${rest.size}")
         if (rest.isNotEmpty())
             rest.forEach { it.paint(g) }
     }

@@ -63,6 +63,8 @@ class DialogsLoader @JvmOverloads constructor(dir: String, private val separator
         val x = rest.next().num()
         val y = rest.next().num()
         val dialogs = ArrayDeque<Dialogs.Dialog>()
+        var index = 0
+
         while (rest.hasNext()) {
             var message = rest.next().value()
             val amount = rest.next().num()
@@ -78,11 +80,12 @@ class DialogsLoader @JvmOverloads constructor(dir: String, private val separator
             if (localization != null) {
                 message = localization[message] ?: "${message}_value"
             }
-            dialogs.addLast(Dialogs.Dialog(faces, message.processEscapes()))
+            val dialog = Dialogs.Dialog(faces, message.processEscapes())
+            DialogsLoader::class.logger().log(System.Logger.Level.INFO, "CSV Dialog: ${index++} -> $dialog")
+            dialogs.addLast(dialog)
         }
 
         Dialogs.addDialog(name, ScriptedDialogs(dialogs, messageX, messageY, x, y, background))
-        Dialogs::class.logger().log(System.Logger.Level.INFO, "CSV Dialog: $name -> $dialogs")
     }
 
     private data class CSVItem(val value: Any, val isNumber: Boolean = false) {

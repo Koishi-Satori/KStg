@@ -5,6 +5,7 @@ import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.gfx.CollideSystem
 import top.kkoishi.stg.logic.ObjectPool
+import top.kkoishi.stg.logic.coordinatespace.SubChunks
 
 /**
  * More abstracted class of the bullets, and it is easy to extend it.
@@ -61,8 +62,13 @@ abstract class AbstractBullet(initialX: Int, initialY: Int) : Bullet(initialX, i
         var strategy = collideStrategy
         if (strategy >= PLAYER) {
             strategy -= PLAYER
-            if (collide(ObjectPool.player()))
-                return true
+            if (ObjectPool.usingSubChunk())
+                if (SubChunks.isInPlayerSubChunks(uuid) && collide(ObjectPool.player()))
+                    return true
+                else {
+                    if (collide(ObjectPool.player()))
+                        return true
+                }
         }
 
         if (strategy >= ENTITIES) {
