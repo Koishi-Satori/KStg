@@ -109,6 +109,19 @@ class Renderer private constructor() : Runnable {
                     logger.log(System.Logger.Level.ERROR, e)
                 }
             }
+
+            GenericSystem.STATE_LOADING -> {
+                // loading content
+                try {
+                    ObjectPool.loadingContents().forEach { it.paint(bufferRender) }
+                } catch (e: Throwable) {
+                    logger.log(System.Logger.Level.ERROR, e)
+                }
+            }
+
+            else -> {
+                logger.log(System.Logger.Level.ERROR, "Error game state!")
+            }
         }
         bufferRender.dispose()
     }
@@ -167,6 +180,7 @@ class Renderer private constructor() : Runnable {
             paint()
     }
 
+    @Suppress("unused")
     companion object {
         @JvmStatic
         private var VRAM_MAX_REPAINT_COUNT = 32

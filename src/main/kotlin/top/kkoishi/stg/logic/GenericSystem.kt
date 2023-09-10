@@ -11,7 +11,7 @@ object GenericSystem {
      * ## Instructions of this constant
      * In this state, only [UIObject] in [ObjectPool.UIObjects] will be rendered and calculated.
      *
-     * @see top.kkoishi.stg.test.Test.menu()
+     * @see top.kkoishi.stg.test.Test.mainMenu
      */
     const val STATE_MENU = 1
 
@@ -29,7 +29,7 @@ object GenericSystem {
     const val STATE_PAUSE = 2
 
     /**
-     * Identify that the game is has begun.
+     * Identify that the game has begun.
      *
      * ## Instructions of this constant
      * Before switch the game state to this, please make sure you have initialized or reinitialized the stage
@@ -43,12 +43,17 @@ object GenericSystem {
     const val STATE_PLAYING = 3
 
     /**
+     * Identify that the game is loading.
+     */
+    const val STATE_LOADING = 0
+
+    /**
      * Used to identify the game state.
      *
-     * ### This static variable should be set to [STATE_PLAYING], [STATE_PAUSE] or [STATE_MENU].
+     * ### This static variable should be set to [STATE_LOADING], [STATE_PLAYING], [STATE_PAUSE] or [STATE_MENU].
      */
     @JvmStatic
-    val gameState = AtomicInteger(STATE_MENU)
+    val gameState = AtomicInteger(STATE_LOADING)
 
     @JvmStatic
     var logToFile: Boolean = false

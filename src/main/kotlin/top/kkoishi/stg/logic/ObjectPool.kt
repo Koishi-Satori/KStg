@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicReference
  * @author KKoishi_
  */
 object ObjectPool {
+    private val loadingContent = ArrayDeque<Object>(32)
     private val player: AtomicReference<Player> = AtomicReference()
     private val bullets = ArrayDeque<Bullet>(1024)
     private val objects = ArrayDeque<Object>(128)
@@ -57,6 +58,18 @@ object ObjectPool {
         }
     }
 
+    fun loadingContents(): Iterator<Object> {
+        synchronized(lock) {
+            return loadingContent.toTypedArray().iterator()
+        }
+    }
+
+    fun addLoadingContent(o: Object) {
+        synchronized(lock) {
+            loadingContent.addLast(o)
+        }
+    }
+
     fun addObject(o: Object) {
         synchronized(lock) {
             objects.addLast(o)
@@ -96,8 +109,27 @@ object ObjectPool {
             bullets.clear()
             objects.clear()
             playerBullets.clear()
+            loadingContent.clear()
             objectMap.clear()
             uiObjects().forEach { objectMap[it.uuid] = it }
+        }
+    }
+
+    fun clearBullets() {
+        synchronized(lock) {
+            bullets.forEach {
+                objectMap.remove(it.uuid)
+            }
+            bullets.clear()
+        }
+    }
+
+    fun clearObjects() {
+        synchronized(lock) {
+            objects.forEach {
+                objectMap.remove(it.uuid)
+            }
+            objects.clear()
         }
     }
 

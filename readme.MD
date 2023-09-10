@@ -1,4 +1,4 @@
-# KKoishi STG Engine
+# ![EngineIcon](./src/main/resources/top/kkoishi/stg/logo.ico) KKoishi STG Engine
 
 这款STG引擎为一个轻量的STG引擎，其使用Java2D和Java2D自带的OpenGL硬件加速进行渲染。 它可以让你较轻松的实现一个stg的基本功能。
 
@@ -84,13 +84,30 @@ Bootstrapper().size(WIDTH, HEIGHT).autoSync().containerTitle("KKoishi_ Stg Engin
 |      uiInsets      |                                     设置侧边栏的间隔Insets<br/>Set the interval Insets of the sidebar                                      |  uiInsets  | 设置侧边栏的Insets。侧边栏就你打stg时旁边显示分数的玩意，这东西包裹了整个可活动区域<br/>Set the Insets for the sidebar. The sidebar is the thing that displays the score next to you when you play stg, and it wraps the entire movable area.                                                                                                         |
 | definitionsLoaders |                                                  添加脚本加载器<br/>Add a script loader                                                   |   append   | 添加各种Loader，用于加载引擎的脚本。<br/>Add various Loaders for loading engine scripts.                                                                                                                                                                                                                                        |
 
+### 快速上手
+- ⚠ 此段中的Object均指[top.kkoishi.stg.common.entities.Object](./src/main/kotlin/top/kkoishi/stg/common/entities/Object.kt)。
+
+本引擎OOP程度较高，基本只需要正确的设置对象和状态即可。 Bootstrapper::initMethod里提供的初始化方法即为您想在最开始时运行的逻辑。
+
+例如：在最开始时显示主菜单，可实现Menu/BaseMenu类，再调用ObjectPool::addUIObject方法把类实例放入（请保证单例性），最后切换gameState为STATE_MENU即可。
+
+不同的gameState需要放入不同的对象，下面是具体说明：
+
+|   gameState   |                    对象类型                    | 调用方法                          |  说明  |
+|:-------------:|:------------------------------------------:|:------------------------------|:----:|
+| STATE_LOADING |                  任意Object                  | ObjectPool::addLoadingContent | 加载状态 |
+|  STATE_MENU   |                 任意UIObject                 | ObjectPool::addUIObject       |  菜单  |
+| STATE_PLAYING | 用于表示实体的Object，Bullet，Player，Stage，UIObject |                               |      |
 
 - ### 注意事项
 
-> - 如果您需要添加[SideBar](./src/main/kotlin/top/kkoishi/stg/common/ui/SideBar.kt)，还需要使用Graphics.setUIInsets或者用快速启动类去设置UI边框大小。
+> - 如果您需要添加[SideBar](./src/main/kotlin/top/kkoishi/stg/common/ui/SideBar.kt)
+    ，还需要使用Graphics.setUIInsets或者用快速启动类去设置UI边框大小。
 > - 需要实现自己的启动流程可以参考```Bootstrapper::start```方法。
-> - Bootstrapper的initMethod方法会在窗口创建完成后执行传入的lambda表达式或者function，请在里面设置您自己的初始化代码，并且最后切换```GenericSystem.gameState``` 至您需要的状态。
-> - 调用```Bootstrapper.readEngineSettings()```用于读取引擎有关工作目录等的ini文件，请将[engines.ini](./engine.ini)放在当前目录，然后正确设置工作目录。
+> - Bootstrapper的initMethod方法会在窗口创建完成后执行传入的lambda表达式或者function，请在里面设置您自己的初始化代码，并且最后切换```GenericSystem.gameState```
+至您需要的状态。
+> - 调用```Bootstrapper.readEngineSettings()```用于读取引擎有关工作目录等的ini文件，请将[engines.ini](./engine.ini)
+    放在当前目录，然后正确设置工作目录。
 > - 默认的engines.ini内容将工作目录定义为jar包所在目录的上一级。
 
 > - If you need to add [SideBar](./src/main/kotlin/top/kkoishi/stg/common/ui/SideBar.kt), you also need to use
@@ -117,15 +134,15 @@ Bootstrapper().size(WIDTH, HEIGHT).autoSync().containerTitle("KKoishi_ Stg Engin
 > - 实现基本要求的类均位于[top.kkoishi.stg.common](./src/main/kotlin/top/kkoishi/stg/common/package-info.java)
     包内，（通常）只用继承实现他们的逻辑。
 > - top.kkoishi.stg.common中所有可渲染对象都实现接口top.kkoishi.stg.common.entities.Object，包含更新逻辑、碰撞检测及渲染。
-> -
-所有实体（[Player](./src/main/kotlin/top/kkoishi/stg/common/entities/Player.kt), [Boss](./src/main/kotlin/top/kkoishi/stg/common/entities/Boss.kt), [Enemy](./src/main/kotlin/top/kkoishi/stg/common/entities/Enemy.kt), [Item](./src/main/kotlin/top/kkoishi/stg/common/entities/Item.kt), [Bullet](./src/main/kotlin/top/kkoishi/stg/common/entities/Bullet.kt)
-）都在top.kkoishi.stg.common.entities包内，同时包里有一些抽象类（以Base/Abstract开头，部分位于[Defaults.kt](./src/main/kotlin/top/kkoishi/stg/common/entities/Defaults.kt)
+> - 所有实体（[Player](./src/main/kotlin/top/kkoishi/stg/common/entities/Player.kt), [Boss](./src/main/kotlin/top/kkoishi/stg/common/entities/Boss.kt), [Enemy](./src/main/kotlin/top/kkoishi/stg/common/entities/Enemy.kt), [Item](./src/main/kotlin/top/kkoishi/stg/common/entities/Item.kt), [Bullet](./src/main/kotlin/top/kkoishi/stg/common/bullets/Bullet.kt)
+）都在top.kkoishi.stg.common.entities包内。
+> - 上述包内有一些抽象类（以Base/Abstract开头）
 中）来降低实现难度，而除了Bullet这些类均继承了Entity类。
 > - top.kkoishi.stg.common.ui包负责ui渲染，提供了一系列类来渲染ui，只需要实现并丢进ObjectPool.uiObject。
 > - 其余的类为游戏逻辑，包括boss逻辑BossAction、Stage及其逻辑StageAction和类ScreenRenderObject。
 > ---
 >
-> - 引擎整体逻辑为先渲染、然后计算，最后播放audio，大体包含四个主要线程：InfoSystem、Renderer、GameLoop、AudioPlayer，同时包含一个CrashHandle子进程（可选）
+> - 引擎整体逻辑为先渲染、然后计算，同时并行播放audio，大体包含四个主要线程InfoSystem、Renderer、GameLoop、AudioPlayer和一个CrashHandle子进程（可选）
 
 ## 🔠 按键绑定
 
@@ -145,3 +162,28 @@ KeyBinds类用于管理全局的按键绑定，
 ## [脚本说明](./test/scripts.md)
 
 ## 引擎结构
+```text
+top.kkoishi.stg
+             ├─audio - 音频
+             ├─boot - 快速启动相关
+             │  ├─jvm - 废弃
+             │  └─ui - 启动ui
+             ├─common - 绝大部分需要继承的抽象类/接口
+             │  ├─bullets - 子弹
+             │  ├─entities - 实体
+             │  └─ui - sidebar menu等ui
+             ├─exceptions - 异常及其处理
+             ├─gfx - 纹理等渲染逻辑
+             ├─localization - 本地化
+             ├─logic - 引擎计算逻辑
+             │  ├─coordinatespace - 用于优化碰撞
+             │  └─keys - 控制全局按键检测
+             ├─replay - replay记录播放
+             ├─script - 引擎脚本支持
+             │  ├─execution - 脚本执行相关
+             │  └─reflect - jvm反射
+             └─util - 工具类
+```
+
+**最后 uuz真的很棒 给大家看看**
+![uuz](./test/load.jpg)

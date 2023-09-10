@@ -16,6 +16,14 @@ import java.awt.geom.Point2D
 import java.awt.geom.Rectangle2D
 import kotlin.math.absoluteValue
 
+/**
+ * CollideSystem can test that if two object collide with each other.
+ *
+ * Only three type of Shape is permitted at default, [Circle], [Rectangle2D] and convex [Polygon], yet you can
+ * implement and add your function of collide test for your requirement.
+ *
+ * @author KKoishi_
+ */
 @Suppress("RedundantConstructorKeyword")
 object CollideSystem {
     private val lock = Any()
