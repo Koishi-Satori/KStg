@@ -583,7 +583,8 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
      * @param rad the rotate radian, should be the same as the one xform keeps.
      * @author KKoishi_
      */
-    protected inner class RotateOp(rad: Double, xform: AffineTransform) : TextureOp, AffineTextureOp(xform, TYPE_BILINEAR) {
+    protected inner class RotateOp(rad: Double, xform: AffineTransform) : TextureOp,
+        AffineTextureOp(xform, TYPE_BILINEAR) {
         /**
          * The bounding box of the transformed [Texture.texture], this cache can avoid that invoke getBounds2D
          * every time while the methods [createDestImage] and [apply] is called.

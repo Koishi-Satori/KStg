@@ -82,7 +82,7 @@ class Stage1(player: Player, playerIndex: Int) : AbstractStage() {
         addAction(WaitStageAction(100L, action = {
             AudioPlayer.setBackground(Sounds.getAudio("bk_0"))
             // switch to menu
-            GameSystem.mainMenu.curLevel = GameSystem.rootMainMenu
+            GameSystem.mainMenu.restore()
             GenericSystem.gameState.set(GenericSystem.STATE_MENU)
             recorder.save(
                 "${Threads.workdir()}/replay",

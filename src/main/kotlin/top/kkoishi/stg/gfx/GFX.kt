@@ -17,6 +17,8 @@ import kotlin.io.path.inputStream
 /**
  * Used to load and get the textures.
  *
+ * Supported Image Type can be specified by [ImageIO.getReaderFormatNames].
+ *
  * @author KKoishi_
  */
 @Suppress("unused")
@@ -26,6 +28,10 @@ object GFX : Resources<Texture, String> {
     @JvmStatic
     private var NOT_FOUND: Texture
 
+    /**
+     * Stored textures.
+     */
+    @JvmStatic
     private val textures: MutableMap<String, Texture> = HashMap(1024)
 
     init {
@@ -41,6 +47,9 @@ object GFX : Resources<Texture, String> {
         logger.log(System.Logger.Level.INFO, "Init TEXTURE_NOT_FOUND")
     }
 
+    /**
+     * Generate NOT_FOUND texture.
+     */
     private fun tryInitNotFound(): Texture {
         val buf = Graphics.createBuffer(40, 40)
         val g = buf.createGraphics()
@@ -93,6 +102,12 @@ object GFX : Resources<Texture, String> {
      */
     fun notFound() = NOT_FOUND
 
+    /**
+     * Load the texture according to the given path and set the texture key.
+     *
+     * @param key the key for specifying the loaded texture.
+     * @param path the path stored the texture.
+     */
     @JvmOverloads
     @Throws(FailedLoadingResourceException::class)
     fun loadTexture(key: String, path: String, useVRAM: Boolean = false) {

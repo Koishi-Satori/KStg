@@ -70,6 +70,10 @@ class InfoSystem private constructor() : Runnable {
         }
 
         private val format = DateFormat.getTimeInstance(DEFAULT, Locale.ENGLISH)
+
+        /**
+         * Get a logger for this class.
+         */
         fun <T : Any> KClass<T>.logger(): Logger {
             var logger = loggers[this@logger]
             if (logger == null)

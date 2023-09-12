@@ -19,6 +19,11 @@ sealed class Timer(delay: Long, protected var modifier: Long = 0) {
             this.time = delay
     }
 
+    /**
+     * If the timer is ended.
+     *
+     * @return if the timer is ended.
+     */
     open fun end(): Boolean = modifier++ >= time
 
     fun time() = time

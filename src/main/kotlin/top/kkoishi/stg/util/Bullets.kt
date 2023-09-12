@@ -1,14 +1,20 @@
-package top.kkoishi.stg.common.bullets
+package top.kkoishi.stg.util
 
-import top.kkoishi.stg.common.entities.Object
+import top.kkoishi.stg.common.bullets.AbstractBullet
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.logic.ObjectPool
-import top.kkoishi.stg.util.Mth
 import java.awt.Graphics2D
 import java.awt.Shape
 
 object Bullets {
-    fun createSniper(initialX: Int, initialY: Int, speed: Float, gfx: String, rotated: Boolean = false): Bullet {
+    fun createSniper(
+        initialX: Int,
+        initialY: Int,
+        speed: Float,
+        gfx: String,
+        shape: (Double, Double) -> Shape,
+        rotated: Boolean = false,
+    ): AbstractBullet {
         if (rotated) {
             return object : AbstractBullet(initialX, initialY) {
                 val texture = GFX.getTexture(gfx)
@@ -36,13 +42,7 @@ object Bullets {
                     setY(yBefore + vy.toInt())
                 }
 
-                override fun collide(o: Object): Boolean {
-                    TODO("Not yet implemented")
-                }
-
-                override fun shape(): Shape {
-                    TODO("Not yet implemented")
-                }
+                override fun shape(): Shape = shape(xD(), yD())
 
                 override fun paint(g: Graphics2D) {
                     val x = xD()
@@ -79,13 +79,7 @@ object Bullets {
                 setY(yBefore + vy.toInt())
             }
 
-            override fun collide(o: Object): Boolean {
-                TODO("Not yet implemented")
-            }
-
-            override fun shape(): Shape {
-                TODO("Not yet implemented")
-            }
+            override fun shape(): Shape = shape(xD(), yD())
 
             override fun paint(g: Graphics2D) {
                 val x = xD()

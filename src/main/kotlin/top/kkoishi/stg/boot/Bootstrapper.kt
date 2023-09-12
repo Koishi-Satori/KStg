@@ -25,14 +25,32 @@ import java.awt.event.WindowEvent
 import java.io.File
 import javax.imageio.ImageIO
 import javax.swing.JFrame
+import javax.swing.JFrame.EXIT_ON_CLOSE
 import kotlin.system.exitProcess
 
+/**
+ * This class provides some methods to bootstrap the game engine.
+ *
+ * @author KKoishi_
+ */
 class Bootstrapper {
     private val logger = Bootstrapper::class.logger()
+
+    /**
+     * The definition loaders.
+     */
     private val definitionsLoaders = ArrayDeque<DefinitionsLoader>()
+
+    /**
+     * The insets for UI like the sidebar.
+     */
     private val uiInsets: Insets = Insets(0, 0, 0, 0)
     private var container: JFrame = OptimizedContainer()
     private var title: String = ""
+
+    /**
+     * The method to be invoked when initializing the game engine.
+     */
     private var initMethod: () -> Unit = {}
 
     /**
@@ -88,6 +106,9 @@ class Bootstrapper {
         return this
     }
 
+    /**
+     * Scale the window to the target size, and if [targetSize] is null, this will be skipped.
+     */
     fun scale(targetSize: Pair<Int, Int>?): Bootstrapper {
         scale = targetSize
         return this
@@ -140,10 +161,13 @@ class Bootstrapper {
     }
 
     fun start() {
+        // load definitions
         definitionsLoaders.forEach(DefinitionsLoader::loadDefinitions)
+
+        // adjust the container settings.
         container.isResizable = false
         container.isUndecorated = fullscreen
-        container.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        container.defaultCloseOperation = EXIT_ON_CLOSE
         container.ignoreRepaint = true
         container.title = title
         if (icon != null)
@@ -151,6 +175,7 @@ class Bootstrapper {
         container.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(e: WindowEvent?) {
                 logger.log(System.Logger.Level.INFO, "Window is closing.")
+                // release the lock.
                 SingleInstanceEnsurer.release()
                 exitProcess(CrashReporter.EXIT_OK)
             }
@@ -170,6 +195,7 @@ class Bootstrapper {
                     }
                 }
             )
+        // attach the key binds to this container.
         KeyBinds.attach(container)
 
         when {
@@ -217,6 +243,7 @@ class Bootstrapper {
         initMethod()
         Player.registerKeyEvents()
 
+        // start the game threads.
         val inst = Threads.getInstance()
         InfoSystem.start(inst)
         Renderer.start(inst)
