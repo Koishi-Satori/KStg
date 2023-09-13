@@ -10,6 +10,7 @@ import java.util.*
  *
  * @author KKoishi_
  */
+@Suppress("FunctionName")
 object Mth {
     /**
      * Generated caches.
@@ -58,6 +59,12 @@ object Mth {
      */
     @JvmStatic
     private val CACHED_SQRT = TreeMap<Double, Double>()
+
+    /**
+     * Generated caches.
+     */
+    @JvmStatic
+    private val CACHED_GCD = TreeMap<IntArray, Int>(Arrays::compare)
 
     /**
      * Retains the previous certain number of digits in a double-precision floating-point number.
@@ -191,6 +198,7 @@ object Mth {
         return cached
     }
 
+    @JvmStatic
     fun sqrt(a: Double): Double {
         val scaled = a.setScale()
         var cached = CACHED_SQRT[scaled]
@@ -199,6 +207,45 @@ object Mth {
             CACHED_SQRT[scaled] = cached
         }
         return cached
+    }
+
+    @JvmStatic
+    fun coprime(a: Int, b: Int) = gcd(a, b) == 1
+
+    @JvmStatic
+    fun gcd(a: Int, b: Int): Int {
+        val key = intArrayOf(a, b)
+        var gcd = CACHED_GCD[key]
+        if (gcd != null)
+            return gcd
+        gcd = stein_gcd(a, b)
+        CACHED_GCD[key] = gcd
+        return gcd
+    }
+
+    @JvmStatic
+    private fun stein_gcd(a: Int, b: Int): Int {
+        if (a == 0)
+            return b
+        if (b == 0)
+            return a
+
+        // if a/b is even number
+        val aFlag = a / 2 * 2 == a
+        val bFlag = b / 2 * 2 == b
+
+        return if (aFlag && bFlag)
+            2 * stein_gcd(a shr 1, b shr 1)
+        else if (aFlag)
+            stein_gcd(a shr 1, b)
+        else if (bFlag)
+            stein_gcd(a, b shr 1)
+        else {
+            if (a >= b)
+                stein_gcd(b, a - b)
+            else
+                stein_gcd(a, b - a)
+        }
     }
 
     /**

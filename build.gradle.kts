@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.5.31"
+    id("org.jetbrains.dokka") version "1.9.0"
 }
 
 group = "top.kkoishi.stg"
@@ -18,6 +19,10 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.dokkaHtmlMultiModule.configure {
+    outputDirectory.set(File(rootDir, "doc"))
 }
 
 tasks.withType<KotlinCompile>() {

@@ -78,7 +78,7 @@ class Renderer private constructor() : Runnable {
                     ObjectPool.uiObjects().forEach { it.paint(bufferRender) }
                     renderFPS(bufferRender)
                     if (Options.State.debug) {
-                        SubChunks.show(bufferRender)
+                        SubChunks.renderDebug(bufferRender)
                     }
 
                     bufferRender.dispose()
@@ -94,7 +94,7 @@ class Renderer private constructor() : Runnable {
                 ObjectPool.bullets().forEach { it.paint(bufferRender) }
                 ObjectPool.uiObjects().forEach { it.paint(bufferRender) }
                 if (Options.State.debug) {
-                    SubChunks.show(bufferRender)
+                    SubChunks.renderDebug(bufferRender)
                 }
 
                 renderFPS(bufferRender)

@@ -1,3 +1,17 @@
+/*
+ *
+ * This file is only used for testing, and there is no need for you to add this
+ * module "KStg.test" when build this engine.
+ *
+ *
+ * Some resources for art and sound in this test module are from a touhou STG game
+ * which called "东方夏夜祭", for the author is in lack of synthesizing music and
+ * game painting. :(
+ *
+ *
+ *
+ */
+
 package top.kkoishi.stg.test
 
 import top.kkoishi.stg.audio.AudioPlayer
@@ -5,8 +19,6 @@ import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.boot.Bootstrapper
 import top.kkoishi.stg.boot.Settings
 import top.kkoishi.stg.boot.ui.LoadingFrame
-import top.kkoishi.stg.common.AbstractStage
-import top.kkoishi.stg.common.Stage
 import top.kkoishi.stg.common.entities.Object
 import top.kkoishi.stg.common.entities.Player
 import top.kkoishi.stg.exceptions.InternalError
@@ -29,25 +41,52 @@ import top.kkoishi.stg.util.Options
 import java.awt.Font
 import java.awt.Insets
 
+/**
+ * The test example of this STG Engine.
+ *
+ * @author KKoishi_
+ */
 object Test {
+    /**
+     * Width of the game space.
+     */
     private const val WIDTH = 640
+
+    /**
+     * Height of the game space.
+     */
     private const val HEIGHT = 480
 
     /** Constant for the F11 function key.  */
     private const val VK_F11 = 0x7A
 
+    /**
+     * The UI Insets of the game sidebar.
+     */
     @JvmStatic
     val UI_INSETS = Insets(16, 36, 16, 220)
 
+    /**
+     * If player is invincible, used for parsing program options.
+     */
     @JvmStatic
     var invincible = false
 
+    /**
+     * If enable fullscreen, used for parsing program options.
+     */
     @JvmStatic
     private var fullScreen: Boolean = false
 
+    /**
+     * The target scale size, used for parsing program options.
+     */
     @JvmStatic
     private var scale: Pair<Int, Int>? = null
 
+    /**
+     * If use VRAM for double buffering, used for parsing program options.
+     */
     @JvmStatic
     private var useVRAM = false
 
@@ -69,6 +108,7 @@ object Test {
             // fast bootstrap
             // real size: 384 * 448
             // 384 * 448 -> 192 * 224 -> 96 * 112 -> 48 * 56 -> 24 * 28 -> 6 * 7
+            // -> Best practices for dividing screen space is 6 * 7 array.
             Bootstrapper().size(WIDTH, HEIGHT).autoSync().containerTitle("KKoishi_ Stg Engine Test")
                 .fullscreen(fullScreen).scale(scale).useEngineDefaultIcon().useVRAM(useVRAM).uiInsets(
                     UI_INSETS.top, UI_INSETS.left, UI_INSETS.bottom, UI_INSETS.right
@@ -85,6 +125,11 @@ object Test {
         }
     }
 
+    /**
+     * Read the game settings.
+     *
+     * This method provides an example for analysing the ini file using the [Settings] provided by this engin.
+     */
     private fun readSettings() {
         Bootstrapper.readEngineSettings()
         val fonts = Settings.INI("${Threads.workdir()}/test/fonts.ini")
@@ -109,6 +154,8 @@ object Test {
      * @param args arguments.
      */
     private fun handleArgs(args: Array<String>) {
+        // add the options used by this test.
+        // this is used for switching the container to fullscreen.
         Options.addOption(Option(false, "fullscreen") { _, _ -> fullScreen = true })
         Options.addOption(Option(true, "scale") { o, arg ->
             if (fullScreen)
