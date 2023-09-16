@@ -26,15 +26,15 @@ import java.awt.image.ConvolveOp as Java2DConvolveOp
  *
  * ### Provided TextureOp Methods
  *
- * | name | return type | instructions |
- * | :--: | :---------: | :----------- |
- * | [rotate] | [RotateOp] | Provides TextureOp can be used for rotating the texture around its center point |
- * | [averageConvolve] | [ConvolveOp] | Provides convolution filters that can remove the image noise of this texture. |
- * | [averageConvolve33] | [Convolve33Op] | Provides convolution filters that can remove the image noise of this texture, but with a 3 * 3 convolution kernel. |
- * | [gaussianBlurConvolve] | [ConvolveOp] | Provides a convolution filter that can perform Gaussian blur processing on textures and with its convolution kernel follows a two-dimensional Gaussian distribution. |
+ * |           name           |   return type  |                                                                                         instructions                                                                                                |
+ * | :----------------------: | :------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+ * | [rotate]                 | [RotateOp]     | Provides TextureOp can be used for rotating the texture around its center point.                                                                                                                    |
+ * | [averageConvolve]        | [ConvolveOp]   | Provides convolution filters that can remove the image noise of this texture.                                                                                                                       |
+ * | [averageConvolve33]      | [Convolve33Op] | Provides convolution filters that can remove the image noise of this texture, but with a 3 * 3 convolution kernel.                                                                                  |
+ * | [gaussianBlurConvolve]   | [ConvolveOp]   | Provides a convolution filter that can perform Gaussian blur processing on textures and with its convolution kernel follows a two-dimensional Gaussian distribution.                                |
  * | [gaussianBlurConvolve33] | [Convolve33Op] | Provides a convolution filter that can perform Gaussian blur processing on textures and with its convolution kernel which is in the size of 3 * 3, follows a two-dimensional Gaussian distribution. |
- * | [sharpenConvolve] | [ConvolveOp] | Provides a convolution filter that can sharpen the texture. |
- * | [strokeConvolve] | [ConvolveOp] | Provides a convolution filter that can stroke the texture. |
+ * | [sharpenConvolve]        | [ConvolveOp]   | Provides a convolution filter that can sharpen the texture.                                                                                                                                         |
+ * | [strokeConvolve]         | [ConvolveOp]   | Provides a convolution filter that can stroke the texture.                                                                                                                                          |
  *
  * Also, this class uses some method in [top.kkoishi.stg.util.Mth] to calculate, which will cache the results
  * to optimize the performance of math calculation. And you can use [Texture.renderPoint] methods to calculate

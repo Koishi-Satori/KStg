@@ -21,12 +21,39 @@ object KeyBinds {
     private val genericBinds = TreeSet<Int>()
 
     @JvmStatic
+    private val inputBarriers = TreeSet<Int>()
+
+    @JvmStatic
     fun isPressed(keyCode: Int): Boolean = synchronized(lock) {
         return keys[keyCode]
     }
 
     @JvmStatic
     fun release(keyCode: Int) = synchronized(lock) {
+        keys[keyCode] = false
+    }
+
+    @JvmStatic
+    fun inputBarrier(vararg on: Int) {
+        synchronized(inputBarriers) {
+            on.forEach(inputBarriers::add)
+        }
+    }
+
+    @JvmStatic
+    fun releaseInputBarrier() {
+        synchronized(inputBarriers) {
+            inputBarriers.clear()
+        }
+    }
+
+    @JvmStatic
+    fun forcePress(keyCode: Int) {
+        keys[keyCode] = true
+    }
+
+    @JvmStatic
+    fun forceRelease(keyCode: Int) {
         keys[keyCode] = false
     }
 
@@ -63,11 +90,17 @@ object KeyBinds {
         }
 
         override fun keyPressed(e: KeyEvent) {
-            keys[e.keyCode] = true
+            val keyCode = e.keyCode
+            if (!inputBarriers.contains(keyCode)) {
+                keys[keyCode] = true
+            }
         }
 
         override fun keyReleased(e: KeyEvent) {
-            keys[e.keyCode] = false
+            val keyCode = e.keyCode
+            if (!inputBarriers.contains(keyCode)) {
+                keys[keyCode] = false
+            }
         }
     }
 

@@ -5,7 +5,8 @@
 #ifndef CPP_BOOTSTRAPPER_UTIL_H
 #define CPP_BOOTSTRAPPER_UTIL_H
 
-#include <bits/stdc++.h>
+#include <string>
+#include <vector>
 
 namespace kkoishi_kstg_boot {
 	class settings {

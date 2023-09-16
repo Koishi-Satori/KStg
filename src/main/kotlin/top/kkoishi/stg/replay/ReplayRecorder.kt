@@ -12,12 +12,11 @@ import java.nio.channels.FileLock
 import java.nio.file.Path
 import java.util.TreeSet
 import java.util.concurrent.atomic.AtomicLong
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
+import java.util.zip.GZIPOutputStream
 import kotlin.io.path.*
 
 @Suppress("MemberVisibilityCanBePrivate")
-class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructor(
+open class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructor(
     randomSeed: Long,
     val player: Player,
     recordedKeyCodes: IntArray,
@@ -38,6 +37,10 @@ class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructor(
     private val keyCodeSets: MutableSet<Int> = TreeSet(recordedKeyCodes.toList())
     private var disposed = false
 
+    open fun runningInstance(): ReplayRecorder {
+        return this
+    }
+
     init {
         hasRunningRecorder = true
         ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Initialize record replay.")
@@ -47,21 +50,25 @@ class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructor(
         temp.writeInt(keyCodeSets.size)
         keyCodeSets.forEach(temp::writeInt)
 
-        runningInstance = this
+        runningInstance = runningInstance()
     }
+
 
     override fun run() {
         ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "Start record replay.")
 
-        while (GenericSystem.gameState.get() == GenericSystem.STATE_PLAYING ||
-            GenericSystem.gameState.get() == GenericSystem.STATE_PAUSE
-        ) {
+        while (true) {
             if (disposed) {
                 ReplayRecorder::class.logger().log(System.Logger.Level.INFO, "dispose.")
                 return
             }
-            recordFrame()
-            frames.incrementAndGet()
+            val state = GenericSystem.gameState.get()
+            if (state != GenericSystem.STATE_PLAYING && state != GenericSystem.STATE_PAUSE)
+                break
+            if (state == GenericSystem.STATE_PLAYING) {
+                recordFrame()
+                frames.incrementAndGet()
+            }
             sleep(Threads.period())
         }
 
@@ -168,26 +175,25 @@ class ReplayRecorder @Throws(ExceptionInInitializerError::class) constructor(
         cacheOut.flush()
         cacheOut.close()
 
-        compress(cache.inputStream(), replay.outputStream(), replay.fileName.toString())
+        compressData(cache.inputStream(), replay.outputStream())
         cache.deleteIfExists()
     }
 
-    private fun compress(bin: InputStream, dst: OutputStream, entryName: String) {
-        val zip = ZipOutputStream(dst)
+    open fun compressData(bin: InputStream, dst: OutputStream) {
+        val gz = GZIPOutputStream(dst)
         val buf = ByteArray(1024)
         var len: Int
 
-        zip.putNextEntry(ZipEntry(entryName))
         while (true) {
             len = bin.read(buf)
             if (len == -1)
                 break
-            zip.write(buf, 0, len)
+            gz.write(buf, 0, len)
         }
 
-        zip.closeEntry()
-        zip.flush()
-        zip.close()
+        gz.flush()
+        gz.finish()
+        gz.close()
         bin.close()
         dst.close()
     }

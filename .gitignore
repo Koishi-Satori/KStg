@@ -4,3 +4,5 @@
 /cpp_bootstrapper/cmake-build-debug/
 /crash_logs/
 /replay/
+/cpp_bootstrapper/.vs/
+/cpp_bootstrapper/out/

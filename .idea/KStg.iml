@@ -8,6 +8,8 @@
       <excludeFolder url="file://$MODULE_DIR$/cpp_bootstrapper/cmake-build-debug/CMakeFiles/CMakeTmp" />
       <excludeFolder url="file://$MODULE_DIR$/crash_logs" />
       <excludeFolder url="file://$MODULE_DIR$/replay" />
+      <excludeFolder url="file://$MODULE_DIR$/cpp_bootstrapper/.vs" />
+      <excludeFolder url="file://$MODULE_DIR$/cpp_bootstrapper/out" />
     </content>
   </component>
 </module>
