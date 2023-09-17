@@ -1,204 +1,204 @@
-[2:14:07 PM] [main<-ThreadExceptionHandler/INFO]: Crash Handler Command: [java, -jar, "D:\ProjectKotlin\KStg\./crash_handle/KStg.CrashHandler.jar", D:\ProjectKotlin\KStg\., 15180]
-[2:14:07 PM] [main<-ThreadExceptionHandler/INFO]: Set Crash Handler, pid: 18784
-[2:14:07 PM] [main<-Test/DEBUG]: Debug mode on.
-[2:14:07 PM] [main<-Test/DEBUG]: Program arguments: [-debug]
-[2:14:07 PM] [main<-Bootstrapper/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.boot.Bootstrapper
-[2:14:07 PM] [main<-GFX/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.gfx.GFX
-[2:14:07 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and unnamed_texture
-[2:14:07 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='unnamed_texture', width=40, height=40).
-[2:14:07 PM] [main<-GFX/INFO]: Init TEXTURE_NOT_FOUND
-[2:14:07 PM] [main<-Sounds/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.audio.Sounds
-[2:14:07 PM] [main<-GFXLoader/INFO]: Load textures from scripts.
-[2:14:07 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\boss.kgfx
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/test_boss_0.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_0', width=256, height=256).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_0
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=80
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_0_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_0_0', width=64, height=80).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_1
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (64, 0), w=64, h=80
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_0_1
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_0_1', width=64, height=80).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_2
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (128, 0), w=64, h=80
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_0_2
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_0_2', width=64, height=80).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_3
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (192, 0), w=64, h=80
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_0_3
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_0_3', width=64, height=80).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_0
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 80), w=64, h=80
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_1_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_1_0', width=64, height=80).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_1
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (64, 80), w=64, h=80
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_1_1
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_1_1', width=64, height=80).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_2
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (128, 80), w=64, h=80
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_1_2
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_1_2', width=64, height=80).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_3
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (192, 80), w=64, h=80
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_1_3
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_1_3', width=64, height=80).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_0
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 160), w=64, h=80
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_2_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_2_0', width=64, height=80).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_1
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (64, 160), w=64, h=80
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_2_1
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_2_1', width=64, height=80).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_2
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (128, 160), w=64, h=80
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_2_2
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_2_2', width=64, height=80).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_3
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (192, 160), w=64, h=80
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_2_3
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_2_3', width=64, height=80).
-[2:14:08 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\boss.kgfx
-[2:14:08 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\bullets.kgfx
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/test_img.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_img
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_img', width=17, height=18).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/mirror.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and mirror
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='mirror', width=64, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/bg_1_1.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and bg_1_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bg_1_0', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/ghost_fire.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire', width=512, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/laser.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser', width=256, height=256).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/bullets_0.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and bullets_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bullets_0', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: laser -> laser_red
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (4, 3), w=248, h=10
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red', width=248, height=10).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: bullets_0 -> test_bullet
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (16, 68), w=16, h=16
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_bullet
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: bullets_0 -> bullet_bg_ball_red
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 267), w=64, h=64
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and bullet_bg_ball_red
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bullet_bg_ball_red', width=64, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_0
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 0), w=48, h=64
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_0', width=48, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_1
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (48, 0), w=48, h=64
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_1
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_1', width=48, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_2
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (96, 0), w=48, h=64
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_2
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_2', width=48, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_3
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (144, 0), w=48, h=64
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_3
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_3', width=48, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_4
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (192, 0), w=48, h=64
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_4
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_4', width=48, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_5
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (240, 0), w=48, h=64
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_5
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_5', width=48, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_6
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (288, 0), w=48, h=64
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_6
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_6', width=48, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_7
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (336, 0), w=48, h=64
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_7
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_7', width=48, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_0
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 0), w=31, h=10
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_0', width=31, height=10).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_1
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (31, 0), w=31, h=10
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_1
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_1', width=31, height=10).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_2
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (62, 0), w=31, h=10
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_2
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_2', width=31, height=10).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_3
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (93, 0), w=31, h=10
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_3
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_3', width=31, height=10).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_4
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (124, 0), w=31, h=10
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_4
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_4', width=31, height=10).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_5
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (155, 0), w=31, h=10
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_5
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_5', width=31, height=10).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_6
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (186, 0), w=31, h=10
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_6
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_6', width=31, height=10).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_7
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (217, 0), w=31, h=10
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_7
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_7', width=31, height=10).
-[2:14:08 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\bullets.kgfx
-[2:14:08 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\faces.kgfx
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/face_koishi_angry.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_koishi_an
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_koishi_an', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: face_koishi_an -> face_koishi_angry
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (120, 0), w=320, h=450
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_koishi_angry
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_koishi_angry', width=320, height=450).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/face_koishi_puzzle.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_koishi_pz
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_koishi_pz', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: face_koishi_pz -> face_koishi_puzzle
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (120, 0), w=320, h=450
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_koishi_puzzle
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_koishi_puzzle', width=320, height=450).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/face_koishi_nanbeng.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_koishi_nb
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_koishi_nb', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: face_koishi_nb -> face_koishi_nanbeng
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (120, 0), w=320, h=450
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_koishi_nanbeng
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_koishi_nanbeng', width=320, height=450).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/face_seiryuu_low.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_seiryuu_lo
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_seiryuu_lo', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: face_seiryuu_lo -> face_seiryuu_low
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (100, 0), w=295, h=450
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_seiryuu_low
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_seiryuu_low', width=295, height=450).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/face_seiryuu_cat.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_seiryuu_ct
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_seiryuu_ct', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: face_seiryuu_ct -> face_seiryuu_cat
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (100, 0), w=295, h=450
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_seiryuu_cat
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_seiryuu_cat', width=295, height=450).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: objects -> dialog
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 44), w=384, h=104
-[2:14:08 PM] [main<-GFX/DEBUG]: objects info: Texture(name='unnamed_texture', width=40, height=40)
-[2:14:08 PM] [main<-GFX/WARNING]: Failed to load the texture dialog
-[2:14:08 PM] [main<-GFXLoader/TRACE]: java.awt.image.RasterFormatException: (x + width) is outside of Raster
+[9:40:55 AM] [main<-ThreadExceptionHandler/INFO]: Crash Handler Command: [java, -jar, "D:\ProjectKotlin\KStg\./crash_handle/KStg.CrashHandler.jar", D:\ProjectKotlin\KStg\., 18384]
+[9:40:55 AM] [main<-ThreadExceptionHandler/INFO]: Set Crash Handler, pid: 19384
+[9:40:55 AM] [main<-Test/DEBUG]: Debug mode on.
+[9:40:55 AM] [main<-Test/DEBUG]: Program arguments: [-debug]
+[9:40:55 AM] [main<-Bootstrapper/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.boot.Bootstrapper
+[9:40:55 AM] [main<-GFX/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.gfx.GFX
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and unnamed_texture
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='unnamed_texture', width=40, height=40).
+[9:40:56 AM] [main<-GFX/INFO]: Init TEXTURE_NOT_FOUND
+[9:40:56 AM] [main<-Sounds/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.audio.Sounds
+[9:40:56 AM] [main<-GFXLoader/INFO]: Load textures from scripts.
+[9:40:56 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\boss.kgfx
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/test_boss_0.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_0', width=256, height=256).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_0
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=80
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_0_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_0_0', width=64, height=80).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_1
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (64, 0), w=64, h=80
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_0_1
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_0_1', width=64, height=80).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_2
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (128, 0), w=64, h=80
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_0_2
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_0_2', width=64, height=80).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_0_3
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (192, 0), w=64, h=80
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_0_3
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_0_3', width=64, height=80).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_0
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 80), w=64, h=80
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_1_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_1_0', width=64, height=80).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_1
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (64, 80), w=64, h=80
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_1_1
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_1_1', width=64, height=80).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_2
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (128, 80), w=64, h=80
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_1_2
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_1_2', width=64, height=80).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_1_3
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (192, 80), w=64, h=80
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_1_3
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_1_3', width=64, height=80).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_0
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 160), w=64, h=80
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_2_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_2_0', width=64, height=80).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_1
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (64, 160), w=64, h=80
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_2_1
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_2_1', width=64, height=80).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_2
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (128, 160), w=64, h=80
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_2_2
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_2_2', width=64, height=80).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: test_boss_0 -> test_boss_2_3
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (192, 160), w=64, h=80
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_boss_2_3
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_boss_2_3', width=64, height=80).
+[9:40:56 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\boss.kgfx
+[9:40:56 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\bullets.kgfx
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/test_img.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_img
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_img', width=17, height=18).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/mirror.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and mirror
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='mirror', width=64, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/bg_1_1.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and bg_1_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bg_1_0', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/ghost_fire.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire', width=512, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/laser.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser', width=256, height=256).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/bullets_0.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and bullets_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bullets_0', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: laser -> laser_red
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (4, 3), w=248, h=10
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red', width=248, height=10).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: bullets_0 -> test_bullet
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (16, 68), w=16, h=16
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and test_bullet
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: bullets_0 -> bullet_bg_ball_red
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 267), w=64, h=64
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and bullet_bg_ball_red
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bullet_bg_ball_red', width=64, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_0
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 0), w=48, h=64
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_0', width=48, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_1
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (48, 0), w=48, h=64
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_1
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_1', width=48, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_2
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (96, 0), w=48, h=64
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_2
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_2', width=48, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_3
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (144, 0), w=48, h=64
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_3
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_3', width=48, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_4
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (192, 0), w=48, h=64
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_4
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_4', width=48, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_5
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (240, 0), w=48, h=64
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_5
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_5', width=48, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_6
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (288, 0), w=48, h=64
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_6
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_6', width=48, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: ghost_fire -> ghost_fire_7
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (336, 0), w=48, h=64
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ghost_fire_7
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ghost_fire_7', width=48, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_0
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 0), w=31, h=10
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_0', width=31, height=10).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_1
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (31, 0), w=31, h=10
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_1
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_1', width=31, height=10).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_2
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (62, 0), w=31, h=10
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_2
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_2', width=31, height=10).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_3
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (93, 0), w=31, h=10
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_3
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_3', width=31, height=10).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_4
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (124, 0), w=31, h=10
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_4
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_4', width=31, height=10).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_5
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (155, 0), w=31, h=10
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_5
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_5', width=31, height=10).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_6
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (186, 0), w=31, h=10
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_6
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_6', width=31, height=10).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: laser_red -> laser_red_7
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (217, 0), w=31, h=10
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and laser_red_7
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='laser_red_7', width=31, height=10).
+[9:40:56 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\bullets.kgfx
+[9:40:56 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\faces.kgfx
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/face_koishi_angry.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_koishi_an
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_koishi_an', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: face_koishi_an -> face_koishi_angry
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (120, 0), w=320, h=450
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_koishi_angry
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_koishi_angry', width=320, height=450).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/face_koishi_puzzle.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_koishi_pz
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_koishi_pz', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: face_koishi_pz -> face_koishi_puzzle
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (120, 0), w=320, h=450
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_koishi_puzzle
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_koishi_puzzle', width=320, height=450).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/face_koishi_nanbeng.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_koishi_nb
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_koishi_nb', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: face_koishi_nb -> face_koishi_nanbeng
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (120, 0), w=320, h=450
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_koishi_nanbeng
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_koishi_nanbeng', width=320, height=450).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/face_seiryuu_low.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_seiryuu_lo
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_seiryuu_lo', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: face_seiryuu_lo -> face_seiryuu_low
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (100, 0), w=295, h=450
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_seiryuu_low
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_seiryuu_low', width=295, height=450).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/face_seiryuu_cat.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_seiryuu_ct
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_seiryuu_ct', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: face_seiryuu_ct -> face_seiryuu_cat
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (100, 0), w=295, h=450
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and face_seiryuu_cat
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='face_seiryuu_cat', width=295, height=450).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: objects -> dialog
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 44), w=384, h=104
+[9:40:56 AM] [main<-GFX/DEBUG]: objects info: Texture(name='unnamed_texture', width=40, height=40)
+[9:40:56 AM] [main<-GFX/WARNING]: Failed to load the texture dialog
+[9:40:56 AM] [main<-GFXLoader/TRACE]: java.awt.image.RasterFormatException: (x + width) is outside of Raster
 top.kkoishi.stg.exceptions.FailedLoadingResourceException: java.awt.image.RasterFormatException: (x + width) is outside of Raster
 	at top.kkoishi.stg.gfx.GFX.shearTexture(GFX.kt:90)
 	at top.kkoishi.stg.script.GFXLoader$shear.invoke(GFXLoader.kt:249)
@@ -213,439 +213,627 @@ Caused by: java.awt.image.RasterFormatException: (x + width) is outside of Raste
 	at top.kkoishi.stg.gfx.GFX.shearTexture(GFX.kt:85)
 	... 5 more
 
-[2:14:08 PM] [main<-GFXLoader/INFO]: top.kkoishi.stg.script.GFXLoader$shear@358ee631 will be load at last.
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/objs.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and objects
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='objects', width=512, height=256).
-[2:14:08 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\faces.kgfx
-[2:14:08 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\fonts.kgfx
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/font_num.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and font_num
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='font_num', width=256, height=128).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: font_num -> score_num
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 18), w=256, h=18
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and score_num
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='score_num', width=256, height=18).
-[2:14:08 PM] [main<-Reflection/INFO]: Parse Method Descriptor: top.kkoishi.stg.test.Fonts.getScoreNumIndexes(C)Lkotlin/Pair;
-[2:14:08 PM] [main<-Reflection/INFO]: Method Owner: class top.kkoishi.stg.test.Fonts
-[2:14:08 PM] [main<-Reflection/INFO]: Method Return: class kotlin.Pair
-[2:14:08 PM] [main<-Reflection/INFO]: Method Name: getScoreNumIndexes
-[2:14:08 PM] [main<-Reflection/INFO]: Method Parameter: [char]
-[2:14:08 PM] [main<-Reflection/INFO]: Parse method to (MethodHandle(char)Pair, null)
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and unnamed_texture
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='unnamed_texture', width=256, height=18).
-[2:14:08 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\fonts.kgfx
-[2:14:08 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\player.kgfx
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/center.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and center
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='center', width=16, height=16).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/planes_koishi.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and planes_koishi
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='planes_koishi', width=256, height=256).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/slow_effect.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and slow_effect
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='slow_effect', width=128, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/player_koishi_description.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and player_koishi_description
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='player_koishi_description', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/player_koishi_me.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and player_koishi_me_full
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='player_koishi_me_full', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: player_koishi_me_full -> player_koishi_me
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (100, 0), w=412, h=512
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and player_koishi_me
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='player_koishi_me', width=412, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (220, 144), w=36, h=16
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and bullet_koishi
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bullet_koishi', width=36, height=16).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_0
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (177, 146), w=32, h=16
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and bullet_koishi_slow_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bullet_koishi_slow_0', width=32, height=16).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_1
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (220, 160), w=36, h=16
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and bullet_koishi_slow_1
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bullet_koishi_slow_1', width=36, height=16).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: slow_effect -> slow_effect_final
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=64
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and slow_effect_final
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='slow_effect_final', width=64, height=64).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_0
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 0), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_0', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_1
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (32, 0), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_1
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_1', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_2
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (64, 0), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_2
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_2', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_3
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (96, 0), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_3
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_3', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_4
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (128, 0), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_4
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_4', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_5
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (160, 0), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_5
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_5', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_6
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (192, 0), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_6
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_6', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_7
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (224, 0), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_7
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_7', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_0
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 48), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_0', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_1
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (32, 48), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_1
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_1', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_2
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (64, 48), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_2
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_2', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_3
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (96, 48), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_3
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_3', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_4
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (128, 48), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_4
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_4', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_5
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (160, 48), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_5
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_5', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_6
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (192, 48), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_6
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_6', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_7
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (224, 48), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_7
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_7', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_0
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 96), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_0', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_1
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (32, 96), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_1
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_1', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_2
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (64, 96), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_2
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_2', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_3
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (96, 96), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_3
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_3', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_4
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (128, 96), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_4
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_4', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_5
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (160, 96), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_5
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_5', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_6
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (192, 96), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_6
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_6', width=32, height=48).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_7
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (224, 96), w=32, h=48
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_7
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_7', width=32, height=48).
-[2:14:08 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\player.kgfx
-[2:14:08 PM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\ui_objects.kgfx
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/interface.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and interface
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='interface', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/ui.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ui_base
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ui_base', width=1024, height=1024).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/menu_bg.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and menu_bg
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='menu_bg', width=1024, height=1024).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/main_menu_items.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_items
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_items', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/pause_menu_items.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and pause_menu_items
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='pause_menu_items', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/main_menu_select.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_select
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_select', width=512, height=512).
-[2:14:08 PM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/stage_clear.png
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and stage_clear
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='stage_clear', width=256, height=128).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_sidebar
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 0), w=640, h=480
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ui_sidebar
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ui_sidebar', width=640, height=480).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: interface -> ui_diff_easy
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 61), w=68, h=26
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ui_diff_easy
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ui_diff_easy', width=68, height=26).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_score
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (704, 0), w=60, h=21
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ui_score
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ui_score', width=60, height=21).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_0
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (1, 209), w=300, h=30
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_select_0
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_select_0', width=300, height=30).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_1
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (1, 239), w=300, h=30
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_select_1
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_select_1', width=300, height=30).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_2
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (1, 269), w=300, h=30
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_select_2
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_select_2', width=300, height=30).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_3
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (1, 299), w=300, h=30
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_select_3
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_select_3', width=300, height=30).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_start
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (20, 14), w=150, h=30
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_start
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_start', width=150, height=30).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_extra_start
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (20, 44), w=150, h=30
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_extra_start
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_extra_start', width=150, height=30).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_practice
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (20, 74), w=150, h=30
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_practice
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_practice', width=150, height=30).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_exit
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (20, 284), w=150, h=30
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_exit
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_exit', width=150, height=30).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> reimu_baisi
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 544), w=640, h=480
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and reimu_baisi
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='reimu_baisi', width=640, height=480).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: pause_menu_items -> pause_continue
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 0), w=180, h=34
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and pause_continue
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='pause_continue', width=180, height=34).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: pause_menu_items -> pause_restart
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 152), w=180, h=34
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and pause_restart
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='pause_restart', width=180, height=34).
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: pause_menu_items -> pause_return_menu
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 37), w=180, h=34
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and pause_return_menu
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='pause_return_menu', width=180, height=34).
-[2:14:08 PM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\ui_objects.kgfx
-[2:14:08 PM] [main<-GFX/INFO]: Try to cut the texture: objects -> dialog
-[2:14:08 PM] [main<-GFX/INFO]: Begin: (0, 44), w=384, h=104
-[2:14:08 PM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and dialog
-[2:14:08 PM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='dialog', width=384, height=104).
-[2:14:08 PM] [main<-DialogsLoader/INFO]: Load dialogs from scripts.
-[2:14:08 PM] [main<-DialogsLoader/INFO]: Try to load dialogs from D:\ProjectKotlin\KStg\.\test\common\dialogs\test_0.csv
-[2:14:08 PM] [main<-DialogsLoader/INFO]: CSV Dialog: 0 -> Dialog(faces=[Face(face=Texture(name='face_koishi_puzzle', width=320, height=450), x=0, y=150, state=SHADOW), Face(face=Texture(name='face_seiryuu_low', width=295, height=450), x=200, y=150, state=DISPLAY)], message='测试开始文字	Test text')
-[2:14:08 PM] [main<-DialogsLoader/INFO]: CSV Dialog: 1 -> Dialog(faces=[Face(face=Texture(name='face_koishi_puzzle', width=320, height=450), x=0, y=150, state=DISPLAY), Face(face=Texture(name='face_seiryuu_low', width=295, height=450), x=200, y=150, state=SHADOW)], message='测试1文字
+[9:40:56 AM] [main<-GFXLoader/INFO]: top.kkoishi.stg.script.GFXLoader$shear@60dcc9fe will be load at last.
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/objs.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and objects
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='objects', width=512, height=256).
+[9:40:56 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\faces.kgfx
+[9:40:56 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\fonts.kgfx
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/font_num.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and font_num
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='font_num', width=256, height=128).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: font_num -> score_num
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 18), w=256, h=18
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and score_num
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='score_num', width=256, height=18).
+[9:40:56 AM] [main<-Reflection/INFO]: Parse Method Descriptor: top.kkoishi.stg.test.Fonts.getScoreNumIndexes(C)Lkotlin/Pair;
+[9:40:56 AM] [main<-Reflection/INFO]: Method Owner: class top.kkoishi.stg.test.Fonts
+[9:40:56 AM] [main<-Reflection/INFO]: Method Return: class kotlin.Pair
+[9:40:56 AM] [main<-Reflection/INFO]: Method Name: getScoreNumIndexes
+[9:40:56 AM] [main<-Reflection/INFO]: Method Parameter: [char]
+[9:40:56 AM] [main<-Reflection/INFO]: Parse method to (MethodHandle(char)Pair, null)
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and unnamed_texture
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='unnamed_texture', width=256, height=18).
+[9:40:56 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\fonts.kgfx
+[9:40:56 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\items.kgfx
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/item_power.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and power_item
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='power_item', width=16, height=16).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/item_bluepoint.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and item_bluepoint
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='item_bluepoint', width=16, height=16).
+[9:40:56 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\items.kgfx
+[9:40:56 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\player.kgfx
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/center.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and center
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='center', width=16, height=16).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/planes_koishi.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and planes_koishi
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='planes_koishi', width=256, height=256).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/slow_effect.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and slow_effect
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='slow_effect', width=128, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/player_koishi_description.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and player_koishi_description
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='player_koishi_description', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/player_koishi_me.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and player_koishi_me_full
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='player_koishi_me_full', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: player_koishi_me_full -> player_koishi_me
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (100, 0), w=412, h=512
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and player_koishi_me
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='player_koishi_me', width=412, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (220, 144), w=36, h=16
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and bullet_koishi
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bullet_koishi', width=36, height=16).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_0
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (177, 146), w=32, h=16
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and bullet_koishi_slow_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bullet_koishi_slow_0', width=32, height=16).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> bullet_koishi_slow_1
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (220, 160), w=36, h=16
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and bullet_koishi_slow_1
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bullet_koishi_slow_1', width=36, height=16).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: slow_effect -> slow_effect_final
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 0), w=64, h=64
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and slow_effect_final
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='slow_effect_final', width=64, height=64).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_0
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 0), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_0', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_1
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (32, 0), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_1
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_1', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_2
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (64, 0), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_2
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_2', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_3
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (96, 0), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_3
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_3', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_4
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (128, 0), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_4
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_4', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_5
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (160, 0), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_5
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_5', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_6
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (192, 0), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_6
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_6', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_0_7
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (224, 0), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_0_7
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_0_7', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_0
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 48), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_0', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_1
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (32, 48), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_1
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_1', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_2
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (64, 48), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_2
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_2', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_3
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (96, 48), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_3
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_3', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_4
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (128, 48), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_4
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_4', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_5
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (160, 48), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_5
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_5', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_6
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (192, 48), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_6
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_6', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_1_7
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (224, 48), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_1_7
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_1_7', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_0
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 96), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_0', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_1
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (32, 96), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_1
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_1', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_2
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (64, 96), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_2
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_2', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_3
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (96, 96), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_3
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_3', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_4
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (128, 96), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_4
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_4', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_5
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (160, 96), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_5
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_5', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_6
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (192, 96), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_6
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_6', width=32, height=48).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: planes_koishi -> plane_koishi_2_7
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (224, 96), w=32, h=48
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and plane_koishi_2_7
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='plane_koishi_2_7', width=32, height=48).
+[9:40:56 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\player.kgfx
+[9:40:56 AM] [main<-GFXLoader/INFO]: Try to load textures from D:\ProjectKotlin\KStg\.\test\gfx\ui_objects.kgfx
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/interface.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and interface
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='interface', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/ui.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ui_base
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ui_base', width=1024, height=1024).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/menu_bg.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and menu_bg
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='menu_bg', width=1024, height=1024).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/main_menu_items.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_items
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_items', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/pause_menu_items.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and pause_menu_items
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='pause_menu_items', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/main_menu_select.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_select
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_select', width=512, height=512).
+[9:40:56 AM] [main<-GFX/INFO]: Try to load the texture: D:\ProjectKotlin\KStg\.\test\gfx/./icons/stage_clear.png
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and stage_clear
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='stage_clear', width=256, height=128).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_sidebar
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 0), w=640, h=480
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ui_sidebar
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ui_sidebar', width=640, height=480).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: interface -> ui_diff_easy
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 61), w=68, h=26
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ui_diff_easy
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ui_diff_easy', width=68, height=26).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> ui_score
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (704, 0), w=60, h=21
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and ui_score
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='ui_score', width=60, height=21).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_0
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (1, 209), w=300, h=30
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_select_0
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_select_0', width=300, height=30).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_1
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (1, 239), w=300, h=30
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_select_1
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_select_1', width=300, height=30).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_2
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (1, 269), w=300, h=30
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_select_2
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_select_2', width=300, height=30).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_select -> main_menu_select_3
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (1, 299), w=300, h=30
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_select_3
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_select_3', width=300, height=30).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_start
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (20, 14), w=150, h=30
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_start
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_start', width=150, height=30).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_extra_start
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (20, 44), w=150, h=30
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_extra_start
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_extra_start', width=150, height=30).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_practice
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (20, 74), w=150, h=30
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_practice
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_practice', width=150, height=30).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: main_menu_items -> main_menu_exit
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (20, 284), w=150, h=30
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and main_menu_exit
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='main_menu_exit', width=150, height=30).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: ui_base -> reimu_baisi
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 544), w=640, h=480
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and reimu_baisi
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='reimu_baisi', width=640, height=480).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: pause_menu_items -> pause_continue
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 0), w=180, h=34
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and pause_continue
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='pause_continue', width=180, height=34).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: pause_menu_items -> pause_restart
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 152), w=180, h=34
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and pause_restart
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='pause_restart', width=180, height=34).
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: pause_menu_items -> pause_return_menu
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 37), w=180, h=34
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and pause_return_menu
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='pause_return_menu', width=180, height=34).
+[9:40:56 AM] [main<-GFXLoader/INFO]: Success to load all the textures from D:\ProjectKotlin\KStg\.\test\gfx\ui_objects.kgfx
+[9:40:56 AM] [main<-GFX/INFO]: Try to cut the texture: objects -> dialog
+[9:40:56 AM] [main<-GFX/INFO]: Begin: (0, 44), w=384, h=104
+[9:40:56 AM] [main<-Texture/DEBUG]: Initializing the cached texture for NORMAL_MATRIX and dialog
+[9:40:56 AM] [main<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='dialog', width=384, height=104).
+[9:40:56 AM] [main<-DialogsLoader/INFO]: Load dialogs from scripts.
+[9:40:56 AM] [main<-DialogsLoader/INFO]: Try to load dialogs from D:\ProjectKotlin\KStg\.\test\common\dialogs\test_0.csv
+[9:40:56 AM] [main<-DialogsLoader/INFO]: CSV Dialog: 0 -> Dialog(faces=[Face(face=Texture(name='face_koishi_puzzle', width=320, height=450), x=0, y=150, state=SHADOW), Face(face=Texture(name='face_seiryuu_low', width=295, height=450), x=200, y=150, state=DISPLAY)], message='测试开始文字	Test text')
+[9:40:56 AM] [main<-DialogsLoader/INFO]: CSV Dialog: 1 -> Dialog(faces=[Face(face=Texture(name='face_koishi_puzzle', width=320, height=450), x=0, y=150, state=DISPLAY), Face(face=Texture(name='face_seiryuu_low', width=295, height=450), x=200, y=150, state=SHADOW)], message='测试1文字
 Test text')
-[2:14:08 PM] [main<-DialogsLoader/INFO]: CSV Dialog: 2 -> Dialog(faces=[Face(face=Texture(name='face_koishi_nanbeng', width=320, height=450), x=0, y=150, state=DISPLAY), Face(face=Texture(name='face_seiryuu_low', width=295, height=450), x=200, y=150, state=SHADOW)], message='测试2文字"Test text"')
-[2:14:08 PM] [main<-DialogsLoader/INFO]: CSV Dialog: 3 -> Dialog(faces=[Face(face=Texture(name='face_koishi_nanbeng', width=320, height=450), x=0, y=150, state=SHADOW), Face(face=Texture(name='face_seiryuu_cat', width=295, height=450), x=200, y=150, state=DISPLAY)], message='测试3文字\Test text')
-[2:14:08 PM] [main<-DialogsLoader/INFO]: CSV Dialog: 4 -> Dialog(faces=[Face(face=Texture(name='face_koishi_angry', width=320, height=450), x=0, y=150, state=DISPLAY)], message='测试结束文字Test text')
-[2:14:08 PM] [main<-DialogsLoader/INFO]: Success to load all the dialogs from D:\ProjectKotlin\KStg\.\test\common\dialogs\test_0.csv
-[2:14:08 PM] [main<-AudioLoader/INFO]: Load audios from scripts.
-[2:14:08 PM] [main<-AudioLoader/INFO]: Try to audios textures from D:\ProjectKotlin\KStg\.\test\audio\effects.txt
-[2:14:08 PM] [main<-AudioLoader/INFO]: Success to load all the audios from D:\ProjectKotlin\KStg\.\test\audio\effects.txt
-[2:14:09 PM] [AWT-EventQueue-0<-null/INFO]: Gained focus, try to resync again.
-[2:14:09 PM] [main<-Companion/INFO]: Stop current background.
-[2:14:09 PM] [main<-Companion/INFO]: Opening new background audio...
-[2:14:09 PM] [main<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\bk_0.wav)
-[2:14:09 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.InfoSystem@1189dd52
-[2:14:09 PM] [Pool-1[0] Worker<-InfoSystem/INFO]: Try to GC.
-[2:14:09 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.gfx.Renderer@564fabc8
-[2:14:09 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.GameLoop@49ec71f8
-[2:14:09 PM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.audio.AudioPlayer@36902638
-[2:14:09 PM] [Pool-1[1] Worker<-Texture/INFO]: Constructing a convolve kernel with [0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556]
-[2:14:09 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='reimu_baisi', width=640, height=480).
-[2:14:10 PM] [Pool-1[0] Worker<-MainMenuItem/INFO]: Press key: vk_z(90)
-[2:14:10 PM] [Pool-1[3] Worker<-PlayerSelectMenuItem/INFO]: Press key: vk_z(90)
-[2:14:10 PM] [Pool-1[3] Worker<-ReplayRecorder/INFO]: Initialize record replay.
-[2:14:10 PM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@6dc2f176
-[2:14:10 PM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@2c648ab9
-[2:14:10 PM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.common.stages.Stage1$3@574eb473
-[2:14:10 PM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.common.stages.Stage1$5@3d39d638
-[2:14:10 PM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.WaitStageAction@22e0de0e
-[2:14:10 PM] [Pool-1[3] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.WaitStageAction@7ec4be9f
-[2:14:10 PM] [Thread-1<-ReplayRecorder/INFO]: Start record replay.
-[2:14:11 PM] [Pool-1[0] Worker<-Companion/INFO]: Stop current background.
-[2:14:11 PM] [Pool-1[0] Worker<-Companion/INFO]: Opening new background audio...
-[2:14:11 PM] [Pool-1[0] Worker<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\bk_1.wav)
-[2:14:11 PM] [Pool-1[0] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@6dc2f176
-[2:14:11 PM] [Pool-1[7] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@2c648ab9
-[2:14:11 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 1.57079
-[2:14:11 PM] [Pool-1[5] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\enemy_shoot.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@46e38f9c
-[2:14:11 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 3.13286
-[2:14:11 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 4.6862
-[2:14:11 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 6.23082
-[2:14:11 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 1.48352
-[2:14:11 PM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 3.01069
-[2:14:11 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 4.52912
-[2:14:11 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 6.03883
-[2:14:11 PM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 1.25663
-[2:14:11 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 2.74889
-[2:14:11 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 4.23242
-[2:14:11 PM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 5.70722
-[2:14:11 PM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 0.89011
-[2:14:11 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 2.34746
-[2:14:11 PM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 3.79609
-[2:14:11 PM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 5.23598
-[2:14:11 PM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 0.38397
-[2:14:11 PM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 1.80641
-[2:14:11 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 3.22013
-[2:14:11 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 4.62512
-[2:14:11 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 6.02138
-[2:14:11 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 1.12573
-[2:14:11 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:11 PM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 2.50454
-[2:14:11 PM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 3.87463
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 0.30543
-[2:14:12 PM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 1.64933
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 2.98451
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 4.31096
-[2:14:12 PM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 5.62868
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 0.65449
-[2:14:12 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 1.95476
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 3.24631
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 5.80321
-[2:14:12 PM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 0.78539
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 2.04203
-[2:14:12 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 3.28994
-[2:14:12 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 5.75958
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 0.69813
-[2:14:12 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 1.91113
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 3.11541
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 5.49778
-[2:14:12 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 0.39269
-[2:14:12 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 1.56206
-[2:14:12 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 2.72271
-[2:14:12 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 5.01782
-[2:14:12 PM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 6.15228
-[2:14:12 PM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 0.99483
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 2.11184
-[2:14:12 PM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[1] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
-[2:14:12 PM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 4.31968
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
-[2:14:12 PM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 5.41052
-[2:14:12 PM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[3] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
-[2:14:12 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 0.20943
-[2:14:12 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
-[2:14:12 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 1.28281
-[2:14:12 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[5] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
-[2:14:12 PM] [Pool-1[2] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
-[2:14:12 PM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
-[2:14:12 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 3.40339
-[2:14:12 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 4.45058
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 5.48906
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[1] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 0.23561
-[2:14:12 PM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
-[2:14:12 PM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
-[2:14:12 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 2.26892
-[2:14:12 PM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[5] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
-[2:14:12 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 3.27249
-[2:14:12 PM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[6] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
-[2:14:12 PM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 4.26733
-[2:14:12 PM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 5.25344
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [Pool-1[1] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
-[2:14:12 PM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
-[2:14:12 PM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 0.91629
-[2:14:12 PM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:12 PM] [main<-Player/INFO]: Pause the game.
-[2:14:12 PM] [Pool-1[2] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 1.87622
-[2:14:12 PM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
-[2:14:13 PM] [Pool-1[6] Worker<-PauseMenuItem/INFO]: Press key: vk_down(40)
-[2:14:13 PM] [Pool-1[5] Worker<-PauseMenuItem/INFO]: Press key: vk_z(90)
-[2:14:13 PM] [Pool-1[5] Worker<-Companion/INFO]: Stop current background.
-[2:14:13 PM] [Pool-1[5] Worker<-Companion/INFO]: Opening new background audio...
-[2:14:13 PM] [Pool-1[5] Worker<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\bk_0.wav)
-[2:14:13 PM] [Thread-1<-ReplayRecorder/INFO]: End to record replay, Frames: 0x68
-[2:14:13 PM] [Pool-1[5] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
-[2:14:13 PM] [Pool-1[3] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
-[2:14:13 PM] [Pool-1[1] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
-[2:14:14 PM] [Pool-1[0] Worker<-MainMenuItem/INFO]: Press key: vk_z(90)
-[2:14:14 PM] [Pool-1[0] Worker<-SingleInstanceEnsurer/INFO]: Release the file lock on java.io.RandomAccessFile@1dc23fd0
-[2:14:14 PM] [Thread-0<-CrashReporter/INFO]: Bin file cleared.
+[9:40:56 AM] [main<-DialogsLoader/INFO]: CSV Dialog: 2 -> Dialog(faces=[Face(face=Texture(name='face_koishi_nanbeng', width=320, height=450), x=0, y=150, state=DISPLAY), Face(face=Texture(name='face_seiryuu_low', width=295, height=450), x=200, y=150, state=SHADOW)], message='测试2文字"Test text"')
+[9:40:56 AM] [main<-DialogsLoader/INFO]: CSV Dialog: 3 -> Dialog(faces=[Face(face=Texture(name='face_koishi_nanbeng', width=320, height=450), x=0, y=150, state=SHADOW), Face(face=Texture(name='face_seiryuu_cat', width=295, height=450), x=200, y=150, state=DISPLAY)], message='测试3文字\Test text')
+[9:40:56 AM] [main<-DialogsLoader/INFO]: CSV Dialog: 4 -> Dialog(faces=[Face(face=Texture(name='face_koishi_angry', width=320, height=450), x=0, y=150, state=DISPLAY)], message='测试结束文字Test text')
+[9:40:56 AM] [main<-DialogsLoader/INFO]: Success to load all the dialogs from D:\ProjectKotlin\KStg\.\test\common\dialogs\test_0.csv
+[9:40:56 AM] [main<-AudioLoader/INFO]: Load audios from scripts.
+[9:40:56 AM] [main<-AudioLoader/INFO]: Try to audios textures from D:\ProjectKotlin\KStg\.\test\audio\effects.txt
+[9:40:56 AM] [main<-AudioLoader/INFO]: Success to load all the audios from D:\ProjectKotlin\KStg\.\test\audio\effects.txt
+[9:40:56 AM] [AWT-EventQueue-0<-null/INFO]: Gained focus, try to resync again.
+[9:40:57 AM] [main<-Companion/INFO]: Stop current background.
+[9:40:57 AM] [main<-Companion/INFO]: Opening new background audio...
+[9:40:57 AM] [main<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\bk_0.wav)
+[9:40:57 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.InfoSystem@3febb011
+[9:40:57 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: Try to GC.
+[9:40:57 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.gfx.Renderer@131774fe
+[9:40:57 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.logic.GameLoop@77847718
+[9:40:57 AM] [main<-Threads/INFO]: Add a new thread top.kkoishi.stg.audio.AudioPlayer@57a3af25
+[9:40:57 AM] [Pool-1[1] Worker<-Texture/INFO]: Constructing a convolve kernel with [0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556, 0.055555556]
+[9:40:57 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='reimu_baisi', width=640, height=480).
+[9:40:59 AM] [Pool-1[4] Worker<-MainMenuItem/INFO]: Press key: vk_z(90)
+[9:40:59 AM] [Pool-1[6] Worker<-PlayerSelectMenuItem/INFO]: Press key: vk_z(90)
+[9:40:59 AM] [Pool-1[6] Worker<-ReplayRecorder/INFO]: Initialize record replay.
+[9:40:59 AM] [Pool-1[6] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@17a6b79b
+[9:40:59 AM] [Pool-1[6] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.StageAction@65918854
+[9:40:59 AM] [Pool-1[6] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.common.stages.Stage1$3@307f4f85
+[9:40:59 AM] [Pool-1[6] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.test.common.stages.Stage1$5@3858094d
+[9:40:59 AM] [Pool-1[6] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.WaitStageAction@7c582d9b
+[9:40:59 AM] [Pool-1[6] Worker<-AbstractStage/INFO]: Add new action: top.kkoishi.stg.common.WaitStageAction@7d8fcf44
+[9:41:00 AM] [Thread-1<-ReplayRecorder/INFO]: Start record replay.
+[9:41:00 AM] [Pool-1[6] Worker<-Companion/INFO]: Stop current background.
+[9:41:00 AM] [Pool-1[6] Worker<-Companion/INFO]: Opening new background audio...
+[9:41:00 AM] [Pool-1[6] Worker<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\bk_1.wav)
+[9:41:00 AM] [Pool-1[6] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@17a6b79b
+[9:41:00 AM] [Pool-1[3] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.common.StageAction@65918854
+[9:41:00 AM] [Pool-1[6] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\enemy_shoot.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@2208847c
+[9:41:00 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 1.57079
+[9:41:00 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:00 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 3.13286
+[9:41:00 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:00 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 4.6862
+[9:41:00 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:00 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 6.23082
+[9:41:00 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:00 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 1.48352
+[9:41:00 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:00 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 3.01069
+[9:41:00 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:00 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 4.52912
+[9:41:00 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:00 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 6.03883
+[9:41:00 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:00 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 1.25663
+[9:41:00 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:00 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 2.74889
+[9:41:00 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:00 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 4.23242
+[9:41:00 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:00 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 5.70722
+[9:41:00 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:00 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 0.89011
+[9:41:00 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 2.34746
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 3.79609
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 5.23598
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 0.38397
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[3] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\th15_player_shot_0.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@7ef8e1d5
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for -1.57079
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='bullet_koishi_slow_0', width=32, height=16).
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 1.80641
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 3.22013
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 4.62512
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 6.02138
+[9:41:01 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 1.12573
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 2.50454
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 3.87463
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 0.30543
+[9:41:01 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 1.64933
+[9:41:01 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 2.98451
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 4.31096
+[9:41:01 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 5.62868
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 0.65449
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 1.95476
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 3.24631
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 5.80321
+[9:41:01 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 0.78539
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[1] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\th15_enemy_damage_01.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@26b7b1fc
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 2.04203
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 3.28994
+[9:41:01 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 5.75958
+[9:41:01 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[6] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\th15_enemy_damage_02.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@75468b98
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 0.69813
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 1.91113
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 3.11541
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 5.49778
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 0.39269
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 1.56206
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 2.72271
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 5.01782
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 6.15228
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 0.99483
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 2.11184
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 4.31968
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 5.41052
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 0.20943
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 1.28281
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 3.40339
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 4.45058
+[9:41:01 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[5] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 5.48906
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[3] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 0.23561
+[9:41:01 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[2] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[1] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 2.26892
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[6] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 3.27249
+[9:41:01 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 4.26733
+[9:41:01 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 5.25344
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[2] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[1] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 0.91629
+[9:41:01 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 1.87622
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 2.82743
+[9:41:01 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[1] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 3.76991
+[9:41:01 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 4.70366
+[9:41:01 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:01 AM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[1] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 0.26179
+[9:41:01 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 1.16937
+[9:41:02 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[3] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 2.06821
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[3] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 2.95833
+[9:41:02 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[5] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 3.83972
+[9:41:02 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 4.71238
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 5.57632
+[9:41:02 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 0.14835
+[9:41:02 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[3] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 1.83259
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[6] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 2.66162
+[9:41:02 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 3.48193
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[5] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 4.2935
+[9:41:02 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[6] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 5.09636
+[9:41:02 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[3] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 3
+[9:41:02 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 5.89048
+[9:41:02 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 3
+[9:41:02 AM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 1.93731
+[9:41:02 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[3] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 2.69653
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[2] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 3.44702
+[9:41:02 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[6] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 4.18879
+[9:41:02 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 4.92182
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[2] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 5.64614
+[9:41:02 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 0.07853
+[9:41:02 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[3] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[2] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 2.17293
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[5] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 2.85361
+[9:41:02 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 3.52556
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[6] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 4.84328
+[9:41:02 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 2
+[9:41:02 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 6.1261
+[9:41:02 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[1] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 0.47123
+[9:41:02 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 1.09083
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 1.70169
+[9:41:02 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cache for 2.30383
+[9:41:02 AM] [Pool-1[5] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 2.89724
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 4.05789
+[9:41:02 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 5.18362
+[9:41:02 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 5.7334
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 6.27445
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 0.52359
+[9:41:02 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 1.04719
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cache for 2.56563
+[9:41:02 AM] [Pool-1[6] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cache for 3.05432
+[9:41:02 AM] [Pool-1[2] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cache for 3.53429
+[9:41:02 AM] [Pool-1[7] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 4.00553
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cache for 4.46804
+[9:41:02 AM] [Pool-1[0] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 5.36688
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[3] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cache for 0.36651
+[9:41:02 AM] [Pool-1[1] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[2] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cache for 0.77667
+[9:41:02 AM] [Pool-1[4] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cache for 1.17809
+[9:41:02 AM] [Pool-1[3] Worker<-Texture/DEBUG]: Create Cached Texture for op and Texture(name='test_bullet', width=16, height=16).
+[9:41:02 AM] [Pool-1[6] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[2] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[2] Worker<-AudioPlayer/INFO]: create new clip: Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\enemy_dead_0.wav) -> com.sun.media.sound.DirectAudioDevice$DirectClip@2a59811d
+[9:41:02 AM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:02 AM] [Pool-1[6] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[2] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[5] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[6] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[1] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[3] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[5] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[7] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[6] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[2] Worker<-InfoSystem/INFO]: LogicFPS: 45.1693851944793, FPS: 45.1693851944793 | Bullets: 57
+[9:41:03 AM] [Pool-1[4] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[1] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[0] Worker<-PowerItem/DEBUG]: Player{false, (234.0, 421.0), uuid=e702ea23-483e-43af-87bc-69a538ccdf3e} get item.
+[9:41:03 AM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[6] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[3] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[1] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[2] Worker<-PowerItem/DEBUG]: Player{false, (234.0, 421.0), uuid=e702ea23-483e-43af-87bc-69a538ccdf3e} get item.
+[9:41:03 AM] [Pool-1[2] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:03 AM] [Pool-1[0] Worker<-SubChunks/DEBUG]: Bullets in player chunks: 1
+[9:41:06 AM] [main<-Player/INFO]: Pause the game.
+[9:41:07 AM] [Pool-1[5] Worker<-PauseMenuItem/INFO]: Press key: vk_down(40)
+[9:41:08 AM] [Pool-1[0] Worker<-PauseMenuItem/INFO]: Press key: vk_escape(27)
+[9:41:08 AM] [main<-Player/INFO]: Pause the game.
+[9:41:10 AM] [Pool-1[0] Worker<-InfoSystem/INFO]: LogicFPS: 62.5, FPS: 62.5 | Bullets: 0
+[9:41:12 AM] [Pool-1[0] Worker<-PauseMenuItem/INFO]: Press key: vk_escape(27)
+[9:41:13 AM] [Pool-1[4] Worker<-AbstractStage/INFO]: Invoke the action: top.kkoishi.stg.test.common.stages.Stage1$3@307f4f85
+[9:41:13 AM] [main<-Player/INFO]: Pause the game.
+[9:41:15 AM] [Pool-1[0] Worker<-PauseMenuItem/INFO]: Press key: vk_down(40)
+[9:41:16 AM] [Pool-1[2] Worker<-PauseMenuItem/INFO]: Press key: vk_up(38)
+[9:41:16 AM] [Pool-1[2] Worker<-InfoSystem/INFO]: LogicFPS: 62.50976715111736, FPS: 62.50976715111736 | Bullets: 0
+[9:41:16 AM] [Pool-1[4] Worker<-PauseMenuItem/INFO]: Press key: vk_down(40)
+[9:41:16 AM] [Pool-1[5] Worker<-PauseMenuItem/INFO]: Press key: vk_down(40)
+[9:41:17 AM] [Pool-1[0] Worker<-PauseMenuItem/INFO]: Press key: vk_up(38)
+[9:41:18 AM] [Pool-1[2] Worker<-PauseMenuItem/INFO]: Press key: vk_up(38)
+[9:41:19 AM] [Pool-1[5] Worker<-PauseMenuItem/INFO]: Press key: vk_down(40)
+[9:41:19 AM] [Pool-1[3] Worker<-PauseMenuItem/INFO]: Press key: vk_z(90)
+[9:41:19 AM] [Pool-1[3] Worker<-Companion/INFO]: Stop current background.
+[9:41:19 AM] [Pool-1[3] Worker<-Companion/INFO]: Opening new background audio...
+[9:41:19 AM] [Pool-1[3] Worker<-Companion/INFO]: Set the background to Audio(path=D:\ProjectKotlin\KStg\.\test\audio\.\sounds\bk_0.wav)
+[9:41:19 AM] [Thread-1<-ReplayRecorder/INFO]: End to record replay, Frames: 0x1e7
+[9:41:20 AM] [Pool-1[4] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
+[9:41:20 AM] [Pool-1[1] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
+[9:41:20 AM] [Pool-1[6] Worker<-MainMenuItem/INFO]: Press key: vk_down(40)
+[9:41:20 AM] [Pool-1[3] Worker<-MainMenuItem/INFO]: Press key: vk_z(90)
+[9:41:20 AM] [Pool-1[3] Worker<-SingleInstanceEnsurer/INFO]: Release the file lock on java.io.RandomAccessFile@45deb2d4
+[9:41:20 AM] [Thread-0<-CrashReporter/INFO]: Bin file cleared.

@@ -1,6 +1,9 @@
 package top.kkoishi.stg.localization
 
+import top.kkoishi.stg.canAccessUnsafe
+import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.script.reflect.Reflection
+import top.kkoishi.stg.setField
 import java.lang.reflect.Field
 import java.nio.file.Path
 import java.util.*
@@ -19,7 +22,6 @@ abstract class ClassLocalization<ConstantClass : ClassLocalization<ConstantClass
         registerThis()
     }
 
-
     abstract fun constantFieldsName(): Array<String>?
 
     abstract fun reference(): ConstantClass
@@ -36,12 +38,17 @@ abstract class ClassLocalization<ConstantClass : ClassLocalization<ConstantClass
 
     final override fun registerThis() {
         val names = constantFieldsName()
+        val unsafeCheck = canAccessUnsafe
+
+        // get the field array which represents all the constant field in this class.
         val fields: Array<Field> = if (names == null) {
             // get all fields through reflection.
             Reflection.getAllPossibleConstantFields(thisClass, String::class.java)
         } else
             Array(names.size) { thisClass.getField(names[it]) }
 
+        // get the constants field's actual name.
+        // if it has the annotation "LocalizationKey", it will use its property "name" as the actual name.
         val constantFields = ArrayDeque<Pair<Field, String>>(fields.size)
         fields.forEach {
             it.isAccessible = true
@@ -53,11 +60,34 @@ abstract class ClassLocalization<ConstantClass : ClassLocalization<ConstantClass
         }
 
         // fill in fields.
+        // if can access the Unsafe, after failed to use reflection to set the value, this method will try to
+        // use methods in Unsafe, or it will just throw an exception.
+        // data is read from yaml.
         val data = LocalizationControl.readYML(Path.of(ymlPath))
-        constantFields.forEach {
-            val value = find(it.second, data)
-            Reflection.setField(reference(), it.first, value)
-        }
+        val ref = reference()
+        if (unsafeCheck) {
+            constantFields.forEach {
+                val value = find(it.second, data)
+                try {
+                    Reflection.setField(ref, it.first, value)
+                } catch (e: Exception) {
+                    ClassLocalization::class.logger().log(System.Logger.Level.WARNING, e)
+                    try {
+                        setField(it.first, true, ref, value)
+                    } catch (ee: Exception) {
+                        ClassLocalization::class.logger().log(System.Logger.Level.ERROR, e)
+                    }
+                }
+            }
+        } else
+            constantFields.forEach {
+                val value = find(it.second, data)
+                try {
+                    Reflection.setField(ref, it.first, value)
+                } catch (e: Exception) {
+                    ClassLocalization::class.logger().log(System.Logger.Level.ERROR, e)
+                }
+            }
     }
 
     private fun find(name: String, data: MutableMap<String, String>): String {

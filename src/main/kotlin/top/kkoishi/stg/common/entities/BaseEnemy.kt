@@ -20,6 +20,8 @@ abstract class BaseEnemy(health: Int, initialX: Int, initialY: Int) : Enemy(heal
      * The X coordinate of the enemy in Double.
      */
     fun y(): Double = y.get()
+    fun xInt() = x().toInt()
+    fun yInt() = y().toInt()
     fun x(x: Double) = this.x.set(x)
     fun y(y: Double) = this.y.set(y)
 
@@ -61,8 +63,10 @@ abstract class BaseEnemy(health: Int, initialX: Int, initialY: Int) : Enemy(heal
 
     override fun update(): Boolean {
         val dead = super.update()
-        if (!dead)
+        if (!dead) {
+            move()
             bullet()
+        }
         return dead
     }
 }

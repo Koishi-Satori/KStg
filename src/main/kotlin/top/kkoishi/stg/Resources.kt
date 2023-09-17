@@ -45,19 +45,21 @@ internal interface Resources<ResourceType, LoadType> {
             val callerClass = getCallerClass()
             callerClass.kotlin.logger()
                 .log(System.Logger.Level.INFO, "Try to get engine resources, CallerClass: $callerClass")
-            when (callerClass) {
+            return when (callerClass) {
                 GFX.javaClass ->
-                    return Companion::class.java.getResourceAsStream("TEXTURE_NOT_FOUND.png")
+                    Companion::class.java.getResourceAsStream("TEXTURE_NOT_FOUND.png")
 
                 Sounds.javaClass ->
-                    return Companion::class.java.getResourceAsStream("SOUND_NOT_FOUND.wav")
+                    Companion::class.java.getResourceAsStream("SOUND_NOT_FOUND.wav")
 
                 CrashReportGenerator::class.java ->
-                    return Companion::class.java.getResourceAsStream(".comments")
+                    Companion::class.java.getResourceAsStream(".comments")
+
                 Bootstrapper::class.java ->
-                    return Companion::class.java.getResourceAsStream("logo.ico")
+                    Companion::class.java.getResourceAsStream("logo.ico")
+
+                else -> throw SecurityException("$callerClass is not permitted.")
             }
-            return null
         }
     }
 }

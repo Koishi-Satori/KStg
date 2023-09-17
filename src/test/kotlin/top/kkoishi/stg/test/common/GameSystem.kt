@@ -95,4 +95,6 @@ object GameSystem {
         TestPlayerKoishi(Graphics.getCenterX(), PLAYER_INIT_Y, "bullet_koishi")
     )
     var playerIndex = 0
+
+    const val MAX_POWER = 4f
 }

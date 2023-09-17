@@ -1,0 +1,10 @@
+gfx_items = {
+    gfx = {
+        name = "power_item"
+        path = "./icons/item_power.png"
+    }
+    gfx = {
+        name = "item_bluepoint"
+        path = "./icons/item_bluepoint.png"
+    }
+}

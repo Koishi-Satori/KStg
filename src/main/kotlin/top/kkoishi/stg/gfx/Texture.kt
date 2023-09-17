@@ -788,7 +788,9 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
             var cater = 0
             val all = Array(length) { Array(length) { origin } }
 
+            // generate coordinates
             //  (-len / 2, -len / 2) -> (len / 2, len / 2)
+            // coordinates state:
             // (-cater_value, cater_value    ), (-cater_value + 1, cater_value), ... , (-cater_value + n, cater_value)
             // (-cater_value, cater_value - 1)
             // ...
@@ -804,6 +806,7 @@ open class Texture internal constructor(protected val texture: BufferedImage, va
             }
 
             // fill in data
+            // the data array: [x1, y1, ..., xn, yn]
             (0 until length).forEach { x ->
                 (0 until length).forEach { y ->
                     val p = all[x][y]
