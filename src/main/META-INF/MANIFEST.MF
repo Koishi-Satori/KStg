@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Class-Path: junit-jupiter-api-5.6.0.jar kotlinx-coroutines-core-jvm-1.4.
+ 2.jar kotlin-test-1.5.31.jar kotlin-stdlib-jdk7-1.5.31.jar kotlin-test-
+ junit5-1.5.31.jar junit-jupiter-engine-5.6.0.jar junit-platform-commons
+ -1.6.0.jar kotlin-stdlib-1.5.31.jar xz-1.2.jar opentest4j-1.2.0.jar kot
+ lin-stdlib-common-1.5.31.jar annotations-13.0.jar junit-platform-engine
+ -1.6.0.jar apiguardian-api-1.1.0.jar commons-compress-1.5.jar jbsdiff-1
+ .0.jar kotlin-stdlib-jdk8-1.5.31.jar
+

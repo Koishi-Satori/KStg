@@ -68,3 +68,7 @@ private fun getObjectField(field: Field, obj: Any): Any {
     val offset = UNSAFE.objectFieldOffset(field)
     return UNSAFE.getObject(obj, offset)
 }
+
+internal fun unsafeAllocateInstance(clz: Class<*>): Any {
+    return UNSAFE.allocateInstance(clz)
+}

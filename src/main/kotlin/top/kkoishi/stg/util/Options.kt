@@ -1,9 +1,19 @@
 package top.kkoishi.stg.util
 
+import top.kkoishi.stg.boot.jvm.KStgEngineMain
+
 object Options {
     @JvmStatic
     private val recognizedOptions = ArrayDeque(
-        listOf(Option(false, "-debug") { _, _ -> State.debug = true })
+        listOf(
+            Option(false, "-debug") { _, _ -> State.debug = true },
+            Option(true, "-main-plugin", "-m") { _, plugin ->
+                State.mainPlugin = plugin
+            },
+            Option(true, "-plugin-dir") { _, dir ->
+                KStgEngineMain.plugin_dir(dir)
+            }
+        )
     )
 
     fun addOption(option: Option) = recognizedOptions.addLast(option)
@@ -34,7 +44,11 @@ object Options {
         }
     }
 
-    internal object State {
+    object State {
+        @JvmStatic
         var debug: Boolean = false
+
+        @JvmStatic
+        var mainPlugin: String? = null
     }
 }

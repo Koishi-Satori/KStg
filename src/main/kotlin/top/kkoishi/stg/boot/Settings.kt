@@ -1,5 +1,6 @@
 package top.kkoishi.stg.boot
 
+import top.kkoishi.stg.boot.jvm.KStgEngineMain
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.Threads
 import java.io.IOException
@@ -65,6 +66,7 @@ abstract class Settings<ValueType>(fileName: String) {
 
         init {
             addHandler("engine::workdir", Threads::workdir)
+            addHandler("engin::plugin_dir", KStgEngineMain::plugin_dir)
         }
 
         override fun read(): Boolean {

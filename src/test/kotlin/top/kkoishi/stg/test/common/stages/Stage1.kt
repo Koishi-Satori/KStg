@@ -28,12 +28,10 @@ import top.kkoishi.stg.test.common.enemy.TestBoss0
 import top.kkoishi.stg.test.common.enemy.TestEnemy0
 import top.kkoishi.stg.test.common.enemy.TestEnemy1
 import top.kkoishi.stg.test.common.render.TestStageClearObject
-import java.awt.Graphics2D
 import java.awt.geom.Point2D
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.*
-import kotlin.collections.ArrayDeque
 
 class Stage1(player: Player, playerIndex: Int) : AbstractStage() {
     init {

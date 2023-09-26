@@ -1,5 +1,6 @@
 package top.kkoishi.stg.script.reflect
 
+import top.kkoishi.stg.boot.jvm.KStgEngineMain
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
@@ -146,8 +147,16 @@ object Reflection {
         }
 
         val returnType = parseClassDescriptor(rest, buffer) ?: throw IllegalArgumentException()
+        val clz: Class<*> = try {
+            Class.forName(className)
+        } catch (e: Exception) {
+            if (KStgEngineMain.usePlugin())
+                KStgEngineMain.findClass(className)
+            else
+                throw e
+        }
 
-        return MethodInfo(Class.forName(className), actualName, returnType, parameters.toTypedArray())
+        return MethodInfo(clz, actualName, returnType, parameters.toTypedArray())
     }
 
     @JvmStatic
