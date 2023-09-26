@@ -12,8 +12,14 @@ import java.nio.file.Path
 import java.util.*
 import java.util.jar.JarFile
 import kotlin.collections.ArrayDeque
+import kotlin.io.path.exists
 import kotlin.io.path.isDirectory
 
+/**
+ * The main class for loading the plugin jars.
+ *
+ * @author KKoishi_
+ */
 internal object KStgEngineMain {
     @JvmStatic
     private var plugin_dir = "./plugins"
@@ -27,6 +33,11 @@ internal object KStgEngineMain {
     @JvmStatic
     private val pluginMains = ArrayDeque<Class<out JvmPlugin>>(1)
 
+    /**
+     * Change the plugin dir.
+     *
+     * @param nDir the new dir.
+     */
     @JvmStatic
     fun plugin_dir(nDir: String) {
         plugin_dir = nDir
@@ -46,11 +57,14 @@ internal object KStgEngineMain {
     private fun preloadPlugins() {
         with(KStgEngineMain::class.logger()) {
             val dir = Path.of(plugin_dir)
-            if (!dir.isDirectory()) {
-                log(System.Logger.Level.ERROR, "Given plugin dir $dir is not a directory.")
+            if (!dir.isDirectory() && !dir.exists()) {
+                log(System.Logger.Level.ERROR, "Given plugin dir $dir is not a directory or not exists.")
                 throw InternalError()
             }
 
+            // iterate the dir, and skip the dir and non-jar files.
+            // then, open the jar file to seek all the class files.
+            // finally, map it to an URL stream, and convert it to an array.
             val jarURLs =
                 Arrays.stream((dir.toFile().listFiles() ?: throw InternalError()))
                     .filter {
@@ -74,6 +88,7 @@ internal object KStgEngineMain {
                         }
                     }.map { URL("file:${it.canonicalPath}") }.toList().toTypedArray()
 
+            // load classes.
             PCL = PluginClassLoader(jarURLs)
             while (pluginClasses.isNotEmpty()) {
                 val className = pluginClasses.removeFirst()
@@ -153,7 +168,22 @@ internal object KStgEngineMain {
         instance.main(args)
     }
 
+    /**
+     * If any plugins are used.
+     *
+     * This method is used in [Reflection], and when a class can not be loaded by [Class.forName] with its class
+     * name, this method can determine whether using [findClass] to find the required class.
+     *
+     * @return if any plugins are used.
+     */
+    @JvmStatic
     fun usePlugin() = this::PCL.isInitialized
 
+    /**
+     * Find the classes loaded by the [PluginClassLoader].
+     *
+     * @param name class name.
+     */
+    @JvmStatic
     fun findClass(name: String) = PCL.loadClass(name)
 }

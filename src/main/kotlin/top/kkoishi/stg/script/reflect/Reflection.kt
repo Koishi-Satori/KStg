@@ -11,6 +11,11 @@ import java.util.*
 import java.util.stream.Collectors
 import kotlin.collections.ArrayDeque
 
+/**
+ * Internal reflection util class.
+ *
+ * @author KKoishi_
+ */
 object Reflection {
     @JvmStatic
     internal fun isStatic(mth: Method): Boolean = Modifier.isStatic(mth.modifiers)
