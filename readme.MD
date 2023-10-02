@@ -144,6 +144,12 @@ Bootstrapper().size(WIDTH, HEIGHT).autoSync().containerTitle("KKoishi_ Stg Engin
 >
 > - 引擎整体逻辑为先渲染、然后计算，同时并行播放audio，大体包含四个主要线程InfoSystem、Renderer、GameLoop、AudioPlayer和一个CrashHandle子进程（可选）
 
+## 🖼 从plugin jar加载并运行
+本引擎提供了对plugin的支持，只需要将jar放入plugin_dir即可。
+
+插件的入口类应该实现接口```JvmPlugin```，并且包含静态方法```fun getInstance(): JvmPlugin```来获取类实例，或者提供空的构造器。如果这两者均不包含，将会使用sun.misc.Unsafe去强行申请实例。
+默认寻找插件的目录为engine.ini中workdir下的plugin_dir，如果没有指定，将会在相对引擎本体jar所在文件的目录下的```./plugins```去寻找。
+
 ## 🔠 按键绑定
 
 KeyBinds类用于管理全局的按键绑定，

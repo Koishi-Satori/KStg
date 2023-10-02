@@ -20,14 +20,19 @@ class InfoSystem private constructor() : Runnable {
     private var logicBefore = GameLoop.logicFrame()
     private var frameBefore = Renderer.frame()
     private var fps = AtomicInteger(60)
+    private var logicFps = 60.0
 
     override fun run() {
         val logger = InfoSystem::class.logger()
         if (count % 900 == 0) {
+            logger.log(
+                Level.INFO,
+                "LogicFPS: $logicFps, FPS: $fps | Bullets: ${ObjectPool.countBullets() + PlayerManager.countBullets()}"
+            )
             logger log "Try to GC." with Level.INFO
             System.gc()
         }
-        if (++count % 100 == 0) {
+        if (++count % 10 == 0) {
             val cur = System.currentTimeMillis()
             val d = (cur - before).toDouble() / 1000.0
 
@@ -35,13 +40,9 @@ class InfoSystem private constructor() : Runnable {
             val logicCur = GameLoop.logicFrame()
             val frameCur = Renderer.frame()
 
-            val logicFps = (logicCur - logicBefore) / d
+            logicFps = (logicCur - logicBefore) / d
             val fps = (frameCur - frameBefore) / d
             this.fps.set(fps.toInt())
-            logger.log(
-                Level.INFO,
-                "LogicFPS: $logicFps, FPS: $fps | Bullets: ${ObjectPool.countBullets() + PlayerManager.countBullets()}"
-            )
 
             before = cur
             logicBefore = logicCur

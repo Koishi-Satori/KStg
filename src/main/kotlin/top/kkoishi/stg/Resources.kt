@@ -2,6 +2,7 @@ package top.kkoishi.stg
 
 import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.boot.Bootstrapper
+import top.kkoishi.stg.boot.ui.DanmakuDesigner
 import top.kkoishi.stg.exceptions.CrashReportGenerator
 import top.kkoishi.stg.exceptions.FailedLoadingResourceException
 import top.kkoishi.stg.gfx.GFX
@@ -40,23 +41,23 @@ internal interface Resources<ResourceType, LoadType> {
     companion object {
         internal const val KEY_NOT_FOUND = "NOT_FOUND"
 
-        @Suppress("NOTHING_TO_INLINE")
-        internal inline fun getEngineResources(): InputStream? {
+        @Suppress("NOTHING_TO_INLINE", "UNCHECKED_CAST")
+        internal inline fun <T> getEngineResources(): T? {
             val callerClass = getCallerClass()
             callerClass.kotlin.logger()
                 .log(System.Logger.Level.INFO, "Try to get engine resources, CallerClass: $callerClass")
             return when (callerClass) {
                 GFX.javaClass ->
-                    Companion::class.java.getResourceAsStream("TEXTURE_NOT_FOUND.png")
+                    Companion::class.java.getResourceAsStream("TEXTURE_NOT_FOUND.png") as T
 
                 Sounds.javaClass ->
-                    Companion::class.java.getResourceAsStream("SOUND_NOT_FOUND.wav")
+                    Companion::class.java.getResourceAsStream("SOUND_NOT_FOUND.wav") as T
 
                 CrashReportGenerator::class.java ->
-                    Companion::class.java.getResourceAsStream(".comments")
+                    Companion::class.java.getResourceAsStream(".comments") as T
 
-                Bootstrapper::class.java ->
-                    Companion::class.java.getResourceAsStream("logo.ico")
+                Bootstrapper::class.java, DanmakuDesigner::class.java ->
+                    Companion::class.java.getResourceAsStream("logo.ico") as T
 
                 else -> throw SecurityException("$callerClass is not permitted.")
             }

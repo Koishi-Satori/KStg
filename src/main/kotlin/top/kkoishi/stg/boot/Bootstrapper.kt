@@ -23,6 +23,7 @@ import java.awt.event.FocusListener
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 import java.io.File
+import java.io.InputStream
 import javax.imageio.ImageIO
 import javax.swing.JFrame
 import javax.swing.JFrame.EXIT_ON_CLOSE
@@ -148,7 +149,7 @@ class Bootstrapper {
 
     fun useEngineDefaultIcon(): Bootstrapper {
         try {
-            icon = ImageIO.read(Resources.getEngineResources())
+            icon = ImageIO.read(Resources.getEngineResources<InputStream>())
         } catch (e: Exception) {
             logger.log(System.Logger.Level.ERROR, e)
         }

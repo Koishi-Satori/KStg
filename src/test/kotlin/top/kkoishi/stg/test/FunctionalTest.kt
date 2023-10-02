@@ -15,6 +15,7 @@
 package top.kkoishi.stg.test
 
 import top.kkoishi.stg.localization.ClassLocalization
+import top.kkoishi.stg.localization.LocalizationKey
 import top.kkoishi.stg.util.Mth
 import java.util.*
 
@@ -35,6 +36,7 @@ object LocalizationTest_zh_CN : ClassLocalization<LocalizationTest_zh_CN>(
     override fun reference(): LocalizationTest_zh_CN = this
 
     @JvmStatic
+    @field: LocalizationKey("test_0")
     lateinit var TEST_0: String
 
     @JvmStatic

@@ -36,7 +36,7 @@ object GFX : Resources<Texture, String> {
 
     init {
         try {
-            val ins = Resources.getEngineResources()
+            val ins: InputStream? = Resources.getEngineResources()
             val imageInput = ImageIO.createImageInputStream(ins)
             textures[KEY_NOT_FOUND] = Texture(ImageIO.read(imageInput))
             ins!!.close()

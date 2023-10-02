@@ -1,9 +1,18 @@
 package top.kkoishi.stg.boot.jvm
 
+import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import java.net.URL
 import java.net.URLClassLoader
 
 class PluginClassLoader(urls: Array<out URL>): URLClassLoader(urls) {
+    init {
+        with(PluginClassLoader::class.logger()) {
+            log(System.Logger.Level.INFO, "Detected Plugins:")
+            urls.forEach {
+                log(System.Logger.Level.INFO, it)
+            }
+        }
+    }
     /**
      * Load and resolve class.
      */

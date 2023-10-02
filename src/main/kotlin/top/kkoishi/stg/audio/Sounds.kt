@@ -18,7 +18,7 @@ object Sounds: Resources<Audio, String> {
     private val audios: MutableMap<String, Audio> = HashMap(1024)
 
     init {
-        loadAudio(KEY_NOT_FOUND, getEngineResources()!!)
+        loadAudio(KEY_NOT_FOUND, getEngineResources<InputStream>()!!)
         NOT_FOUND = audios[KEY_NOT_FOUND] ?: crash()
     }
 

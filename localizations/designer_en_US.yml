@@ -1,0 +1,23 @@
+designer.ui.title: Danmaku Designer
+title.menu.resources: Resources
+title.menu.gfx: GFX Manager
+title.menu.sounds: Sounds Manager
+# tree localizations
+tree.root.info: Root
+tree.root.gfx: GFX Resources
+tree.root.sounds: Sounds Resources
+tree.root.file: File Resources
+tree.node.defines: Defines
+tree.node.impl: Implementations
+# function localizations
+func.add.resource: Add Resource
+func.manage.resource: Add Resource
+func.add.gfx: Add Resource
+func.manage.gfx: Add Resource
+func.add.sounds: Add Resource
+func.manage.sounds: Add Resource
+# tabs
+tabs.title.default: Default Editor
+tabs.tooltip.default: An default editor.
+# buttons
+btn.close.tooltip: Close.

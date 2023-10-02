@@ -2,6 +2,7 @@ package top.kkoishi.stg.exceptions
 
 import top.kkoishi.stg.DefinitionsLoader
 import top.kkoishi.stg.Resources
+import java.io.InputStream
 import java.lang.management.ManagementFactory
 import java.text.DateFormat
 import java.time.Instant
@@ -71,7 +72,7 @@ class CrashReportGenerator @JvmOverloads constructor(val head: String = DEFAULT_
         private val comments: ArrayDeque<String> = ArrayDeque(16)
 
         init {
-            val br = Resources.getEngineResources()!!.bufferedReader()
+            val br = Resources.getEngineResources<InputStream>()!!.bufferedReader()
             br.lineSequence().forEach(::addComment)
             br.close()
             if (comments.isEmpty())
