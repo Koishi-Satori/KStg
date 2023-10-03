@@ -2,44 +2,143 @@ package top.kkoishi.stg.boot.ui
 
 import top.kkoishi.stg.Resources
 import top.kkoishi.stg.boot.Bootstrapper
+import top.kkoishi.stg.boot.Settings
 import top.kkoishi.stg.gfx.GFX
 import top.kkoishi.stg.gfx.Texture
 import top.kkoishi.stg.localization.ClassLocalization
 import top.kkoishi.stg.localization.LocalizationKey
+import top.kkoishi.stg.logic.GenericSystem
+import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.Threads
 import java.awt.*
+import java.awt.event.MouseEvent
+import java.awt.event.MouseListener
 import java.awt.geom.AffineTransform
 import java.awt.image.AffineTransformOp
 import java.awt.image.BufferedImage
-import java.io.File
+import java.io.IOException
 import java.io.InputStream
 import java.nio.file.Path
 import java.util.*
 import javax.imageio.ImageIO
 import javax.swing.*
+import javax.swing.plaf.FontUIResource
 import javax.swing.tree.DefaultTreeCellRenderer
 import javax.swing.tree.MutableTreeNode
 import javax.swing.tree.TreeNode
 import kotlin.collections.ArrayDeque
+import kotlin.concurrent.thread
 import kotlin.io.path.exists
+import kotlin.io.path.inputStream
 
 object DanmakuDesigner : JFrame() {
     init {
         Bootstrapper.enableHardwareAccelerationProperties()
+        GenericSystem.logToFile = true
         Bootstrapper.readEngineSettings()
     }
 
     @JvmStatic
-    val FONT = Font("JetBrains Mono", Font.BOLD, 13)
+    private val ICON = ImageIcon(ImageIO.read(Resources.getEngineResources<InputStream>()))
 
     @JvmStatic
-    val ICON = ImageIcon(ImageIO.read(Resources.getEngineResources<InputStream>()))
+    private val DESIGNER_DIR = "${Threads.workdir()}/designer"
+
+    @JvmStatic
+    private val DESIGNER_SETTINGS: Settings<String> = Settings.INI("$DESIGNER_DIR/config.ini")
+
+    @JvmStatic
+    private var FONT_SIZE = 12
+
+    @JvmStatic
+    private var FONT_TYPE = Font.PLAIN
+
+    @JvmStatic
+    private var FONT_PATH: String? = null
+
+    @JvmStatic
+    private val DEFAULT_FONT: Font
+
+    @JvmStatic
+    private var FONT: Font
+
+    init {
+        DESIGNER_SETTINGS.addHandler("Fonts::size") {
+            try {
+                FONT_SIZE = it.toInt()
+                DanmakuDesigner::class.logger().log(System.Logger.Level.INFO, "Load font size: $it")
+            } catch (e: NumberFormatException) {
+                DanmakuDesigner::class.logger().log(System.Logger.Level.WARNING, "Can not initialize font size.")
+                DanmakuDesigner::class.logger().log(System.Logger.Level.TRACE, e)
+            }
+        }
+        DESIGNER_SETTINGS.addHandler("Fonts::type") {
+            when (it.hashCode()) {
+                "PLAIN".hashCode() -> if (it == "PLAIN")
+                    FONT_TYPE = Font.PLAIN
+
+                "ITALIC".hashCode() -> if (it == "ITALIC")
+                    FONT_TYPE = Font.ITALIC
+
+                "BOLD".hashCode() -> if (it == "BOLD")
+                    FONT_TYPE = Font.BOLD
+
+                "ITALIC_BOLD".hashCode() -> if (it == "ITALIC_BOLD")
+                    FONT_TYPE = Font.ITALIC + Font.BOLD
+
+                else -> {
+                    DanmakuDesigner::class.logger()
+                        .log(java.lang.System.Logger.Level.WARNING, "Can not initialize font type: $it")
+                    return@addHandler
+                }
+            }
+            DanmakuDesigner::class.logger().log(System.Logger.Level.INFO, "Load font style: $it")
+        }
+        DESIGNER_SETTINGS.addHandler("Fonts::path") {
+            try {
+                val verifyPath = Path.of("$DESIGNER_DIR/$it")
+                FONT_PATH = verifyPath.toRealPath().toString()
+                DanmakuDesigner::class.logger().log(System.Logger.Level.INFO, "Load font path: $FONT_PATH")
+            } catch (e: IOException) {
+                DanmakuDesigner::class.logger().log(System.Logger.Level.WARNING, "Can not initialize font path: $it")
+                DanmakuDesigner::class.logger().log(System.Logger.Level.TRACE, e)
+            }
+        }
+
+        val succ = DESIGNER_SETTINGS.read()
+        val defaultFontPath = Path.of("$DESIGNER_DIR/fonts/JetBrainsMono-Medium.ttf")
+        DEFAULT_FONT = if (!defaultFontPath.exists())
+            GraphicsEnvironment.getLocalGraphicsEnvironment().allFonts[0]
+        else
+            Font.createFont(
+                Font.TRUETYPE_FONT,
+                Path.of("$DESIGNER_DIR/fonts/JetBrainsMono-Medium.ttf").inputStream()
+            )
+
+        FONT = DEFAULT_FONT
+
+        if (succ) {
+            DESIGNER_SETTINGS.load()
+            if (FONT_PATH != null) {
+                val ttfFont = Font.createFont(Font.TRUETYPE_FONT, FONT_PATH?.let { Path.of(it).inputStream() })
+                FONT = ttfFont.deriveFont(FONT_TYPE).deriveFont(FONT_SIZE.toFloat())
+            }
+        }
+    }
 
     @JvmStatic
     fun main(args: Array<String>) {
         if (!checkLocale())
             locale = Locale.US
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
+        runCatching { UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel") }
+            .onFailure {
+                DanmakuDesigner::class.logger().log(System.Logger.Level.TRACE, it)
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
+            }
+        val fontResources = FontUIResource(FONT)
+        UIManager.getDefaults().keys.forEach {
+            UIManager.get(it).castApply { _: FontUIResource -> UIManager.put(it, fontResources) }
+        }
 
         iconImage = ICON.image
         add(DesignerPanel)
@@ -52,6 +151,25 @@ object DanmakuDesigner : JFrame() {
     }
 
     @JvmStatic
+    private inline fun <T, reified R> T.castApply(action: (R) -> Any?) {
+        run { }
+        if (this is R)
+            action(this)
+    }
+
+    @JvmStatic
+    private fun <T, R> T.runInCycle(interval: Long = 20, action: T.() -> R?): R {
+        var result: R?
+        while (true) {
+            result = action()
+            if (result != null)
+                break
+            Thread.sleep(interval)
+        }
+        return result!!
+    }
+
+    @JvmStatic
     private fun checkLocale(): Boolean {
         val ymlPath = "${Threads.workdir()}/localizations/designer_${locale}.yml"
         return Path.of(ymlPath).exists()
@@ -60,22 +178,22 @@ object DanmakuDesigner : JFrame() {
     @JvmStatic
     private var locale = Locale.getDefault() ?: Locale.US
 
-    private object DesignerPanel : JPanel(BorderLayout()) {
+    internal object DesignerPanel : JPanel(BorderLayout()) {
         private val editor = JTextPane()
         private val realBackground = createImage()
         private val backWidth = realBackground.width
         private val backHeight = realBackground.height
         private val rate = backWidth.toDouble() / backHeight
 
-        var GFX_NODE: SourceTree.Node
-        var SOUNDS_NODE: SourceTree.Node
-        var FILE_NODE: SourceTree.Node
+        private var GFX_NODE: SourceTree.Node
+        private var SOUNDS_NODE: SourceTree.Node
+        private var FILE_NODE: SourceTree.Node
 
-        val tabbed = JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT)
-        val addedTabs = ArrayDeque<String>(8)
+        private val tabbed = JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT)
+        private val addedTabs = ArrayDeque<String>(8)
 
         private fun createImage(): BufferedImage {
-            val texture = Texture(ImageIO.read(File("./test/load.jpg")))
+            val texture = Texture(ImageIO.read(Resources.getEngineResources<InputStream>()))
             val op = texture.averageConvolve33(0.2f)
             val dst = op.createDestImage(texture())
             op.apply(dst.createGraphics(), texture())
@@ -84,44 +202,20 @@ object DanmakuDesigner : JFrame() {
 
         init {
             isOpaque = false
-            editor.font = FONT
             editor.background = Color.BLACK
             editor.caretColor = Color.WHITE
             editor.foreground = Color.WHITE
             editor.isOpaque = false
             editor.autoscrolls = true
-            val default = object : JPanel(BorderLayout()) {
-                init {
-                    isOpaque = false
-                    background = Color.BLACK
-                    val scroll = JScrollPane(editor)
-                    scroll.isOpaque = false
-                    scroll.viewport.isOpaque = false
-                    add(scroll, BorderLayout.CENTER)
-                }
 
-                override fun paint(g: Graphics) {
-                    val targetRate = width / height.toDouble()
-                    var dx = 0
-                    var dy = 0
-                    val oScale: Double
-                    if (targetRate > rate) {
-                        oScale = width.toDouble() / backWidth
-                        dx = ((width - oScale * backWidth) / 2).toInt()
-                    } else {
-                        oScale = height.toDouble() / backHeight
-                        dy = ((height - oScale * backHeight) / 2).toInt()
-                    }
-                    (g as Graphics2D).drawImage(
-                        realBackground,
-                        AffineTransformOp(
-                            AffineTransform.getScaleInstance(oScale, oScale),
-                            AffineTransformOp.TYPE_NEAREST_NEIGHBOR
-                        ), dx, dy
-                    )
-                    super.paint(g)
-                }
-            }
+            val default = createBackgroundPanel()
+            default.isOpaque = false
+            default.background = Color.BLACK
+            val scroll = JScrollPane(editor)
+            scroll.isOpaque = false
+            scroll.viewport.isOpaque = false
+            default.add(scroll, BorderLayout.CENTER)
+
             tabbed.insertTab(
                 DesignerLocalization.TAB_TITLE_DEFAULT,
                 ICON,
@@ -137,19 +231,34 @@ object DanmakuDesigner : JFrame() {
                 SOUNDS_NODE = addNode(SourceTree.Node(16, DesignerLocalization.TREE_ROOT_SOUNDS))
                 FILE_NODE = addNode(SourceTree.Node(16, DesignerLocalization.TREE_ROOT_FILE))
                 val tree = SourceTree(this)
-                tree.addTreeSelectionListener {
-                    val node = it.path.lastPathComponent
-                    if (node is SourceTree.Node)
-                        node()
-                }
+                tree.addMouseListener(object : MouseListener {
+                    override fun mouseClicked(e: MouseEvent) {
+                        tree.getPathForLocation(e.x, e.y)?.let {
+                            it.lastPathComponent.castApply { node: SourceTree.Node -> node(e.button, e.clickCount) }
+                        }
+                    }
+
+                    override fun mousePressed(e: MouseEvent?) {
+                    }
+
+                    override fun mouseReleased(e: MouseEvent?) {
+                    }
+
+                    override fun mouseEntered(e: MouseEvent?) {
+                    }
+
+                    override fun mouseExited(e: MouseEvent?) {
+                    }
+
+                })
                 val view = JScrollPane(tree)
                 val pane = JSplitPane(JSplitPane.HORIZONTAL_SPLIT, view, tabbed)
                 pane.dividerSize = 1
                 pane.isOneTouchExpandable = true
                 add(pane, BorderLayout.CENTER)
             }
-            GFX_NODE.addNode(SourceTree.Node(0, "NOT_FOUND", false, action = {
-                if (!addedTabs.contains("NOT_FOUND")) {
+            GFX_NODE.addNode(SourceTree.Node(0, "NOT_FOUND", false, action = { btn, count ->
+                if (btn == 1 && count == 2 && !addedTabs.contains("NOT_FOUND")) {
                     val insertPos = tabbed.tabCount
                     tabbed.insertTab("NOT_FOUND", ICON, TextureDisplayPanel(GFX.notFound()), "", insertPos)
                     tabbed.setTabComponentAt(insertPos, CloseableTab("NOT_FOUND", tabbed))
@@ -168,6 +277,46 @@ object DanmakuDesigner : JFrame() {
                 tabbed.removeTabAt(index)
                 addedTabs.remove(title)
             }
+        }
+
+        private fun createBackgroundPanel() = object : JPanel(BorderLayout()) {
+            override fun paint(g: Graphics) {
+                val targetRate = width / height.toDouble()
+                var dx = 0
+                var dy = 0
+                val oScale: Double
+                if (targetRate > rate) {
+                    oScale = width.toDouble() / backWidth
+                    dx = ((width - oScale * backWidth) / 2).toInt()
+                } else {
+                    oScale = height.toDouble() / backHeight
+                    dy = ((height - oScale * backHeight) / 2).toInt()
+                }
+                (g as Graphics2D).drawImage(
+                    realBackground,
+                    AffineTransformOp(
+                        AffineTransform.getScaleInstance(oScale, oScale),
+                        AffineTransformOp.TYPE_NEAREST_NEIGHBOR
+                    ), dx, dy
+                )
+                super.paint(g)
+            }
+        }
+
+        fun addGFX(key: String, path: String): Boolean {
+            if (GFX[key] != GFX.notFound())
+                return false
+            GFX.loadTexture(key, path)
+            val texture = GFX[key]
+            GFX_NODE.addNode(SourceTree.Node(0, key, false, action = { btn, count ->
+                if (btn == 1 && count == 2) {
+                    val insertPos = tabbed.tabCount
+                    tabbed.insertTab(key, ICON, TextureDisplayPanel(texture), path, insertPos)
+                    tabbed.setTabComponentAt(insertPos, CloseableTab(key, tabbed))
+                    addedTabs.add(key)
+                }
+            }))
+            return true
         }
     }
 
@@ -202,7 +351,6 @@ object DanmakuDesigner : JFrame() {
 
     private class SourceTree(initialNode: Node) : JTree(initialNode) {
         init {
-            font = FONT
             val render = DefaultTreeCellRenderer()
             cellRenderer = render
         }
@@ -212,7 +360,7 @@ object DanmakuDesigner : JFrame() {
             initValue: Any?,
             private val allowChildren: Boolean = true,
             parentNode: Node? = null,
-            val action: () -> Unit = {},
+            val action: (Int, Int) -> Unit = { _, _ -> },
         ) :
             MutableTreeNode {
             private val children = ArrayDeque<Node>(initialChildrenCount)
@@ -223,7 +371,7 @@ object DanmakuDesigner : JFrame() {
             @field: Volatile
             private var parent: Node? = parentNode
 
-            operator fun invoke() = action()
+            operator fun invoke(button: Int, count: Int) = action(button, count)
 
             fun addNode(nNode: Node): Node {
                 children.addLast(nNode)
@@ -290,7 +438,25 @@ object DanmakuDesigner : JFrame() {
             val resources = JMenu(DesignerLocalization.TITLE_MENU_RESOURCES)
             with(resources) {
                 val gfx = JMenu(DesignerLocalization.TITLE_MENU_GFX)
-                gfx.add(DesignerLocalization.FUNC_ADD_GFX)
+                val addGFX = gfx.add(DesignerLocalization.FUNC_ADD_GFX)
+                addGFX.addActionListener {
+                    thread {
+                        val input = AddInputDialog(
+                            DesignerLocalization.TITLE_DIALOG_ADD,
+                            DesignerLocalization.LAB_ADD_KEY,
+                            DesignerLocalization.LAB_ADD_VALUE
+                        )
+                        val res = runInCycle { input.inputReturn() }
+                        with(DanmakuDesigner::class.logger()) {
+                            log(System.Logger.Level.INFO, "Dialog Result: $res")
+                            if (res.first) {
+                                val key = res.second
+                                val value = res.third
+                                DesignerPanel.addGFX(key, value)
+                            }
+                        }
+                    }
+                }
                 add(gfx)
                 val sound = JMenu(DesignerLocalization.TITLE_MENU_SOUNDS)
                 add(sound)
@@ -299,11 +465,49 @@ object DanmakuDesigner : JFrame() {
         }
     }
 
+    private class AddInputDialog(title: String, inputKeyKey: String, inputValueKey: String) : JDialog(this, title) {
+        private var closeNormal = false
+        private val inputKeyKeyField = JTextField(20)
+        private val inputValueKeyField = JTextField(20)
+
+        init {
+            val mainPanel = JPanel(GridLayout(3, 1))
+            val keyPanel = JPanel(FlowLayout(FlowLayout.LEFT))
+            keyPanel.add(JLabel(inputKeyKey))
+            keyPanel.add(inputKeyKeyField)
+            mainPanel.add(keyPanel)
+            val valuePanel = JPanel(FlowLayout(FlowLayout.LEFT))
+            valuePanel.add(JLabel(inputValueKey))
+            valuePanel.add(inputValueKeyField)
+            mainPanel.add(valuePanel)
+            val btnPanel = JPanel(FlowLayout())
+            btnPanel.add(JButton(DesignerLocalization.BTN_CONFIRM_TITLE).apply {
+                addActionListener {
+                    closeNormal = true
+                    dispose()
+                }
+            })
+            btnPanel.add(JButton(DesignerLocalization.BTN_CANCEL_TITLE).apply {
+                addActionListener {
+                    dispose()
+                }
+            })
+            mainPanel.add(btnPanel)
+            add(mainPanel)
+            setSize(250, 125)
+            isResizable = false
+            isVisible = true
+        }
+
+        fun inputReturn(): Triple<Boolean, String, String>? =
+            if (isShowing) null else Triple(closeNormal, inputKeyKeyField.text, inputValueKeyField.text)
+    }
+
     private object DesignerLocalization :
         ClassLocalization<DesignerLocalization>(
             locale,
             DesignerLocalization::class.java,
-            "${Threads.workdir()}/localizations/designer_${locale}.yml"
+            "$DESIGNER_DIR/designer_ui_${locale}.yml"
         ) {
         override fun constantFieldsName(): Array<String>? = null
 
@@ -324,6 +528,10 @@ object DanmakuDesigner : JFrame() {
         @JvmStatic
         @field: LocalizationKey("title.menu.sounds")
         lateinit var TITLE_MENU_SOUNDS: String
+
+        @JvmStatic
+        @field: LocalizationKey("title.dialog.add")
+        lateinit var TITLE_DIALOG_ADD: String
 
         @JvmStatic
         @field: LocalizationKey("tree.root.info")
@@ -364,5 +572,21 @@ object DanmakuDesigner : JFrame() {
         @JvmStatic
         @field: LocalizationKey("btn.close.tooltip")
         lateinit var BTN_CLOSE_TOOLTIP: String
+
+        @JvmStatic
+        @field: LocalizationKey("btn.confirm.title")
+        lateinit var BTN_CONFIRM_TITLE: String
+
+        @JvmStatic
+        @field: LocalizationKey("btn.cancel.title")
+        lateinit var BTN_CANCEL_TITLE: String
+
+        @JvmStatic
+        @field: LocalizationKey("lab.add.key")
+        lateinit var LAB_ADD_KEY: String
+
+        @JvmStatic
+        @field: LocalizationKey("lab.add.value")
+        lateinit var LAB_ADD_VALUE: String
     }
 }

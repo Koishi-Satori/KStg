@@ -1,5 +1,4 @@
 Manifest-Version: 1.0
-Main-Class: 
 Class-Path: opentest4j-1.2.0.jar junit-platform-commons-1.9.1.jar kotlin
  -test-1.5.31.jar junit-platform-engine-1.6.0.jar junit-jupiter-params-5
  .9.1.jar kotlin-stdlib-common-1.5.31.jar apiguardian-api-1.1.0.jar kotl

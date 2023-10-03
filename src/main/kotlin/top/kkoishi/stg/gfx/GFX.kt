@@ -134,6 +134,7 @@ object GFX : Resources<Texture, String> {
     }
 
     override fun get(key: String): Texture = getTexture(key)
+    override fun keys(): Array<String> = textures.keys.toTypedArray()
 
     override fun set(key: String, value: String) = loadTexture(key, value)
 

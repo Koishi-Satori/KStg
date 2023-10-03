@@ -55,6 +55,7 @@ object Sounds: Resources<Audio, String> {
     }
 
     override fun get(key: String): Audio = getAudio(key)
+    override fun keys(): Array<String> = audios.keys.toTypedArray()
 
     override fun set(key: String, value: String) = loadAudio(key, value)
 }

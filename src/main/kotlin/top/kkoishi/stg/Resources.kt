@@ -38,6 +38,10 @@ internal interface Resources<ResourceType, LoadType> {
     @Throws(FailedLoadingResourceException::class)
     operator fun set(key: String, value: LoadType)
 
+    fun keys(): Array<String>
+
+    fun resources() = keys().map { it to this[it] }.toTypedArray()
+
     companion object {
         internal const val KEY_NOT_FOUND = "NOT_FOUND"
 
@@ -58,6 +62,9 @@ internal interface Resources<ResourceType, LoadType> {
 
                 Bootstrapper::class.java, DanmakuDesigner::class.java ->
                     Companion::class.java.getResourceAsStream("logo.ico") as T
+
+                DanmakuDesigner.DesignerPanel::class.java ->
+                    Companion::class.java.getResourceAsStream("designer_background.jpg") as T
 
                 else -> throw SecurityException("$callerClass is not permitted.")
             }

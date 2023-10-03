@@ -1,0 +1,21 @@
+[10:39:01 PM] [main<-Threads/INFO]: Set workdir to D:\ProjectKotlin\KStg\.
+[10:39:01 PM] [main<-DanmakuDesigner/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.boot.ui.DanmakuDesigner
+[10:39:01 PM] [main<-GFX/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.gfx.GFX
+[10:39:02 PM] [main<-GFX/INFO]: Init TEXTURE_NOT_FOUND
+[10:39:02 PM] [main<-Sounds/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.audio.Sounds
+[10:39:02 PM] [main<-DanmakuDesigner/INFO]: Load font size: 12
+[10:39:02 PM] [main<-DanmakuDesigner/INFO]: Load font style: PLAIN
+[10:39:02 PM] [main<-DanmakuDesigner/INFO]: Load font path: D:\ProjectKotlin\KStg\designer\fonts\JetBrainsMono-Medium.ttf
+[10:39:02 PM] [main<-DanmakuDesigner/TRACE]: com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel
+java.lang.ClassNotFoundException: com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:636)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:182)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:519)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:466)
+	at java.desktop/javax.swing.SwingUtilities.loadSystemClass(SwingUtilities.java:2035)
+	at java.desktop/javax.swing.UIManager.setLookAndFeel(UIManager.java:637)
+	at top.kkoishi.stg.boot.ui.DanmakuDesigner.main(DanmakuDesigner.kt:133)
+
+[10:39:02 PM] [main<-DesignerPanel/INFO]: Try to get engine resources, CallerClass: class top.kkoishi.stg.boot.ui.DanmakuDesigner$DesignerPanel
+[10:39:02 PM] [main<-Texture/INFO]: Constructing a convolve kernel with [0.022222223, 0.022222223, 0.022222223, 0.022222223, 0.022222223, 0.022222223, 0.022222223, 0.022222223, 0.022222223]
