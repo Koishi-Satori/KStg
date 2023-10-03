@@ -9,6 +9,8 @@ tree.root.gfx: GFX Resources
 tree.root.sounds: Sounds Resources
 tree.root.file: File Resources
 tree.node.defines: Defines
+tree.node.defines.gfx: Textures
+tree.node.defines.sounds: Sounds
 tree.node.impl: Implementations
 # function localizations
 func.manage.resource: Manage Resource
@@ -18,7 +20,8 @@ func.add.sounds: Add Sound
 func.manage.sounds: Sounds
 # tabs
 tabs.title.default: Default Editor
-tabs.tooltip.default: An default editor.
+tabs.tooltip.default: An editor.
+tab.title.editor.defines: %s Editor
 # buttons
 btn.close.tooltip: Close.
 btn.confirm.title: Confirm
@@ -26,3 +29,6 @@ btn.cancel.title: Cancel
 # labels
 lab.add.key: Key
 lab.add.value: Path
+# const
+const.defines.gfx: Texture Defines
+const.defines.sounds: Audio Defines

@@ -11,8 +11,8 @@ import top.kkoishi.stg.logic.GenericSystem
 import top.kkoishi.stg.logic.InfoSystem.Companion.logger
 import top.kkoishi.stg.logic.Threads
 import java.awt.*
+import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
-import java.awt.event.MouseListener
 import java.awt.geom.AffineTransform
 import java.awt.image.AffineTransformOp
 import java.awt.image.BufferedImage
@@ -192,6 +192,9 @@ object DanmakuDesigner : JFrame() {
         private val tabbed = JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT)
         private val addedTabs = ArrayDeque<String>(8)
 
+        private val gfxEditor = JTextPane()
+        private val soundsEditor = JTextPane()
+
         private fun createImage(): BufferedImage {
             val texture = Texture(ImageIO.read(Resources.getEngineResources<InputStream>()))
             val op = texture.averageConvolve33(0.2f)
@@ -202,19 +205,38 @@ object DanmakuDesigner : JFrame() {
 
         init {
             isOpaque = false
-            editor.background = Color.BLACK
-            editor.caretColor = Color.WHITE
-            editor.foreground = Color.WHITE
-            editor.isOpaque = false
-            editor.autoscrolls = true
+            with(editor) {
+                background = Color.BLACK
+                caretColor = Color.WHITE
+                foreground = Color.WHITE
+                isOpaque = false
+                autoscrolls = true
+            }
+            with(gfxEditor) {
+                background = Color.BLACK
+                caretColor = Color.WHITE
+                foreground = Color.WHITE
+                isOpaque = false
+                autoscrolls = true
+            }
+            with(soundsEditor) {
+                background = Color.BLACK
+                caretColor = Color.WHITE
+                foreground = Color.WHITE
+                isOpaque = false
+                autoscrolls = true
+            }
 
-            val default = createBackgroundPanel()
-            default.isOpaque = false
-            default.background = Color.BLACK
+            val default = createBackgroundPanel().apply { isOpaque = false }.apply { background = Color.BLACK }
             val scroll = JScrollPane(editor)
-            scroll.isOpaque = false
-            scroll.viewport.isOpaque = false
-            default.add(scroll, BorderLayout.CENTER)
+            default.add(scroll.apply { isOpaque = false }.apply { viewport.isOpaque = false }, BorderLayout.CENTER)
+
+            val gfx = createBackgroundPanel().apply { isOpaque = false }.apply { background = Color.BLACK }
+            val gfxScroll = JScrollPane(gfxEditor)
+            gfx.add(gfxScroll.apply { isOpaque = false }.apply { viewport.isOpaque = false }, BorderLayout.CENTER)
+            val sounds = createBackgroundPanel().apply { isOpaque = false }.apply { background = Color.BLACK }
+            val soundsScroll = JScrollPane(soundsEditor)
+            sounds.add(soundsScroll.apply { isOpaque = false }.apply { viewport.isOpaque = false }, BorderLayout.CENTER)
 
             tabbed.insertTab(
                 DesignerLocalization.TAB_TITLE_DEFAULT,
@@ -231,25 +253,12 @@ object DanmakuDesigner : JFrame() {
                 SOUNDS_NODE = addNode(SourceTree.Node(16, DesignerLocalization.TREE_ROOT_SOUNDS))
                 FILE_NODE = addNode(SourceTree.Node(16, DesignerLocalization.TREE_ROOT_FILE))
                 val tree = SourceTree(this)
-                tree.addMouseListener(object : MouseListener {
+                tree.addMouseListener(object : MouseAdapter() {
                     override fun mouseClicked(e: MouseEvent) {
                         tree.getPathForLocation(e.x, e.y)?.let {
                             it.lastPathComponent.castApply { node: SourceTree.Node -> node(e.button, e.clickCount) }
                         }
                     }
-
-                    override fun mousePressed(e: MouseEvent?) {
-                    }
-
-                    override fun mouseReleased(e: MouseEvent?) {
-                    }
-
-                    override fun mouseEntered(e: MouseEvent?) {
-                    }
-
-                    override fun mouseExited(e: MouseEvent?) {
-                    }
-
                 })
                 val view = JScrollPane(tree)
                 val pane = JSplitPane(JSplitPane.HORIZONTAL_SPLIT, view, tabbed)
@@ -257,16 +266,50 @@ object DanmakuDesigner : JFrame() {
                 pane.isOneTouchExpandable = true
                 add(pane, BorderLayout.CENTER)
             }
-            GFX_NODE.addNode(SourceTree.Node(0, "NOT_FOUND", false, action = { btn, count ->
+            GFX_NODE.addNode(SourceTree.Node(0, "NOT_FOUND", false) { btn, count ->
                 if (btn == 1 && count == 2 && !addedTabs.contains("NOT_FOUND")) {
                     val insertPos = tabbed.tabCount
                     tabbed.insertTab("NOT_FOUND", ICON, TextureDisplayPanel(GFX.notFound()), "", insertPos)
                     tabbed.setTabComponentAt(insertPos, CloseableTab("NOT_FOUND", tabbed))
                     addedTabs.add("NOT_FOUND")
+                    tabbed.selectedIndex = insertPos
                 }
-            }))
+            })
             SOUNDS_NODE.addNode(SourceTree.Node(0, "NOT_FOUND", false))
-            FILE_NODE.addNode(SourceTree.Node(2, DesignerLocalization.TREE_NODE_DEFINES))
+            FILE_NODE.addNode(SourceTree.Node(2, DesignerLocalization.TREE_NODE_DEFINES)).apply {
+                addNode(SourceTree.Node(0, DesignerLocalization.TREE_NODE_DEFINES_GFX, false) { btn, count ->
+                    val key = DesignerLocalization.TAB_TITLE_EDITOR_DEFINES.format(DesignerLocalization.CONST_DEFINES_GFX)
+                    if (btn == 1 && count == 2 && !addedTabs.contains(key)) {
+                        val insertPos = tabbed.tabCount
+                        tabbed.insertTab(
+                            key,
+                            ICON,
+                            gfx,
+                            DesignerLocalization.TAB_TOOLTIP_DEFAULT,
+                            insertPos
+                        )
+                        tabbed.setTabComponentAt(insertPos, CloseableTab(key, tabbed))
+                        addedTabs.add(key)
+                        tabbed.selectedIndex = insertPos
+                    }
+                })
+                addNode(SourceTree.Node(0, DesignerLocalization.TREE_NODE_DEFINES_SOUNDS, false) { btn, count ->
+                    val key = DesignerLocalization.TAB_TITLE_EDITOR_DEFINES.format(DesignerLocalization.CONST_DEFINES_SOUNDS)
+                    if (btn == 1 && count == 2 && !addedTabs.contains(key)) {
+                        val insertPos = tabbed.tabCount
+                        tabbed.insertTab(
+                            key,
+                            ICON,
+                            sounds,
+                            DesignerLocalization.TAB_TOOLTIP_DEFAULT,
+                            insertPos
+                        )
+                        tabbed.setTabComponentAt(insertPos, CloseableTab(key, tabbed))
+                        addedTabs.add(key)
+                        tabbed.selectedIndex = insertPos
+                    }
+                })
+            }
             FILE_NODE.addNode(SourceTree.Node(2, DesignerLocalization.TREE_NODE_IMPL))
         }
 
@@ -308,14 +351,14 @@ object DanmakuDesigner : JFrame() {
                 return false
             GFX.loadTexture(key, path)
             val texture = GFX[key]
-            GFX_NODE.addNode(SourceTree.Node(0, key, false, action = { btn, count ->
+            GFX_NODE.addNode(SourceTree.Node(0, key, false) { btn, count ->
                 if (btn == 1 && count == 2) {
                     val insertPos = tabbed.tabCount
                     tabbed.insertTab(key, ICON, TextureDisplayPanel(texture), path, insertPos)
                     tabbed.setTabComponentAt(insertPos, CloseableTab(key, tabbed))
                     addedTabs.add(key)
                 }
-            }))
+            })
             return true
         }
     }
@@ -542,6 +585,14 @@ object DanmakuDesigner : JFrame() {
         lateinit var TREE_NODE_DEFINES: String
 
         @JvmStatic
+        @field: LocalizationKey("tree.node.defines.gfx")
+        lateinit var TREE_NODE_DEFINES_GFX: String
+
+        @JvmStatic
+        @field: LocalizationKey("tree.node.defines.sounds")
+        lateinit var TREE_NODE_DEFINES_SOUNDS: String
+
+        @JvmStatic
         @field: LocalizationKey("tree.node.impl")
         lateinit var TREE_NODE_IMPL: String
 
@@ -570,6 +621,10 @@ object DanmakuDesigner : JFrame() {
         lateinit var TAB_TOOLTIP_DEFAULT: String
 
         @JvmStatic
+        @field: LocalizationKey("tab.title.editor.defines")
+        lateinit var TAB_TITLE_EDITOR_DEFINES: String
+
+        @JvmStatic
         @field: LocalizationKey("btn.close.tooltip")
         lateinit var BTN_CLOSE_TOOLTIP: String
 
@@ -588,5 +643,14 @@ object DanmakuDesigner : JFrame() {
         @JvmStatic
         @field: LocalizationKey("lab.add.value")
         lateinit var LAB_ADD_VALUE: String
+
+        @JvmStatic
+        @field: LocalizationKey("const.defines.gfx")
+        lateinit var CONST_DEFINES_GFX: String
+
+
+        @JvmStatic
+        @field: LocalizationKey("const.defines.sounds")
+        lateinit var CONST_DEFINES_SOUNDS: String
     }
 }
