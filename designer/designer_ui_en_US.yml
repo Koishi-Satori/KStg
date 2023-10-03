@@ -16,8 +16,10 @@ tree.node.impl: Implementations
 func.manage.resource: Manage Resource
 func.add.gfx: Add Texture
 func.manage.gfx: Manage Textures
+func.sync.gfx: Synchronize Textures
 func.add.sounds: Add Sound
 func.manage.sounds: Sounds
+func.sync.sounds: Synchronize Sounds
 # tabs
 tabs.title.default: Default Editor
 tabs.tooltip.default: An editor.

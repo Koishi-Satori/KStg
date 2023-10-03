@@ -27,10 +27,15 @@ import javax.swing.tree.DefaultTreeCellRenderer
 import javax.swing.tree.MutableTreeNode
 import javax.swing.tree.TreeNode
 import kotlin.collections.ArrayDeque
+import kotlin.collections.HashMap
 import kotlin.concurrent.thread
-import kotlin.io.path.exists
-import kotlin.io.path.inputStream
+import kotlin.io.path.*
 
+/**
+ * An simple Danmaku Designer.
+ *
+ * @author KKoishi_
+ */
 object DanmakuDesigner : JFrame() {
     init {
         Bootstrapper.enableHardwareAccelerationProperties()
@@ -62,7 +67,15 @@ object DanmakuDesigner : JFrame() {
     @JvmStatic
     private var FONT: Font
 
+    @JvmStatic
+    private var INDENT = "    "
+
     init {
+        Thread.setDefaultUncaughtExceptionHandler { t, e ->
+            t.javaClass.kotlin.logger().log(System.Logger.Level.TRACE, e)
+        }
+        // add handlers
+        // Parse the font size.
         DESIGNER_SETTINGS.addHandler("Fonts::size") {
             try {
                 FONT_SIZE = it.toInt()
@@ -72,6 +85,7 @@ object DanmakuDesigner : JFrame() {
                 DanmakuDesigner::class.logger().log(System.Logger.Level.TRACE, e)
             }
         }
+        // Parse the font style.
         DESIGNER_SETTINGS.addHandler("Fonts::type") {
             when (it.hashCode()) {
                 "PLAIN".hashCode() -> if (it == "PLAIN")
@@ -94,6 +108,7 @@ object DanmakuDesigner : JFrame() {
             }
             DanmakuDesigner::class.logger().log(System.Logger.Level.INFO, "Load font style: $it")
         }
+        // Load the True Type Font.
         DESIGNER_SETTINGS.addHandler("Fonts::path") {
             try {
                 val verifyPath = Path.of("$DESIGNER_DIR/$it")
@@ -105,6 +120,7 @@ object DanmakuDesigner : JFrame() {
             }
         }
 
+        // read and load settings.
         val succ = DESIGNER_SETTINGS.read()
         val defaultFontPath = Path.of("$DESIGNER_DIR/fonts/JetBrainsMono-Medium.ttf")
         DEFAULT_FONT = if (!defaultFontPath.exists())
@@ -152,7 +168,6 @@ object DanmakuDesigner : JFrame() {
 
     @JvmStatic
     private inline fun <T, reified R> T.castApply(action: (R) -> Any?) {
-        run { }
         if (this is R)
             action(this)
     }
@@ -194,6 +209,9 @@ object DanmakuDesigner : JFrame() {
 
         private val gfxEditor = JTextPane()
         private val soundsEditor = JTextPane()
+
+        private val cachedTexturePaths = HashMap<Texture, String>(64)
+        //private val cachedSoundsPaths = ArrayDeque<String>(64)
 
         private fun createImage(): BufferedImage {
             val texture = Texture(ImageIO.read(Resources.getEngineResources<InputStream>()))
@@ -278,7 +296,8 @@ object DanmakuDesigner : JFrame() {
             SOUNDS_NODE.addNode(SourceTree.Node(0, "NOT_FOUND", false))
             FILE_NODE.addNode(SourceTree.Node(2, DesignerLocalization.TREE_NODE_DEFINES)).apply {
                 addNode(SourceTree.Node(0, DesignerLocalization.TREE_NODE_DEFINES_GFX, false) { btn, count ->
-                    val key = DesignerLocalization.TAB_TITLE_EDITOR_DEFINES.format(DesignerLocalization.CONST_DEFINES_GFX)
+                    val key =
+                        DesignerLocalization.TAB_TITLE_EDITOR_DEFINES.format(DesignerLocalization.CONST_DEFINES_GFX)
                     if (btn == 1 && count == 2 && !addedTabs.contains(key)) {
                         val insertPos = tabbed.tabCount
                         tabbed.insertTab(
@@ -294,7 +313,8 @@ object DanmakuDesigner : JFrame() {
                     }
                 })
                 addNode(SourceTree.Node(0, DesignerLocalization.TREE_NODE_DEFINES_SOUNDS, false) { btn, count ->
-                    val key = DesignerLocalization.TAB_TITLE_EDITOR_DEFINES.format(DesignerLocalization.CONST_DEFINES_SOUNDS)
+                    val key =
+                        DesignerLocalization.TAB_TITLE_EDITOR_DEFINES.format(DesignerLocalization.CONST_DEFINES_SOUNDS)
                     if (btn == 1 && count == 2 && !addedTabs.contains(key)) {
                         val insertPos = tabbed.tabCount
                         tabbed.insertTab(
@@ -349,17 +369,42 @@ object DanmakuDesigner : JFrame() {
         fun addGFX(key: String, path: String): Boolean {
             if (GFX[key] != GFX.notFound())
                 return false
-            GFX.loadTexture(key, path)
+
+            val oldPath = Path.of(path).toAbsolutePath()
+            if (!oldPath.exists() || !oldPath.isRegularFile())
+                return false
+
+            val cachePath = Path.of("$DESIGNER_DIR/cache/icons/${oldPath.fileName}")
+            if (!cachePath.exists()) {
+                if (!cachePath.parent.exists())
+                    cachePath.parent.createDirectories()
+                cachePath.createFile()
+            }
+            oldPath.copyTo(cachePath, true)
+
+            GFX.loadTexture(key, cachePath.absolutePathString())
             val texture = GFX[key]
+            cachedTexturePaths[texture] = "./icons/${oldPath.fileName}"
             GFX_NODE.addNode(SourceTree.Node(0, key, false) { btn, count ->
                 if (btn == 1 && count == 2) {
                     val insertPos = tabbed.tabCount
                     tabbed.insertTab(key, ICON, TextureDisplayPanel(texture), path, insertPos)
                     tabbed.setTabComponentAt(insertPos, CloseableTab(key, tabbed))
                     addedTabs.add(key)
+                    tabbed.selectedIndex = insertPos
                 }
             })
             return true
+        }
+
+        fun syncGFX() {
+            val res = StringBuilder("gfx_items = {\n")
+            cachedTexturePaths.forEach { (texture, path) ->
+                res.append(INDENT).append("gfx = {\n").append(INDENT).append(INDENT).append("name = \"")
+                    .append(texture.name).append("\"\n").append(INDENT).append(INDENT).append("path = \"")
+                    .append(path).append("\"\n").append(INDENT).append("}\n")
+            }
+            gfxEditor.text = res.append("}\n").toString()
         }
     }
 
@@ -481,8 +526,7 @@ object DanmakuDesigner : JFrame() {
             val resources = JMenu(DesignerLocalization.TITLE_MENU_RESOURCES)
             with(resources) {
                 val gfx = JMenu(DesignerLocalization.TITLE_MENU_GFX)
-                val addGFX = gfx.add(DesignerLocalization.FUNC_ADD_GFX)
-                addGFX.addActionListener {
+                gfx.add(DesignerLocalization.FUNC_ADD_GFX).addActionListener {
                     thread {
                         val input = AddInputDialog(
                             DesignerLocalization.TITLE_DIALOG_ADD,
@@ -499,6 +543,9 @@ object DanmakuDesigner : JFrame() {
                             }
                         }
                     }
+                }
+                gfx.add(DesignerLocalization.FUNC_SYNC_GFX).addActionListener {
+                    DesignerPanel.syncGFX()
                 }
                 add(gfx)
                 val sound = JMenu(DesignerLocalization.TITLE_MENU_SOUNDS)
@@ -611,6 +658,10 @@ object DanmakuDesigner : JFrame() {
         @JvmStatic
         @field: LocalizationKey("func.add.gfx")
         lateinit var FUNC_ADD_GFX: String
+
+        @JvmStatic
+        @field: LocalizationKey("func.sync.gfx")
+        lateinit var FUNC_SYNC_GFX: String
 
         @JvmStatic
         @field: LocalizationKey("tabs.title.default")
