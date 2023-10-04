@@ -1,6 +1,8 @@
 package top.kkoishi.stg.boot.ui
 
 import top.kkoishi.stg.Resources
+import top.kkoishi.stg.audio.Audio
+import top.kkoishi.stg.audio.Sounds
 import top.kkoishi.stg.boot.Bootstrapper
 import top.kkoishi.stg.boot.Settings
 import top.kkoishi.stg.gfx.GFX
@@ -211,7 +213,7 @@ object DanmakuDesigner : JFrame() {
         private val soundsEditor = JTextPane()
 
         private val cachedTexturePaths = HashMap<Texture, String>(64)
-        //private val cachedSoundsPaths = ArrayDeque<String>(64)
+        private val cachedSoundsPaths = HashMap<Audio, String>(64)
 
         private fun createImage(): BufferedImage {
             val texture = Texture(ImageIO.read(Resources.getEngineResources<InputStream>()))
@@ -397,6 +399,29 @@ object DanmakuDesigner : JFrame() {
             return true
         }
 
+        fun addAudio(key: String, path: String): Boolean {
+            if (Sounds[key] != Sounds.NOT_FOUND)
+                return false
+
+            val oldPath = Path.of(path).toAbsolutePath()
+            if (!oldPath.exists() || !oldPath.isRegularFile())
+                return false
+
+            val cachePath = Path.of("$DESIGNER_DIR/cache/sounds/${oldPath.fileName}")
+            if (!cachePath.exists()) {
+                if (!cachePath.parent.exists())
+                    cachePath.parent.createDirectories()
+                cachePath.createFile()
+            }
+            oldPath.copyTo(cachePath, true)
+
+            Sounds.loadAudio(key, cachePath.absolutePathString())
+            val audio = Sounds[key]
+            cachedSoundsPaths[audio] = "./sounds/${oldPath.fileName}"
+            GFX_NODE.addNode(SourceTree.Node(0, key, false))
+            return true
+        }
+
         fun syncGFX() {
             val res = StringBuilder("gfx_items = {\n")
             cachedTexturePaths.forEach { (texture, path) ->
@@ -549,6 +574,24 @@ object DanmakuDesigner : JFrame() {
                 }
                 add(gfx)
                 val sound = JMenu(DesignerLocalization.TITLE_MENU_SOUNDS)
+                sound.add(DesignerLocalization.FUNC_ADD_SOUNDS).addActionListener {
+                    thread {
+                        val input = AddInputDialog(
+                            DesignerLocalization.TITLE_DIALOG_ADD,
+                            DesignerLocalization.LAB_ADD_KEY,
+                            DesignerLocalization.LAB_ADD_VALUE
+                        )
+                        val res = runInCycle { input.inputReturn() }
+                        with(DanmakuDesigner::class.logger()) {
+                            log(System.Logger.Level.INFO, "Dialog Result: $res")
+                            if (res.first) {
+                                val key = res.second
+                                val value = res.third
+                                DesignerPanel.addAudio(key, value)
+                            }
+                        }
+                    }
+                }
                 add(sound)
             }
             add(resources)
@@ -662,6 +705,10 @@ object DanmakuDesigner : JFrame() {
         @JvmStatic
         @field: LocalizationKey("func.sync.gfx")
         lateinit var FUNC_SYNC_GFX: String
+
+        @JvmStatic
+        @field: LocalizationKey("func.add.sounds")
+        lateinit var FUNC_ADD_SOUNDS: String
 
         @JvmStatic
         @field: LocalizationKey("tabs.title.default")
