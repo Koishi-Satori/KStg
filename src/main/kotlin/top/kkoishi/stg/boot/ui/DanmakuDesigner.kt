@@ -1,3 +1,17 @@
+/*
+* Designer, you should not refer this class from outside of this engine.
+*
+*
+*
+*
+*
+*
+*
+*
+* UI Design: KKoishi_
+*
+*/
+
 package top.kkoishi.stg.boot.ui
 
 import top.kkoishi.stg.Resources
@@ -25,7 +39,6 @@ import java.util.*
 import javax.imageio.ImageIO
 import javax.swing.*
 import javax.swing.plaf.FontUIResource
-import javax.swing.tree.DefaultTreeCellRenderer
 import javax.swing.tree.MutableTreeNode
 import javax.swing.tree.TreeNode
 import kotlin.collections.ArrayDeque
@@ -40,35 +53,65 @@ import kotlin.io.path.*
  */
 object DanmakuDesigner : JFrame() {
     init {
+        // enable hardware acceleration and configure log system
         Bootstrapper.enableHardwareAccelerationProperties()
         GenericSystem.logToFile = true
         Bootstrapper.readEngineSettings()
     }
 
+    /**
+     * The default icons
+     */
     @JvmStatic
     private val ICON = ImageIcon(ImageIO.read(Resources.getEngineResources<InputStream>()))
 
+    /**
+     * The work dir of the designer.
+     */
     @JvmStatic
     private val DESIGNER_DIR = "${Threads.workdir()}/designer"
 
+    /**
+     * The settings used for paring the designer config.
+     */
     @JvmStatic
     private val DESIGNER_SETTINGS: Settings<String> = Settings.INI("$DESIGNER_DIR/config.ini")
 
+    /**
+     * The font size.
+     */
     @JvmStatic
     private var FONT_SIZE = 12
 
+    /**
+     * The font style.
+     */
     @JvmStatic
     private var FONT_TYPE = Font.PLAIN
 
+    /**
+     * The font path.
+     *
+     * If this is null, the [FONT] will be set to [DEFAULT_FONT].
+     */
     @JvmStatic
     private var FONT_PATH: String? = null
 
+    /**
+     * The default font.
+     */
     @JvmStatic
     private val DEFAULT_FONT: Font
 
+    /**
+     * The font for all the Component.
+     */
     @JvmStatic
     private var FONT: Font
 
+    /**
+     * The code indent.
+     */
     @JvmStatic
     private var INDENT = "    "
 
@@ -187,13 +230,15 @@ object DanmakuDesigner : JFrame() {
     }
 
     @JvmStatic
+    private var locale = Locale.getDefault() ?: Locale.US
+
+    @JvmStatic
     private fun checkLocale(): Boolean {
+        val f: Function<Int> = { _: Int -> 0 }
+        println(f.javaClass)
         val ymlPath = "${Threads.workdir()}/localizations/designer_${locale}.yml"
         return Path.of(ymlPath).exists()
     }
-
-    @JvmStatic
-    private var locale = Locale.getDefault() ?: Locale.US
 
     internal object DesignerPanel : JPanel(BorderLayout()) {
         private val editor = JTextPane()
@@ -225,26 +270,14 @@ object DanmakuDesigner : JFrame() {
 
         init {
             isOpaque = false
-            with(editor) {
-                background = Color.BLACK
-                caretColor = Color.WHITE
-                foreground = Color.WHITE
-                isOpaque = false
-                autoscrolls = true
-            }
-            with(gfxEditor) {
-                background = Color.BLACK
-                caretColor = Color.WHITE
-                foreground = Color.WHITE
-                isOpaque = false
-                autoscrolls = true
-            }
-            with(soundsEditor) {
-                background = Color.BLACK
-                caretColor = Color.WHITE
-                foreground = Color.WHITE
-                isOpaque = false
-                autoscrolls = true
+            arrayOf(editor, gfxEditor, soundsEditor).forEach {
+                with(it) {
+                    background = Color.BLACK
+                    caretColor = Color.WHITE
+                    foreground = Color.WHITE
+                    isOpaque = false
+                    autoscrolls = true
+                }
             }
 
             val default = createBackgroundPanel().apply { isOpaque = false }.apply { background = Color.BLACK }
@@ -377,10 +410,9 @@ object DanmakuDesigner : JFrame() {
                 return false
 
             val cachePath = Path.of("$DESIGNER_DIR/cache/icons/${oldPath.fileName}")
-            if (!cachePath.exists()) {
-                if (!cachePath.parent.exists())
-                    cachePath.parent.createDirectories()
-                cachePath.createFile()
+            cachePath.takeUnless { it.exists() }?.run {
+                takeUnless { parent.exists() }?.createDirectories()
+                createFile()
             }
             oldPath.copyTo(cachePath, true)
 
@@ -451,23 +483,19 @@ object DanmakuDesigner : JFrame() {
 
     private class TextureDisplayPanel(texture: Texture) : JPanel(BorderLayout()) {
         init {
+            background = Color.BLACK
             add(object : JLabel() {
-                override fun paint(g: Graphics?) {
+                override fun paint(g: Graphics) {
                     if (g is Graphics2D)
                         texture.paint(g, texture.normalMatrix(), 0, 0)
                     else
-                        g?.drawImage(texture(), 0, 0, null)
+                        g.drawImage(texture(), 0, 0, null)
                 }
             }, BorderLayout.CENTER)
         }
     }
 
     private class SourceTree(initialNode: Node) : JTree(initialNode) {
-        init {
-            val render = DefaultTreeCellRenderer()
-            cellRenderer = render
-        }
-
         class Node @JvmOverloads constructor(
             initialChildrenCount: Int,
             initValue: Any?,
@@ -605,27 +633,30 @@ object DanmakuDesigner : JFrame() {
 
         init {
             val mainPanel = JPanel(GridLayout(3, 1))
-            val keyPanel = JPanel(FlowLayout(FlowLayout.LEFT))
-            keyPanel.add(JLabel(inputKeyKey))
-            keyPanel.add(inputKeyKeyField)
-            mainPanel.add(keyPanel)
-            val valuePanel = JPanel(FlowLayout(FlowLayout.LEFT))
-            valuePanel.add(JLabel(inputValueKey))
-            valuePanel.add(inputValueKeyField)
-            mainPanel.add(valuePanel)
-            val btnPanel = JPanel(FlowLayout())
-            btnPanel.add(JButton(DesignerLocalization.BTN_CONFIRM_TITLE).apply {
-                addActionListener {
-                    closeNormal = true
-                    dispose()
-                }
-            })
-            btnPanel.add(JButton(DesignerLocalization.BTN_CANCEL_TITLE).apply {
-                addActionListener {
-                    dispose()
-                }
-            })
-            mainPanel.add(btnPanel)
+            JPanel(FlowLayout(FlowLayout.LEFT)).run {
+                add(JLabel(inputKeyKey))
+                add(inputKeyKeyField)
+                mainPanel.add(this)
+            }
+            JPanel(FlowLayout(FlowLayout.LEFT)).run {
+                add(JLabel(inputValueKey))
+                add(inputValueKeyField)
+                mainPanel.add(this)
+            }
+            JPanel(FlowLayout()).run {
+                add(JButton(DesignerLocalization.BTN_CONFIRM_TITLE).apply {
+                    addActionListener {
+                        closeNormal = true
+                        dispose()
+                    }
+                })
+                add(JButton(DesignerLocalization.BTN_CANCEL_TITLE).apply {
+                    addActionListener {
+                        dispose()
+                    }
+                })
+                mainPanel.add(this)
+            }
             add(mainPanel)
             setSize(250, 125)
             isResizable = false
@@ -633,7 +664,10 @@ object DanmakuDesigner : JFrame() {
         }
 
         fun inputReturn(): Triple<Boolean, String, String>? =
-            if (isShowing) null else Triple(closeNormal, inputKeyKeyField.text, inputValueKeyField.text)
+            if (isShowing)
+                null
+            else
+                Triple(closeNormal, inputKeyKeyField.text, inputValueKeyField.text)
     }
 
     private object DesignerLocalization :
@@ -745,7 +779,6 @@ object DanmakuDesigner : JFrame() {
         @JvmStatic
         @field: LocalizationKey("const.defines.gfx")
         lateinit var CONST_DEFINES_GFX: String
-
 
         @JvmStatic
         @field: LocalizationKey("const.defines.sounds")
